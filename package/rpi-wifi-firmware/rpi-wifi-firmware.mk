@@ -3,7 +3,7 @@
 # rpi-wifi-firmware
 #
 ################################################################################
-
+# Version.: Commits on Jan 25, 2021
 RPI_WIFI_FIRMWARE_VERSION = 4c47758bed7cd547dff3618a1739dcf64b5a52a7
 RPI_WIFI_FIRMWARE_SITE = $(call github,LibreELEC,brcmfmac_sdio-firmware-rpi,$(RPI_WIFI_FIRMWARE_VERSION))
 RPI_WIFI_FIRMWARE_LICENSE = PROPRIETARY

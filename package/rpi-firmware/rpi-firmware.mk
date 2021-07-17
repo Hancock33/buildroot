@@ -3,7 +3,7 @@
 # rpi-firmware
 #
 ################################################################################
-
+# Version.: Commits on Jul 16, 2021
 RPI_FIRMWARE_VERSION = 4be1d21062e8b646e588e104a5a5d414996a48b2
 RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
 RPI_FIRMWARE_LICENSE = BSD-3-Clause
