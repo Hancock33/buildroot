@@ -79,7 +79,8 @@ class TestRustBin(TestRustBase):
     def test_run(self):
         self.build_test_prog()
         self.login()
-        self.assertRunOk(self.crate)
+        _, exit_code = self.emulator.run(self.crate)
+        self.assertEqual(exit_code, 0)
 
 
 class TestRust(TestRustBase):
@@ -107,4 +108,5 @@ class TestRust(TestRustBase):
     def test_run(self):
         self.build_test_prog()
         self.login()
-        self.assertRunOk(self.crate)
+        _, exit_code = self.emulator.run(self.crate)
+        self.assertEqual(exit_code, 0)

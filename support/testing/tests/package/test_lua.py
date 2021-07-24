@@ -31,7 +31,8 @@ class TestLuaBase(infra.basetest.BRTest):
 
     def module_test(self, module, script="a=1"):
         cmd = "lua -l {} -e '{}'".format(module, script)
-        self.assertRunOk(cmd)
+        _, exit_code = self.emulator.run(cmd)
+        self.assertEqual(exit_code, 0)
 
 
 class TestLua(TestLuaBase):

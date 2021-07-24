@@ -44,4 +44,5 @@ class TestF2FS(infra.basetest.BRTest):
                            options=options)
         self.emulator.login()
         cmd = "mount | grep '/dev/root on / type f2fs'"
-        self.assertRunOk(cmd)
+        _, exit_code = self.emulator.run(cmd)
+        self.assertEqual(exit_code, 0)

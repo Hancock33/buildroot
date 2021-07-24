@@ -15,4 +15,5 @@ class TestPythonPy3Pytest(TestPythonPackageBase):
     def run_sample_scripts(self):
         for script in self.sample_scripts:
             cmd = self.interpreter + " -m pytest " + os.path.basename(script)
-            self.assertRunOk(cmd, timeout=self.timeout)
+            _, exit_code = self.emulator.run(cmd, timeout=self.timeout)
+            self.assertEqual(exit_code, 0)

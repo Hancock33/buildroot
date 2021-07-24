@@ -22,9 +22,11 @@ class TestSudo(infra.basetest.BRTest):
         # -h    set home directory
         # -H    don't create home directory
         # -s    set shell
-        self.assertRunOk("adduser -D -h /tmp -H -s /bin/sh sudotest")
+        _, exit_code = self.emulator.run("adduser -D -h /tmp -H -s /bin/sh sudotest")
+        self.assertEqual(exit_code, 0)
 
-        self.assertRunOk("echo 'sudotest ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers")
+        _, exit_code = self.emulator.run("echo 'sudotest ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers")
+        self.assertEqual(exit_code, 0)
 
         output, exit_code = self.emulator.run("su - sudotest -c 'echo hello world'")
         self.assertEqual(output, ["hello world"])

@@ -20,18 +20,21 @@ class TestPythonBase(infra.basetest.BRTest):
 
     def version_test(self, version, timeout=-1):
         cmd = self.interpreter + " --version 2>&1 | grep '^{}'".format(version)
-        self.assertRunOk(cmd, timeout)
+        _, exit_code = self.emulator.run(cmd, timeout)
+        self.assertEqual(exit_code, 0)
 
     def math_floor_test(self, timeout=-1):
         cmd = self.interpreter + " -c 'import math; math.floor(12.3)'"
-        self.assertRunOk(cmd, timeout)
+        _, exit_code = self.emulator.run(cmd, timeout)
+        self.assertEqual(exit_code, 0)
 
     def libc_time_test(self, timeout=-1):
         cmd = self.interpreter + " -c 'from __future__ import print_function;"
         cmd += "import ctypes;"
         cmd += "libc = ctypes.cdll.LoadLibrary(\"libc.so.1\");"
         cmd += "print(libc.time(None))'"
-        self.assertRunOk(cmd, timeout)
+        _, exit_code = self.emulator.run(cmd, timeout)
+        self.assertEqual(exit_code, 0)
 
     def zlib_test(self, timeout=-1):
         cmd = self.interpreter + " -c 'import zlib'"
@@ -113,7 +116,8 @@ class TestPythonPackageBase(TestPythonBase):
         """Run each script previously added to the image."""
         for script in self.sample_scripts:
             cmd = self.interpreter + " " + os.path.basename(script)
-            self.assertRunOk(cmd, timeout=self.timeout)
+            _, exit_code = self.emulator.run(cmd, timeout=self.timeout)
+            self.assertEqual(exit_code, 0)
 
     def test_run(self):
         self.login()

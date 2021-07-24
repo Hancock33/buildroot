@@ -1,4 +1,5 @@
 import os
+import subprocess
 
 import infra.basetest
 
@@ -27,7 +28,7 @@ class TestFileCapabilities(infra.basetest.BRTest):
 
     def test_run(self):
         img = os.path.join(self.builddir, "images", "rootfs.squashfs")
-        infra.img_round_power2(img)
+        subprocess.call(["truncate", "-s", "%1M", img])
 
         self.emulator.boot(arch="armv7",
                            kernel=os.path.join(self.builddir, "images", "zImage"),

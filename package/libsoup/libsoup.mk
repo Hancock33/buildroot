@@ -4,53 +4,36 @@
 #
 ################################################################################
 
-LIBSOUP_VERSION_MAJOR = 2.72
-LIBSOUP_VERSION = $(LIBSOUP_VERSION_MAJOR).0
+LIBSOUP_VERSION_MAJOR = 2.62
+LIBSOUP_VERSION = $(LIBSOUP_VERSION_MAJOR).3
 LIBSOUP_SOURCE = libsoup-$(LIBSOUP_VERSION).tar.xz
 LIBSOUP_SITE = http://ftp.gnome.org/pub/gnome/sources/libsoup/$(LIBSOUP_VERSION_MAJOR)
 LIBSOUP_LICENSE = LGPL-2.0+
 LIBSOUP_LICENSE_FILES = COPYING
 LIBSOUP_CPE_ID_VENDOR = gnome
 LIBSOUP_INSTALL_STAGING = YES
-LIBSOUP_DEPENDENCIES = \
-	host-intltool \
-	host-libglib2 \
-	host-pkgconf \
-	libglib2 \
-	libpsl \
-	libxml2 \
-	sqlite \
-	$(TARGET_NLS_DEPENDENCIES)
-
-LIBSOUP_LDFLAGS = $(TARGET_LDFLAGS) $(TARGET_NLS_LIBS)
-
-LIBSOUP_CONF_OPTS = \
-	-Dgssapi=disabled \
-	-Dgtk_doc=false \
-	-Dntlm=disabled \
-	-Dsysprof=disabled \
-	-Dtests=false \
-	-Dtls_check=false \
-	-Dvapi=disabled
-
-ifeq ($(BR2_PACKAGE_BROTLI),y)
-LIBSOUP_CONF_OPTS += -Dbrotli=enabled
-LIBSOUP_DEPENDENCIES += brotli
-else
-LIBSOUP_CONF_OPTS += -Dbrotli=disabled
-endif
+LIBSOUP_CONF_ENV = ac_cv_path_GLIB_GENMARSHAL=$(LIBGLIB2_HOST_BINARY)
+LIBSOUP_CONF_OPTS = --disable-glibtest --enable-vala=no --with-gssapi=no
+LIBSOUP_DEPENDENCIES = host-pkgconf host-libglib2 \
+	libglib2 libxml2 sqlite host-intltool
 
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
-LIBSOUP_CONF_OPTS += -Dintrospection=enabled
+LIBSOUP_CONF_OPTS += --with-introspection
 LIBSOUP_DEPENDENCIES += gobject-introspection
 else
-LIBSOUP_CONF_OPTS += -Dintrospection=disabled
+LIBSOUP_CONF_OPTS += --without-introspection
 endif
 
 ifeq ($(BR2_PACKAGE_LIBSOUP_GNOME),y)
-LIBSOUP_CONF_OPTS += -Dgnome=true
+LIBSOUP_CONF_OPTS += --with-gnome
 else
-LIBSOUP_CONF_OPTS += -Dgnome=false
+LIBSOUP_CONF_OPTS += --without-gnome
 endif
 
-$(eval $(meson-package))
+ifeq ($(BR2_PACKAGE_LIBSOUP_SSL),y)
+LIBSOUP_DEPENDENCIES += glib-networking
+else
+LIBSOUP_CONF_OPTS += --disable-tls-check
+endif
+
+$(eval $(autotools-package))

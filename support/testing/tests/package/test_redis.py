@@ -16,7 +16,8 @@ class TestRedis(infra.basetest.BRTest):
                            options=["-initrd", cpio_file])
         self.emulator.login()
 
-        self.assertRunOk("redis-cli SET hello world")
+        _, exit_code = self.emulator.run("redis-cli SET hello world")
+        self.assertEqual(exit_code, 0)
 
         output, exit_code = self.emulator.run("redis-cli GET hello")
         self.assertEqual(exit_code, 0)
