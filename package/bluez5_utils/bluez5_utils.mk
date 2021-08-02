@@ -20,7 +20,6 @@ BLUEZ5_UTILS_DEPENDENCIES = \
 	libglib2
 
 BLUEZ5_UTILS_CONF_OPTS = \
-	--enable-tools \
 	--enable-library \
 	--disable-cups \
 	--disable-manpages \
@@ -48,6 +47,12 @@ else
 BLUEZ5_UTILS_CONF_OPTS += --disable-monitor
 endif
 
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_TOOLS),y)
+BLUEZ5_UTILS_CONF_OPTS += --enable-tools
+else
+BLUEZ5_UTILS_CONF_OPTS += --disable-tools
+endif
+
 # experimental plugins
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_EXPERIMENTAL),y)
 BLUEZ5_UTILS_CONF_OPTS += --enable-experimental
@@ -55,18 +60,11 @@ else
 BLUEZ5_UTILS_CONF_OPTS += --disable-experimental
 endif
 
-# enable a2dp plugin
-ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_A2DP),y)
-BLUEZ5_UTILS_CONF_OPTS += --enable-a2dp
+# enable audio plugins (a2dp and avrcp)
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_AUDIO),y)
+BLUEZ5_UTILS_CONF_OPTS += --enable-a2dp --enable-avrcp
 else
-BLUEZ5_UTILS_CONF_OPTS += --disable-a2dp
-endif
-
-#enable avrcp plugin
-ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_AVRCP),y)
-BLUEZ5_UTILS_CONF_OPTS += --enable-avrcp
-else
-BLUEZ5_UTILS_CONF_OPTS += --disable-avrcp
+BLUEZ5_UTILS_CONF_OPTS += --disable-a2dp --disable-avrcp
 endif
 
 # enable health plugin
@@ -134,12 +132,16 @@ else
 BLUEZ5_UTILS_CONF_OPTS += --disable-sixaxis
 endif
 
-# install gatttool (For some reason upstream choose not to do it by default)
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_DEPRECATED),y)
+# install gatttool (For some reason upstream choose not to do it by default)
+# gattool depends on the client for readline
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_CLIENT),y)
 define BLUEZ5_UTILS_INSTALL_GATTTOOL
 	$(INSTALL) -D -m 0755 $(@D)/attrib/gatttool $(TARGET_DIR)/usr/bin/gatttool
 endef
 BLUEZ5_UTILS_POST_INSTALL_TARGET_HOOKS += BLUEZ5_UTILS_INSTALL_GATTTOOL
+endif
+
 # hciattach_bcm43xx defines default firmware path in `/etc/firmware`, but
 # Broadcom firmware blobs are usually located in `/lib/firmware`.
 BLUEZ5_UTILS_CONF_ENV += \

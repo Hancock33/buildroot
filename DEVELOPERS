@@ -386,7 +386,6 @@ F:	package/libpng/
 F:	package/libsidplay2/
 F:	package/libsilk/
 F:	package/libsndfile/
-F:	package/libsoil/
 F:	package/libsoundtouch/
 F:	package/libsquish/
 F:	package/libudfread/
@@ -654,6 +653,7 @@ F:	package/x264/
 
 N:	David GOUARIN <dgouarin@gmail.com>
 F:	package/librelp/
+F:	package/libtalloc/
 
 N:	David Lechner <david@lechnology.com>
 F:	board/lego/ev3/
@@ -903,6 +903,7 @@ F:	package/motion/
 F:	package/mutt/
 F:	package/ncmpc/
 F:	package/oniguruma/
+F:	package/opencv4/
 F:	package/oprofile/
 F:	package/pcmanfm/
 F:	package/perl-extutils-pkgconfig/
@@ -911,6 +912,7 @@ F:	package/python-jedi/
 F:	package/python-parso/
 F:	package/python-yatl/
 F:	package/rocksdb/
+F:	package/rtl_433/
 F:	package/rygel/
 F:	package/safeclib/
 F:	package/snort3/
@@ -1787,6 +1789,7 @@ F:	package/libselinux/
 F:	package/libsemanage/
 F:	package/libsepol/
 F:	package/libssh2/
+F:	package/libtalloc/
 F:	package/libqmi/
 F:	package/lighttpd/
 F:	package/logrotate/
@@ -1833,6 +1836,7 @@ F:	package/valijson/
 F:	package/wpa_supplicant/
 F:	package/wireless_tools/
 F:	package/xen/
+F:	package/xml-security-c/
 F:	support/testing/tests/package/br2-external/openjdk/
 F:	support/testing/tests/package/test_openjdk.py
 F:	support/testing/tests/package/test_opkg/
@@ -1863,6 +1867,8 @@ N:	Max Filippov <jcmvbkbc@gmail.com>
 F:	arch/Config.in.xtensa
 
 N:	Maxim Kochetkov <fido_max@inbox.ru>
+F:	package/libosmium/
+F:	package/osm2pgsql/
 F:	package/postgis/
 F:	package/protozero/
 F:	package/timescaledb/
