@@ -1,6 +1,6 @@
 config BR2_PACKAGE_OPENTYRIAN
 	bool "OpenTyrian"
-	select BR2_PACKAGE_SDL
+	select BR2_PACKAGE_SDL2
 	select BR2_PACKAGE_OPENTYRIAN_DATA
 	help
 	  OpenTyrian is a port of the DOS shoot-em-up Tyrian. It uses
@@ -17,7 +17,7 @@ if BR2_PACKAGE_OPENTYRIAN
 config BR2_PACKAGE_OPENTYRIAN_NET
 	bool "network support"
 	default y
-	select BR2_PACKAGE_SDL_NET
+	select BR2_PACKAGE_SDL2_NET
 	help
 	  Activates network support in OpenTyrian. Will add SDL_net.
 
