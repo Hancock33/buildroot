@@ -63,7 +63,7 @@ config BR2_PACKAGE_LIBGTK3_BROADWAY
 	  Javascript and web sockets should be enabled.
 
 comment "Wayland GDK backend needs an OpenGL EGL backend provided by mesa3d w/ headers >= 3.17"
-	depends on !BR2_PACKAGE_MESA3D_OPENGL_EGL || \
+	depends on !BR2_PACKAGE_MESA3D_GBM || \
 		!BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17
 
 config BR2_PACKAGE_LIBGTK3_WAYLAND

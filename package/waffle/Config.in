@@ -14,7 +14,7 @@ config BR2_PACKAGE_WAFFLE_SUPPORTS_GBM
 	bool
 	# mesa3d is for now the only GBM provider, and it is enabled
 	# together with its EGL support
-	default y if BR2_PACKAGE_HAS_LIBEGL && BR2_PACKAGE_MESA3D_OPENGL_EGL && BR2_PACKAGE_HAS_UDEV
+	default y if BR2_PACKAGE_HAS_LIBEGL && BR2_PACKAGE_MESA3D_GBM && BR2_PACKAGE_HAS_UDEV
 
 config BR2_PACKAGE_WAFFLE
 	bool "waffle"

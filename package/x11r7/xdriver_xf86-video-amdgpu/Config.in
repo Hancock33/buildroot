@@ -2,7 +2,7 @@ config BR2_PACKAGE_XDRIVER_XF86_VIDEO_AMDGPU
 	bool "xf86-video-amdgpu"
 	depends on BR2_USE_MMU # libdrm
 	depends on BR2_PACKAGE_MESA3D_DRI_DRIVER
-	depends on BR2_PACKAGE_MESA3D_OPENGL_EGL # gbm
+	depends on BR2_PACKAGE_MESA3D_GBM # gbm
 	select BR2_PACKAGE_LIBDRM
 	select BR2_PACKAGE_LIBDRM_AMDGPU
 	select BR2_PACKAGE_LIBEPOXY
@@ -13,5 +13,5 @@ config BR2_PACKAGE_XDRIVER_XF86_VIDEO_AMDGPU
 
 comment "xf86-video-amdgpu needs egl/opengl support from mesa3d"
 	depends on BR2_USE_MMU
-	depends on !BR2_PACKAGE_MESA3D_OPENGL_EGL || \
+	depends on !BR2_PACKAGE_MESA3D_GBM || \
 		!BR2_PACKAGE_MESA3D_DRI_DRIVER
