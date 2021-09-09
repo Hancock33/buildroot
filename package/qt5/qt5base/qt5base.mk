@@ -70,7 +70,7 @@ QT5BASE_CONFIGURE_OPTS += -no-kms
 endif
 
 # Uses libgbm from mesa3d
-ifeq ($(BR2_PACKAGE_MESA3D_GBM),y)
+ifeq ($(BR2_PACKAGE_MESA3D_OPENGL_EGL),y)
 QT5BASE_CONFIGURE_OPTS += -gbm
 QT5BASE_DEPENDENCIES += mesa3d
 else ifeq ($(BR2_PACKAGE_GCNANO_BINARIES),y)

@@ -51,7 +51,7 @@ ifeq ($(BR2_PACKAGE_BASH_COMPLETION),y)
 WAFFLE_DEPENDENCIES += bash-completion
 endif
 
-ifeq ($(BR2_PACKAGE_MESA3D)$(BR2_PACKAGE_MESA3D_GBM),yy)
+ifeq ($(BR2_PACKAGE_MESA3D)$(BR2_PACKAGE_MESA3D_OPENGL_EGL),yy)
 WAFFLE_DEPENDENCIES += mesa3d
 WAFFLE_CONF_OPTS += -Dwaffle_has_surfaceless_egl=ON
 else
