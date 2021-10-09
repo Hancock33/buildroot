@@ -172,14 +172,17 @@ SDL2_CONF_OPTS += --disable-alsa
 endif
 
 ifeq ($(BR2_PACKAGE_SDL2_KMSDRM),y)
-SDL2_DEPENDENCIES += libdrm mesa3d
+SDL2_DEPENDENCIES += libdrm
+ifeq ($(BR2_PACKAGE_MESA3D),y)
+SDL2_DEPENDENCIES += mesa3d
+endif
 SDL2_CONF_OPTS += --enable-video-kmsdrm
 else
 SDL2_CONF_OPTS += --disable-video-kmsdrm
 endif
 
-ifeq ($(BR2_PACKAGE_WAYLAND),y)
-SDL2_DEPENDENCIES += wayland waylandpp
+ifeq ($(BR2_PACKAGE_SDL2_WAYLAND),y)
+SDL2_DEPENDENCIES += wayland waylandpp wayland-protocols libepoxy libxkbcommon
 SDL2_CONF_OPTS += --enable-video-wayland
 else
 SDL2_CONF_OPTS += --disable-video-wayland
