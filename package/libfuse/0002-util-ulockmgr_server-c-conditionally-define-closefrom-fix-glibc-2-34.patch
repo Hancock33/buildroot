@@ -62,4 +62,3 @@ index 273c7d923..a04dac5c6 100644
  
  static void send_reply(int cfd, struct message *msg)
  {
-
