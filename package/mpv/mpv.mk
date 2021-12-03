@@ -3,8 +3,8 @@
 # mpv
 #
 ################################################################################
-
-MPV_VERSION = 0.33.1
+# batocera (update)
+MPV_VERSION = 0.34.0
 MPV_SITE = $(call github,mpv-player,mpv,v$(MPV_VERSION))
 MPV_DEPENDENCIES = \
 	host-pkgconf ffmpeg libass zlib \
@@ -120,10 +120,6 @@ endif
 ifeq ($(BR2_PACKAGE_LIBDRM),y)
 MPV_CONF_OPTS += --enable-drm
 MPV_DEPENDENCIES += libdrm
-# Batocera
-ifneq ($(BR2_PACKAGE_BATOCERA_TARGET_S922X)$(BR2_PACKAGE_BATOCERA_TARGET_ODROIDXU4),)
-MPV_CONF_OPTS += --enable-egl-drm
-endif
 else
 MPV_CONF_OPTS += --disable-drm
 endif
