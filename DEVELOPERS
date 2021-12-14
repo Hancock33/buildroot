@@ -631,6 +631,9 @@ F:	package/lua-cjson/
 F:	package/luaexpat/
 F:	package/xinetd/
 
+N:	Dario Binacchi <dariobin@libero.it>
+F:	package/davinci-bootcount/
+
 N:	David Bachelart <david.bachelart@bbright.com>
 F:	package/ccrypt/
 F:	package/dos2unix/
@@ -1098,6 +1101,7 @@ F:	package/python-pyjwt/
 F:	package/python-redis/
 F:	package/python-rpi-ws281x/
 F:	package/python-wtforms/
+F:	package/rpi-rgb-led-matrix/
 
 N:	Guillaume William Brs <guillaume.bressaix@gmail.com>
 F:	package/libnids/
@@ -1257,17 +1261,24 @@ F:	package/python-brotli/
 F:	package/python-cbor2/
 F:	package/python-cchardet/
 F:	package/python-charset-normalizer/
+F:	package/python-cssselect2/
 F:	package/python-flatbuffers/
+F:	package/python-fonttools/
 F:	package/python-frozenlist/
 F:	package/python-greenlet/
 F:	package/python-janus/
 F:	package/python-logstash/
 F:	package/python-multidict/
 F:	package/python-pycares/
+F:	package/python-pydyf/
+F:	package/python-pyphen/
 F:	package/python-snappy/
 F:	package/python-sockjs/
 F:	package/python-terminaltables/
+F:	package/python-tinycss2/
+F:	package/python-weasyprint/
 F:	package/python-yarl/
+F:	package/python-zopfli/
 
 N:	James Knight <james.knight@collins.com>
 F:	package/atkmm/
@@ -1514,7 +1525,9 @@ N:	Julien Corjon <corjon.j@ecagroup.com>
 F:	package/qt5/
 
 N:	Julien Grossholtz <julien.grossholtz@openest.io>
+F:	board/raspberrypi/
 F:	board/technologic/ts7680/
+F:	configs/raspberrypizero2w_defconfig
 F:	configs/ts7680_defconfig
 F:	package/paho-mqtt-c
 
@@ -2401,9 +2414,6 @@ F:	package/zziplib/
 F:	support/testing/tests/package/test_glxinfo.py
 F:	support/testing/tests/package/test_openssh.py
 F:	toolchain/
-
-N:	Roman Gorbenkov <roman.gorbenkov@ens2m.org>
-F:	package/davfs2/
 
 N:	Ryan Barnett <ryan.barnett@collins.com>
 F:	package/atftp/
