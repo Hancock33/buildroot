@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SDL2_VERSION = 2.0.18
+SDL2_VERSION = 2.0.16
 SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
 SDL2_SITE = http://www.libsdl.org/release
 SDL2_LICENSE = Zlib
@@ -62,7 +62,7 @@ endif
 
 # batocera
 # Used in screen rotation (SDL and Retroarch)
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3326),y)
+ifeq ($(BR2_PACKAGE_ROCKCHIP_RGA),y)
 SDL2_DEPENDENCIES += rockchip-rga
 endif
 
