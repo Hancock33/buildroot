@@ -25,10 +25,13 @@ SOLARUS_CONF_OPTS = \
 	-DSOLARUS_TESTS=OFF
 
 ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
-SOLARUS_DEPENDENCIES += libgl
-else
-SOLARUS_CONF_OPTS += -DSOLARUS_GL_ES=ON
-SOLARUS_DEPENDENCIES += libgles
+# Batocera - prefer GLES for RPi4
+  ifeq ($(BR2_i386)$(BR2_x86_64),y)
+    SOLARUS_DEPENDENCIES += libgl
+  else
+    SOLARUS_CONF_OPTS += -DSOLARUS_GL_ES=ON
+    SOLARUS_DEPENDENCIES += libgles
+  endif
 endif
 
 ifeq ($(BR2_PACKAGE_LUAJIT),y)
