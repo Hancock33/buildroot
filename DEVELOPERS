@@ -90,6 +90,9 @@ F:	package/minimodem/
 N:	Alexander Lukichev <alexander.lukichev@gmail.com>
 F:	package/openpgm/
 
+N:	Aleksandr Makarov <aleksandr.o.makarov@gmail.com>
+F:	package/libest/
+
 N:	Alexander Mukhin <alexander.i.mukhin@gmail.com>
 F:	package/tinyproxy/
 
@@ -109,6 +112,9 @@ F:	package/v4l2loopback/
 N:	Alexey Brodkin <alexey.brodkin@synopsys.com>
 F:	board/cubietech/cubieboard2/
 F:	configs/cubieboard2_defconfig
+
+N:	Alexey Lukyanchuk <skif@skif-web.ru>
+F:	package/zabbix/
 
 N:	Alistair Francis <alistair@alistair23.me>
 F:	board/sifive/
@@ -371,6 +377,7 @@ F:	package/libglfw/
 F:	package/libglu/
 F:	package/libhdhomerun/
 F:	package/libilbc/
+F:	package/libks/
 F:	package/libldns/
 F:	package/libmicrohttpd/
 F:	package/libminiupnpc/
@@ -521,8 +528,10 @@ F:	package/delve/
 F:	package/docker-cli/
 F:	package/docker-engine/
 F:	package/docker-proxy/
+F:	package/embiggen-disk/
 F:	package/fuse-overlayfs/
 F:	package/go/
+F:	package/gocryptfs/
 F:	package/mbpfan/
 F:	package/mosh/
 F:	package/pkg-golang.mk
@@ -670,6 +679,9 @@ F:	configs/lego_ev3_defconfig
 F:	linux/linux-ext-ev3dev-linux-drivers.mk
 F:	package/brickd/
 F:	package/ev3dev-linux-drivers/
+
+N:	David Pierret <david.pierret@smile.fr>
+F:	package/bat/
 
 N:	Davide Viti <zinosat@gmail.com>
 F:	board/friendlyarm/nanopi-r1/
@@ -892,6 +904,7 @@ F:	package/libidn2/
 F:	package/libjpeg/
 F:	package/liblockfile/
 F:	package/libmatroska/
+F:	package/libmd/
 F:	package/libmpdclient/
 F:	package/libnetfilter_conntrack/
 F:	package/libnetfilter_queue/
@@ -906,6 +919,7 @@ F:	package/librsync/
 F:	package/libsoup/
 F:	package/libsoxr/
 F:	package/libupnp/
+F:	package/liburing/
 F:	package/libv4l/
 F:	package/libxslt/
 F:	package/mbedtls/
@@ -975,6 +989,7 @@ F:	package/libtommath/
 F:	package/libwpe/
 F:	package/linenoise/
 F:	package/ljlinenoise/
+F:	package/lua-inotify/
 F:	package/lpeg/
 F:	package/lpty/
 F:	package/lrandom/
@@ -1123,6 +1138,9 @@ F:	package/liquid-dsp/
 F:	package/pixiewps/
 F:	package/python-pybind/
 F:	package/reaver/
+F:	support/testing/tests/package/br2-external/python-pybind
+F:	support/testing/tests/package/sample_python_pybind.py
+F:	support/testing/tests/package/test_python_pybind.py
 
 N:	Guo Ren <ren_guo@c-sky.com>
 F:	arch/Config.in.csky
@@ -1295,6 +1313,7 @@ F:	package/python-snappy/
 F:	package/python-sockjs/
 F:	package/python-terminaltables/
 F:	package/python-tinycss2/
+F:	package/python-tomli/
 F:	package/python-weasyprint/
 F:	package/python-yarl/
 F:	package/python-zopfli/
@@ -1510,6 +1529,7 @@ F:	package/python-schedule/
 F:	package/python-sentry-sdk/
 F:	package/python-websockets/
 F:	package/python-xlib/
+F:	package/sentry-cli/
 F:	package/sentry-native/
 F:	package/unclutter-xfixes/
 
@@ -1653,6 +1673,7 @@ F:	package/python-dnspython/
 F:	package/python-future/
 F:	package/python-huepy/
 F:	package/python-tqdm/
+F:	package/rtl8189es/
 
 N:	Louis-Paul Cordier <lpdev@cordier.org>
 F:	package/intel-gmmlib/
@@ -2008,6 +2029,10 @@ F:	package/libfribidi/
 
 N:	Min Xu <xuminready@gmail.com>
 F:	package/shadowsocks-libev/
+
+N:	Miquèl Raynal
+F:	package/mali-driver/
+F:	package/rockchip-mali/
 
 N:	Mircea Gliga <gliga.mircea@gmail.com>
 F:	package/mbuffer/
@@ -2485,6 +2510,9 @@ F:	package/libbson/
 F:	package/lua-resty-http/
 F:	package/mpir/
 
+N:	Sergey Bobrenok <bobrofon@gmail.com>
+F:	package/sdbus-cpp/
+
 N:	Sergey Matyukevich <geomatsi@gmail.com>
 F:	boot/arm-trusted-firmware/
 F:	board/linksprite/pcduino
@@ -2766,6 +2794,7 @@ F:	package/rtc-tools/
 F:	package/sam-ba/
 F:	package/scons/
 F:	package/squashfs/
+F:	package/tinifier/
 F:	package/wayland/
 F:	package/weston/
 F:	support/testing/tests/boot/test_syslinux.py
@@ -2799,6 +2828,9 @@ F:	package/openjdk/
 N:	Tzu-Jung Lee <roylee17@gmail.com>
 F:	package/dropwatch/
 F:	package/tstools/
+
+N:	Uladzimir Bely <wiselord1983@gmail.com>
+F:	package/python-mpd2/
 
 N:	Vadim Kochan <vadim4j@gmail.com>
 F:	package/brcm-patchram-plus/
@@ -2985,4 +3017,5 @@ F:	package/python-iniparse/
 F:	package/qjson/
 F:	package/quazip/
 F:	package/shapelib/
+F:	package/simple-mail/
 F:	package/tinc/
