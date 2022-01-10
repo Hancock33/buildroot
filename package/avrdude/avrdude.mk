@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-AVRDUDE_VERSION = v6.4
-AVRDUDE_SITE = $(call github,avrdudes,avrdude,$(AVRDUDE_VERSION))
+AVRDUDE_VERSION = 6.4
+AVRDUDE_SITE = $(call github,avrdudes,avrdude,v$(AVRDUDE_VERSION))
 AVRDUDE_LICENSE = GPL-2.0+
 AVRDUDE_LICENSE_FILES = COPYING
 
@@ -26,6 +26,10 @@ ifeq ($(BR2_PACKAGE_LIBFTDI1),y)
 AVRDUDE_DEPENDENCIES += libftdi1
 else ifeq ($(BR2_PACKAGE_LIBFTDI),y)
 AVRDUDE_DEPENDENCIES += libftdi
+endif
+
+ifeq ($(BR2_PACKAGE_HIDAPI),y)
+AVRDUDE_DEPENDENCIES += hidapi
 endif
 
 # if /etc/avrdude.conf exists, the installation process creates a
