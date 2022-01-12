@@ -504,6 +504,12 @@ F:	package/libsvg-cairo/
 N:	Cédric Chépied <cedric.chepied@gmail.com>
 F:	package/znc/
 
+N:	Cédric Le Goater <clg@kaod.org>
+F:	board/qemu/ppc-bamboo/
+F:	board/qemu/ppc64le-powernv8/readme.txt
+F:	configs/qemu_ppc_bamboo_defconfig
+F:	configs/qemu_ppc64le_powernv8_defconfig
+
 N:	Charles Hardin <ckhardin@gmail.com>
 F:	package/alsa-plugins/
 
@@ -1184,16 +1190,21 @@ F:	package/netopeer2/
 F:	package/sysrepo/
 
 N:	Hervé Codina <herve.codina@bootlin.com>
+F:	package/alchemy/
 F:	package/dtbocfg/
 F:	package/libdbi/
 F:	package/libdbi-drivers/
+F:	package/libfutils/
+F:	package/libshdata/
 F:	package/lua-augeas/
 F:	package/modsecurity2/
 F:	package/php-apcu/
 F:	package/php-lua/
 F:	package/php-pam/
 F:	package/php-pecl-dbus/
+F:	package/ulog/
 F:	support/testing/tests/package/test_dtbocfg.py
+F:	support/testing/tests/package/test_libshdata.py
 F:	support/testing/tests/package/test_lua_augeas.py
 F:	support/testing/tests/package/test_php_apcu.py
 F:	support/testing/tests/package/test_php_lua.py
@@ -1582,10 +1593,12 @@ F:	package/paho-mqtt-c
 
 N:	Julien Olivain <ju.o@free.fr>
 F:	board/qmtech/zynq/
+F:	board/spike/
 F:	board/technexion/imx8mmpico/
 F:	board/technexion/imx8mpico/
 F:	configs/imx8mmpico_defconfig
 F:	configs/imx8mpico_defconfig
+F:	configs/spike_riscv64_defconfig
 F:	configs/zynq_qmtech_defconfig
 F:	package/fluid-soundfont/
 F:	package/fluidsynth/
@@ -1593,6 +1606,7 @@ F:	package/glslsandbox-player/
 F:	package/ptm2human/
 F:	package/python-distro/
 F:	package/python-pyalsa/
+F:	package/riscv-isa-sim/
 
 N:	Julien Viard de Galbert <julien@vdg.name>
 F:	package/dieharder/
