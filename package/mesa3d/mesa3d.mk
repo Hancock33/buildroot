@@ -5,7 +5,7 @@
 ################################################################################
 # batocera (update)
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 21.3.3
+MESA3D_VERSION = 21.3.4
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
 MESA3D_LICENSE = MIT, SGI, Khronos
@@ -38,15 +38,6 @@ MESA3D_CONF_OPTS = \
 # flag due to a linker bug between binutils 2.24 and 2.25 (2.24.51.20140217).
 ifeq ($(BR2_TOOLCHAIN_EXTERNAL_CODESOURCERY_ARM),y)
 MESA3D_CONF_OPTS += -Db_asneeded=false
-endif
-
-ifeq ($(BR2_PACKAGE_MESA3D_DRI3),y)
-MESA3D_CONF_OPTS += -Ddri3=enabled
-ifeq ($(BR2_PACKAGE_XLIB_LIBXSHMFENCE),y)
-MESA3D_DEPENDENCIES += xlib_libxshmfence
-endif
-else
-MESA3D_CONF_OPTS += -Ddri3=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
@@ -86,14 +77,13 @@ MESA3D_CONF_OPTS += -Dgallium-xa=disabled
 endif
 else
 MESA3D_CONF_OPTS += \
-    -Dglx=disabled \
+	-Dglx=disabled \
 	-Dgallium-xa=disabled
 endif
 
 # Drivers
 
 #Gallium Drivers
-MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_CROCUS)   += crocus
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ETNAVIV)  += etnaviv
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_FREEDRENO) += freedreno
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_I915)     += i915
@@ -136,8 +126,14 @@ endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_DRI_DRIVER),)
 MESA3D_CONF_OPTS += \
-	-Ddri-drivers=
+	-Ddri-drivers= -Ddri3=disabled
 else
+ifeq ($(BR2_PACKAGE_XLIB_LIBXSHMFENCE),y)
+MESA3D_DEPENDENCIES += xlib_libxshmfence
+MESA3D_CONF_OPTS += -Ddri3=enabled
+else
+MESA3D_CONF_OPTS += -Ddri3=disabled
+endif
 MESA3D_CONF_OPTS += \
 	-Dshared-glapi=enabled \
 	-Dglx-direct=true \
@@ -152,6 +148,7 @@ ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL)$(BR2_PACKAGE_MESA3D_VULKAN_DRIVE
 MESA3D_DEPENDENCIES += xlib_libxshmfence
 endif
 MESA3D_CONF_OPTS += \
+	-Ddri3=enabled \
 	-Dvulkan-drivers=$(subst $(space),$(comma),$(MESA3D_VULKAN_DRIVERS-y))
 endif
 
@@ -188,6 +185,7 @@ else
 define MESA3D_REMOVE_OPENGL_HEADERS
 	rm -rf $(STAGING_DIR)/usr/include/GL/
 endef
+
 MESA3D_POST_INSTALL_STAGING_HOOKS += MESA3D_REMOVE_OPENGL_HEADERS
 endif
 
