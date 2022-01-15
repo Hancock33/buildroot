@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-SDL_VERSION = 1.2.15
-SDL_SOURCE = SDL-$(SDL_VERSION).tar.gz
-SDL_SITE = http://www.libsdl.org/release
+SDL_VERSION = 678fca3749cdd4f808dc8c5d175d7d31a8d5a4ea
+SDL_SITE = $(call github,libsdl-org,SDL-1.2,$(SDL_VERSION))
 SDL_LICENSE = LGPL-2.1+
 SDL_LICENSE_FILES = COPYING
 SDL_CPE_ID_VENDOR = libsdl

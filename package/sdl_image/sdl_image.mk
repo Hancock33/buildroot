@@ -7,8 +7,8 @@
 # The latest officially released version of SDL_image is 1.2.12, released in 2012.
 # Since then, there have been many bugfixes, including security fixes.
 #
-# This commit points to the SDL-1.2 branch from 14 Mar 2021.
-SDL_IMAGE_VERSION = 5d792dde2f764daf15dc48521774a3354330db69
+# This commit points to the SDL-1.2 branch from 11 Jan 2022.
+SDL_IMAGE_VERSION = bbef36583c3aba14b8397cf5238d32c943334bae
 SDL_IMAGE_SITE = $(call github,libsdl-org,SDL_image,$(SDL_IMAGE_VERSION))
 SDL_IMAGE_INSTALL_STAGING = YES
 SDL_IMAGE_LICENSE = Zlib
@@ -32,16 +32,13 @@ SDL_IMAGE_CONF_OPTS = \
 	--enable-png=yes \
 	--enable-pnm=$(if $(BR2_PACKAGE_SDL_IMAGE_PNM),yes,no) \
 	--enable-tga=$(if $(BR2_PACKAGE_SDL_IMAGE_TARGA),yes,no) \
-	--enable-tif=$(if $(BR2_PACKAGE_SDL_IMAGE_TIFF),yes,no) \
+	--enable-tif=yes \
 	--enable-webp=$(if $(BR2_PACKAGE_SDL_IMAGE_WEBP),yes,no) \
 	--enable-xcf=$(if $(BR2_PACKAGE_SDL_IMAGE_XCF),yes,no) \
 	--enable-xpm=$(if $(BR2_PACKAGE_SDL_IMAGE_XPM),yes,no) \
 	--enable-xv=$(if $(BR2_PACKAGE_SDL_IMAGE_XV),yes,no)
 
-SDL_IMAGE_DEPENDENCIES = sdl \
-	$(if $(BR2_PACKAGE_SDL_IMAGE_JPEG),jpeg) \
-	$(if $(BR2_PACKAGE_SDL_IMAGE_PNG),libpng) \
-	$(if $(BR2_PACKAGE_SDL_IMAGE_TIFF),tiff) \
+SDL_IMAGE_DEPENDENCIES = sdl jpeg libpng tiff \
 	$(if $(BR2_PACKAGE_SDL_IMAGE_WEBP),webp)
 
 HOST_SDL_IMAGE_CONF_OPTS = \

@@ -6,7 +6,7 @@
 
 # There is unlikely to be a new SDL_ttf release for the foreseeable future:
 # https://bugzilla.libsdl.org/show_bug.cgi?id=5344#c1
-SDL_TTF_VERSION = 70b2940cc75e92aab02a67d2f827caf2836a2c74
+SDL_TTF_VERSION = 0d241727a3059ad2e4da85fea2864dd31a88eabf
 SDL_TTF_SITE = $(call github,libsdl-org,SDL_ttf,$(SDL_TTF_VERSION))
 SDL_TTF_LICENSE = Zlib
 SDL_TTF_LICENSE_FILES = COPYING

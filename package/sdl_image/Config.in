@@ -1,6 +1,10 @@
 menuconfig BR2_PACKAGE_SDL_IMAGE
 	bool "SDL_image"
 	depends on BR2_PACKAGE_SDL
+    select BR2_PACKAGE_JPEG
+    select BR2_PACKAGE_LIBPNG
+    select BR2_PACKAGE_TIFF
+    
 	help
 	  SDL_image is an image file loading library. It loads images
 	  as SDL surfaces, and supports the following formats:
@@ -17,29 +21,17 @@ config BR2_PACKAGE_SDL_IMAGE_BMP
 config BR2_PACKAGE_SDL_IMAGE_GIF
 	bool "GIF support"
 
-config BR2_PACKAGE_SDL_IMAGE_JPEG
-	bool "JPEG support"
-	select BR2_PACKAGE_JPEG
-
 config BR2_PACKAGE_SDL_IMAGE_LBM
 	bool "LBM support"
 
 config BR2_PACKAGE_SDL_IMAGE_PCX
 	bool "PCX support"
 
-config BR2_PACKAGE_SDL_IMAGE_PNG
-	bool "PNG support"
-	select BR2_PACKAGE_LIBPNG
-
 config BR2_PACKAGE_SDL_IMAGE_PNM
 	bool "PNM support"
 
 config BR2_PACKAGE_SDL_IMAGE_TARGA
 	bool "TARGA support"
-
-config BR2_PACKAGE_SDL_IMAGE_TIFF
-	bool "TIFF support"
-	select BR2_PACKAGE_TIFF
 
 config BR2_PACKAGE_SDL_IMAGE_WEBP
 	bool "WEBP support"
