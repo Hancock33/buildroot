@@ -5,7 +5,7 @@
 ################################################################################
 
 LIGHTTPD_VERSION_MAJOR = 1.4
-LIGHTTPD_VERSION = $(LIGHTTPD_VERSION_MAJOR).63
+LIGHTTPD_VERSION = $(LIGHTTPD_VERSION_MAJOR).64
 LIGHTTPD_SOURCE = lighttpd-$(LIGHTTPD_VERSION).tar.xz
 LIGHTTPD_SITE = http://download.lighttpd.net/lighttpd/releases-$(LIGHTTPD_VERSION_MAJOR).x
 LIGHTTPD_LICENSE = BSD-3-Clause
@@ -16,8 +16,6 @@ LIGHTTPD_CONF_OPTS = \
 	-Dwith_brotli=false \
 	-Dwith_dbi=false \
 	-Dwith_fam=false \
-	-Dwith_gdbm=false \
-	-Dwith_geoip=false \
 	-Dwith_gnutls=false \
 	-Dwith_krb5=false \
 	-Dwith_ldap=false \
@@ -25,10 +23,10 @@ LIGHTTPD_CONF_OPTS = \
 	-Dwith_libunwind=false \
 	-Dwith_maxminddb=false \
 	-Dwith_mbedtls=false \
-	-Dwith_memcached=false \
 	-Dwith_mysql=false \
 	-Dwith_nettle=false \
 	-Dwith_nss=false \
+	-Dwith_pcre=false \
 	-Dwith_pgsql=false \
 	-Dwith_sasl=false \
 	-Dwith_wolfssl=false \
@@ -68,10 +66,10 @@ LIGHTTPD_CONF_OPTS += -Dwith_bzip=false
 endif
 
 ifeq ($(BR2_PACKAGE_LIGHTTPD_PCRE),y)
-LIGHTTPD_DEPENDENCIES += pcre
-LIGHTTPD_CONF_OPTS += -Dwith_pcre=true
+LIGHTTPD_DEPENDENCIES += pcre2
+LIGHTTPD_CONF_OPTS += -Dwith_pcre2=true
 else
-LIGHTTPD_CONF_OPTS += -Dwith_pcre=false
+LIGHTTPD_CONF_OPTS += -Dwith_pcre2=false
 endif
 
 ifeq ($(BR2_PACKAGE_LIGHTTPD_WEBDAV),y)
