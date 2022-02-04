@@ -72,6 +72,9 @@ config BR2_PACKAGE_MESA3D_DRI_DRIVER
 	select BR2_PACKAGE_MESA3D_GBM if \
 		!BR2_PACKAGE_MESA3D_OPENGL_GLX && \
 		!BR2_PACKAGE_MESA3D_OPENGL_EGL
+	select BR2_PACKAGE_XLIB_LIBXSHMFENCE if \
+		(BR2_PACKAGE_XORG7 && BR2_TOOLCHAIN_HAS_SYNC_4 && \
+			!BR2_RISCV_32)
 
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	bool
@@ -102,11 +105,11 @@ config BR2_PACKAGE_MESA3D_NEEDS_X11
 comment "Gallium drivers"
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_CROCUS
-	bool "Gallium crocus driver"
+	bool "Gallium Crocus driver"
 	depends on BR2_i386 || BR2_x86_64
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	help
-	  Mesa driver for gen4-7 Intel GPUs.
+	  Support for Gen4-Gen7 Intel GPUs.
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ETNAVIV
 	bool "Gallium Etnaviv driver"
