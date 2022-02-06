@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version.: Commits on Feb 04, 2022 version 5.15.18
-RPI_FIRMWARE_VERSION = 797e177cbb803d4bf0f6525e7dbd2a874d61f52b
+RPI_FIRMWARE_VERSION = 48606ad5e152227db4a26459fc2ba7944b6597a3
 RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
 RPI_FIRMWARE_LICENSE = BSD-3-Clause
 RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
