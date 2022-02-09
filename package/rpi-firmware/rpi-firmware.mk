@@ -3,7 +3,7 @@
 # rpi-firmware
 #
 ################################################################################
-# Version.: Commits on Feb 07, 2022 version 5.15.18
+# Version.: Commits on Feb 07, 2022 version 5.15.21 
 RPI_FIRMWARE_VERSION = ad1c9ac829c43addd3da7476eecd8730a0089b32
 RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
 RPI_FIRMWARE_LICENSE = BSD-3-Clause
