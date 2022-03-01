@@ -62,15 +62,12 @@ KODI_EXTRA_DOWNLOADS += \
 	$(call github,xbmc,libdvdnav,$(KODI_LIBDVDNAV_VERSION))/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
 	$(call github,xbmc,libdvdread,$(KODI_LIBDVDREAD_VERSION))/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
 
-KODI_DEPENDENCIES += host-automake host-autoconf host-libtool
-
 KODI_CONF_OPTS += \
 	-DCMAKE_C_FLAGS="$(TARGET_CFLAGS) $(KODI_C_FLAGS)" \
 	-DENABLE_APP_AUTONAME=OFF \
 	-DENABLE_CCACHE=OFF \
 	-DENABLE_DVDCSS=ON \
 	-DENABLE_INTERNAL_CROSSGUID=OFF \
-	-DENABLE_INTERNAL_FFMPEG=OFF \
 	-DWITH_FFMPEG=$(STAGING_DIR)/usr \
 	-DENABLE_INTERNAL_FLATBUFFERS=OFF \
 	-DFLATBUFFERS_FLATC_EXECUTABLE=$(HOST_DIR)/bin/flatc \
@@ -87,8 +84,7 @@ KODI_CONF_OPTS += \
 	-DWITH_TEXTUREPACKER=$(HOST_DIR)/bin/TexturePacker \
 	-DLIBDVDCSS_URL=$(KODI_DL_DIR)/kodi-libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.gz \
 	-DLIBDVDNAV_URL=$(KODI_DL_DIR)/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
-	-DLIBDVDREAD_URL=$(KODI_DL_DIR)/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz \
-    -DPYTHON_LIBRARY=$(STAGING_DIR)/usr/lib/libpython3.10.so
+	-DLIBDVDREAD_URL=$(KODI_DL_DIR)/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
 
 ifeq ($(BR2_PACKAGE_KODI_RENDER_SYSTEM_GL),y)
 KODI_CONF_OPTS += -DAPP_RENDER_SYSTEM=gl
@@ -100,12 +96,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM),y)
 KODI_CORE_PLATFORM_NAME += gbm
-KODI_DEPENDENCIES += libinput libxkbcommon 
-ifeq ($(BR2_PACKAGE_MESA3D),y)
-KODI_DEPENDENCIES += mesa3d
-else ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
-KODI_DEPENDENCIES += libmali
-endif
+KODI_DEPENDENCIES += libgbm libinput libxkbcommon
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_WAYLAND),y)
@@ -119,9 +110,9 @@ endif
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_X11),y)
 KODI_CORE_PLATFORM_NAME += x11
 KODI_DEPENDENCIES += \
-    xlib_libX11 \
-    xlib_libXext \
-    xlib_libXrandr
+	xlib_libX11 \
+	xlib_libXext \
+	xlib_libXrandr
 endif
 
 KODI_CONF_OPTS += -DCORE_PLATFORM_NAME="$(KODI_CORE_PLATFORM_NAME)"
@@ -205,14 +196,11 @@ endif
 
 #batocera
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GL),y)
-# Batocera - x86 only
-  ifeq ($(BR2_i386)$(BR2_x86_64),y)
-    KODI_CONF_OPTS += \
+KODI_CONF_OPTS += \
         -DCORE_PLATFORM_NAME=gbm \
         -DGBM_RENDER_SYSTEM=gl \
         -DENABLE_OPENGL=ON
-    KODI_DEPENDENCIES += libegl libglu libinput libxkbcommon mesa3d
-  endif
+KODI_DEPENDENCIES += libegl libglu libinput libxkbcommon mesa3d
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GLES),y)
@@ -223,35 +211,6 @@ KODI_DEPENDENCIES += libgles libinput libxkbcommon
 ifeq ($(BR2_PACKAGE_PROVIDES_LIBGLES),mesa3d)
         KODI_DEPENDENCIES += mesa3d
 endif
-endif
-
-ifeq ($(BR2_PACKAGE_KODI_PLATFORM_RBPI),y)
-KODI_CONF_OPTS += \
-	-DCORE_PLATFORM_NAME=gbm \
-        -DGBM_RENDER_SYSTEM=gles
-KODI_DEPENDENCIES += libinput libxkbcommon rpi-userland
-endif
-
-ifeq ($(BR2_PACKAGE_KODI_PLATFORM_WAYLAND_GL),y)
-KODI_CONF_OPTS += \
-    -DCORE_PLATFORM_NAME=wayland \
-    -DWAYLAND_RENDER_SYSTEM=gl
-KODI_DEPENDENCIES += libegl libgl libglu libxkbcommon waylandpp
-endif
-
-ifeq ($(BR2_PACKAGE_KODI_PLATFORM_WAYLAND_GLES),y)
-KODI_CONF_OPTS += \
-	-DCORE_PLATFORM_NAME=wayland \
-	-DWAYLAND_RENDER_SYSTEM=gles
-KODI_C_FLAGS += `$(PKG_CONFIG_HOST_BINARY) --cflags egl`
-KODI_CXX_FLAGS += `$(PKG_CONFIG_HOST_BINARY) --cflags egl`
-KODI_DEPENDENCIES += libegl libgles libxkbcommon waylandpp
-endif
-
-ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_X11),y)
-KODI_CONF_OPTS += -DCORE_PLATFORM_NAME=x11
-KODI_DEPENDENCIES += libegl libglu libgl xlib_libX11 xlib_libXext \
-    xlib_libXrandr libdrm
 endif
 
 ifeq ($(BR2_TOOLCHAIN_GCC_AT_LEAST_5),)
@@ -467,11 +426,5 @@ define KODI_INSTALL_INIT_SYSTEMD
 	$(INSTALL) -D -m 644 package/kodi/kodi.service \
 		$(TARGET_DIR)/usr/lib/systemd/system/kodi.service
 endef
-
-# batocera outdated patch ??
-# batocera - kodi segfaults when not with -O0 on arm
-#ifeq ($(BR2_arm),y)
-#KODI_CONF_OPTS += -DCMAKE_CXX_FLAGS="`echo $(TARGET_CXXFLAGS) | sed -e s+'-O[1-3]'+' '+` -O0" -DCMAKE_C_FLAGS="`echo $(TARGET_CFLAGS) | sed -e s+'-O[1-3]'+' '+` -O0"
-#endif
 
 $(eval $(cmake-package))

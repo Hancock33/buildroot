@@ -1,6 +1,5 @@
-# https://lists.freedesktop.org/archives/mesa-announce/2022-February/000663.html
-sha256 14d6478ad367b22fbb24251f3282d98ba9b8c7758dcd416b33353e1387fd57f7  mesa-22.0.0-rc2.tar.xz
-sha512 9e05355a31f1640df6e800ccdf3150720d1a54aa21d9eb748d567b2b64090b09b6bc54318f2f72644b48c8d08f9db0f7ab3d35c9e1b629ded932fd9ed2e87630  mesa-22.0.0-rc2.tar.xz
+# batocera (update)
+sha256  b4fa9db7aa61bf209ef0b40bef83080999d86ad98df8b8b4fada7c128a1efc3d  mesa-21.3.7.tar.xz
 
 # License
 sha256  998437f3f75f0c542046f83c1cb349408122268168fb13eb4ae6967aa18b7d98  docs/license.rst
