@@ -144,7 +144,7 @@ endif
 # OpenGL support
 ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
 # Batocera - don't build OpenGL for RPi4
-  ifeq ($(BR2_i386)$(BR2_x86_64),y)
+  ifeq ($(!BR2_PACKAGE_BATOCERA_RPI4_WITH_XORG),y)
     MPV_CONF_OPTS += --enable-gl
     MPV_DEPENDENCIES += libgl
   endif
@@ -170,7 +170,6 @@ endif
 # Sdl2 requires 64-bit sync intrinsics
 ifeq ($(BR2_TOOLCHAIN_HAS_SYNC_8)$(BR2_PACKAGE_SDL2),yy)
 MPV_CONF_OPTS += --enable-sdl2
-MPV_CONF_OPTS += --enable-sdl2-gamepad
 MPV_DEPENDENCIES += sdl2
 else
 MPV_CONF_OPTS += --disable-sdl2
