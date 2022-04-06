@@ -81,12 +81,12 @@ OPENJDK_CONF_ENV = \
 	BUILD_SYSROOT_CFLAGS="$(HOST_CFLAGS)" \
 	BUILD_SYSROOT_LDFLAGS="$(HOST_LDFLAGS)"
 
+# Batocera remove --enable-headless-only for X11 build 
 OPENJDK_CONF_OPTS = \
 	--disable-full-docs \
 	--disable-hotspot-gtest \
 	--disable-manpages \
 	--disable-warnings-as-errors \
-	--enable-headless-only \
 	--enable-openjdk-only \
 	--enable-unlimited-crypto \
 	--openjdk-target=$(GNU_TARGET_NAME) \
