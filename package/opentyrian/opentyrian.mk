@@ -3,8 +3,8 @@
 # opentyrian
 #
 ################################################################################
-# Version.: Commits on Jun 15, 2021
-OPENTYRIAN_VERSION = 0af1efb81d7d09235ca8d384eee0d8550efc1ff4
+# Version: Commits on Mar 21, 2022
+OPENTYRIAN_VERSION = 68beef64dcb1c183f86f8c7ba771d9085f7fce31
 OPENTYRIAN_SITE = $(call github,opentyrian,opentyrian,$(OPENTYRIAN_VERSION))
 OPENTYRIAN_LICENSE = GPL-2.0+
 OPENTYRIAN_LICENSE_FILES = COPYING
