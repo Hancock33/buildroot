@@ -50,12 +50,8 @@
                 "hotkey",
                 "start"
             ],
-            "type": "key",
-            "target": [
-                "KEY_LEFTCTRL",
-                "KEY_BACKSPACE",
-                "KEY_DELETE"
-            ]
+            "type": "exec",
+            "target": "killall -9 opentyrian && reset"
         },
         {
             "trigger": "joystick1up",
