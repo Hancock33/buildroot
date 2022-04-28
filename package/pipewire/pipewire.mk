@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-# Batocera Update (0.3.50)
-PIPEWIRE_VERSION = 22fc9eec351a24bfde1b6fbc77927ff087ddd739
+# Batocera Update (0.3.51)
+PIPEWIRE_VERSION = 0cab700c06ebab1cf99d87928c63a168bad74204
 PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
