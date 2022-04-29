@@ -4,8 +4,7 @@
 #
 ################################################################################
 
-# batocera (update)
-RTL8188EU_VERSION = 775137f273ed75bd092b281470accb827a3e1355
+RTL8188EU_VERSION = 903b6fcb821465fe9c63e83416080df70c1c3c90
 RTL8188EU_SITE = $(call github,lwfinger,rtl8188eu,$(RTL8188EU_VERSION))
 RTL8188EU_LICENSE = GPL-2.0, proprietary (rtl8188eufw.bin firmware blob)
 RTL8188EU_LICENSE_FILES = COPYING
