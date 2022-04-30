@@ -84,6 +84,7 @@ define PYTHON_PILLOW_INSTALL_TARGET_CMDS
 		$(PYTHON_PILLOW_BUILD_OPTS) install \
 		$(PYTHON_PILLOW_BASE_INSTALL_TARGET_OPTS) \
 		$(PYTHON_PILLOW_INSTALL_TARGET_OPTS)
+	cp -pvr $(@D)/build/lib.*/PIL $(TARGET_DIR)/usr/lib/python3.10/site-packages
 endef
 
 $(eval $(python-package))
