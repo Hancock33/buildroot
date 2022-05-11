@@ -110,16 +110,21 @@ endif
 #
 #  2. We have to execute the configure script with bash and not sh.
 #
-# Note that as mentionned in
-# http://patches.openembedded.org/patch/38849/, glibc must be
-# built with -O2, so we pass our own CFLAGS and CXXFLAGS below.
+# Glibc nowadays can be build with optimization flags f.e. -Os
+
+GLIBC_CFLAGS = $(TARGET_OPTIMIZATION)
+# crash in qemu-system-nios2 with -Os
+ifeq ($(BR2_nios2),y)
+GLIBC_CFLAGS += -O2
+endif
+
 define GLIBC_CONFIGURE_CMDS
 	mkdir -p $(@D)/build
 	# Do the configuration
 	(cd $(@D)/build; \
 		$(TARGET_CONFIGURE_OPTS) \
-		CFLAGS="-O2 $(GLIBC_EXTRA_CFLAGS)" CPPFLAGS="" \
-		CXXFLAGS="-O2 $(GLIBC_EXTRA_CFLAGS)" \
+		CFLAGS="$(GLIBC_CFLAGS) $(GLIBC_EXTRA_CFLAGS)" CPPFLAGS="" \
+		CXXFLAGS="$(GLIBC_CFLAGS) $(GLIBC_EXTRA_CFLAGS)" \
 		$(GLIBC_CONF_ENV) \
 		$(SHELL) $(@D)/configure \
 		--target=$(GNU_TARGET_NAME) \
