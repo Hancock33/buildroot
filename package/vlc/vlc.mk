@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-VLC_VERSION = 25362eb856f14632e051ab48f1f592cb69f021da
-VLC_SITE = $(call github,videolan,vlc,$(VLC_VERSION))
+VLC_VERSION = 3.0.17.4
+VLC_SITE = https://get.videolan.org/vlc/$(VLC_VERSION)
+VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
 VLC_LICENSE = GPL-2.0+, LGPL-2.1+
 VLC_LICENSE_FILES = COPYING COPYING.LIB
 VLC_CPE_ID_VENDOR = videolan
@@ -19,10 +20,8 @@ VLC_INSTALL_STAGING = YES
 # gcc bug internal compiler error: in merge_overlapping_regs, at
 # regrename.c:304. This bug is fixed since gcc 6.
 ifeq ($(BR2_microblaze)$(BR2_or1k):$(BR2_TOOLCHAIN_GCC_AT_LEAST_6),y:)
-VLC_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -O0 -w" CXXFLAGS="$(TARGET_CFLAGS) -std=c++11 -w"
+VLC_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -O0"
 VLC_CONF_OPTS += --disable-optimizations
-else
-VLC_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -w" CXXFLAGS="$(TARGET_CFLAGS) -std=c++11 -w"
 endif
 
 # configure check for -fstack-protector-strong is broken
@@ -37,7 +36,6 @@ define VLC_OVERRIDE_PKG_M4
 	$(SED) 's/PKG_WITH_MODULES/VLC_PKG_WITH_MODULES/g' \
 		-e 's/PKG_HAVE_WITH_MODULES/VLC_PKG_HAVE_WITH_MODULES/g' \
 		$(@D)/configure.ac $(@D)/m4/with_pkg.m4
-	$(shell echo $(VLC_VERSION) | cut -c 1-7 > $(@D)/src/revision.txt)
 endef
 VLC_POST_PATCH_HOOKS += VLC_OVERRIDE_PKG_M4
 
