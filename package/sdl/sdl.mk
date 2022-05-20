@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SDL_VERSION = 678fca3749cdd4f808dc8c5d175d7d31a8d5a4ea
+SDL_VERSION = 53da6c538d1d1f1f4b61a599238856f4b9ee0654
 SDL_SITE = $(call github,libsdl-org,SDL-1.2,$(SDL_VERSION))
 SDL_LICENSE = LGPL-2.1+
 SDL_LICENSE_FILES = COPYING
