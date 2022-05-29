@@ -12,10 +12,8 @@ PIPEWIRE_INSTALL_STAGING = YES
 PIPEWIRE_DEPENDENCIES = host-pkgconf $(TARGET_NLS_DEPENDENCIES)
 PIPEWIRE_LDFLAGS = $(TARGET_NLS_LIBS)
 
-# batocera : -Dexamples=enabled and -Dsession-managers=media-session
 PIPEWIRE_CONF_OPTS += \
 	-Ddocs=disabled \
-	-Dexamples=enabled \
 	-Dman=disabled \
 	-Dtests=disabled \
 	-Dspa-plugins=enabled \
@@ -30,8 +28,8 @@ PIPEWIRE_CONF_OPTS += \
 	-Dvideotestsrc=enabled \
 	-Dvolume=enabled \
 	-Dsession-managers=media-session \
-	-Dlibcanberra=disabled \
-	-Dlv2=disabled
+	-Dlegacy-rtkit=false \
+	-Dlibcanberra=disabled
 
 # batocera
 PIPEWIRE_CONF_OPTS += --wrap-mode=default
@@ -133,6 +131,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dlibcamera=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_LILV),y)
+PIPEWIRE_CONF_OPTS += -Dlv2=enabled
+PIPEWIRE_DEPENDENCIES += lilv
+else
+PIPEWIRE_CONF_OPTS += -Dlv2=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_XLIB_LIBX11),y)
 PIPEWIRE_CONF_OPTS += -Dx11=enabled
 PIPEWIRE_DEPENDENCIES += xlib_libX11
@@ -154,15 +159,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dlibusb=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
-PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
-PIPEWIRE_DEPENDENCIES += mesa3d
-ifeq ($(BR2_PACKAGE_VULKAN_LOADER),y)
-PIPEWIRE_DEPENDENCIES += vulkan-loader # batocera, to fix pipewire compilation
-endif
-else
+# batocera
+#ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
+#PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
+#PIPEWIRE_DEPENDENCIES += mesa3d
+#else
 PIPEWIRE_CONF_OPTS += -Dvulkan=disabled
-endif
+#endif
 
 ifeq ($(BR2_PACKAGE_LIBSNDFILE),y)
 PIPEWIRE_CONF_OPTS += -Dpw-cat=enabled -Dsndfile=enabled
@@ -183,7 +186,12 @@ PIPEWIRE_DEPENDENCIES += readline
 endif
 
 # batocera
+#ifeq ($(BR2_PACKAGE_SDL2),y)
+#PIPEWIRE_DEPENDENCIES += sdl2
+#PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
+#else
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
+#endif
 
 ifeq ($(WEBRTC_AUDIO_PROCESSING),y)
 PIPEWIRE_CONF_OPTS += -Decho-cancel-webrtc=enabled
