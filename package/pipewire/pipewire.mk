@@ -3,8 +3,8 @@
 # pipewire
 #
 ################################################################################
-# Version: Commits on May 20, 2022
-PIPEWIRE_VERSION = 700b1e7ff8ebb4b4fe7c623778a56f13d03c5d3f
+# Version: Commits on Jun 02, 2022
+PIPEWIRE_VERSION = 774ade1467b8c68ac9646624d941be994bd3702b
 PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
