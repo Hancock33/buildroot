@@ -30,7 +30,10 @@ endef
 
 define OPENTYRIAN_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/opentyrian $(TARGET_DIR)/usr/bin/opentyrian
-	
+	# install media
+    mkdir -p $(TARGET_DIR)/usr/share/emulationstation/ports/opentyrian
+	cp -a  $(BR2_EXTERNAL_BATOCERA_PATH)/buildroot/package/opentyrian/media/* $(TARGET_DIR)/usr/share/emulationstation/ports/opentyrian/
+    # evmap config
 	mkdir -p $(TARGET_DIR)/usr/share/evmapy
 	cp $(BR2_EXTERNAL_BATOCERA_PATH)/buildroot/package/opentyrian/opentyrian.keys $(TARGET_DIR)/usr/share/evmapy
 endef
