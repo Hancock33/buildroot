@@ -1,22 +1,31 @@
-# From https://static.rust-lang.org/dist/rust-1.61.0-aarch64-unknown-linux-gnu.tar.xz.sha256
-# Verified using https://static.rust-lang.org/dist/rust-1.61.0-aarch64-unknown-linux-gnu.tar.xz.asc
-sha256  e1158db58fe81151ef17bd6010d4b9bfe069835e67eff1924d3ffd88935ade32  rust-1.61.0-aarch64-unknown-linux-gnu.tar.xz
-# From https://static.rust-lang.org/dist/rust-std-1.61.0-aarch64-unknown-linux-gnu.tar.xz.sha256
-# Verified using https://static.rust-lang.org/dist/rust-std-1.61.0-aarch64-unknown-linux-gnu.tar.xz.asc
-sha256  57d60a519dbce12146849f7e72d55f3cffe9cdcbff8d58e90bb62d3c016bb5c0  rust-std-1.61.0-aarch64-unknown-linux-gnu.tar.xz
-# From https://static.rust-lang.org/dist/rust-std-1.61.0-aarch64-unknown-linux-musl.tar.xz.sha256
-# Verified using https://static.rust-lang.org/dist/rust-std-1.61.0-aarch64-unknown-linux-musl.tar.xz.asc
-sha256  a7b10112f276a1bafaade1b921985684c93e172f014a5d21b346eb208e387605  rust-std-1.61.0-aarch64-unknown-linux-musl.tar.xz
-# From https://static.rust-lang.org/dist/rust-1.61.0-x86_64-unknown-linux-gnu.tar.xz.sha256
-# Verified using https://static.rust-lang.org/dist/rust-1.61.0-x86_64-unknown-linux-gnu.tar.xz.asc
-sha256  3910d8b5f979969f9c95a63e98b22b27435b5d22b908945056b257fc20855b1a  rust-1.61.0-x86_64-unknown-linux-gnu.tar.xz
-# From https://static.rust-lang.org/dist/rust-std-1.61.0-x86_64-unknown-linux-gnu.tar.xz.sha256
-# Verified using https://static.rust-lang.org/dist/rust-std-1.61.0-x86_64-unknown-linux-gnu.tar.xz.asc
-sha256  270b07aa5f2de52255a117e1e587138d77375ce0d09a1d7fead085f29b3977e9  rust-std-1.61.0-x86_64-unknown-linux-gnu.tar.xz
-# From https://static.rust-lang.org/dist/rust-std-1.61.0-x86_64-unknown-linux-musl.tar.xz.sha256
-# Verified using https://static.rust-lang.org/dist/rust-std-1.61.0-x86_64-unknown-linux-musl.tar.xz.asc
-sha256  1f4f2e4c5dd0f9b0dac7c8888f4a49ef16a6fe8992f39895823d2a442f0fe408  rust-std-1.61.0-x86_64-unknown-linux-musl.tar.xz
+# From https://static.rust-lang.org/dist/rust-1.62.0-*.sha256
+sha256  a5098788b5a45da604ffbab2640e37969e290e0ef766599c975a6b0b1d0ffed1  rust-1.62.0-aarch64-apple-darwin.pkg
+sha256  9f49aa2bc28dae4f5a9f4a7deac117be82851f4b871c07ee4998f7c78b318a05  rust-1.62.0-aarch64-pc-windows-msvc.msi
+sha256  596edf892fac02f3a3b9a8f018f64551e2d58f0a840a8bad13793eb7224783bd  rust-1.62.0-aarch64-unknown-linux-gnu.tar.xz
+sha256  f3b295cf0e9e2dd2352263bdfacb3417828293812bb9b5b0128b497c1edf1710  rust-1.62.0-aarch64-unknown-linux-musl.tar.xz
+sha256  4ca08691cc21801a41e278c114d00b458b6ebc5059be6cc72ac36f4c8118b512  rust-1.62.0-arm-unknown-linux-gnueabi.tar.xz
+sha256  d5ba89b8e0e031827567a2e63e6a001fa95176645bd861810be685bdc134450f  rust-1.62.0-arm-unknown-linux-gnueabihf.tar.xz
+sha256  17419d7441f25df198939c416afc8ffa082c3089356de94804990bf8be11eff5  rust-1.62.0-armv7-unknown-linux-gnueabihf.tar.xz
+sha256  05833df4ab89f572b9e61e90fa17f74c1c53b584ac5396f7d7b42ce2f5fab156  rust-1.62.0-i686-pc-windows-gnu.msi
+sha256  1d0fde5e380a492ac0cb7feca87849d9ccae918c0af8429b23d9eff3b22b59dd  rust-1.62.0-i686-pc-windows-msvc.msi
+sha256  8851657b282e0b76056b4179c5f2c77f0624da9e031a4dab1abb33be7c251238  rust-1.62.0-i686-unknown-linux-gnu.tar.xz
+sha256  e053f1ff5e60c5c4c7db5e507a79b53230b8c78e71dcd47cffa5bc4ad946244a  rust-1.62.0-mips-unknown-linux-gnu.tar.xz
+sha256  c627aa15ecb8670a761ecc46385523c3a2f7e33ed608e42da3a6bca418a1c2ff  rust-1.62.0-mips64-unknown-linux-gnuabi64.tar.xz
+sha256  452731cf0883e19c1209e98bd1f5587415bfd621c9fdb3fe7c6b8e34a4b56152  rust-1.62.0-mips64el-unknown-linux-gnuabi64.tar.xz
+sha256  3d1baf0f8aa8615dff16870b86db1d52df5875005c08626aec81cb98b0de5ce6  rust-1.62.0-mipsel-unknown-linux-gnu.tar.xz
+sha256  9aa91e10bbb6e31edb435d7f9da97e837f883ad6790d44b830db435b313e0598  rust-1.62.0-powerpc-unknown-linux-gnu.tar.xz
+sha256  abd61a8009369d40b646b7803cbd91f0dc1b62d09c9c48e8d5b0a2b3c570076e  rust-1.62.0-powerpc64-unknown-linux-gnu.tar.xz
+sha256  a82296609a6606764f074395454e7223a152c39f3506f481900fbeebd3de00b7  rust-1.62.0-powerpc64le-unknown-linux-gnu.tar.xz
+sha256  ffd184bcc19fce389d4d09805b6b2e5e4657055fc1e2c088cd0ccb9420a63e09  rust-1.62.0-riscv64gc-unknown-linux-gnu.tar.xz
+sha256  b86406f051d95fc8b63a5699cf235313e4fcc4bb382aaf6fc9b8d4d19d5ccfd7  rust-1.62.0-s390x-unknown-linux-gnu.tar.xz
+sha256  81ac1cb8a8d272a4fac7f1b4bb9c43e956c9458da005431b7ef87f509412c148  rust-1.62.0-x86_64-apple-darwin.pkg
+sha256  12ebf687f011c5feb092f09b1e01b42f2f05b205cf1ec16b89f49828b7ab7801  rust-1.62.0-x86_64-pc-windows-gnu.msi
+sha256  ad42034a128e14db3b015861dfb89efa180bbbfcdf9f6b552a482e2a91fad64f  rust-1.62.0-x86_64-pc-windows-msvc.msi
+sha256  716affa00ff8b1179ee5f28292dd55b80b6cbe30b64031590756ef8be037786a  rust-1.62.0-x86_64-unknown-freebsd.tar.xz
+sha256  f02cf83796183c1071a89485ee4625afc5ba18b28fa3ba6affe44823eeec5010  rust-1.62.0-x86_64-unknown-illumos.tar.xz
+sha256  29d0cb095bc006f82fb99bc4b9081aff813d803426ef01c9d1bd2b150e68d035  rust-1.62.0-x86_64-unknown-linux-gnu.tar.xz
+sha256  f1846989bc857925eac4acf00348a11aba0ec0985677c6445f9c05ad02f5bebc  rust-1.62.0-x86_64-unknown-linux-musl.tar.xz
+sha256  a76cf700f2e0e16b8443d89c13aa020bc87dc3083d5f5f7e464068ea23faf07d  rust-1.62.0-x86_64-unknown-netbsd.tar.xz
 # Locally generated
 sha256  62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a  LICENSE-APACHE
 sha256  23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3  LICENSE-MIT
-sha256  74e3473205d72a19e5fdaf572fab762aabee5d7ce07e9289317b46e8226cb999  rust-std-1.61.0-armv7-unknown-linux-gnueabihf.tar.xz
