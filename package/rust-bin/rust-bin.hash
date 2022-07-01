@@ -2,6 +2,7 @@
 sha256  a5098788b5a45da604ffbab2640e37969e290e0ef766599c975a6b0b1d0ffed1  rust-1.62.0-aarch64-apple-darwin.pkg
 sha256  9f49aa2bc28dae4f5a9f4a7deac117be82851f4b871c07ee4998f7c78b318a05  rust-1.62.0-aarch64-pc-windows-msvc.msi
 sha256  596edf892fac02f3a3b9a8f018f64551e2d58f0a840a8bad13793eb7224783bd  rust-1.62.0-aarch64-unknown-linux-gnu.tar.xz
+sha256  dd5df8a92af3e5d49a1122b9561821ebd72a9317884a37ecddae041e652a7563  rust-std-1.62.0-aarch64-unknown-linux-gnu.tar.xz
 sha256  f3b295cf0e9e2dd2352263bdfacb3417828293812bb9b5b0128b497c1edf1710  rust-1.62.0-aarch64-unknown-linux-musl.tar.xz
 sha256  4ca08691cc21801a41e278c114d00b458b6ebc5059be6cc72ac36f4c8118b512  rust-1.62.0-arm-unknown-linux-gnueabi.tar.xz
 sha256  d5ba89b8e0e031827567a2e63e6a001fa95176645bd861810be685bdc134450f  rust-1.62.0-arm-unknown-linux-gnueabihf.tar.xz
