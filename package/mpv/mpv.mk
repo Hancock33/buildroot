@@ -169,7 +169,7 @@ endif
 # SDL support
 # Sdl2 requires 64-bit sync intrinsics
 ifeq ($(BR2_TOOLCHAIN_HAS_SYNC_8)$(BR2_PACKAGE_SDL2),yy)
-MPV_CONF_OPTS += --enable-sdl2
+MPV_CONF_OPTS += --enable-sdl2 --enable-sdl2-gamepad
 MPV_DEPENDENCIES += sdl2
 else
 MPV_CONF_OPTS += --disable-sdl2
