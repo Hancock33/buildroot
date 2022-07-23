@@ -632,6 +632,17 @@ F:	package/log4cpp/
 
 N:	Damien Le Moal <damien.lemoal@wdc.com>
 F:	package/python-kflash/
+F:	board/canaan/
+F:	configs/canaan_kd233_defconfig
+F:	board/sipeed/
+F:	configs/sipeed_maix_bit_defconfig
+F:	configs/sipeed_maix_bit_sdcard_defconfig
+F:	configs/sipeed_maixduino_defconfig
+F:	configs/sipeed_maixduino_sdcard_defconfig
+F:	configs/sipeed_maix_dock_defconfig
+F:	configs/sipeed_maix_dock_sdcard_defconfig
+F:	configs/sipeed_maix_go_defconfig
+F:	configs/sipeed_maix_go_sdcard_defconfig
 
 N:	Daniel Nicoletti <dantti12@gmail.com>
 F:	package/cutelyst/
@@ -2314,6 +2325,7 @@ F:	package/libcamera-apps/
 F:	package/libevdev/
 F:	package/libuev/
 F:	package/log4cplus/
+F:	package/ntpsec/
 F:	package/postgresql/
 F:	package/python-colorzero/
 F:	package/python-flask-wtf/
@@ -2435,8 +2447,12 @@ F:	package/python-jmespath/
 F:	package/python-pymupdf/
 F:	package/python-rsa/
 F:	package/python-s3transfer/
+F:	support/testing/tests/package/sample_python_jmespath.py
 F:	support/testing/tests/package/sample_python_rsa.py
+F:	support/testing/tests/package/sample_python_s3transfer.py
+F:	support/testing/tests/package/test_python_jmespath.py
 F:	support/testing/tests/package/test_python_rsa.py
+F:	support/testing/tests/package/test_python_s3transfer.py
 
 N:	Refik Tuzakli <tuzakli.refik@gmail.com>
 F:	package/freescale-imx/
@@ -2564,6 +2580,10 @@ F:	package/fmt/
 F:	package/libbson/
 F:	package/lua-resty-http/
 F:	package/mpir/
+
+N:	Sen Hastings <sen@phobosdpl.com>
+F:	package/systemd
+F:	support/scripts/pkg-stats
 
 N:	Sergey Bobrenok <bobrofon@gmail.com>
 F:	package/sdbus-cpp/
