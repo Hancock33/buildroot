@@ -1348,7 +1348,9 @@ F:	package/python-greenlet/
 F:	package/python-installer/
 F:	package/python-janus/
 F:	package/python-logstash/
+F:	package/python-maturin/
 F:	package/python-multidict/
+F:	package/python-mypy-extensions/
 F:	package/python-pep517/
 F:	package/python-pycares/
 F:	package/python-pydyf/
@@ -1359,6 +1361,8 @@ F:	package/python-sockjs/
 F:	package/python-terminaltables/
 F:	package/python-tinycss2/
 F:	package/python-tomli/
+F:	package/python-typeguard/
+F:	package/python-typing-inspect/
 F:	package/python-weasyprint/
 F:	package/python-yarl/
 F:	package/python-zopfli/
@@ -1556,6 +1560,7 @@ F:	package/alfred/
 F:	package/bmx7/
 F:	package/python-aexpect/
 F:	package/python-alembic/
+F:	package/python-lark/
 F:	package/softhsm2/
 F:	support/testing/tests/package/sample_python_aexpect.py
 F:	support/testing/tests/package/test_python_aexpect.py
@@ -2091,9 +2096,6 @@ F:	configs/bananapi_m2_plus_defconfig
 
 N:	Mikhail Boiko <mikhailboiko85@gmail.com>
 F:	package/libfribidi/
-
-N:	Min Xu <xuminready@gmail.com>
-F:	package/shadowsocks-libev/
 
 N:	Miquèl Raynal <miquel.raynal@bootlin.com>
 F:	package/mali-driver/
@@ -2874,6 +2876,8 @@ F:	package/squashfs/
 F:	package/tinifier/
 F:	package/wayland/
 F:	package/weston/
+F:	support/testing/tests/boot/test_grub.py
+F:	support/testing/tests/boot/test_grub/
 F:	support/testing/tests/boot/test_syslinux.py
 F:	support/testing/tests/package/sample_python_augeas.py
 F:	support/testing/tests/package/sample_python_flask.py
