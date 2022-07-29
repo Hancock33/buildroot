@@ -20,14 +20,31 @@ PULSEAUDIO_CONF_OPTS = \
 	-Dtests=false
 
 PULSEAUDIO_DEPENDENCIES = \
-	host-pkgconf libtool libsndfile speex libglib2 \
-	$(TARGET_NLS_DEPENDENCIES) \
-	$(if $(BR2_PACKAGE_AVAHI_DAEMON),avahi) \
-	$(if $(BR2_PACKAGE_DBUS),dbus) \
-	$(if $(BR2_PACKAGE_NCURSES),ncurses) \
-	$(if $(BR2_PACKAGE_OPENSSL),openssl) \
-	$(if $(BR2_PACKAGE_FFTW_SINGLE),fftw-single) \
-	$(if $(BR2_PACKAGE_SYSTEMD),systemd)
+	host-pkgconf libtool libsndfile libglib2 \
+	$(TARGET_NLS_DEPENDENCIES)
+
+PULSEAUDIO_LDFLAGS = $(TARGET_LDFLAGS) $(TARGET_NLS_LIBS)
+
+ifeq ($(BR2_PACKAGE_AVAHI_DAEMON),y)
+PULSEAUDIO_CONF_OPTS += -Davahi=enabled
+PULSEAUDIO_DEPENDENCIES += avahi
+else
+PULSEAUDIO_CONF_OPTS += -Davahi=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_DBUS),y)
+PULSEAUDIO_CONF_OPTS += -Ddbus=enabled
+PULSEAUDIO_DEPENDENCIES += dbus
+else
+PULSEAUDIO_CONF_OPTS += -Ddbus=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_FFTW_SINGLE),y)
+PULSEAUDIO_CONF_OPTS += -Dfftw=enabled
+PULSEAUDIO_DEPENDENCIES += fftw-single
+else
+PULSEAUDIO_CONF_OPTS += -Dfftw=disabled
+endif
 
 ifeq ($(BR2_PACKAGE_LIBSAMPLERATE),y)
 PULSEAUDIO_CONF_OPTS += -Dsamplerate=enabled
@@ -55,6 +72,20 @@ PULSEAUDIO_DEPENDENCIES += libatomic_ops
 ifeq ($(BR2_sparc_v8)$(BR2_sparc_leon3),y)
 PULSEAUDIO_CFLAGS = $(TARGET_CFLAGS) -DAO_NO_SPARC_V9
 endif
+endif
+
+ifeq ($(BR2_PACKAGE_LIRC_TOOLS),y)
+PULSEAUDIO_DEPENDENCIES += lirc-tools
+PULSEAUDIO_CONF_OPTS += -Dlirc=enabled
+else
+PULSEAUDIO_CONF_OPTS += -Dlirc=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_OPENSSL),y)
+PULSEAUDIO_CONF_OPTS += -Dopenssl=enabled
+PULSEAUDIO_DEPENDENCIES += openssl
+else
+PULSEAUDIO_CONF_OPTS += -Dopenssl=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_ORC),y)
@@ -105,8 +136,9 @@ else
 PULSEAUDIO_CONF_OPTS += -Dwebrtc-aec=disabled
 endif
 
-# pulseaudio alsa backend needs pcm/mixer apis
-ifeq ($(BR2_PACKAGE_ALSA_LIB_PCM)$(BR2_PACKAGE_ALSA_LIB_MIXER),yy)
+# our Config.in makes sure that all needed alsa-lib features are
+# enabled
+ifeq ($(BR2_PACKAGE_ALSA_LIB),y)
 PULSEAUDIO_DEPENDENCIES += alsa-lib
 PULSEAUDIO_CONF_OPTS += -Dalsa=enabled
 else
@@ -128,6 +160,29 @@ endif
 
 else
 PULSEAUDIO_CONF_OPTS += -Dx11=disabled
+endif
+
+# This is not a mistake: the option is called speex, but what it
+# really needs is speexdsp
+ifeq ($(BR2_PACKAGE_SPEEXDSP),y)
+PULSEAUDIO_CONF_OPTS += -Dspeex=enabled
+PULSEAUDIO_DEPENDENCIES += speexdsp
+else
+PULSEAUDIO_CONF_OPTS += -Dspeex=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_SYSTEMD),y)
+PULSEAUDIO_CONF_OPTS += -Dsystemd=enabled
+PULSEAUDIO_DEPENDENCIES += systemd
+else
+PULSEAUDIO_CONF_OPTS += -Dsystemd=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_VALGRIND),y)
+PULSEAUDIO_CONF_OPTS += -Dvalgrind=enabled
+PULSEAUDIO_DEPENDENCIES += valgrind
+else
+PULSEAUDIO_CONF_OPTS += -Dvalgrind=disabled
 endif
 
 # ConsoleKit module init failure breaks user daemon startup
