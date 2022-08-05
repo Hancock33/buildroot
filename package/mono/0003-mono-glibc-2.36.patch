@@ -1,0 +1,11 @@
+diff -Naur mono-6.12.0.182.orig/mono/metadata/w32file-unix.c mono-6.12.0.182/mono/metadata/w32file-unix.c
+--- mono-6.12.0.182.orig/mono/metadata/w32file-unix.c	2022-06-14 21:36:03.000000000 +0100
++++ mono-6.12.0.182/mono/metadata/w32file-unix.c	2022-08-05 23:12:16.848649388 +0100
+@@ -19,7 +19,6 @@
+ #endif
+ #if defined(HAVE_SYS_PARAM_H) && defined(HAVE_SYS_MOUNT_H)
+ #include <sys/param.h>
+-#include <sys/mount.h>
+ #endif
+ #include <sys/types.h>
+ #include <stdio.h>
