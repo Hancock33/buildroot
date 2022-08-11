@@ -1,4 +1,6 @@
-# Locally computed
+# From https://lists.freedesktop.org/archives/mesa-announce/2022-August/000684.html
 sha256  b525c8723bec7bb09505a7120cec1f11918b93161c5e59a1aa9fc22eaa0b935e  mesa-22.2.0-rc2.tar.xz
+sha512  030cf7897aad6fc4c79b7a76baec7d222df22f9ad7f924db77a6407197be6fd7ee7cc0c4c9972d0b8ed94d19796b364c279d29ffc192e7bea647d69038ee66d1  mesa-22.2.0-rc2.tar.xz
+
 # License
 sha256  4bc15d14dcc134b024cbdca3b5330010136ce8a427b6f8353440ce2ad7aab037  docs/license.rst
