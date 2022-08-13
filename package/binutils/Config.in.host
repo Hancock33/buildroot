@@ -17,7 +17,7 @@ config BR2_BINUTILS_VERSION_2_37_X
 
 config BR2_BINUTILS_VERSION_2_38_X
 	bool "binutils 2.38"
-	
+
 config BR2_BINUTILS_VERSION_2_39_X
 	bool "binutils 2.39"
 
