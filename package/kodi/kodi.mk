@@ -54,8 +54,7 @@ KODI_DEPENDENCIES = \
 	sqlite \
 	taglib \
 	tinyxml \
-	zlib \
-	libiconv_kodi
+	zlib
 
 # taken from tools/depends/target/*/*-VERSION
 KODI_LIBDVDCSS_VERSION = 1.4.2-Leia-Beta-5
