@@ -418,6 +418,7 @@ F:	package/nut/
 F:	package/onevpl/
 F:	package/onevpl-intel-gpu/
 F:	package/opus/
+F:	package/p2pool/
 F:	package/pciutils/
 F:	package/perl-crypt-openssl-guess/
 F:	package/perl-crypt-openssl-random/
