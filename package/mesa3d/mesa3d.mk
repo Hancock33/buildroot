@@ -5,7 +5,7 @@
 ################################################################################
 # batocera (update)
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 22.2.0-rc3
+MESA3D_VERSION = 22.1.7
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
 MESA3D_LICENSE = MIT, SGI, Khronos
@@ -28,13 +28,6 @@ MESA3D_DEPENDENCIES = \
 MESA3D_CONF_OPTS = \
 	-Dgallium-omx=disabled \
 	-Dpower8=disabled
-
-# batocera
-ifeq ($(BR2_PACKAGE_LLVM_RTTI),y)
-MESA3D_CONF_OPTS += -Dcpp_rtti=true
-else
-MESA3D_CONF_OPTS += -Dcpp_rtti=false
-endif
 
 # Codesourcery ARM 2014.05 fail to link libmesa_dri_drivers.so with --as-needed linker
 # flag due to a linker bug between binutils 2.24 and 2.25 (2.24.51.20140217).
