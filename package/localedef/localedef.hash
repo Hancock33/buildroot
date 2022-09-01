@@ -1,5 +1,5 @@
 # Locally calculated (fetched from Github)
-sha256  82b8f474936b0a1d6de94cf13e9ed6d5ea7644b808a8ee137f4a513df7af95f0  glibc-2.36-5-g302bc33bc53c787da6e74162a7092e9c0fb964a8.tar.gz
+sha256  cbd5f84c6aa8b08fb7e9c60e51dedb311094f504ae91b1db5469cf8f5cd0fc6a  glibc-2.36-19-gb3736d1a3c60a3ec9959bf3b38794958546bf6a2.tar.gz
 
 # Hashes for license files
 sha256  8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  COPYING
