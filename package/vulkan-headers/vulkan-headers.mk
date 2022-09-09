@@ -3,8 +3,8 @@
 # vulkan-headers
 #
 ################################################################################
-# Version: Commits on Sept 01, 2022
-VULKAN_HEADERS_VERSION = 9f4c61a31435a7a90a314fc68aeb386c92a09c0f
+# Version: Commits on Sept 08, 2022
+VULKAN_HEADERS_VERSION = 88ebcb08cb131ca278af6e7a26887fe59b25ec1c
 VULKAN_HEADERS_SITE = $(call github,KhronosGroup,Vulkan-Headers,$(VULKAN_HEADERS_VERSION))
 VULKAN_HEADERS_LICENSE = Apache-2.0
 VULKAN_HEADERS_LICENSE_FILES = LICENSE.txt
