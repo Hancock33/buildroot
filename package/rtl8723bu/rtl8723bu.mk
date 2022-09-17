@@ -3,7 +3,6 @@
 # rtl8723bu
 #
 ################################################################################
-
 # Version: Commits on Aug 18, 2022
 RTL8723BU_VERSION = d79a676a8d3f0bb6ac8af126689c6ac6869cb6f2
 RTL8723BU_SITE = $(call github,lwfinger,rtl8723bu,$(RTL8723BU_VERSION))
