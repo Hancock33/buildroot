@@ -77,11 +77,8 @@ NCURSES_CONF_OPTS = \
 	--disable-stripping \
 	--with-pkg-config-libdir="/usr/lib/pkgconfig" \
 	$(if $(BR2_PACKAGE_NCURSES_TARGET_PROGS),,--without-progs) \
-	--without-manpages
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_ANY),y)
-NCURSES_CONF_OPTS += --with-termlib=tinfo
-endif
+	--without-manpages \
+	--with-termlib=tinfo
 
 ifeq ($(BR2_STATIC_LIBS),y)
 NCURSES_CONF_OPTS += --without-shared --with-normal
