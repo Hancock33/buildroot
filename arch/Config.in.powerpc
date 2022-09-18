@@ -67,11 +67,9 @@ config BR2_powerpc_604e
 	depends on !BR2_ARCH_IS_64
 config BR2_powerpc_620
 	bool "620"
-	# No C library supports this variant on ppc64le
 	depends on !BR2_powerpc64le
 config BR2_powerpc_630
 	bool "630"
-	# No C library supports this variant on ppc64le
 	depends on !BR2_powerpc64le
 config BR2_powerpc_740
 	bool "740"
@@ -98,6 +96,7 @@ config BR2_powerpc_860
 	depends on !BR2_ARCH_IS_64
 config BR2_powerpc_970
 	bool "970"
+	depends on BR2_powerpc || BR2_powerpc64
 	select BR2_POWERPC_CPU_HAS_ALTIVEC
 config BR2_powerpc_8540
 	bool "8540 / e500v1"
@@ -125,21 +124,26 @@ config BR2_powerpc_e6500
 	select BR2_POWERPC_CPU_HAS_ALTIVEC
 config BR2_powerpc_power4
 	bool "power4"
-	# No C library supports this variant on ppc64le
 	depends on !BR2_powerpc64le
 config BR2_powerpc_power5
 	bool "power5"
-	# No C library supports this variant on ppc64le
 	depends on !BR2_powerpc64le
 config BR2_powerpc_power6
 	bool "power6"
+	depends on BR2_powerpc || BR2_powerpc64
 	select BR2_POWERPC_CPU_HAS_ALTIVEC
 config BR2_powerpc_power7
 	bool "power7"
+	depends on BR2_powerpc || BR2_powerpc64
 	select BR2_POWERPC_CPU_HAS_VSX
 config BR2_powerpc_power8
 	bool "power8"
 	select BR2_POWERPC_CPU_HAS_VSX
+config BR2_powerpc_power9
+	bool "power9"
+	select BR2_POWERPC_CPU_HAS_ALTIVEC
+	select BR2_POWERPC_CPU_HAS_VSX
+	select BR2_ARCH_NEEDS_GCC_AT_LEAST_6
 endchoice
 
 choice
@@ -217,6 +221,7 @@ config BR2_GCC_TARGET_CPU
 	default "power6"	if BR2_powerpc_power6
 	default "power7"	if BR2_powerpc_power7
 	default "power8"	if BR2_powerpc_power8
+	default "power9"	if BR2_powerpc_power9
 
 config BR2_READELF_ARCH_NAME
 	default "PowerPC"	if BR2_powerpc
