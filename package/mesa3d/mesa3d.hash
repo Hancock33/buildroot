@@ -1,5 +1,4 @@
 # batocera (update)
-sha256  db392307a02f97b7a8237809e28b627306356a2b27bb911bf9f4344b66313e39  mesa-22.2.0-rc3.tar.xz
-# From https://lists.freedesktop.org/archives/mesa-announce/2022-August/000685.html
+sha256  b1f9c8fd08f2cae3adf83355bef4d2398e8025f44947332880f2d0066bdafa8c  mesa-22.2.0.tar.xz
 # License
 sha256  998437f3f75f0c542046f83c1cb349408122268168fb13eb4ae6967aa18b7d98  docs/license.rst
