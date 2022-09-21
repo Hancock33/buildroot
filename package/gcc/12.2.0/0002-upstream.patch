@@ -1,0 +1,4022 @@
+diff --git a/gcc/BASE-VER b/gcc/BASE-VER
+index 685332623b2..9e3b205825b 100644
+--- a/gcc/BASE-VER
++++ b/gcc/BASE-VER
+@@ -1 +1 @@
+-12.2.0
++12.2.0
+diff --git a/gcc/ChangeLog b/gcc/ChangeLog
+index f267a27b057..35f74103528 100644
+--- a/gcc/ChangeLog
++++ b/gcc/ChangeLog
+@@ -1,3 +1,214 @@
++2022-09-09  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-09-07  Richard Biener  <rguenther@suse.de>
++
++	PR tree-optimization/106860
++	* tree-ssa-loop-split.cc (split_loop): Find the exit to
++	latch edge from the loop exit edge instead of from the
++	latch.  Verify we're going to find it.
++
++2022-09-09  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-09-06  Richard Biener  <rguenther@suse.de>
++
++	PR tree-optimization/106841
++	* tree-vect-slp.cc (vect_detect_hybrid_slp): Also process
++	scatter/gather offset.
++
++2022-09-09  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-09-02  Richard Biener  <rguenther@suse.de>
++
++	PR tree-optimization/106809
++	* tree-ssa-sccvn.cc (dominaged_by_p_w_unex): Check we have
++	more than one successor before doing extra work.
++
++2022-09-08  Sebastian Huber  <sebastian.huber@embedded-brains.de>
++
++	* config/rs6000/rtems.h (CPP_OS_DEFAULT_SPEC): Define __PPC_VRSAVE__ if
++	-mvrsave is present.
++	* config/rs6000/t-rtems: Add -mvrsave multilib variants for
++	-mcpu=e6500.
++
++2022-09-03  Peter Bergner  <bergner@linux.ibm.com>
++
++	Backported from master:
++	2022-09-01  Peter Bergner  <bergner@linux.ibm.com>
++
++	PR target/101322
++	* config/rs6000/rs6000-builtin.cc (rs6000_gimple_fold_mma_builtin):
++	Enforce the use of a valid MMA pointer type.
++
++2022-09-02  Richard Earnshaw  <rearnsha@arm.com>
++
++	Backported from master:
++	2022-08-03  Richard Earnshaw  <rearnsha@arm.com>
++
++	PR rtl-optimization/106187
++	* alias.h (mems_same_for_tbaa_p): Declare.
++	* alias.cc (mems_same_for_tbaa_p): New function.
++	* dse.cc (record_store): Use it instead of open-coding
++	alias check.
++	* cselib.h (cselib_redundant_set_p): Declare.
++	* cselib.cc: Include alias.h
++	(cselib_redundant_set_p): New function.
++	* cfgcleanup.cc: (mark_effect): Use cselib_redundant_set_p instead
++	of rtx_equal_for_cselib_p.
++	* postreload.cc (reload_cse_simplify): Use cselib_redundant_set_p.
++	(reload_cse_noop_set_p): Delete.
++
++2022-09-02  Richard Earnshaw  <rearnsha@arm.com>
++
++	Backported from master:
++	2022-05-13  Richard Earnshaw  <rearnsha@arm.com>
++
++	PR target/105463
++	* config/arm/mve.md (*movmisalign<mode>_mve_store): Use
++	mve_memory_operand.
++	(*movmisalign<mode>_mve_load): Likewise.
++	* config/arm/vec-common.md (movmisalign<mode>): Convert to generator
++	form...
++	(@movmisalign<mode>): ... thus.  Use generic predicates and then
++	rework operands if they are not valid.  For MVE rework to a
++	narrower element size if the alignment is not high enough.
++
++2022-09-02  Tamar Christina  <tamar.christina@arm.com>
++
++	Backported from master:
++	2022-09-01  Tamar Christina  <tamar.christina@arm.com>
++
++	PR other/106782
++	* config/aarch64/aarch64.cc
++	(aarch64_vector_costs::prefer_unrolled_loop): Replace %u with
++	HOST_WIDE_INT_PRINT_UNSIGNED.
++
++2022-09-01  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-09-01  Jakub Jelinek  <jakub@redhat.com>
++
++	PR other/106782
++	* tree-vect-slp.cc (vect_print_slp_tree): Use
++	HOST_WIDE_INT_PRINT_UNSIGNED instead of %u.
++	* tree-vect-loop.cc (vect_estimate_min_profitable_iters): Use
++	HOST_WIDE_INT_PRINT_UNSIGNED instead of %d.
++	* tree-vect-slp-patterns.cc (vect_pattern_validate_optab): Use %G
++	instead of %T and STMT_VINFO_STMT (SLP_TREE_REPRESENTATIVE (node))
++	instead of SLP_TREE_DEF_TYPE (node).
++
++2022-08-30  Tamar Christina  <tamar.christina@arm.com>
++
++	Backported from master:
++	2022-08-12  Tamar Christina  <tamar.christina@arm.com>
++
++	PR target/106524
++	* config/aarch64/aarch64-sve.md (*fcmuo<mode>_nor_combine,
++	*fcmuo<mode>_bic_combine): Don't accept comparisons against zero.
++
++2022-08-29  Peter Bergner  <bergner@linux.ibm.com>
++
++	Backported from master:
++	2022-08-28  Peter Bergner  <bergner@linux.ibm.com>
++
++	PR target/106017
++	* config/rs6000/rs6000.cc (rs6000_invalid_conversion): Remove handling
++	of MMA pointer conversions.
++
++2022-08-29  H.J. Lu  <hjl.tools@gmail.com>
++
++	Backported from master:
++	2022-08-23  H.J. Lu  <hjl.tools@gmail.com>
++
++	PR target/106714
++	* config/i386/amxtileintrin.h (_tile_loadd_internal): Cast to
++	__PTRDIFF_TYPE__.
++	(_tile_stream_loadd_internal): Likewise.
++	(_tile_stored_internal): Likewise.
++
++2022-08-29  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-08-24  Jakub Jelinek  <jakub@redhat.com>
++
++	PR target/106721
++	* config/i386/sse.md (i128vldq): Add V16HF entry.
++	(avx512er_vmrcp28<mode><mask_name><round_saeonly_name>): Fix typo,
++	mask_opernad3 -> mask_operand3.
++
++2022-08-29  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-08-15  Jakub Jelinek  <jakub@redhat.com>
++
++	PR rtl-optimization/106590
++	* ifcvt.cc (check_for_cc_cmp_clobbers): New function.
++	(noce_convert_multiple_sets_1): If SEQ sets or clobbers any regs
++	mentioned in cc_cmp or rev_cc_cmp, don't consider seq2 for any
++	further conditional moves.
++
++2022-08-26  liuhongt  <hongtao.liu@intel.com>
++
++	PR target/106704
++	* config/i386/i386-builtin.def (BDESC): Add
++	CODE_FOR_avx_blendvpd256/CODE_FOR_avx_blendvps256 to
++	corresponding builtins.
++	* config/i386/i386.cc (ix86_gimple_fold_builtin):
++	Don't fold IX86_BUILTIN_PBLENDVB256, IX86_BUILTIN_BLENDVPS256,
++	IX86_BUILTIN_BLENDVPD256 w/o TARGET_AVX2.
++
++2022-08-25  Chenghua Xu  <xuchenghua@loongson.cn>
++
++	Backported from master:
++	2022-08-25  Chenghua Xu  <xuchenghua@loongson.cn>
++
++	PR target/106459
++	* config/loongarch/loongarch.cc (loongarch_build_integer):
++	Use HOST_WIDE_INT.
++	* config/loongarch/loongarch.h (IMM_REACH): Likewise.
++	(HWIT_1U): New Defined.
++	(LU12I_OPERAND): Use HOST_WIDE_INT.
++	(LU32I_OPERAND): Likewise.
++	(LU52I_OPERAND): Likewise.
++	(HWIT_UC_0xFFF): Likwise.
++
++2022-08-24  Kewen Lin  <linkw@linux.ibm.com>
++
++	Backported from master:
++	2022-08-16  Kewen Lin  <linkw@linux.ibm.com>
++
++	PR tree-optimization/106322
++	* tree-vect-stmts.cc (vectorizable_call): Don't allow
++	vect_emulated_vector_p type for both vectype_in and vectype_out.
++
++2022-08-24  Kewen.Lin  <linkw@gcc.gnu.org>
++
++	Backported from master:
++	2022-08-16  Kewen.Lin  <linkw@gcc.gnu.org>
++
++	PR target/103353
++	* config/rs6000/mma.md (define_expand movoo): Move TARGET_MMA condition
++	check to preparation statements and add handlings for !TARGET_MMA.
++	(define_expand movxo): Likewise.
++
++2022-08-23  Tobias Burnus  <tobias@codesourcery.com>
++
++	Backported from master:
++	2022-08-19  Tobias Burnus  <tobias@codesourcery.com>
++
++	* config/gcn/mkoffload.cc (main): Add dbgobj to files_to_cleanup.
++
++2022-08-23  Tobias Burnus  <tobias@codesourcery.com>
++
++	Backported from master:
++	2022-08-17  Tobias Burnus  <tobias@codesourcery.com>
++
++	PR middle-end/106548
++	* omp-low.cc (lower_rec_input_clauses): Use build_outer_var_ref
++	for 'simd' linear-step values that are variable.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/gcc/DATESTAMP b/gcc/DATESTAMP
+index 918be360b57..54f97aaa2e6 100644
+--- a/gcc/DATESTAMP
++++ b/gcc/DATESTAMP
+@@ -1 +1 @@
+-20220819
++20220920
+diff --git a/gcc/alias.cc b/gcc/alias.cc
+index 8c08452e0ac..d54feb15268 100644
+--- a/gcc/alias.cc
++++ b/gcc/alias.cc
+@@ -389,6 +389,20 @@ refs_same_for_tbaa_p (tree earlier, tree later)
+ 	  || alias_set_subset_of (later_base_set, earlier_base_set));
+ }
+ 
++/* Similar to refs_same_for_tbaa_p() but for use on MEM rtxs.  */
++bool
++mems_same_for_tbaa_p (rtx earlier, rtx later)
++{
++  gcc_assert (MEM_P (earlier));
++  gcc_assert (MEM_P (later));
++
++  return ((MEM_ALIAS_SET (earlier) == MEM_ALIAS_SET (later)
++	   || alias_set_subset_of (MEM_ALIAS_SET (later),
++				   MEM_ALIAS_SET (earlier)))
++	  && (!MEM_EXPR (earlier)
++	      || refs_same_for_tbaa_p (MEM_EXPR (earlier), MEM_EXPR (later))));
++}
++
+ /* Returns a pointer to the alias set entry for ALIAS_SET, if there is
+    such an entry, or NULL otherwise.  */
+ 
+diff --git a/gcc/alias.h b/gcc/alias.h
+index b2596518ac9..ee3db466763 100644
+--- a/gcc/alias.h
++++ b/gcc/alias.h
+@@ -40,6 +40,7 @@ tree reference_alias_ptr_type_1 (tree *);
+ bool alias_ptr_types_compatible_p (tree, tree);
+ int compare_base_decls (tree, tree);
+ bool refs_same_for_tbaa_p (tree, tree);
++bool mems_same_for_tbaa_p (rtx, rtx);
+ 
+ /* This alias set can be used to force a memory to conflict with all
+    other memories, creating a barrier across which no memory reference
+diff --git a/gcc/c/ChangeLog b/gcc/c/ChangeLog
+index ed54905e78b..0254f4e087d 100644
+--- a/gcc/c/ChangeLog
++++ b/gcc/c/ChangeLog
+@@ -1,3 +1,12 @@
++2022-09-19  Marek Polacek  <polacek@redhat.com>
++
++	Backported from master:
++	2022-09-19  Marek Polacek  <polacek@redhat.com>
++
++	PR c/106947
++	* c-typeck.cc (maybe_warn_for_null_address): Don't emit stray
++	notes.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/gcc/c/c-typeck.cc b/gcc/c/c-typeck.cc
+index e130196a3a7..0e55fd1db4b 100644
+--- a/gcc/c/c-typeck.cc
++++ b/gcc/c/c-typeck.cc
+@@ -11681,18 +11681,19 @@ maybe_warn_for_null_address (location_t loc, tree op, tree_code code)
+       || from_macro_expansion_at (loc))
+     return;
+ 
++  bool w;
+   if (code == EQ_EXPR)
+-    warning_at (loc, OPT_Waddress,
+-		"the comparison will always evaluate as %<false%> "
+-		"for the address of %qE will never be NULL",
+-		op);
++    w = warning_at (loc, OPT_Waddress,
++		    "the comparison will always evaluate as %<false%> "
++		    "for the address of %qE will never be NULL",
++		    op);
+   else
+-    warning_at (loc, OPT_Waddress,
+-		"the comparison will always evaluate as %<true%> "
+-		"for the address of %qE will never be NULL",
+-		op);
++    w = warning_at (loc, OPT_Waddress,
++		    "the comparison will always evaluate as %<true%> "
++		    "for the address of %qE will never be NULL",
++		    op);
+ 
+-  if (DECL_P (op))
++  if (w && DECL_P (op))
+     inform (DECL_SOURCE_LOCATION (op), "%qD declared here", op);
+ }
+ 
+diff --git a/gcc/cfgcleanup.cc b/gcc/cfgcleanup.cc
+index 335af4911bb..446718d5ecf 100644
+--- a/gcc/cfgcleanup.cc
++++ b/gcc/cfgcleanup.cc
+@@ -208,7 +208,7 @@ mark_effect (rtx exp, regset nonequal)
+       return false;
+ 
+     case SET:
+-      if (rtx_equal_for_cselib_p (SET_DEST (exp), SET_SRC (exp)))
++      if (cselib_redundant_set_p (exp))
+ 	return false;
+       dest = SET_DEST (exp);
+       if (dest == pc_rtx)
+diff --git a/gcc/config/aarch64/aarch64-sve.md b/gcc/config/aarch64/aarch64-sve.md
+index bd60e65b0c3..e08bee197d8 100644
+--- a/gcc/config/aarch64/aarch64-sve.md
++++ b/gcc/config/aarch64/aarch64-sve.md
+@@ -8231,7 +8231,7 @@
+ 	        [(match_operand:<VPRED> 1)
+ 	         (const_int SVE_KNOWN_PTRUE)
+ 	         (match_operand:SVE_FULL_F 2 "register_operand" "w")
+-	         (match_operand:SVE_FULL_F 3 "aarch64_simd_reg_or_zero" "wDz")]
++	         (match_operand:SVE_FULL_F 3 "register_operand" "w")]
+ 	        UNSPEC_COND_FCMUO))
+ 	    (match_operand:<VPRED> 4 "register_operand" "Upa"))
+ 	  (match_dup:<VPRED> 1)))
+@@ -8267,7 +8267,7 @@
+ 	        [(match_operand:<VPRED> 1)
+ 	         (const_int SVE_KNOWN_PTRUE)
+ 	         (match_operand:SVE_FULL_F 2 "register_operand" "w")
+-	         (match_operand:SVE_FULL_F 3 "aarch64_simd_reg_or_zero" "wDz")]
++	         (match_operand:SVE_FULL_F 3 "register_operand" "w")]
+ 	        UNSPEC_COND_FCMUO))
+ 	    (not:<VPRED>
+ 	      (match_operand:<VPRED> 4 "register_operand" "Upa")))
+diff --git a/gcc/config/aarch64/aarch64.cc b/gcc/config/aarch64/aarch64.cc
+index 5c9e7791a12..ac1153e31af 100644
+--- a/gcc/config/aarch64/aarch64.cc
++++ b/gcc/config/aarch64/aarch64.cc
+@@ -16677,7 +16677,8 @@ aarch64_vector_costs::prefer_unrolled_loop () const
+ 
+   if (dump_enabled_p ())
+     dump_printf_loc (MSG_NOTE, vect_location, "Number of insns in"
+-		     " unrolled Advanced SIMD loop = %d\n",
++		     " unrolled Advanced SIMD loop = "
++		     HOST_WIDE_INT_PRINT_UNSIGNED "\n",
+ 		     m_unrolled_advsimd_stmts);
+ 
+   /* The balance here is tricky.  On the one hand, we can't be sure whether
+diff --git a/gcc/config/arm/mve.md b/gcc/config/arm/mve.md
+index 369d7a79f6c..f16991c0a34 100644
+--- a/gcc/config/arm/mve.md
++++ b/gcc/config/arm/mve.md
+@@ -10462,7 +10462,7 @@
+ )
+ 
+ (define_insn "*movmisalign<mode>_mve_store"
+-  [(set (match_operand:MVE_VLD_ST 0 "neon_permissive_struct_operand"	     "=Ux")
++  [(set (match_operand:MVE_VLD_ST 0 "mve_memory_operand"	     "=Ux")
+ 	(unspec:MVE_VLD_ST [(match_operand:MVE_VLD_ST 1 "s_register_operand" " w")]
+ 	 UNSPEC_MISALIGNED_ACCESS))]
+   "((TARGET_HAVE_MVE && VALID_MVE_SI_MODE (<MODE>mode))
+@@ -10475,7 +10475,7 @@
+ 
+ (define_insn "*movmisalign<mode>_mve_load"
+   [(set (match_operand:MVE_VLD_ST 0 "s_register_operand"				 "=w")
+-	(unspec:MVE_VLD_ST [(match_operand:MVE_VLD_ST 1 "neon_permissive_struct_operand" " Ux")]
++	(unspec:MVE_VLD_ST [(match_operand:MVE_VLD_ST 1 "mve_memory_operand" " Ux")]
+ 	 UNSPEC_MISALIGNED_ACCESS))]
+   "((TARGET_HAVE_MVE && VALID_MVE_SI_MODE (<MODE>mode))
+     || (TARGET_HAVE_MVE_FLOAT && VALID_MVE_SF_MODE (<MODE>mode)))
+diff --git a/gcc/config/arm/vec-common.md b/gcc/config/arm/vec-common.md
+index fd878cba22d..1fd68f3ac43 100644
+--- a/gcc/config/arm/vec-common.md
++++ b/gcc/config/arm/vec-common.md
+@@ -280,29 +280,81 @@
+   DONE;
+ })
+ 
+-(define_expand "movmisalign<mode>"
+- [(set (match_operand:VDQ 0 "neon_perm_struct_or_reg_operand")
+-	(unspec:VDQ [(match_operand:VDQ 1 "neon_perm_struct_or_reg_operand")]
++(define_expand "@movmisalign<mode>"
++ [(set (match_operand:VDQ 0 "nonimmediate_operand")
++	(unspec:VDQ [(match_operand:VDQ 1 "general_operand")]
+ 	 UNSPEC_MISALIGNED_ACCESS))]
+  "ARM_HAVE_<MODE>_LDST && !BYTES_BIG_ENDIAN
+   && unaligned_access && !TARGET_REALLY_IWMMXT"
+ {
+- rtx adjust_mem;
+- /* This pattern is not permitted to fail during expansion: if both arguments
+-    are non-registers (e.g. memory := constant, which can be created by the
+-    auto-vectorizer), force operand 1 into a register.  */
+- if (!s_register_operand (operands[0], <MODE>mode)
+-     && !s_register_operand (operands[1], <MODE>mode))
+-   operands[1] = force_reg (<MODE>mode, operands[1]);
+-
+- if (s_register_operand (operands[0], <MODE>mode))
+-   adjust_mem = operands[1];
+- else
+-   adjust_mem = operands[0];
+-
+- /* Legitimize address.  */
+- if (!neon_vector_mem_operand (adjust_mem, 2, true))
+-   XEXP (adjust_mem, 0) = force_reg (Pmode, XEXP (adjust_mem, 0));
++  rtx *memloc;
++  bool for_store = false;
++  /* This pattern is not permitted to fail during expansion: if both arguments
++     are non-registers (e.g. memory := constant, which can be created by the
++     auto-vectorizer), force operand 1 into a register.  */
++  if (!s_register_operand (operands[0], <MODE>mode)
++      && !s_register_operand (operands[1], <MODE>mode))
++    operands[1] = force_reg (<MODE>mode, operands[1]);
++
++  if (s_register_operand (operands[0], <MODE>mode))
++    memloc = &operands[1];
++  else
++    {
++      memloc = &operands[0];
++      for_store = true;
++    }
++
++  /* For MVE, vector loads/stores must be aligned to the element size.  If the
++     alignment is less than that convert the load/store to a suitable mode.  */
++  if (TARGET_HAVE_MVE
++      && (MEM_ALIGN (*memloc)
++	  < GET_MODE_ALIGNMENT (GET_MODE_INNER (<MODE>mode))))
++    {
++      scalar_mode new_smode;
++      switch (MEM_ALIGN (*memloc))
++	{
++	case 64:
++	case 32:
++	  new_smode = SImode;
++	  break;
++	case 16:
++	  new_smode = HImode;
++	  break;
++	default:
++	  new_smode = QImode;
++	  break;
++	}
++      machine_mode new_mode
++	= mode_for_vector (new_smode,
++			   GET_MODE_SIZE (<MODE>mode)
++			   / GET_MODE_SIZE (new_smode)).require ();
++      rtx new_mem = adjust_address (*memloc, new_mode, 0);
++
++      if (!for_store)
++	{
++	  rtx reg = gen_reg_rtx (new_mode);
++	  emit_insn (gen_movmisalign (new_mode, reg, new_mem));
++	  emit_move_insn (operands[0], gen_lowpart (<MODE>mode, reg));
++	  DONE;
++	}
++      emit_insn (gen_movmisalign (new_mode, new_mem,
++				  gen_lowpart (new_mode, operands[1])));
++      DONE;
++    }
++
++  /* Legitimize address.  */
++  if ((TARGET_HAVE_MVE
++       && !mve_vector_mem_operand (<MODE>mode, XEXP (*memloc, 0), false))
++      || (!TARGET_HAVE_MVE
++	  && !neon_vector_mem_operand (*memloc, 2, false)))
++    {
++      rtx new_mem
++	= replace_equiv_address (*memloc,
++				 force_reg (Pmode, XEXP (*memloc, 0)),
++				 false);
++      gcc_assert (MEM_ALIGN (new_mem) == MEM_ALIGN (*memloc));
++      *memloc = new_mem;
++    }
+ })
+ 
+ (define_insn "mve_vshlq_<supf><mode>"
+diff --git a/gcc/config/gcn/mkoffload.cc b/gcc/config/gcn/mkoffload.cc
+index 94ba7ffa5af..a8b1b6e05c2 100644
+--- a/gcc/config/gcn/mkoffload.cc
++++ b/gcc/config/gcn/mkoffload.cc
+@@ -1082,6 +1082,7 @@ main (int argc, char **argv)
+ 		    }
+ 		  else
+ 		    dbgobj = make_temp_file (".mkoffload.dbg.o");
++		  obstack_ptr_grow (&files_to_cleanup, dbgobj);
+ 
+ 		  /* If the copy fails then just ignore it.  */
+ 		  if (copy_early_debug_info (argv[ix], dbgobj))
+diff --git a/gcc/config/i386/amxtileintrin.h b/gcc/config/i386/amxtileintrin.h
+index 7b5a39eba72..06f18aa9bfb 100644
+--- a/gcc/config/i386/amxtileintrin.h
++++ b/gcc/config/i386/amxtileintrin.h
+@@ -62,7 +62,7 @@ _tile_release (void)
+ #define _tile_loadd_internal(dst,base,stride)				\
+   __asm__ volatile							\
+   ("{tileloadd\t(%0,%1,1), %%tmm"#dst"|tileloadd\t%%tmm"#dst", [%0+%1*1]}" \
+-   :: "r" ((const void*) (base)), "r" ((long) (stride)))
++   :: "r" ((const void*) (base)), "r" ((__PTRDIFF_TYPE__) (stride)))
+ 
+ #define _tile_stream_loadd(dst,base,stride)		\
+   _tile_stream_loadd_internal (dst, base, stride)
+@@ -70,7 +70,7 @@ _tile_release (void)
+ #define _tile_stream_loadd_internal(dst,base,stride)			\
+   __asm__ volatile							\
+   ("{tileloaddt1\t(%0,%1,1), %%tmm"#dst"|tileloaddt1\t%%tmm"#dst", [%0+%1*1]}" \
+-   :: "r" ((const void*) (base)), "r" ((long) (stride)))
++   :: "r" ((const void*) (base)), "r" ((__PTRDIFF_TYPE__) (stride)))
+ 
+ #define _tile_stored(dst,base,stride)		\
+   _tile_stored_internal (dst, base, stride)
+@@ -78,7 +78,7 @@ _tile_release (void)
+ #define _tile_stored_internal(src,base,stride)				\
+   __asm__ volatile							\
+   ("{tilestored\t%%tmm"#src", (%0,%1,1)|tilestored\t[%0+%1*1], %%tmm"#src"}" \
+-   :: "r" ((void*) (base)), "r" ((long) (stride)) \
++   :: "r" ((void*) (base)), "r" ((__PTRDIFF_TYPE__) (stride)) \
+    : "memory")
+ 
+ #define _tile_zero(dst)				\
+diff --git a/gcc/config/i386/i386-builtin.def b/gcc/config/i386/i386-builtin.def
+index b410102614d..bdd378ffda0 100644
+--- a/gcc/config/i386/i386-builtin.def
++++ b/gcc/config/i386/i386-builtin.def
+@@ -1036,8 +1036,8 @@ BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_avx_vpermilvarv8sf3, "__builtin_ia32_vpe
+ 
+ BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_avx_blendpd256, "__builtin_ia32_blendpd256", IX86_BUILTIN_BLENDPD256, UNKNOWN, (int) V4DF_FTYPE_V4DF_V4DF_INT)
+ BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_avx_blendps256, "__builtin_ia32_blendps256", IX86_BUILTIN_BLENDPS256, UNKNOWN, (int) V8SF_FTYPE_V8SF_V8SF_INT)
+-BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_nothing, "__builtin_ia32_blendvpd256", IX86_BUILTIN_BLENDVPD256, UNKNOWN, (int) V4DF_FTYPE_V4DF_V4DF_V4DF)
+-BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_nothing, "__builtin_ia32_blendvps256", IX86_BUILTIN_BLENDVPS256, UNKNOWN, (int) V8SF_FTYPE_V8SF_V8SF_V8SF)
++BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_avx_blendvpd256, "__builtin_ia32_blendvpd256", IX86_BUILTIN_BLENDVPD256, UNKNOWN, (int) V4DF_FTYPE_V4DF_V4DF_V4DF)
++BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_avx_blendvps256, "__builtin_ia32_blendvps256", IX86_BUILTIN_BLENDVPS256, UNKNOWN, (int) V8SF_FTYPE_V8SF_V8SF_V8SF)
+ BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_avx_dpps256, "__builtin_ia32_dpps256", IX86_BUILTIN_DPPS256, UNKNOWN, (int) V8SF_FTYPE_V8SF_V8SF_INT)
+ BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_avx_shufpd256, "__builtin_ia32_shufpd256", IX86_BUILTIN_SHUFPD256, UNKNOWN, (int) V4DF_FTYPE_V4DF_V4DF_INT)
+ BDESC (OPTION_MASK_ISA_AVX, 0, CODE_FOR_avx_shufps256, "__builtin_ia32_shufps256", IX86_BUILTIN_SHUFPS256, UNKNOWN, (int) V8SF_FTYPE_V8SF_V8SF_INT)
+diff --git a/gcc/config/i386/i386.cc b/gcc/config/i386/i386.cc
+index 9dd9fa68722..a9ef291c514 100644
+--- a/gcc/config/i386/i386.cc
++++ b/gcc/config/i386/i386.cc
+@@ -18351,6 +18351,15 @@ ix86_gimple_fold_builtin (gimple_stmt_iterator *gsi)
+ 	}
+       break;
+ 
++    case IX86_BUILTIN_PBLENDVB256:
++    case IX86_BUILTIN_BLENDVPS256:
++    case IX86_BUILTIN_BLENDVPD256:
++      /* pcmpeqb/d/q is under avx2, w/o avx2, it's veclower
++	 to scalar operations and not combined back.  */
++      if (!TARGET_AVX2)
++	break;
++
++      /* FALLTHRU.  */
+     case IX86_BUILTIN_BLENDVPD:
+       /* blendvpd is under sse4.1 but pcmpgtq is under sse4.2,
+ 	 w/o sse4.2, it's veclowered to scalar operations and
+@@ -18359,10 +18368,7 @@ ix86_gimple_fold_builtin (gimple_stmt_iterator *gsi)
+ 	break;
+       /* FALLTHRU.  */
+     case IX86_BUILTIN_PBLENDVB128:
+-    case IX86_BUILTIN_PBLENDVB256:
+     case IX86_BUILTIN_BLENDVPS:
+-    case IX86_BUILTIN_BLENDVPS256:
+-    case IX86_BUILTIN_BLENDVPD256:
+       gcc_assert (n_args == 3);
+       arg0 = gimple_call_arg (stmt, 0);
+       arg1 = gimple_call_arg (stmt, 1);
+diff --git a/gcc/config/i386/sse.md b/gcc/config/i386/sse.md
+index 2ce1aed4ad9..407bcd8f837 100644
+--- a/gcc/config/i386/sse.md
++++ b/gcc/config/i386/sse.md
+@@ -1215,7 +1215,7 @@
+ ;; For 256-bit modes for TARGET_AVX512VL && TARGET_AVX512DQ
+ ;; i32x4, f32x4, i64x2 or f64x2 suffixes.
+ (define_mode_attr i128vldq
+-  [(V8SF "f32x4") (V4DF "f64x2")
++  [(V16HF "i32x4") (V8SF "f32x4") (V4DF "f64x2")
+    (V32QI "i32x4") (V16HI "i32x4") (V8SI "i32x4") (V4DI "i64x2")])
+ 
+ ;; Mix-n-match
+@@ -23424,7 +23424,7 @@
+ 	  (match_operand:VF_128 2 "register_operand" "v")
+ 	  (const_int 1)))]
+   "TARGET_AVX512ER"
+-  "vrcp28<ssescalarmodesuffix>\t{<round_saeonly_mask_op3>%1, %2, %0<mask_operand3>|<mask_opernad3>%0, %2, %<iptr>1<round_saeonly_mask_op3>}"
++  "vrcp28<ssescalarmodesuffix>\t{<round_saeonly_mask_op3>%1, %2, %0<mask_operand3>|<mask_operand3>%0, %2, %<iptr>1<round_saeonly_mask_op3>}"
+   [(set_attr "length_immediate" "1")
+    (set_attr "prefix" "evex")
+    (set_attr "type" "sse")
+diff --git a/gcc/config/loongarch/loongarch.cc b/gcc/config/loongarch/loongarch.cc
+index 5c9a33c14f7..22901cb6101 100644
+--- a/gcc/config/loongarch/loongarch.cc
++++ b/gcc/config/loongarch/loongarch.cc
+@@ -1507,8 +1507,8 @@ loongarch_build_integer (struct loongarch_integer_op *codes,
+       bool lu32i[2] = {(value & LU32I_B) == 0, (value & LU32I_B) == LU32I_B};
+       bool lu52i[2] = {(value & LU52I_B) == 0, (value & LU52I_B) == LU52I_B};
+ 
+-      int sign31 = (value & (1UL << 31)) >> 31;
+-      int sign51 = (value & (1UL << 51)) >> 51;
++      int sign31 = (value & (HOST_WIDE_INT_1U << 31)) >> 31;
++      int sign51 = (value & (HOST_WIDE_INT_1U << 51)) >> 51;
+       /* Determine whether the upper 32 bits are sign-extended from the lower
+ 	 32 bits. If it is, the instructions to load the high order can be
+ 	 ommitted.  */
+@@ -1529,7 +1529,7 @@ loongarch_build_integer (struct loongarch_integer_op *codes,
+ 
+       /* Determine whether the 52-61 bits are sign-extended from the low order,
+ 	 and if not, load the 52-61 bits.  */
+-      if (!lu52i[(value & (1ULL << 51)) >> 51])
++      if (!lu52i[(value & (HOST_WIDE_INT_1U << 51)) >> 51])
+ 	{
+ 	  codes[cost].method = METHOD_LU52I;
+ 	  codes[cost].value = value & LU52I_B;
+diff --git a/gcc/config/loongarch/loongarch.h b/gcc/config/loongarch/loongarch.h
+index f9de9a6e4fb..015d70c469c 100644
+--- a/gcc/config/loongarch/loongarch.h
++++ b/gcc/config/loongarch/loongarch.h
+@@ -561,7 +561,8 @@ enum reg_class
+   64, 65, 66, 67, 68, 69, 70, 71, 72, 73}
+ 
+ #define IMM_BITS 12
+-#define IMM_REACH (1LL << IMM_BITS)
++#define IMM_REACH (HOST_WIDE_INT_1 << IMM_BITS)
++#define HWIT_1U HOST_WIDE_INT_1U
+ 
+ /* True if VALUE is an unsigned 6-bit number.  */
+ 
+@@ -589,18 +590,20 @@ enum reg_class
+ /* True if VALUE can be loaded into a register using LU12I.  */
+ 
+ #define LU12I_OPERAND(VALUE) \
+-  (((VALUE) | ((1UL << 31) - IMM_REACH)) == ((1UL << 31) - IMM_REACH) \
+-   || ((VALUE) | ((1UL << 31) - IMM_REACH)) + IMM_REACH == 0)
++  (((VALUE) | ((HWIT_1U << 31) - IMM_REACH)) == ((HWIT_1U << 31) - IMM_REACH) \
++   || ((VALUE) | ((HWIT_1U << 31) - IMM_REACH)) + IMM_REACH == 0)
+ 
+ /* True if VALUE can be loaded into a register using LU32I.  */
+ 
+ #define LU32I_OPERAND(VALUE) \
+-  (((VALUE) | (((1ULL << 19) - 1) << 32)) == (((1ULL << 19) - 1) << 32) \
+-   || ((VALUE) | (((1ULL << 19) - 1) << 32)) + (1ULL << 32) == 0)
++  (((VALUE) | (((HWIT_1U << 19) - 1) << 32)) == (((HWIT_1U << 19) - 1) << 32) \
++   || ((VALUE) | (((HWIT_1U << 19) - 1) << 32)) + (HWIT_1U << 32) == 0)
+ 
+ /* True if VALUE can be loaded into a register using LU52I.  */
+ 
+-#define LU52I_OPERAND(VALUE) (((VALUE) | (0xfffULL << 52)) == (0xfffULL << 52))
++#define HWIT_UC_0xFFF HOST_WIDE_INT_UC(0xfff)
++#define LU52I_OPERAND(VALUE) \
++  (((VALUE) | (HWIT_UC_0xFFF << 52)) == (HWIT_UC_0xFFF << 52))
+ 
+ /* Return a value X with the low 12 bits clear, and such that
+    VALUE - X is a signed 12-bit value.  */
+diff --git a/gcc/config/rs6000/mma.md b/gcc/config/rs6000/mma.md
+index a183b6a168a..032f4263cb0 100644
+--- a/gcc/config/rs6000/mma.md
++++ b/gcc/config/rs6000/mma.md
+@@ -268,10 +268,25 @@
+ (define_expand "movoo"
+   [(set (match_operand:OO 0 "nonimmediate_operand")
+ 	(match_operand:OO 1 "input_operand"))]
+-  "TARGET_MMA"
++  ""
+ {
+-  rs6000_emit_move (operands[0], operands[1], OOmode);
+-  DONE;
++  if (TARGET_MMA)
++    {
++      rs6000_emit_move (operands[0], operands[1], OOmode);
++      DONE;
++    }
++  else if (currently_expanding_to_rtl && seen_error ())
++    {
++      /* PR103353 shows we may want to continue to expand the __builtin_vsx_lxvp
++	 built-in function, even if we have already emitted error messages about
++	 some missing required conditions.  As shown in that PR, without one
++	 explicit mov optab on OOmode provided, it would call emit_move_insn
++	 recursively.  So we allow this pattern to be generated when we are
++	 expanding to RTL and have seen errors.  It would not cause further ICEs
++	 as the compilation would stop soon after expanding.  */
++    }
++  else
++    gcc_unreachable ();
+ })
+ 
+ (define_insn_and_split "*movoo"
+@@ -300,10 +315,22 @@
+ (define_expand "movxo"
+   [(set (match_operand:XO 0 "nonimmediate_operand")
+ 	(match_operand:XO 1 "input_operand"))]
+-  "TARGET_MMA"
++  ""
+ {
+-  rs6000_emit_move (operands[0], operands[1], XOmode);
+-  DONE;
++  if (TARGET_MMA)
++    {
++      rs6000_emit_move (operands[0], operands[1], XOmode);
++      DONE;
++    }
++  else if (currently_expanding_to_rtl && seen_error ())
++    {
++      /* PR103353 shows we may want to continue to expand the __builtin_vsx_lxvp
++	 built-in function, even if we have already emitted error messages about
++	 some missing required conditions.  So do the same handlings for XOmode
++	 as OOmode here.  */
++    }
++  else
++    gcc_unreachable ();
+ })
+ 
+ (define_insn_and_split "*movxo"
+diff --git a/gcc/config/rs6000/rs6000-builtin.cc b/gcc/config/rs6000/rs6000-builtin.cc
+index e925ba9fad9..15370e45e65 100644
+--- a/gcc/config/rs6000/rs6000-builtin.cc
++++ b/gcc/config/rs6000/rs6000-builtin.cc
+@@ -1121,7 +1121,12 @@ rs6000_gimple_fold_mma_builtin (gimple_stmt_iterator *gsi,
+       unsigned nvec = (fncode == RS6000_BIF_DISASSEMBLE_ACC) ? 4 : 2;
+       tree dst_ptr = gimple_call_arg (stmt, 0);
+       tree src_ptr = gimple_call_arg (stmt, 1);
+-      tree src_type = TREE_TYPE (src_ptr);
++      tree src_type = (fncode == RS6000_BIF_DISASSEMBLE_ACC)
++		      ? build_pointer_type (vector_quad_type_node)
++		      : build_pointer_type (vector_pair_type_node);
++      if (TREE_TYPE (src_ptr) != src_type)
++	src_ptr = build1 (NOP_EXPR, src_type, src_ptr);
++
+       tree src = create_tmp_reg_or_ssa_name (TREE_TYPE (src_type));
+       gimplify_assign (src, build_simple_mem_ref (src_ptr), &new_seq);
+ 
+diff --git a/gcc/config/rs6000/rs6000.cc b/gcc/config/rs6000/rs6000.cc
+index 1aadd2b96b8..e382f5f1135 100644
+--- a/gcc/config/rs6000/rs6000.cc
++++ b/gcc/config/rs6000/rs6000.cc
+@@ -28287,28 +28287,6 @@ rs6000_invalid_conversion (const_tree fromtype, const_tree totype)
+       if (tomode == OOmode)
+ 	return N_("invalid conversion to type %<__vector_pair%>");
+     }
+-  else if (POINTER_TYPE_P (fromtype) && POINTER_TYPE_P (totype))
+-    {
+-      /* We really care about the modes of the base types.  */
+-      frommode = TYPE_MODE (TREE_TYPE (fromtype));
+-      tomode = TYPE_MODE (TREE_TYPE (totype));
+-
+-      /* Do not allow conversions to/from XOmode and OOmode pointer
+-	 types, except to/from void pointers.  */
+-      if (frommode != tomode
+-	  && frommode != VOIDmode
+-	  && tomode != VOIDmode)
+-	{
+-	  if (frommode == XOmode)
+-	    return N_("invalid conversion from type %<* __vector_quad%>");
+-	  if (tomode == XOmode)
+-	    return N_("invalid conversion to type %<* __vector_quad%>");
+-	  if (frommode == OOmode)
+-	    return N_("invalid conversion from type %<* __vector_pair%>");
+-	  if (tomode == OOmode)
+-	    return N_("invalid conversion to type %<* __vector_pair%>");
+-	}
+-    }
+ 
+   /* Conversion allowed.  */
+   return NULL;
+diff --git a/gcc/config/rs6000/rtems.h b/gcc/config/rs6000/rtems.h
+index d529e22f7de..84370150dc4 100644
+--- a/gcc/config/rs6000/rtems.h
++++ b/gcc/config/rs6000/rtems.h
+@@ -255,7 +255,8 @@
+ %{mcpu=821:  %{!Dppc*: %{!Dmpc*: -Dmpc821}  } } \
+ %{mcpu=860:  %{!Dppc*: %{!Dmpc*: -Dmpc860}  } } \
+ %{mcpu=8540: %{!Dppc*: %{!Dmpc*: -Dppc8540}  } } \
+-%{mcpu=e6500: -D__PPC_CPU_E6500__}"
++%{mcpu=e6500: -D__PPC_CPU_E6500__} \
++%{mvrsave: -D__PPC_VRSAVE__}"
+ 
+ #undef	ASM_SPEC
+ #define	ASM_SPEC "%{!m64:%(asm_spec32)}%{m64:%(asm_spec64)} %(asm_spec_common)"
+diff --git a/gcc/config/rs6000/t-rtems b/gcc/config/rs6000/t-rtems
+index 4f8c147be3e..9da2da6154b 100644
+--- a/gcc/config/rs6000/t-rtems
++++ b/gcc/config/rs6000/t-rtems
+@@ -36,6 +36,9 @@ MULTILIB_DIRNAMES += nof
+ MULTILIB_OPTIONS += mno-altivec
+ MULTILIB_DIRNAMES += noaltivec
+ 
++MULTILIB_OPTIONS += mvrsave
++MULTILIB_DIRNAMES += vrsave
++
+ MULTILIB_MATCHES  	+= ${MULTILIB_MATCHES_ENDIAN}
+ MULTILIB_MATCHES	+= ${MULTILIB_MATCHES_SYSV}
+ # Map 405 to 403
+@@ -70,5 +73,7 @@ MULTILIB_REQUIRED += mcpu=7400/msoft-float
+ MULTILIB_REQUIRED += mcpu=8540/msoft-float
+ MULTILIB_REQUIRED += mcpu=860
+ MULTILIB_REQUIRED += mcpu=e6500/m32
++MULTILIB_REQUIRED += mcpu=e6500/m32/mvrsave
+ MULTILIB_REQUIRED += mcpu=e6500/m32/msoft-float/mno-altivec
+ MULTILIB_REQUIRED += mcpu=e6500/m64
++MULTILIB_REQUIRED += mcpu=e6500/m64/mvrsave
+diff --git a/gcc/cp/ChangeLog b/gcc/cp/ChangeLog
+index dc03a2518f3..3a5e7f4c3fe 100644
+--- a/gcc/cp/ChangeLog
++++ b/gcc/cp/ChangeLog
+@@ -1,3 +1,35 @@
++2022-09-12  Jason Merrill  <jason@redhat.com>
++
++	PR c++/93259
++	* pt.cc (type_dependent_expression_p): Treat a compound
++	literal of array-of-unknown-bound type like a variable.
++
++2022-09-12  Jason Merrill  <jason@redhat.com>
++
++	PR c++/106893
++	PR c++/90451
++	* decl.cc (cp_finish_decl): Call mark_single_function.
++
++2022-08-30  Marek Polacek  <polacek@redhat.com>
++
++	Backported from master:
++	2022-08-30  Marek Polacek  <polacek@redhat.com>
++
++	PR c++/106759
++	* cp-objcp-common.cc (names_builtin_p): Handle RID_IS_NOTHROW_ASSIGNABLE
++	and RID_IS_NOTHROW_CONSTRUCTIBLE.
++
++2022-08-29  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-08-16  Jakub Jelinek  <jakub@redhat.com>
++
++	* typeck.cc (cp_build_modify_expr): Implement
++	P2327R1 - De-deprecating volatile compound operations.  Don't warn
++	for |=, &= or ^= with volatile lhs.
++	* expr.cc (mark_use) <case MODIFY_EXPR>: Adjust warning wording,
++	leave out simple.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/gcc/cp/cp-objcp-common.cc b/gcc/cp/cp-objcp-common.cc
+index 0b70d5567e4..f40fd588176 100644
+--- a/gcc/cp/cp-objcp-common.cc
++++ b/gcc/cp/cp-objcp-common.cc
+@@ -460,6 +460,8 @@ names_builtin_p (const char *name)
+     case RID_IS_UNION:
+     case RID_IS_ASSIGNABLE:
+     case RID_IS_CONSTRUCTIBLE:
++    case RID_IS_NOTHROW_ASSIGNABLE:
++    case RID_IS_NOTHROW_CONSTRUCTIBLE:
+     case RID_UNDERLYING_TYPE:
+       return true;
+     default:
+diff --git a/gcc/cp/decl.cc b/gcc/cp/decl.cc
+index 9f78c500a15..cd1522f9a9f 100644
+--- a/gcc/cp/decl.cc
++++ b/gcc/cp/decl.cc
+@@ -8137,6 +8137,9 @@ cp_finish_decl (tree decl, tree init, bool init_const_expr_p,
+ 	    d_init = build_x_compound_expr_from_list (d_init, ELK_INIT,
+ 						      tf_warning_or_error);
+ 	  d_init = resolve_nondeduced_context (d_init, tf_warning_or_error);
++	  /* Force auto deduction now.  Use tf_none to avoid redundant warnings
++	     on deprecated-14.C.  */
++	  mark_single_function (d_init, tf_none);
+ 	}
+       enum auto_deduction_context adc = adc_variable_type;
+       if (VAR_P (decl) && DECL_DECOMPOSITION_P (decl))
+diff --git a/gcc/cp/expr.cc b/gcc/cp/expr.cc
+index 56fc11f425b..f3e155b7ba3 100644
+--- a/gcc/cp/expr.cc
++++ b/gcc/cp/expr.cc
+@@ -220,7 +220,7 @@ mark_use (tree expr, bool rvalue_p, bool read_p,
+     case MODIFY_EXPR:
+ 	{
+ 	  tree lhs = TREE_OPERAND (expr, 0);
+-	  /* [expr.ass] "A simple assignment whose left operand is of
++	  /* [expr.ass] "An assignment whose left operand is of
+ 	     a volatile-qualified type is deprecated unless the assignment
+ 	     is either a discarded-value expression or appears in an
+ 	     unevaluated context."  */
+@@ -230,7 +230,7 @@ mark_use (tree expr, bool rvalue_p, bool read_p,
+ 	      && !TREE_THIS_VOLATILE (expr))
+ 	    {
+ 	      if (warning_at (location_of (expr), OPT_Wvolatile,
+-			      "using value of simple assignment with "
++			      "using value of assignment with "
+ 			      "%<volatile%>-qualified left operand is "
+ 			      "deprecated"))
+ 		/* Make sure not to warn about this assignment again.  */
+diff --git a/gcc/cp/pt.cc b/gcc/cp/pt.cc
+index bef31416fb7..2f3cbf4895d 100644
+--- a/gcc/cp/pt.cc
++++ b/gcc/cp/pt.cc
+@@ -27952,11 +27952,11 @@ type_dependent_expression_p (tree expression)
+      If the array has no length and has an initializer, it must be that
+      we couldn't determine its length in cp_complete_array_type because
+      it is dependent.  */
+-  if (VAR_P (expression)
++  if (((VAR_P (expression) && DECL_INITIAL (expression))
++       || COMPOUND_LITERAL_P (expression))
+       && TREE_TYPE (expression) != NULL_TREE
+       && TREE_CODE (TREE_TYPE (expression)) == ARRAY_TYPE
+-      && !TYPE_DOMAIN (TREE_TYPE (expression))
+-      && DECL_INITIAL (expression))
++      && !TYPE_DOMAIN (TREE_TYPE (expression)))
+    return true;
+ 
+   /* Pull a FUNCTION_DECL out of a BASELINK if we can.  */
+diff --git a/gcc/cp/typeck.cc b/gcc/cp/typeck.cc
+index ceb80d9744f..341869fc550 100644
+--- a/gcc/cp/typeck.cc
++++ b/gcc/cp/typeck.cc
+@@ -9126,10 +9126,14 @@ cp_build_modify_expr (location_t loc, tree lhs, enum tree_code modifycode,
+ 
+ 	  /* An expression of the form E1 op= E2.  [expr.ass] says:
+ 	     "Such expressions are deprecated if E1 has volatile-qualified
+-	     type."  We warn here rather than in cp_genericize_r because
++	     type and op is not one of the bitwise operators |, &, ^."
++	     We warn here rather than in cp_genericize_r because
+ 	     for compound assignments we are supposed to warn even if the
+ 	     assignment is a discarded-value expression.  */
+-	  if (TREE_THIS_VOLATILE (lhs) || CP_TYPE_VOLATILE_P (lhstype))
++	  if (modifycode != BIT_AND_EXPR
++	      && modifycode != BIT_IOR_EXPR
++	      && modifycode != BIT_XOR_EXPR
++	      && (TREE_THIS_VOLATILE (lhs) || CP_TYPE_VOLATILE_P (lhstype)))
+ 	    warning_at (loc, OPT_Wvolatile,
+ 			"compound assignment with %<volatile%>-qualified left "
+ 			"operand is deprecated");
+diff --git a/gcc/cselib.cc b/gcc/cselib.cc
+index 6769beeeaf8..6a5609786fa 100644
+--- a/gcc/cselib.cc
++++ b/gcc/cselib.cc
+@@ -32,6 +32,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "dumpfile.h"
+ #include "cselib.h"
+ #include "function-abi.h"
++#include "alias.h"
+ 
+ /* A list of cselib_val structures.  */
+ struct elt_list
+@@ -1157,6 +1158,75 @@ rtx_equal_for_cselib_1 (rtx x, rtx y, machine_mode memmode, int depth)
+   return 1;
+ }
+ 
++/* Wrapper for rtx_equal_for_cselib_p to determine whether a SET is
++   truly redundant, taking into account aliasing information.  */
++bool
++cselib_redundant_set_p (rtx set)
++{
++  gcc_assert (GET_CODE (set) == SET);
++  rtx dest = SET_DEST (set);
++  if (cselib_reg_set_mode (dest) != GET_MODE (dest))
++    return false;
++
++  if (!rtx_equal_for_cselib_p (dest, SET_SRC (set)))
++    return false;
++
++  while (GET_CODE (dest) == SUBREG
++	 || GET_CODE (dest) == ZERO_EXTRACT
++	 || GET_CODE (dest) == STRICT_LOW_PART)
++    dest = XEXP (dest, 0);
++
++  if (!flag_strict_aliasing || !MEM_P (dest))
++    return true;
++
++  /* For a store we need to check that suppressing it will not change
++     the effective alias set.  */
++  rtx dest_addr = XEXP (dest, 0);
++
++  /* Lookup the equivalents to the original dest (rather than just the
++     MEM).  */
++  cselib_val *src_val = cselib_lookup (SET_DEST (set),
++				       GET_MODE (SET_DEST (set)),
++				       0, VOIDmode);
++
++  if (src_val)
++    {
++      /* Walk the list of source equivalents to find the MEM accessing
++	 the same location.  */
++      for (elt_loc_list *l = src_val->locs; l; l = l->next)
++	{
++	  rtx src_equiv = l->loc;
++	  while (GET_CODE (src_equiv) == SUBREG
++		 || GET_CODE (src_equiv) == ZERO_EXTRACT
++		 || GET_CODE (src_equiv) == STRICT_LOW_PART)
++	    src_equiv = XEXP (src_equiv, 0);
++
++	  if (MEM_P (src_equiv))
++	    {
++	      /* Match the MEMs by comparing the addresses.  We can
++		 only remove the later store if the earlier aliases at
++		 least all the accesses of the later one.  */
++	      if (rtx_equal_for_cselib_1 (dest_addr, XEXP (src_equiv, 0),
++					  GET_MODE (dest), 0))
++		return mems_same_for_tbaa_p (src_equiv, dest);
++	    }
++	}
++    }
++
++  /* We failed to find a recorded value in the cselib history, so try
++     the source of this set; this catches cases such as *p = *q when p
++     and q have the same value.  */
++  rtx src = SET_SRC (set);
++  while (GET_CODE (src) == SUBREG)
++    src = XEXP (src, 0);
++
++  if (MEM_P (src)
++      && rtx_equal_for_cselib_1 (dest_addr, XEXP (src, 0), GET_MODE (dest), 0))
++    return mems_same_for_tbaa_p (src, dest);
++
++  return false;
++}
++
+ /* Helper function for cselib_hash_rtx.  Arguments like for cselib_hash_rtx,
+    except that it hashes (plus:P x c).  */
+ 
+diff --git a/gcc/cselib.h b/gcc/cselib.h
+index 9ae65e6459e..b0905053ea5 100644
+--- a/gcc/cselib.h
++++ b/gcc/cselib.h
+@@ -83,6 +83,7 @@ extern void cselib_process_insn (rtx_insn *);
+ extern bool fp_setter_insn (rtx_insn *);
+ extern machine_mode cselib_reg_set_mode (const_rtx);
+ extern int rtx_equal_for_cselib_1 (rtx, rtx, machine_mode, int);
++extern bool cselib_redundant_set_p (rtx);
+ extern int references_value_p (const_rtx, int);
+ extern rtx cselib_expand_value_rtx (rtx, bitmap, int);
+ typedef rtx (*cselib_expand_callback)(rtx, bitmap, int, void *);
+diff --git a/gcc/dse.cc b/gcc/dse.cc
+index bb658a85959..5880b6caa9a 100644
+--- a/gcc/dse.cc
++++ b/gcc/dse.cc
+@@ -1562,12 +1562,7 @@ record_store (rtx body, bb_info_t bb_info)
+ 					 width)
+ 	      /* We can only remove the later store if the earlier aliases
+ 		 at least all accesses the later one.  */
+-	      && ((MEM_ALIAS_SET (mem) == MEM_ALIAS_SET (s_info->mem)
+-		   || alias_set_subset_of (MEM_ALIAS_SET (mem),
+-					   MEM_ALIAS_SET (s_info->mem)))
+-		  && (!MEM_EXPR (s_info->mem)
+-		      || refs_same_for_tbaa_p (MEM_EXPR (s_info->mem),
+-					       MEM_EXPR (mem)))))
++	      && mems_same_for_tbaa_p (s_info->mem, mem))
+ 	    {
+ 	      if (GET_MODE (mem) == BLKmode)
+ 		{
+diff --git a/gcc/fortran/ChangeLog b/gcc/fortran/ChangeLog
+index 97166527031..dc652e2c8a3 100644
+--- a/gcc/fortran/ChangeLog
++++ b/gcc/fortran/ChangeLog
+@@ -1,3 +1,83 @@
++2022-09-16  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-09-15  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/106857
++	* simplify.cc (gfc_simplify_pack): Check for NULL pointer dereferences
++	while walking through constructors (error recovery).
++
++2022-09-16  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	Backported from master:
++	2022-09-03  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	PR fortran/100245
++	* trans-expr.cc (trans_class_assignment): Add if clause to handle
++	derived type in the LHS.
++
++2022-09-05  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	Backported from master:
++	2022-09-04  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	PR fortran/100136
++	* trans-expr.cc (gfc_conv_procedure_call): Add handling of pointer
++	expressions.
++
++2022-08-30  Tobias Burnus  <tobias@codesourcery.com>
++
++	Backported from master:
++	2022-08-25  Tobias Burnus  <tobias@codesourcery.com>
++
++	* parse.cc (parse_omp_structured_block): When parsing strictly
++	structured blocks, issue an error if the end-directive comes
++	before the 'end block'.
++
++2022-08-29  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-08-26  Jakub Jelinek  <jakub@redhat.com>
++
++	PR fortran/106579
++	* trans-intrinsic.cc: Include realmpfr.h.
++	(conv_intrinsic_ieee_value): New function.
++	(gfc_conv_ieee_arithmetic_function): Handle ieee_value.
++
++2022-08-29  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-08-26  Jakub Jelinek  <jakub@redhat.com>
++
++	PR fortran/106579
++	* f95-lang.cc (gfc_init_builtin_functions): Initialize
++	BUILT_IN_FPCLASSIFY.
++	* libgfortran.h (IEEE_OTHER_VALUE, IEEE_SIGNALING_NAN,
++	IEEE_QUIET_NAN, IEEE_NEGATIVE_INF, IEEE_NEGATIVE_NORMAL,
++	IEEE_NEGATIVE_DENORMAL, IEEE_NEGATIVE_SUBNORMAL,
++	IEEE_NEGATIVE_ZERO, IEEE_POSITIVE_ZERO, IEEE_POSITIVE_DENORMAL,
++	IEEE_POSITIVE_SUBNORMAL, IEEE_POSITIVE_NORMAL, IEEE_POSITIVE_INF):
++	New enum.
++	* trans-intrinsic.cc (conv_intrinsic_ieee_class): New function.
++	(gfc_conv_ieee_arithmetic_function): Handle ieee_class.
++
++2022-08-26  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-08-24  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/103694
++	* simplify.cc (simplify_size): The size expression of an array cannot
++	be simplified if an error occurs while resolving the array spec.
++
++2022-08-23  Tobias Burnus  <tobias@codesourcery.com>
++
++	Backported from master:
++	2022-08-17  Tobias Burnus  <tobias@codesourcery.com>
++
++	PR fortran/106566
++	* openmp.cc (gfc_match_omp_declare_simd): Accept module procedures.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/gcc/fortran/f95-lang.cc b/gcc/fortran/f95-lang.cc
+index 1a895a25132..20c4a87c90b 100644
+--- a/gcc/fortran/f95-lang.cc
++++ b/gcc/fortran/f95-lang.cc
+@@ -1002,8 +1002,9 @@ gfc_init_builtin_functions (void)
+ 		      "__builtin_isnormal", ATTR_CONST_NOTHROW_LEAF_LIST);
+   gfc_define_builtin ("__builtin_signbit", ftype, BUILT_IN_SIGNBIT,
+ 		      "__builtin_signbit", ATTR_CONST_NOTHROW_LEAF_LIST);
++  gfc_define_builtin ("__builtin_fpclassify", ftype, BUILT_IN_FPCLASSIFY,
++		      "__builtin_fpclassify", ATTR_CONST_NOTHROW_LEAF_LIST);
+ 
+-  ftype = build_function_type (integer_type_node, NULL_TREE);
+   gfc_define_builtin ("__builtin_isless", ftype, BUILT_IN_ISLESS,
+ 		      "__builtin_isless", ATTR_CONST_NOTHROW_LEAF_LIST);
+   gfc_define_builtin ("__builtin_islessequal", ftype, BUILT_IN_ISLESSEQUAL,
+diff --git a/gcc/fortran/libgfortran.h b/gcc/fortran/libgfortran.h
+index 064795eb469..81d1e340763 100644
+--- a/gcc/fortran/libgfortran.h
++++ b/gcc/fortran/libgfortran.h
+@@ -186,3 +186,23 @@ typedef enum
+   BT_ASSUMED, BT_UNION, BT_BOZ
+ }
+ bt;
++
++/* Enumeration of the possible floating-point types. These values
++   correspond to the hidden arguments of the IEEE_CLASS_TYPE
++   derived-type of IEEE_ARITHMETIC.  */
++
++enum {
++  IEEE_OTHER_VALUE = 0,
++  IEEE_SIGNALING_NAN,
++  IEEE_QUIET_NAN,
++  IEEE_NEGATIVE_INF,
++  IEEE_NEGATIVE_NORMAL,
++  IEEE_NEGATIVE_DENORMAL,
++  IEEE_NEGATIVE_SUBNORMAL = IEEE_NEGATIVE_DENORMAL,
++  IEEE_NEGATIVE_ZERO,
++  IEEE_POSITIVE_ZERO,
++  IEEE_POSITIVE_DENORMAL,
++  IEEE_POSITIVE_SUBNORMAL = IEEE_POSITIVE_DENORMAL,
++  IEEE_POSITIVE_NORMAL,
++  IEEE_POSITIVE_INF
++};
+diff --git a/gcc/fortran/openmp.cc b/gcc/fortran/openmp.cc
+index 5018a37ec46..14f2521f1df 100644
+--- a/gcc/fortran/openmp.cc
++++ b/gcc/fortran/openmp.cc
+@@ -4027,9 +4027,13 @@ gfc_match_omp_declare_simd (void)
+   gfc_omp_declare_simd *ods;
+   bool needs_space = false;
+ 
+-  switch (gfc_match (" ( %s ) ", &proc_name))
++  switch (gfc_match (" ( "))
+     {
+-    case MATCH_YES: break;
++    case MATCH_YES:
++      if (gfc_match_symbol (&proc_name, /* host assoc = */ true) != MATCH_YES
++	  || gfc_match (" ) ") != MATCH_YES)
++	return MATCH_ERROR;
++      break;
+     case MATCH_NO: proc_name = NULL; needs_space = true; break;
+     case MATCH_ERROR: return MATCH_ERROR;
+     }
+diff --git a/gcc/fortran/parse.cc b/gcc/fortran/parse.cc
+index e6e915d2a5e..d1c72ef92e7 100644
+--- a/gcc/fortran/parse.cc
++++ b/gcc/fortran/parse.cc
+@@ -5708,7 +5708,7 @@ parse_omp_structured_block (gfc_statement omp_st, bool workshare_stmts_only)
+ 	    }
+ 	  return st;
+ 	}
+-      else if (st != omp_end_st)
++      else if (st != omp_end_st || block_construct)
+ 	{
+ 	  unexpected_statement (st);
+ 	  st = next_statement ();
+diff --git a/gcc/fortran/simplify.cc b/gcc/fortran/simplify.cc
+index 2f4f13b6a83..0eff5a546cc 100644
+--- a/gcc/fortran/simplify.cc
++++ b/gcc/fortran/simplify.cc
+@@ -6393,7 +6393,7 @@ gfc_simplify_pack (gfc_expr *array, gfc_expr *mask, gfc_expr *vector)
+       /* Copy only those elements of ARRAY to RESULT whose
+ 	 MASK equals .TRUE..  */
+       mask_ctor = gfc_constructor_first (mask->value.constructor);
+-      while (mask_ctor)
++      while (mask_ctor && array_ctor)
+ 	{
+ 	  if (mask_ctor->expr->value.logical)
+ 	    {
+@@ -7498,8 +7498,9 @@ simplify_size (gfc_expr *array, gfc_expr *dim, int k)
+     }
+ 
+   for (ref = array->ref; ref; ref = ref->next)
+-    if (ref->type == REF_ARRAY && ref->u.ar.as)
+-      gfc_resolve_array_spec (ref->u.ar.as, 0);
++    if (ref->type == REF_ARRAY && ref->u.ar.as
++	&& !gfc_resolve_array_spec (ref->u.ar.as, 0))
++      return NULL;
+ 
+   if (dim == NULL)
+     {
+diff --git a/gcc/fortran/trans-expr.cc b/gcc/fortran/trans-expr.cc
+index 850007fd2e1..7895d034610 100644
+--- a/gcc/fortran/trans-expr.cc
++++ b/gcc/fortran/trans-expr.cc
+@@ -7220,16 +7220,15 @@ gfc_conv_procedure_call (gfc_se * se, gfc_symbol * sym,
+ 	      else
+ 		goto end_pointer_check;
+ 
++	      tmp = parmse.expr;
+ 	      if (fsym && fsym->ts.type == BT_CLASS)
+ 		{
+-		  tmp = build_fold_indirect_ref_loc (input_location,
+-						      parmse.expr);
++		  if (POINTER_TYPE_P (TREE_TYPE (tmp)))
++		    tmp = build_fold_indirect_ref_loc (input_location, tmp);
+ 		  tmp = gfc_class_data_get (tmp);
+ 		  if (GFC_DESCRIPTOR_TYPE_P (TREE_TYPE (tmp)))
+ 		    tmp = gfc_conv_descriptor_data_get (tmp);
+ 		}
+-	      else
+-		tmp = parmse.expr;
+ 
+ 	      /* If the argument is passed by value, we need to strip the
+ 		 INDIRECT_REF.  */
+@@ -11436,6 +11435,9 @@ trans_class_assignment (stmtblock_t *block, gfc_expr *lhs, gfc_expr *rhs,
+       class_han = GFC_CLASS_TYPE_P (TREE_TYPE (lse->expr))
+ 	  ? gfc_class_data_get (lse->expr) : lse->expr;
+ 
++      if (!POINTER_TYPE_P (TREE_TYPE (class_han)))
++	class_han = gfc_build_addr_expr (NULL_TREE, class_han);
++
+       /* Allocate block.  */
+       gfc_init_block (&alloc);
+       gfc_allocate_using_malloc (&alloc, class_han, size, NULL_TREE);
+diff --git a/gcc/fortran/trans-intrinsic.cc b/gcc/fortran/trans-intrinsic.cc
+index 2249723540d..86e0bf9655f 100644
+--- a/gcc/fortran/trans-intrinsic.cc
++++ b/gcc/fortran/trans-intrinsic.cc
+@@ -41,6 +41,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "trans-array.h"
+ #include "dependency.h"	/* For CAF array alias analysis.  */
+ #include "attribs.h"
++#include "realmpfr.h"
+ 
+ /* Only for gfc_trans_assign and gfc_trans_pointer_assign.  */
+ 
+@@ -10008,6 +10009,220 @@ conv_intrinsic_ieee_copy_sign (gfc_se * se, gfc_expr * expr)
+ }
+ 
+ 
++/* Generate code for IEEE_CLASS.  */
++
++static bool
++conv_intrinsic_ieee_class (gfc_se *se, gfc_expr *expr)
++{
++  tree arg, c, t1, t2, t3, t4;
++
++  /* In GCC 12, handle inline only the powerpc64le-linux IEEE quad
++     real(kind=16) and nothing else.  */
++  if (gfc_type_abi_kind (&expr->value.function.actual->expr->ts) != 17)
++    return false;
++
++  /* Convert arg, evaluate it only once.  */
++  conv_ieee_function_args (se, expr, &arg, 1);
++  arg = gfc_evaluate_now (arg, &se->pre);
++
++  c = build_call_expr_loc (input_location,
++			   builtin_decl_explicit (BUILT_IN_FPCLASSIFY), 6,
++			   build_int_cst (integer_type_node, IEEE_QUIET_NAN),
++			   build_int_cst (integer_type_node,
++					  IEEE_POSITIVE_INF),
++			   build_int_cst (integer_type_node,
++					  IEEE_POSITIVE_NORMAL),
++			   build_int_cst (integer_type_node,
++					  IEEE_POSITIVE_DENORMAL),
++			   build_int_cst (integer_type_node,
++					  IEEE_POSITIVE_ZERO),
++			   arg);
++  c = gfc_evaluate_now (c, &se->pre);
++  t1 = fold_build2_loc (input_location, EQ_EXPR, logical_type_node,
++			c, build_int_cst (integer_type_node,
++					  IEEE_QUIET_NAN));
++  /* In GCC 12, we don't have __builtin_issignaling but above we made
++     sure arg is powerpc64le-linux IEEE quad real(kind=16).
++     When we check it is some kind of NaN by fpclassify, all we need
++     is check the ((__int128) 1) << 111 bit, if it is zero, it is a sNaN,
++     if it is set, it is a qNaN.  */
++  t2 = fold_build1_loc (input_location, VIEW_CONVERT_EXPR,
++			build_nonstandard_integer_type (128, 1), arg);
++  t2 = fold_build2_loc (input_location, RSHIFT_EXPR, TREE_TYPE (t2), t2,
++			build_int_cst (integer_type_node, 111));
++  t2 = fold_convert (integer_type_node, t2);
++  t2 = fold_build2_loc (input_location, BIT_AND_EXPR, integer_type_node,
++			t2, integer_one_node);
++  t2 = fold_build2_loc (input_location, EQ_EXPR, logical_type_node,
++			t2, build_zero_cst (TREE_TYPE (t2)));
++  t1 = fold_build2_loc (input_location, TRUTH_AND_EXPR,
++			logical_type_node, t1, t2);
++  t3 = fold_build2_loc (input_location, GE_EXPR, logical_type_node,
++			c, build_int_cst (integer_type_node,
++					  IEEE_POSITIVE_ZERO));
++  t4 = build_call_expr_loc (input_location,
++			    builtin_decl_explicit (BUILT_IN_SIGNBIT), 1,
++			    arg);
++  t4 = fold_build2_loc (input_location, NE_EXPR, logical_type_node,
++			t4, build_zero_cst (TREE_TYPE (t4)));
++  t3 = fold_build2_loc (input_location, TRUTH_AND_EXPR,
++			logical_type_node, t3, t4);
++  int s = IEEE_NEGATIVE_ZERO + IEEE_POSITIVE_ZERO;
++  gcc_assert (IEEE_NEGATIVE_INF == s - IEEE_POSITIVE_INF);
++  gcc_assert (IEEE_NEGATIVE_NORMAL == s - IEEE_POSITIVE_NORMAL);
++  gcc_assert (IEEE_NEGATIVE_DENORMAL == s - IEEE_POSITIVE_DENORMAL);
++  gcc_assert (IEEE_NEGATIVE_SUBNORMAL == s - IEEE_POSITIVE_SUBNORMAL);
++  gcc_assert (IEEE_NEGATIVE_ZERO == s - IEEE_POSITIVE_ZERO);
++  t4 = fold_build2_loc (input_location, MINUS_EXPR, TREE_TYPE (c),
++			build_int_cst (TREE_TYPE (c), s), c);
++  t3 = fold_build3_loc (input_location, COND_EXPR, TREE_TYPE (c),
++			t3, t4, c);
++  t1 = fold_build3_loc (input_location, COND_EXPR, TREE_TYPE (c), t1,
++			build_int_cst (TREE_TYPE (c), IEEE_SIGNALING_NAN),
++			t3);
++  tree type = gfc_typenode_for_spec (&expr->ts);
++  /* Perform a quick sanity check that the return type is
++     IEEE_CLASS_TYPE derived type defined in
++     libgfortran/ieee/ieee_arithmetic.F90
++     Primarily check that it is a derived type with a single
++     member in it.  */
++  gcc_assert (TREE_CODE (type) == RECORD_TYPE);
++  tree field = NULL_TREE;
++  for (tree f = TYPE_FIELDS (type); f != NULL_TREE; f = DECL_CHAIN (f))
++    if (TREE_CODE (f) == FIELD_DECL)
++      {
++	gcc_assert (field == NULL_TREE);
++	field = f;
++      }
++  gcc_assert (field);
++  t1 = fold_convert (TREE_TYPE (field), t1);
++  se->expr = build_constructor_single (type, field, t1);
++  return true;
++}
++
++
++/* Generate code for IEEE_VALUE.  */
++
++static bool
++conv_intrinsic_ieee_value (gfc_se *se, gfc_expr *expr)
++{
++  tree args[2], arg, ret, tmp;
++  stmtblock_t body;
++
++  /* In GCC 12, handle inline only the powerpc64le-linux IEEE quad
++     real(kind=16) and nothing else.  */
++  if (gfc_type_abi_kind (&expr->ts) != 17)
++    return false;
++
++  /* Convert args, evaluate the second one only once.  */
++  conv_ieee_function_args (se, expr, args, 2);
++  arg = gfc_evaluate_now (args[1], &se->pre);
++
++  tree type = TREE_TYPE (arg);
++  /* Perform a quick sanity check that the second argument's type is
++     IEEE_CLASS_TYPE derived type defined in
++     libgfortran/ieee/ieee_arithmetic.F90
++     Primarily check that it is a derived type with a single
++     member in it.  */
++  gcc_assert (TREE_CODE (type) == RECORD_TYPE);
++  tree field = NULL_TREE;
++  for (tree f = TYPE_FIELDS (type); f != NULL_TREE; f = DECL_CHAIN (f))
++    if (TREE_CODE (f) == FIELD_DECL)
++      {
++	gcc_assert (field == NULL_TREE);
++	field = f;
++      }
++  gcc_assert (field);
++  arg = fold_build3_loc (input_location, COMPONENT_REF, TREE_TYPE (field),
++			 arg, field, NULL_TREE);
++  arg = gfc_evaluate_now (arg, &se->pre);
++
++  type = gfc_typenode_for_spec (&expr->ts);
++  gcc_assert (TREE_CODE (type) == REAL_TYPE);
++  ret = gfc_create_var (type, NULL);
++
++  gfc_init_block (&body);
++
++  tree end_label = gfc_build_label_decl (NULL_TREE);
++  for (int c = IEEE_SIGNALING_NAN; c <= IEEE_POSITIVE_INF; ++c)
++    {
++      tree label = gfc_build_label_decl (NULL_TREE);
++      tree low = build_int_cst (TREE_TYPE (arg), c);
++      tmp = build_case_label (low, low, label);
++      gfc_add_expr_to_block (&body, tmp);
++
++      REAL_VALUE_TYPE real;
++      int k;
++      switch (c)
++	{
++	case IEEE_SIGNALING_NAN:
++	  real_nan (&real, "", 0, TYPE_MODE (type));
++	  break;
++	case IEEE_QUIET_NAN:
++	  real_nan (&real, "", 1, TYPE_MODE (type));
++	  break;
++	case IEEE_NEGATIVE_INF:
++	  real_inf (&real);
++	  real = real_value_negate (&real);
++	  break;
++	case IEEE_NEGATIVE_NORMAL:
++	  real_from_integer (&real, TYPE_MODE (type), -42, SIGNED);
++	  break;
++	case IEEE_NEGATIVE_DENORMAL:
++	  k = gfc_validate_kind (BT_REAL, expr->ts.kind, false);
++	  real_from_mpfr (&real, gfc_real_kinds[k].tiny,
++			  type, GFC_RND_MODE);
++	  real_arithmetic (&real, RDIV_EXPR, &real, &dconst2);
++	  real = real_value_negate (&real);
++	  break;
++	case IEEE_NEGATIVE_ZERO:
++	  real_from_integer (&real, TYPE_MODE (type), 0, SIGNED);
++	  real = real_value_negate (&real);
++	  break;
++	case IEEE_POSITIVE_ZERO:
++	  /* Make this also the default: label.  The other possibility
++	     would be to add a separate default: label followed by
++	     __builtin_unreachable ().  */
++	  label = gfc_build_label_decl (NULL_TREE);
++	  tmp = build_case_label (NULL_TREE, NULL_TREE, label);
++	  gfc_add_expr_to_block (&body, tmp);
++	  real_from_integer (&real, TYPE_MODE (type), 0, SIGNED);
++	  break;
++	case IEEE_POSITIVE_DENORMAL:
++	  k = gfc_validate_kind (BT_REAL, expr->ts.kind, false);
++	  real_from_mpfr (&real, gfc_real_kinds[k].tiny,
++			  type, GFC_RND_MODE);
++	  real_arithmetic (&real, RDIV_EXPR, &real, &dconst2);
++	  break;
++	case IEEE_POSITIVE_NORMAL:
++	  real_from_integer (&real, TYPE_MODE (type), 42, SIGNED);
++	  break;
++	case IEEE_POSITIVE_INF:
++	  real_inf (&real);
++	  break;
++	default:
++	  gcc_unreachable ();
++	}
++
++      tree val = build_real (type, real);
++      gfc_add_modify (&body, ret, val);
++
++      tmp = build1_v (GOTO_EXPR, end_label);
++      gfc_add_expr_to_block (&body, tmp);
++    }
++
++  tmp = gfc_finish_block (&body);
++  tmp = fold_build2_loc (input_location, SWITCH_EXPR, NULL_TREE, arg, tmp);
++  gfc_add_expr_to_block (&se->pre, tmp);
++
++  tmp = build1_v (LABEL_EXPR, end_label);
++  gfc_add_expr_to_block (&se->pre, tmp);
++
++  se->expr = ret;
++  return true;
++}
++
++
+ /* Generate code for an intrinsic function from the IEEE_ARITHMETIC
+    module.  */
+ 
+@@ -10038,6 +10253,10 @@ gfc_conv_ieee_arithmetic_function (gfc_se * se, gfc_expr * expr)
+     conv_intrinsic_ieee_logb_rint (se, expr, BUILT_IN_LOGB);
+   else if (startswith (name, "_gfortran_ieee_rint"))
+     conv_intrinsic_ieee_logb_rint (se, expr, BUILT_IN_RINT);
++  else if (startswith (name, "ieee_class_") && ISDIGIT (name[11]))
++    return conv_intrinsic_ieee_class (se, expr);
++  else if (startswith (name, "ieee_value_") && ISDIGIT (name[11]))
++    return conv_intrinsic_ieee_value (se, expr);
+   else
+     /* It is not among the functions we translate directly.  We return
+        false, so a library function call is emitted.  */
+diff --git a/gcc/ifcvt.cc b/gcc/ifcvt.cc
+index e007b17b793..2c1eba312de 100644
+--- a/gcc/ifcvt.cc
++++ b/gcc/ifcvt.cc
+@@ -3368,6 +3368,20 @@ noce_convert_multiple_sets (struct noce_if_info *if_info)
+   return TRUE;
+ }
+ 
++/* Helper function for noce_convert_multiple_sets_1.  If store to
++   DEST can affect P[0] or P[1], clear P[0].  Called via note_stores.  */
++
++static void
++check_for_cc_cmp_clobbers (rtx dest, const_rtx, void *p0)
++{
++  rtx *p = (rtx *) p0;
++  if (p[0] == NULL_RTX)
++    return;
++  if (reg_overlap_mentioned_p (dest, p[0])
++      || (p[1] && reg_overlap_mentioned_p (dest, p[1])))
++    p[0] = NULL_RTX;
++}
++
+ /* This goes through all relevant insns of IF_INFO->then_bb and tries to
+    create conditional moves.  In case a simple move sufficis the insn
+    should be listed in NEED_NO_CMOV.  The rewired-src cases should be
+@@ -3518,7 +3532,7 @@ noce_convert_multiple_sets_1 (struct noce_if_info *if_info,
+ 
+ 	 as min/max and emit an insn, accordingly.  */
+       unsigned cost1 = 0, cost2 = 0;
+-      rtx_insn *seq, *seq1, *seq2;
++      rtx_insn *seq, *seq1, *seq2 = NULL;
+       rtx temp_dest = NULL_RTX, temp_dest1 = NULL_RTX, temp_dest2 = NULL_RTX;
+       bool read_comparison = false;
+ 
+@@ -3530,9 +3544,10 @@ noce_convert_multiple_sets_1 (struct noce_if_info *if_info,
+ 	 as well.  This allows the backend to emit a cmov directly without
+ 	 creating an additional compare for each.  If successful, costing
+ 	 is easier and this sequence is usually preferred.  */
+-      seq2 = try_emit_cmove_seq (if_info, temp, cond,
+-				 new_val, old_val, need_cmov,
+-				 &cost2, &temp_dest2, cc_cmp, rev_cc_cmp);
++      if (cc_cmp)
++	seq2 = try_emit_cmove_seq (if_info, temp, cond,
++				   new_val, old_val, need_cmov,
++				   &cost2, &temp_dest2, cc_cmp, rev_cc_cmp);
+ 
+       /* The backend might have created a sequence that uses the
+ 	 condition.  Check this.  */
+@@ -3587,6 +3602,24 @@ noce_convert_multiple_sets_1 (struct noce_if_info *if_info,
+ 	  return FALSE;
+ 	}
+ 
++      if (cc_cmp)
++	{
++	  /* Check if SEQ can clobber registers mentioned in
++	     cc_cmp and/or rev_cc_cmp.  If yes, we need to use
++	     only seq1 from that point on.  */
++	  rtx cc_cmp_pair[2] = { cc_cmp, rev_cc_cmp };
++	  for (walk = seq; walk; walk = NEXT_INSN (walk))
++	    {
++	      note_stores (walk, check_for_cc_cmp_clobbers, cc_cmp_pair);
++	      if (cc_cmp_pair[0] == NULL_RTX)
++		{
++		  cc_cmp = NULL_RTX;
++		  rev_cc_cmp = NULL_RTX;
++		  break;
++		}
++	    }
++	}
++
+       /* End the sub sequence and emit to the main sequence.  */
+       emit_insn (seq);
+ 
+diff --git a/gcc/omp-low.cc b/gcc/omp-low.cc
+index eefd9107b89..584ec09d31b 100644
+--- a/gcc/omp-low.cc
++++ b/gcc/omp-low.cc
+@@ -6152,6 +6152,8 @@ lower_rec_input_clauses (tree clauses, gimple_seq *ilist, gimple_seq *dlist,
+ 		      && gimple_omp_for_combined_into_p (ctx->stmt))
+ 		    {
+ 		      tree t = OMP_CLAUSE_LINEAR_STEP (c);
++		      if (DECL_P (t))
++			t = build_outer_var_ref (t, ctx);
+ 		      tree stept = TREE_TYPE (t);
+ 		      tree ct = omp_find_clause (clauses,
+ 						 OMP_CLAUSE__LOOPTEMP_);
+diff --git a/gcc/po/ChangeLog b/gcc/po/ChangeLog
+index 688c76bcbe5..4086b8ea80f 100644
+--- a/gcc/po/ChangeLog
++++ b/gcc/po/ChangeLog
+@@ -1,3 +1,13 @@
++2022-08-30  Joseph Myers  <joseph@codesourcery.com>
++
++	* sv.po: Update.
++
++2022-08-23  Joseph Myers  <joseph@codesourcery.com>
++
++	* be.po, da.po, de.po, el.po, es.po, fi.po, fr.po, hr.po, id.po,
++	ja.po, nl.po, ru.po, sr.po, sv.po, tr.po, uk.po, vi.po, zh_CN.po,
++	zh_TW.po: Update.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/gcc/postreload.cc b/gcc/postreload.cc
+index 4a67d0d437a..f17d2f0d0e1 100644
+--- a/gcc/postreload.cc
++++ b/gcc/postreload.cc
+@@ -43,7 +43,6 @@ along with GCC; see the file COPYING3.  If not see
+ #include "function-abi.h"
+ #include "rtl-iter.h"
+ 
+-static int reload_cse_noop_set_p (rtx);
+ static bool reload_cse_simplify (rtx_insn *, rtx);
+ static void reload_cse_regs_1 (void);
+ static int reload_cse_simplify_set (rtx, rtx_insn *);
+@@ -74,16 +73,6 @@ reload_cse_regs (rtx_insn *first ATTRIBUTE_UNUSED)
+     }
+ }
+ 
+-/* See whether a single set SET is a noop.  */
+-static int
+-reload_cse_noop_set_p (rtx set)
+-{
+-  if (cselib_reg_set_mode (SET_DEST (set)) != GET_MODE (SET_DEST (set)))
+-    return 0;
+-
+-  return rtx_equal_for_cselib_p (SET_DEST (set), SET_SRC (set));
+-}
+-
+ /* Try to simplify INSN.  Return true if the CFG may have changed.  */
+ static bool
+ reload_cse_simplify (rtx_insn *insn, rtx testreg)
+@@ -118,7 +107,7 @@ reload_cse_simplify (rtx_insn *insn, rtx testreg)
+          this out, so it's safer to simplify before we delete.  */
+       count += reload_cse_simplify_set (body, insn);
+ 
+-      if (!count && reload_cse_noop_set_p (body))
++      if (!count && cselib_redundant_set_p (body))
+ 	{
+ 	  if (check_for_inc_dec (insn))
+ 	    delete_insn_and_edges (insn);
+@@ -157,7 +146,7 @@ reload_cse_simplify (rtx_insn *insn, rtx testreg)
+ 	  rtx part = XVECEXP (body, 0, i);
+ 	  if (GET_CODE (part) == SET)
+ 	    {
+-	      if (! reload_cse_noop_set_p (part))
++	      if (! cselib_redundant_set_p (part))
+ 		break;
+ 	      if (REG_P (SET_DEST (part))
+ 		  && REG_FUNCTION_VALUE_P (SET_DEST (part)))
+diff --git a/gcc/testsuite/ChangeLog b/gcc/testsuite/ChangeLog
+index a8926aad239..b246d93bdb1 100644
+--- a/gcc/testsuite/ChangeLog
++++ b/gcc/testsuite/ChangeLog
+@@ -1,3 +1,190 @@
++2022-09-19  Marek Polacek  <polacek@redhat.com>
++
++	Backported from master:
++	2022-09-19  Marek Polacek  <polacek@redhat.com>
++
++	PR c/106947
++	* c-c++-common/Waddress-7.c: New test.
++
++2022-09-16  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-09-15  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/106857
++	* gfortran.dg/pr106857.f90: New test.
++
++2022-09-16  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	Backported from master:
++	2022-09-03  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	PR fortran/100245
++	* gfortran.dg/PR100245.f90: New test.
++
++2022-09-13  Kewen Lin  <linkw@linux.ibm.com>
++
++	Backported from master:
++	2022-09-07  Kewen Lin  <linkw@linux.ibm.com>
++
++	PR testsuite/106345
++	* lib/target-supports.exp (check_effective_target_powerpc_sqrt): Add
++	a function definition to avoid pedwarn about empty translation unit.
++	(check_effective_target_has_arch_pwr5): Likewise.
++	(check_effective_target_has_arch_pwr6): Likewise.
++	(check_effective_target_has_arch_pwr7): Likewise.
++	(check_effective_target_has_arch_pwr8): Likewise.
++	(check_effective_target_has_arch_pwr9): Likewise.
++	(check_effective_target_has_arch_pwr10): Likewise.
++	(check_effective_target_has_arch_ppc64): Likewise.
++	(check_effective_target_ppc_float128): Likewise.
++	(check_effective_target_ppc_float128_insns): Likewise.
++	(check_effective_target_powerpc_vsx): Likewise.
++
++2022-09-12  Jason Merrill  <jason@redhat.com>
++
++	PR c++/93259
++	* g++.dg/cpp0x/initlist-array17.C: New test.
++
++2022-09-12  Jason Merrill  <jason@redhat.com>
++
++	PR c++/106893
++	PR c++/90451
++	* g++.dg/cpp1y/auto-fn65.C: New test.
++
++2022-09-09  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-09-07  Richard Biener  <rguenther@suse.de>
++
++	PR tree-optimization/106860
++	* g++.dg/opt/pr106860.C: New testcase.
++
++2022-09-09  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-09-06  Richard Biener  <rguenther@suse.de>
++
++	PR tree-optimization/106841
++	* g++.dg/vect/pr106841.cc: New testcase.
++
++2022-09-09  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-09-02  Richard Biener  <rguenther@suse.de>
++
++	PR tree-optimization/106809
++	* gcc.dg/torture/pr106809.c: New testcase.
++
++2022-09-05  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	Backported from master:
++	2022-09-04  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	PR fortran/100136
++	* gfortran.dg/PR100136.f90: New test.
++
++2022-09-03  Peter Bergner  <bergner@linux.ibm.com>
++
++	Backported from master:
++	2022-09-01  Peter Bergner  <bergner@linux.ibm.com>
++
++	PR target/101322
++	* g++.target/powerpc/pr101322.C: New test.
++
++2022-08-30  Tobias Burnus  <tobias@codesourcery.com>
++
++	Backported from master:
++	2022-08-25  Tobias Burnus  <tobias@codesourcery.com>
++
++	* gfortran.dg/gomp/strictly-structured-block-4.f90: New test.
++
++2022-08-30  Marek Polacek  <polacek@redhat.com>
++
++	Backported from master:
++	2022-08-30  Marek Polacek  <polacek@redhat.com>
++
++	PR c++/106759
++	* g++.dg/ext/has-builtin-1.C: New test.
++
++2022-08-30  Tamar Christina  <tamar.christina@arm.com>
++
++	Backported from master:
++	2022-08-12  Tamar Christina  <tamar.christina@arm.com>
++
++	PR target/106524
++	* gcc.target/aarch64/sve/pr106524.c: New test.
++
++2022-08-29  Peter Bergner  <bergner@linux.ibm.com>
++
++	Backported from master:
++	2022-08-28  Peter Bergner  <bergner@linux.ibm.com>
++
++	PR target/106017
++	* gcc.target/powerpc/pr106017.c: New test.
++
++2022-08-29  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-08-16  Jakub Jelinek  <jakub@redhat.com>
++
++	* g++.dg/cpp2a/volatile1.C: Adjust for de-deprecation of volatile
++	compound |=, &= and ^= operations.
++	* g++.dg/cpp2a/volatile3.C: Likewise.
++	* g++.dg/cpp2a/volatile5.C: Likewise.
++
++2022-08-29  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-08-15  Jakub Jelinek  <jakub@redhat.com>
++
++	PR rtl-optimization/106590
++	* gcc.dg/torture/pr106590.c: New test.
++
++2022-08-26  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-08-24  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/103694
++	* gfortran.dg/pr103694.f90: New test.
++
++2022-08-26  liuhongt  <hongtao.liu@intel.com>
++
++	* gcc.target/i386/pr106704.c: New test.
++
++2022-08-25  Chenghua Xu  <xuchenghua@loongson.cn>
++
++	Backported from master:
++	2022-08-25  Chenghua Xu  <xuchenghua@loongson.cn>
++
++	* gcc.target/loongarch/pr106459.c: New test.
++
++2022-08-24  Kewen Lin  <linkw@linux.ibm.com>
++
++	Backported from master:
++	2022-08-16  Kewen Lin  <linkw@linux.ibm.com>
++
++	PR tree-optimization/106322
++	* gcc.target/i386/pr106322.c: New test.
++	* gcc.target/powerpc/pr106322.c: New test.
++
++2022-08-24  Kewen.Lin  <linkw@gcc.gnu.org>
++
++	Backported from master:
++	2022-08-16  Kewen.Lin  <linkw@gcc.gnu.org>
++
++	PR target/103353
++	* gcc.target/powerpc/pr103353.c: New test.
++
++2022-08-23  Tobias Burnus  <tobias@codesourcery.com>
++
++	Backported from master:
++	2022-08-17  Tobias Burnus  <tobias@codesourcery.com>
++
++	PR fortran/106566
++	* gfortran.dg/gomp/declare-simd-6.f90: New test.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/gcc/testsuite/c-c++-common/Waddress-7.c b/gcc/testsuite/c-c++-common/Waddress-7.c
+new file mode 100644
+index 00000000000..179948553c5
+--- /dev/null
++++ b/gcc/testsuite/c-c++-common/Waddress-7.c
+@@ -0,0 +1,22 @@
++/* PR c/106947 */
++/* { dg-do compile } */
++/* { dg-options "-Waddress" } */
++
++#ifndef __cplusplus
++# define bool _Bool
++#endif
++
++#pragma GCC diagnostic ignored "-Waddress"
++int s; /* { dg-bogus "declared" } */
++bool e = &s;
++int
++main ()
++{
++  int error = 0;
++  {
++    bool e1 = &s;
++    if (!e1)
++      error = 1;
++  }
++  return error;
++}
+diff --git a/gcc/testsuite/g++.dg/cpp0x/initlist-array17.C b/gcc/testsuite/g++.dg/cpp0x/initlist-array17.C
+new file mode 100644
+index 00000000000..c4284a7b391
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp0x/initlist-array17.C
+@@ -0,0 +1,37 @@
++// PR c++/93259
++// { dg-do compile { target c++11 } }
++
++template <class T, class U> struct is_same;
++template <class T> struct is_same<T,T> { };
++
++using Array = int[];
++
++template <typename ...Ts>
++void bar1(Ts ...)
++{
++  auto && array = Array{ 1, 2, 3 };
++
++  is_same<int (&&)[3], decltype(array)>{}; // this fails, deduces array as int (&&) []
++}
++
++template <typename T>
++void bar2()
++{
++  auto && array = Array{ 1, 2, 3 };
++
++  is_same<int (&&)[3], decltype(array)>{};  // this fails, deduces array as int (&&) []
++}
++
++void bar3()
++{
++  auto && array = Array{ 1, 2, 3 };
++
++  is_same<int (&&)[3], decltype(array)>{}; // OK
++}
++
++int main()
++{
++  bar1<int>(1, 2, 3);
++  bar2<int>();
++  bar3();
++}
+diff --git a/gcc/testsuite/g++.dg/cpp1y/auto-fn65.C b/gcc/testsuite/g++.dg/cpp1y/auto-fn65.C
+new file mode 100644
+index 00000000000..78bb004303b
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp1y/auto-fn65.C
+@@ -0,0 +1,10 @@
++// PR c++/106893
++// { dg-do compile { target c++14 } }
++
++template <typename T>
++struct CoordTraits
++{
++  static auto GetX(T const &p) { return 1; }
++};
++typedef CoordTraits<int> Traits;
++static constexpr auto GetX = Traits::GetX;
+diff --git a/gcc/testsuite/g++.dg/cpp2a/volatile1.C b/gcc/testsuite/g++.dg/cpp2a/volatile1.C
+index 7ea6b477ca2..a0264a47bc7 100644
+--- a/gcc/testsuite/g++.dg/cpp2a/volatile1.C
++++ b/gcc/testsuite/g++.dg/cpp2a/volatile1.C
+@@ -56,6 +56,9 @@ fn2 ()
+   vi = i;
+   vi = i = 42;
+   i = vi = 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
++  i = vi |= 42; // { dg-warning "using value of assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
++  i = vi &= 42; // { dg-warning "using value of assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
++  i = vi ^= 42; // { dg-warning "using value of assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+   &(vi = i); // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+   (vi = 42, 45);
+   (i = vi = 42, 10); // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+@@ -74,8 +77,9 @@ fn2 ()
+   vi += i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+   vi -= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+   vi %= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+-  vi ^= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+-  vi |= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
++  vi ^= i; // { dg-bogus "assignment with .volatile.-qualified left operand is deprecated" }
++  vi |= i; // { dg-bogus "assignment with .volatile.-qualified left operand is deprecated" }
++  vi &= i; // { dg-bogus "assignment with .volatile.-qualified left operand is deprecated" }
+   vi /= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+   vi = vi += 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+   vi += vi = 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+@@ -131,7 +135,8 @@ void raccoon ()
+   volatile T t, u;
+   t = 42;
+   u = t = 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
+-  t &= 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
++  t += 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" "" { target c++20 } }
++  t &= 42; // { dg-bogus "assignment with .volatile.-qualified left operand is deprecated" }
+ }
+ 
+ void
+diff --git a/gcc/testsuite/g++.dg/cpp2a/volatile3.C b/gcc/testsuite/g++.dg/cpp2a/volatile3.C
+index f10a29756a9..58816dc3084 100644
+--- a/gcc/testsuite/g++.dg/cpp2a/volatile3.C
++++ b/gcc/testsuite/g++.dg/cpp2a/volatile3.C
+@@ -57,6 +57,9 @@ fn2 ()
+   vi = i;
+   vi = i = 42;
+   i = vi = 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
++  i = vi |= 42; // { dg-warning "using value of assignment with .volatile.-qualified left operand is deprecated" }
++  i = vi &= 42; // { dg-warning "using value of assignment with .volatile.-qualified left operand is deprecated" }
++  i = vi ^= 42; // { dg-warning "using value of assignment with .volatile.-qualified left operand is deprecated" }
+   &(vi = i); // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+   (vi = 42, 45);
+   (i = vi = 42, 10); // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+@@ -75,8 +78,9 @@ fn2 ()
+   vi += i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+   vi -= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+   vi %= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+-  vi ^= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+-  vi |= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
++  vi ^= i; // { dg-bogus "assignment with .volatile.-qualified left operand is deprecated" }
++  vi |= i; // { dg-bogus "assignment with .volatile.-qualified left operand is deprecated" }
++  vi &= i; // { dg-bogus "assignment with .volatile.-qualified left operand is deprecated" }
+   vi /= i; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+   vi = vi += 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+   vi += vi = 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+@@ -132,7 +136,8 @@ void raccoon ()
+   volatile T t, u;
+   t = 42;
+   u = t = 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
+-  t &= 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
++  t += 42; // { dg-warning "assignment with .volatile.-qualified left operand is deprecated" }
++  t &= 42; // { dg-bogus "assignment with .volatile.-qualified left operand is deprecated" }
+ }
+ 
+ void
+diff --git a/gcc/testsuite/g++.dg/cpp2a/volatile5.C b/gcc/testsuite/g++.dg/cpp2a/volatile5.C
+index 1f9d23845b4..3684be9837e 100644
+--- a/gcc/testsuite/g++.dg/cpp2a/volatile5.C
++++ b/gcc/testsuite/g++.dg/cpp2a/volatile5.C
+@@ -8,8 +8,8 @@ f (bool b)
+ {
+   (b ? x : y) = 1;
+   (b ? x : y) += 1; // { dg-warning "compound assignment" "" { target c++20 } }
+-  z = (b ? x : y) = 1; // { dg-warning "using value of simple assignment" "" { target c++20 } }
+-  ((z = 2) ? x : y) = 1; // { dg-warning "using value of simple assignment" "" { target c++20 } }
+-  (b ? (x = 2) : y) = 1; // { dg-warning "using value of simple assignment" "" { target c++20 } }
+-  (b ? x : (y = 5)) = 1; // { dg-warning "using value of simple assignment" "" { target c++20 } }
++  z = (b ? x : y) = 1; // { dg-warning "using value of assignment" "" { target c++20 } }
++  ((z = 2) ? x : y) = 1; // { dg-warning "using value of assignment" "" { target c++20 } }
++  (b ? (x = 2) : y) = 1; // { dg-warning "using value of assignment" "" { target c++20 } }
++  (b ? x : (y = 5)) = 1; // { dg-warning "using value of assignment" "" { target c++20 } }
+ }
+diff --git a/gcc/testsuite/g++.dg/ext/has-builtin-1.C b/gcc/testsuite/g++.dg/ext/has-builtin-1.C
+new file mode 100644
+index 00000000000..d89994c30e0
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/ext/has-builtin-1.C
+@@ -0,0 +1,127 @@
++// PR c++/106759
++// { dg-do compile }
++// Verify that __has_builtin gives the correct answer for C++ built-ins.
++
++#if !__has_builtin (__builtin_addressof)
++# error "__has_builtin (__builtin_addressof) failed"
++#endif
++#if !__has_builtin (__builtin_bit_cast)
++# error "__has_builtin (__builtin_bit_cast) failed"
++#endif
++#if !__has_builtin (__builtin_launder)
++# error "__has_builtin (__builtin_launder) failed"
++#endif
++#if !__has_builtin (__has_nothrow_assign)
++# error "__has_builtin (__has_nothrow_assign) failed"
++#endif
++#if !__has_builtin (__has_nothrow_constructor)
++# error "__has_builtin (__has_nothrow_constructor) failed"
++#endif
++#if !__has_builtin (__has_nothrow_copy)
++# error "__has_builtin (__has_nothrow_copy) failed"
++#endif
++#if !__has_builtin (__has_trivial_assign)
++# error "__has_builtin (__has_trivial_assign) failed"
++#endif
++#if !__has_builtin (__has_trivial_constructor)
++# error "__has_builtin (__has_trivial_constructor) failed"
++#endif
++#if !__has_builtin (__has_trivial_copy)
++# error "__has_builtin (__has_trivial_copy) failed"
++#endif
++#if !__has_builtin (__has_trivial_destructor)
++# error "__has_builtin (__has_trivial_destructor) failed"
++#endif
++#if !__has_builtin (__has_unique_object_representations)
++# error "__has_builtin (__has_unique_object_representations) failed"
++#endif
++#if !__has_builtin (__has_virtual_destructor)
++# error "__has_builtin (__has_virtual_destructor) failed"
++#endif
++#if !__has_builtin (__is_abstract)
++# error "__has_builtin (__is_abstract) failed"
++#endif
++#if !__has_builtin (__is_aggregate)
++# error "__has_builtin (__is_aggregate) failed"
++#endif
++#if !__has_builtin (__is_base_of)
++# error "__has_builtin (__is_base_of) failed"
++#endif
++#if !__has_builtin (__is_class)
++# error "__has_builtin (__is_class) failed"
++#endif
++#if !__has_builtin (__is_empty)
++# error "__has_builtin (__is_empty) failed"
++#endif
++#if !__has_builtin (__is_enum)
++# error "__has_builtin (__is_enum) failed"
++#endif
++#if !__has_builtin (__is_final)
++# error "__has_builtin (__is_final) failed"
++#endif
++#if !__has_builtin (__is_layout_compatible)
++# error "__has_builtin (__is_layout_compatible) failed"
++#endif
++#if !__has_builtin (__is_literal_type)
++# error "__has_builtin (__is_literal_type) failed"
++#endif
++#if !__has_builtin (__is_pointer_interconvertible_base_of)
++# error "__has_builtin (__is_pointer_interconvertible_base_of) failed"
++#endif
++#if !__has_builtin (__is_pod)
++# error "__has_builtin (__is_pod) failed"
++#endif
++#if !__has_builtin (__is_polymorphic)
++# error "__has_builtin (__is_polymorphic) failed"
++#endif
++#if !__has_builtin (__is_same)
++# error "__has_builtin (__is_same) failed"
++#endif
++#if !__has_builtin (__is_same_as)
++# error "__has_builtin (__is_same_as) failed"
++#endif
++#if !__has_builtin (__is_standard_layout)
++# error "__has_builtin (__is_standard_layout) failed"
++#endif
++#if !__has_builtin (__is_trivial)
++# error "__has_builtin (__is_trivial) failed"
++#endif
++#if !__has_builtin (__is_trivially_assignable)
++# error "__has_builtin (__is_trivially_assignable) failed"
++#endif
++#if !__has_builtin (__is_trivially_constructible)
++# error "__has_builtin (__is_trivially_constructible) failed"
++#endif
++#if !__has_builtin (__is_trivially_copyable)
++# error "__has_builtin (__is_trivially_copyable) failed"
++#endif
++#if !__has_builtin (__is_union)
++# error "__has_builtin (__is_union) failed"
++#endif
++#if !__has_builtin (__underlying_type)
++# error "__has_builtin (__underlying_type) failed"
++#endif
++#if !__has_builtin (__is_assignable)
++# error "__has_builtin (__is_assignable) failed"
++#endif
++#if !__has_builtin (__is_constructible)
++# error "__has_builtin (__is_constructible) failed"
++#endif
++#if !__has_builtin (__is_nothrow_assignable)
++# error "__has_builtin (__is_nothrow_assignable) failed"
++#endif
++#if !__has_builtin (__is_nothrow_constructible)
++# error "__has_builtin (__is_nothrow_constructible) failed"
++#endif
++#if !__has_builtin (__builtin_is_constant_evaluated)
++# error "__has_builtin (__builtin_is_constant_evaluated) failed"
++#endif
++#if !__has_builtin (__builtin_source_location)
++# error "__has_builtin (__builtin_source_location) failed"
++#endif
++#if !__has_builtin (__builtin_is_corresponding_member)
++# error "__has_builtin (__builtin_is_corresponding_member) failed"
++#endif
++#if !__has_builtin (__builtin_is_pointer_interconvertible_with_class)
++# error "__has_builtin (__builtin_is_pointer_interconvertible_with_class) failed"
++#endif
+diff --git a/gcc/testsuite/g++.dg/opt/pr106860.C b/gcc/testsuite/g++.dg/opt/pr106860.C
+new file mode 100644
+index 00000000000..a0209dcf9da
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/opt/pr106860.C
+@@ -0,0 +1,23 @@
++// { dg-do compile }
++// { dg-options "-Ofast -ftrapv -fnon-call-exceptions -fno-tree-fre" }
++
++static const int N = 12;
++int nSlip;
++
++int main ()
++{
++  int i, j, k, fdot = 0;
++  int a[N][N];
++
++  for ( i = 1; i < nSlip; i++)
++    {
++      for ( j = i+1; j < nSlip; j++)
++        {
++          for ( k = 0; k < i; k++)
++            fdot += a[i][k] * a[k][j];
++          a[i][j] = a[i][j] - fdot;
++        }
++   }
++
++  return 0;
++}
+diff --git a/gcc/testsuite/g++.dg/vect/pr106841.cc b/gcc/testsuite/g++.dg/vect/pr106841.cc
+new file mode 100644
+index 00000000000..7458bc15a25
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/vect/pr106841.cc
+@@ -0,0 +1,52 @@
++// { dg-do compile }
++// { dg-additional-options "-O3 -ffast-math" }
++// { dg-additional-options "-march=bdver2" { target x86_64-*-* } }
++
++struct R3 {
++  double z;
++  R3(R3 A, R3 B) : z(B.z - A.z) {}
++  double norme() { return z; }
++};
++struct TBoundaryEdge {
++  int *vertices[2];
++  int &operator[](int i) { return *vertices[i]; }
++};
++struct Mesh {
++  int vertices;
++  TBoundaryEdge *bedges;
++  int operator()(int &vv) { return &vv - &vertices; }
++  TBoundaryEdge be(int i) { return bedges[i]; }
++};
++template <typename Data> struct GenericElement {
++  typedef typename Data::V Vertex;
++  static const int nv = Data::NbOfVertices;
++  Vertex *vertices[nv];
++  double mes;
++  void set(int *iv, Vertex *v0) {
++    for (int i = 0; i < nv; ++i)
++      vertices[i] = v0 + iv[i];
++    mes = Data::mesure(vertices);
++  }
++};
++struct DataSeg3 {
++  static const int NbOfVertices = 2;
++  typedef R3 V;
++  static double mesure(V *pv[]) { return R3(*pv[0], *pv[1]).norme(); }
++};
++struct MeshS {
++  MeshS();
++};
++template <class> struct Movemesh_Op { void foo(Mesh, DataSeg3::V *) const; };
++template <> void Movemesh_Op<int>::foo(Mesh pTh, DataSeg3::V *v0) const {
++  GenericElement<DataSeg3> *bS = new GenericElement<DataSeg3>[8];
++  for (int ibe = 0; ibe < 8; ibe++) {
++    TBoundaryEdge K(pTh.be(ibe));
++    int iv[2];
++    for (int i = 0; i < 2; i++) {
++      int &__trans_tmp_2 = K[i];
++      iv[i] = pTh(__trans_tmp_2);
++    }
++    bS[ibe].set(iv, v0);
++  }
++  MeshS T_Th;
++}
+diff --git a/gcc/testsuite/g++.target/powerpc/pr101322.C b/gcc/testsuite/g++.target/powerpc/pr101322.C
+new file mode 100644
+index 00000000000..43eaf3afcd4
+--- /dev/null
++++ b/gcc/testsuite/g++.target/powerpc/pr101322.C
+@@ -0,0 +1,17 @@
++/* PR target/101322 */
++/* { dg-require-effective-target power10_ok } */
++/* { dg-options "-O2 -mdejagnu-cpu=power10" } */
++
++/* Verify we don't ICE on the following test cases.  */
++
++void
++foo (char *resp, char *vpp)
++{
++  __builtin_vsx_disassemble_pair (resp, (__vector_pair *) vpp);
++}
++
++void
++bar (char *resp, char *vpp)
++{
++  __builtin_mma_disassemble_acc (resp, (__vector_quad *)vpp);
++}
+diff --git a/gcc/testsuite/gcc.dg/torture/pr106590.c b/gcc/testsuite/gcc.dg/torture/pr106590.c
+new file mode 100644
+index 00000000000..b7b84720148
+--- /dev/null
++++ b/gcc/testsuite/gcc.dg/torture/pr106590.c
+@@ -0,0 +1,75 @@
++/* PR rtl-optimization/106590 } */
++/* { dg-do run } */
++/* { dg-additional-options "-mtune=skylake" { target { i?86-*-* x86_64-*-* } } } */
++
++typedef struct A { short a; } A;
++typedef A *B;
++typedef struct C { int c, d; } C;
++typedef C *D;
++
++B
++foo (void)
++{
++  static A r = { .a = 1 };
++  return &r;
++}
++
++D
++bar (void)
++{
++  static C r = { .c = 1, .d = 23 };
++  return &r;
++}
++
++static inline int __attribute__((always_inline))
++baz (short a)
++{
++  int e = 1, f;
++  short g;
++  D h;
++
++  switch (a)
++    {
++    case 1:
++      f = 23;
++      g = 1;
++      break;
++    case 2:
++      f = 20;
++      g = 2;
++      break;
++    }
++
++  h = bar ();
++
++  if (h->d != f || h->c != g)
++    __builtin_abort ();
++  return e;
++}
++
++int
++qux (void)
++{
++  B i = foo ();
++  int e = 1;
++
++  switch (i->a)
++    {
++    case 1:
++    case 2:
++      e = baz (i->a);
++      break;
++    case 3:
++      e = 0;
++      break;
++    }
++
++  return e;
++}
++
++int
++main ()
++{
++  qux ();
++  return 0;
++}
+diff --git a/gcc/testsuite/gcc.dg/torture/pr106809.c b/gcc/testsuite/gcc.dg/torture/pr106809.c
+new file mode 100644
+index 00000000000..11e158185cf
+--- /dev/null
++++ b/gcc/testsuite/gcc.dg/torture/pr106809.c
+@@ -0,0 +1,28 @@
++/* { dg-do compile } */
++/* { dg-additional-options "-Wuninitialized" } */
++
++int foo (int x, int *val)
++{
++  switch (x)
++    {
++#define C(n) \
++    case n + 0: return *val; \
++    case n + 1: return *val; \
++    case n + 2: return *val; \
++    case n + 3: return *val; \
++    case n + 4: return *val; \
++    case n + 5: return *val; \
++    case n + 6: return *val; \
++    case n + 7: return *val; \
++    case n + 8: return *val; \
++    case n + 9: return *val;
++#define C1(n) \
++    C(n+00) C(n+10) C(n+20) C(n+30) C(n+40) \
++    C(n+50) C(n+60) C(n+70) C(n+80) C(n+90)
++#define C10(n) \
++    C1(n+000) C1(n+100) C1(n+200) C1(n+300) C1(n+400) \
++    C1(n+500) C1(n+600) C1(n+700) C1(n+800) C1(n+900)
++    C10(1000)
++    }
++  return 0;
++}
+diff --git a/gcc/testsuite/gcc.target/aarch64/sve/pr106524.c b/gcc/testsuite/gcc.target/aarch64/sve/pr106524.c
+new file mode 100644
+index 00000000000..a9f650f971a
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/aarch64/sve/pr106524.c
+@@ -0,0 +1,11 @@
++/* { dg-do compile } */
++/* { dg-options "-march=armv8-a+sve -O2 -fno-move-loop-invariants" } */
++
++void
++test__zero (int *restrict dest, int *restrict src, float *a, int count)
++{
++  int i;
++
++  for (i = 0; i < count; ++i)
++    dest[i] = !__builtin_isunordered (a[i], 0) ? src[i] : 0;
++}
+diff --git a/gcc/testsuite/gcc.target/i386/pr106322.c b/gcc/testsuite/gcc.target/i386/pr106322.c
+new file mode 100644
+index 00000000000..31333c5fdcc
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/i386/pr106322.c
+@@ -0,0 +1,51 @@
++/* { dg-do run } */
++/* { dg-require-effective-target ia32 } */
++/* { dg-options "-O2 -mtune=generic -march=i686" } */
++
++/* As PR106322, verify this can execute well (not abort).  */
++
++#define N 64
++typedef unsigned short int uh;
++typedef unsigned short int uw;
++uh a[N];
++uh b[N];
++uh c[N];
++uh e[N];
++
++__attribute__ ((noipa)) void
++foo ()
++{
++  for (int i = 0; i < N; i++)
++    c[i] = ((uw) b[i] * (uw) a[i]) >> 16;
++}
++
++__attribute__ ((optimize ("-O0"))) void
++init ()
++{
++  for (int i = 0; i < N; i++)
++    {
++      a[i] = (uh) (0x7ABC - 0x5 * i);
++      b[i] = (uh) (0xEAB + 0xF * i);
++      e[i] = ((uw) b[i] * (uw) a[i]) >> 16;
++    }
++}
++
++__attribute__ ((optimize ("-O0"))) void
++check ()
++{
++  for (int i = 0; i < N; i++)
++    {
++      if (c[i] != e[i])
++	__builtin_abort ();
++    }
++}
++
++int
++main ()
++{
++  init ();
++  foo ();
++  check ();
++
++  return 0;
++}
+diff --git a/gcc/testsuite/gcc.target/i386/pr106704.c b/gcc/testsuite/gcc.target/i386/pr106704.c
+new file mode 100644
+index 00000000000..44e052a4caa
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/i386/pr106704.c
+@@ -0,0 +1,16 @@
++/* { dg-do compile } */
++/* { dg-options "-mavx -O2 -mno-avx2" } */
++/* { dg-final { scan-assembler-times {vblendvps[ \t]+%ymm[0-9]+} 1 } } */
++/* { dg-final { scan-assembler-times {vblendvpd[ \t]+%ymm[0-9]+} 1 } } */
++
++#include <immintrin.h>
++
++__m256 bend_stuff( __m256 a, __m256 b, __m256 mask)
++{
++  return _mm256_blendv_ps(a, b, mask);
++}
++
++__m256d bend_stuff1( __m256d a, __m256d b, __m256d mask)
++{
++  return _mm256_blendv_pd(a, b, mask);
++}
+diff --git a/gcc/testsuite/gcc.target/loongarch/pr106459.c b/gcc/testsuite/gcc.target/loongarch/pr106459.c
+new file mode 100644
+index 00000000000..eb737dc49c1
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/loongarch/pr106459.c
+@@ -0,0 +1,13 @@
++/* { dg-do compile } */
++
++/* https://gcc.gnu.org/bugzilla/show_bug.cgi?id=106459 */
++
++typedef unsigned int UDItype __attribute__((mode(DI)));
++int foo(UDItype x) {
++  x = x & (((UDItype)(((UDItype)(((UDItype)0x0F << 8) | 0x0F) << (2 * 8)) |
++                      (((UDItype)0x0F << 8) | 0x0F))
++            << (4 * 8)) |
++           (((UDItype)(((UDItype)0x0F << 8) | 0x0F) << (2 * 8)) |
++            (((UDItype)0x0F << 8) | 0x0F)));
++  return x;
++}
+diff --git a/gcc/testsuite/gcc.target/powerpc/pr103353.c b/gcc/testsuite/gcc.target/powerpc/pr103353.c
+new file mode 100644
+index 00000000000..5d519fb1b7b
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/powerpc/pr103353.c
+@@ -0,0 +1,22 @@
++/* { dg-require-effective-target powerpc_altivec_ok } */
++/* If the default cpu type is power10 or later, MMA is enabled by default.
++   To keep the test point available all the time, this case specifies
++   -mdejagnu-cpu=power6 to make it be tested without MMA.  */
++/* { dg-options "-maltivec -mdejagnu-cpu=power6" } */
++
++/* Verify there is no ICE and don't check the error messages on MMA
++   requirement since they could be fragile and are not test points
++   of this case.  */
++/* { dg-excess-errors "pr103353" } */
++
++void
++foo (__vector_pair *dst, double *x)
++{
++  dst[0] = __builtin_vsx_lxvp (0, (__vector_pair *)(void *)x);
++}
++
++void
++bar (__vector_pair *src, double *x)
++{
++  __builtin_vsx_stxvp (src[0], 0, (__vector_pair *)(void *)x);
++}
+diff --git a/gcc/testsuite/gcc.target/powerpc/pr106017.c b/gcc/testsuite/gcc.target/powerpc/pr106017.c
+new file mode 100644
+index 00000000000..46d6c7a4a33
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/powerpc/pr106017.c
+@@ -0,0 +1,19 @@
++/* PR target/106017 */
++/* { dg-options "-O1 -mdejagnu-cpu=power10" } */
++/* { dg-require-effective-target power10_ok } */
++
++/* Make sure we do not flag any errors on the following test cases.  */
++
++void takeacc(__vector_quad *);
++void
++foo (void)
++{
++  __vector_quad arr[4];
++  takeacc (arr);
++}
++
++unsigned char *
++bar (__vector_quad *a)
++{
++  return (unsigned char *)a;
++}
+diff --git a/gcc/testsuite/gcc.target/powerpc/pr106322.c b/gcc/testsuite/gcc.target/powerpc/pr106322.c
+new file mode 100644
+index 00000000000..c05072d3416
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/powerpc/pr106322.c
+@@ -0,0 +1,50 @@
++/* { dg-do run } */
++/* { dg-options "-O2 -mdejagnu-cpu=power4" } */
++
++/* As PR106322, verify this can execute well (not abort).  */
++
++#define N 64
++typedef unsigned short int uh;
++typedef unsigned short int uw;
++uh a[N];
++uh b[N];
++uh c[N];
++uh e[N];
++
++__attribute__ ((noipa)) void
++foo ()
++{
++  for (int i = 0; i < N; i++)
++    c[i] = ((uw) b[i] * (uw) a[i]) >> 16;
++}
++
++__attribute__ ((optimize ("-O0"))) void
++init ()
++{
++  for (int i = 0; i < N; i++)
++    {
++      a[i] = (uh) (0x7ABC - 0x5 * i);
++      b[i] = (uh) (0xEAB + 0xF * i);
++      e[i] = ((uw) b[i] * (uw) a[i]) >> 16;
++    }
++}
++
++__attribute__ ((optimize ("-O0"))) void
++check ()
++{
++  for (int i = 0; i < N; i++)
++    {
++      if (c[i] != e[i])
++	__builtin_abort ();
++    }
++}
++
++int
++main ()
++{
++  init ();
++  foo ();
++  check ();
++
++  return 0;
++}
+diff --git a/gcc/testsuite/gfortran.dg/PR100136.f90 b/gcc/testsuite/gfortran.dg/PR100136.f90
+new file mode 100644
+index 00000000000..922af4aecc3
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/PR100136.f90
+@@ -0,0 +1,39 @@
++! { dg-do run }
++! { dg-options "-fcheck=pointer" }
++! { dg-shouldfail "Argument not allocated" }
++! { dg-output "Fortran runtime error: Allocatable actual argument 'c_init2' is not allocated" }
++!
++! Tests fix for PR100136
++!
++! Test cut down from PR58586
++!
++
++module test_pr58586_mod
++  implicit none
++
++  type :: a
++  end type
++
++  type :: c
++     type(a), allocatable :: a
++  end type
++
++contains
++
++  subroutine add_class_c (d)
++    class(c), value :: d
++  end subroutine
++
++  class(c) function c_init2()
++    allocatable :: c_init2
++  end function
++
++end module test_pr58586_mod
++
++program test_pr58586
++  use test_pr58586_mod
++
++  ! This needs to execute, to see whether the segfault at runtime is resolved
++  call add_class_c(c_init2())
++
++end program
+diff --git a/gcc/testsuite/gfortran.dg/PR100245.f90 b/gcc/testsuite/gfortran.dg/PR100245.f90
+new file mode 100644
+index 00000000000..07c1f7b3a1c
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/PR100245.f90
+@@ -0,0 +1,28 @@
++! { dg-do run }
++!
++! Test the fix for PR100245
++!
++
++program main_p
++
++  implicit none
++
++  type :: foo_t
++    integer :: a
++  end type foo_t
++
++  integer, parameter :: a = 42
++
++  class(foo_t), allocatable :: val
++  class(foo_t), allocatable :: rs1
++  type(foo_t),  allocatable :: rs2
++
++  allocate(val, source=foo_t(42))
++  if (val%a/=a) stop 1
++  rs1 = val
++  if (rs1%a/=a) stop 2
++  rs2 = val
++  if (rs2%a/=a) stop 3
++  deallocate(val, rs1, rs2)
++
++end program main_p
+diff --git a/gcc/testsuite/gfortran.dg/gomp/declare-simd-6.f90 b/gcc/testsuite/gfortran.dg/gomp/declare-simd-6.f90
+new file mode 100644
+index 00000000000..83f2c0ab7cb
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/gomp/declare-simd-6.f90
+@@ -0,0 +1,42 @@
++! { dg-do compile }
++! { dg-additional-options "-fdump-tree-gimple" }
++!
++! PR fortran/106566
++!
++! { dg-final { scan-tree-dump-times "__attribute__\\(\\(omp declare simd \\(linear\\(ref\\(0\\):4\\) simdlen\\(8\\)\\)\\)\\)" 2 "gimple" } }
++! { dg-final { scan-tree-dump-times "__attribute__\\(\\(omp declare simd \\(linear\\(ref\\(0\\):8\\) simdlen\\(8\\)\\)\\)\\)" 2 "gimple" } }
++
++subroutine add_one2(p)
++  implicit none
++  !$omp declare simd(add_one2) linear(ref(p)) simdlen(8)
++  integer(kind=4) :: p
++
++  p = p + 1
++end subroutine
++
++subroutine linear_add_one2(p)
++  implicit none
++  !$omp declare simd(linear_add_one2) linear(ref(p) : 2) simdlen(8)
++  integer(kind=4) :: p
++
++  p = p + 1
++end subroutine
++
++module m
++   integer, parameter :: NN = 1023
++   integer(kind=4) :: a(NN)
++contains
++  subroutine module_add_one2(q)
++    implicit none
++    !$omp declare simd(module_add_one2) linear(ref(q)) simdlen(8)
++    integer(kind=4) :: q
++    q = q + 1
++  end subroutine
++
++  subroutine linear_add_one2(q)
++    implicit none
++    !$omp declare simd(linear_add_one2) linear(ref(q) : 2) simdlen(8)
++    integer(kind=4) :: q
++    q = q + 1
++  end subroutine
++end module
+diff --git a/gcc/testsuite/gfortran.dg/gomp/strictly-structured-block-4.f90 b/gcc/testsuite/gfortran.dg/gomp/strictly-structured-block-4.f90
+new file mode 100644
+index 00000000000..66cf0a3925e
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/gomp/strictly-structured-block-4.f90
+@@ -0,0 +1,21 @@
++! { dg-do compile }
++implicit none
++integer ::x,z
++x = 42
++print '(*(z16:" "))', loc(x)
++!$omp target map(x, z)
++block
++  integer :: y
++  x = 123
++  y = 99
++  !$omp target device(ancestor:1) map(always,tofrom:x) map(y) ! { dg-error "'ancestor' device modifier not preceded by 'requires' directive with 'reverse_offload' clause" }
++    print '(*(z16:" "))', loc(x), loc(y)
++    print * ,x, y
++    x = -x
++    y = -y
++  !$omp end target ! { dg-error "Unexpected ..OMP END TARGET statement" }
++  z = y
++end block
++    print * ,x !, z
++end
++
+diff --git a/gcc/testsuite/gfortran.dg/pr103694.f90 b/gcc/testsuite/gfortran.dg/pr103694.f90
+new file mode 100644
+index 00000000000..3ed8b2088da
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr103694.f90
+@@ -0,0 +1,11 @@
++! { dg-do compile }
++! PR fortran/103694 - ICE in gfc_conv_expr_op
++! Contributed by G.Steinmetz
++
++subroutine s
++  type t
++     integer :: a(2)
++  end type
++  type(t) :: x((0.)/0)
++  integer :: n = size(x(1)%a) ! { dg-error "does not reduce to a constant expression" }
++end
+diff --git a/gcc/testsuite/gfortran.dg/pr106857.f90 b/gcc/testsuite/gfortran.dg/pr106857.f90
+new file mode 100644
+index 00000000000..4b0f86a75a6
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr106857.f90
+@@ -0,0 +1,12 @@
++! { dg-do compile }
++! PR fortran/106857 - ICE in gfc_simplify_pack
++! Contributed by G.Steinmetz
++
++program p
++  type t
++     integer :: n
++  end type
++  type(t), parameter :: a(2,2) = t(1)
++  type(t), parameter :: b(4) = reshape(a, [2])                          ! { dg-error "Different shape" }
++  type(t), parameter :: c(2) = pack(b, [.false.,.true.,.false.,.true.]) ! { dg-error "Different shape" }
++end
+diff --git a/gcc/testsuite/lib/target-supports.exp b/gcc/testsuite/lib/target-supports.exp
+index 244fe2306f4..3a4f65b9be6 100644
+--- a/gcc/testsuite/lib/target-supports.exp
++++ b/gcc/testsuite/lib/target-supports.exp
+@@ -6240,9 +6240,12 @@ proc check_effective_target_powerpc_sqrt { } {
+     }
+ 
+     return [check_no_compiler_messages powerpc_sqrt object {
++	void test (void)
++	{
+ 	#ifndef _ARCH_PPCSQ
+ 	#error _ARCH_PPCSQ is not defined
+ 	#endif
++	}
+     } {}]
+ }
+ 
+@@ -6350,71 +6353,92 @@ proc check_effective_target_powerpc_p9modulo_ok { } {
+ # as provided by the test.
+ proc check_effective_target_has_arch_pwr5 { } {
+ 	return [check_no_compiler_messages_nocache arch_pwr5 assembly {
++		void test (void)
++		{
+ 		#ifndef _ARCH_PWR5
+ 		#error does not have power5 support.
+ 		#else
+ 		/* "has power5 support" */
+ 		#endif
++		}
+ 	} [current_compiler_flags]]
+ }
+ 
+ proc check_effective_target_has_arch_pwr6 { } {
+ 	return [check_no_compiler_messages_nocache arch_pwr6 assembly {
++		void test (void)
++		{
+ 		#ifndef _ARCH_PWR6
+ 		#error does not have power6 support.
+ 		#else
+ 		/* "has power6 support" */
+ 		#endif
++		}
+ 	} [current_compiler_flags]]
+ }
+ 
+ proc check_effective_target_has_arch_pwr7 { } {
+ 	return [check_no_compiler_messages_nocache arch_pwr7 assembly {
++		void test (void)
++		{
+ 		#ifndef _ARCH_PWR7
+ 		#error does not have power7 support.
+ 		#else
+ 		/* "has power7 support" */
+ 		#endif
++		}
+ 	} [current_compiler_flags]]
+ }
+ 
+ proc check_effective_target_has_arch_pwr8 { } {
+ 	return [check_no_compiler_messages_nocache arch_pwr8 assembly {
++		void test (void)
++		{
+ 		#ifndef _ARCH_PWR8
+ 		#error does not have power8 support.
+ 		#else
+ 		/* "has power8 support" */
+ 		#endif
++		}
+ 	} [current_compiler_flags]]
+ }
+ 
+ proc check_effective_target_has_arch_pwr9 { } {
+ 	return [check_no_compiler_messages_nocache arch_pwr9 assembly {
++		void test (void)
++		{
+ 		#ifndef _ARCH_PWR9
+ 		#error does not have power9 support.
+ 		#else
+ 		/* "has power9 support" */
+ 		#endif
++		}
+ 	} [current_compiler_flags]]
+ }
+ 
+ proc check_effective_target_has_arch_pwr10 { } {
+ 	return [check_no_compiler_messages_nocache arch_pwr10 assembly {
++		void test (void)
++		{
+ 		#ifndef _ARCH_PWR10
+ 		#error does not have power10 support.
+ 		#else
+ 		/* "has power10 support" */
+ 		#endif
++		}
+ 	} [current_compiler_flags]]
+ }
+ 
+ proc check_effective_target_has_arch_ppc64 { } {
+ 	return [check_no_compiler_messages_nocache arch_ppc64 assembly {
++		void test (void)
++		{
+ 		#ifndef _ARCH_PPC64
+ 		#error does not have ppc64 support.
+ 		#else
+ 		/* "has ppc64 support" */
+ 		#endif
++		}
+ 	} [current_compiler_flags]]
+ }
+ 
+@@ -6501,9 +6525,12 @@ proc check_effective_target_powerpc_float128_hw_ok { } {
+ 
+ proc check_effective_target_ppc_float128 { } {
+     return [check_no_compiler_messages_nocache ppc_float128 object {
++	void test (void)
++	{
+ 	#ifndef __FLOAT128__
+ 	  nope no good
+ 	#endif
++	}
+     }]
+ }
+ 
+@@ -6511,9 +6538,12 @@ proc check_effective_target_ppc_float128 { } {
+ 
+ proc check_effective_target_ppc_float128_insns { } {
+     return [check_no_compiler_messages_nocache ppc_float128 object {
++	void test (void)
++	{
+ 	#ifndef __FLOAT128_HARDWARE__
+ 	  nope no good
+ 	#endif
++	}
+     }]
+ }
+ 
+@@ -6521,9 +6551,12 @@ proc check_effective_target_ppc_float128_insns { } {
+ 
+ proc check_effective_target_powerpc_vsx { } {
+     return [check_no_compiler_messages_nocache powerpc_vsx object {
++	void test (void)
++	{
+ 	#ifndef __VSX__
+ 	  nope no vsx
+ 	#endif
++	}
+     }]
+ }
+ 
+diff --git a/gcc/tree-ssa-loop-split.cc b/gcc/tree-ssa-loop-split.cc
+index b93ee4c8769..b819c0676c9 100644
+--- a/gcc/tree-ssa-loop-split.cc
++++ b/gcc/tree-ssa-loop-split.cc
+@@ -533,16 +533,17 @@ split_loop (class loop *loop1)
+   tree guard_iv;
+   tree border = NULL_TREE;
+   affine_iv iv;
++  edge exit1;
+ 
+-  if (!single_exit (loop1)
++  if (!(exit1 = single_exit (loop1))
++      || EDGE_COUNT (exit1->src->succs) != 2
+       /* ??? We could handle non-empty latches when we split the latch edge
+ 	 (not the exit edge), and put the new exit condition in the new block.
+ 	 OTOH this executes some code unconditionally that might have been
+ 	 skipped by the original exit before.  */
+       || !empty_block_p (loop1->latch)
+       || !easy_exit_values (loop1)
+-      || !number_of_iterations_exit (loop1, single_exit (loop1), &niter,
+-				     false, true)
++      || !number_of_iterations_exit (loop1, exit1, &niter, false, true)
+       || niter.cmp == ERROR_MARK
+       /* We can't yet handle loops controlled by a != predicate.  */
+       || niter.cmp == NE_EXPR)
+@@ -646,10 +647,13 @@ split_loop (class loop *loop1)
+ 	fix_loop_bb_probability (loop1, loop2, true_edge, false_edge);
+ 
+ 	/* Fix first loop's exit probability after scaling.  */
+-	edge exit_to_latch1 = single_pred_edge (loop1->latch);
++	edge exit_to_latch1;
++	if (EDGE_SUCC (exit1->src, 0) == exit1)
++	  exit_to_latch1 = EDGE_SUCC (exit1->src, 1);
++	else
++	  exit_to_latch1 = EDGE_SUCC (exit1->src, 0);
+ 	exit_to_latch1->probability *= true_edge->probability;
+-	single_exit (loop1)->probability
+-	  = exit_to_latch1->probability.invert ();
++	exit1->probability = exit_to_latch1->probability.invert ();
+ 
+ 	/* Finally patch out the two copies of the condition to be always
+ 	   true/false (or opposite).  */
+diff --git a/gcc/tree-ssa-sccvn.cc b/gcc/tree-ssa-sccvn.cc
+index e22c7026556..2bcf44c3227 100644
+--- a/gcc/tree-ssa-sccvn.cc
++++ b/gcc/tree-ssa-sccvn.cc
+@@ -4660,41 +4660,44 @@ dominated_by_p_w_unex (basic_block bb1, basic_block bb2, bool allow_back)
+     }
+ 
+   /* Iterate to the single executable bb2 successor.  */
+-  edge succe = NULL;
+-  FOR_EACH_EDGE (e, ei, bb2->succs)
+-    if ((e->flags & EDGE_EXECUTABLE)
+-	|| (!allow_back && (e->flags & EDGE_DFS_BACK)))
+-      {
+-	if (succe)
+-	  {
+-	    succe = NULL;
+-	    break;
+-	  }
+-	succe = e;
+-      }
+-  if (succe)
++  if (EDGE_COUNT (bb2->succs) > 1)
+     {
+-      /* Verify the reached block is only reached through succe.
+-	 If there is only one edge we can spare us the dominator
+-	 check and iterate directly.  */
+-      if (EDGE_COUNT (succe->dest->preds) > 1)
+-	{
+-	  FOR_EACH_EDGE (e, ei, succe->dest->preds)
+-	    if (e != succe
+-		&& ((e->flags & EDGE_EXECUTABLE)
+-		    || (!allow_back && (e->flags & EDGE_DFS_BACK))))
++      edge succe = NULL;
++      FOR_EACH_EDGE (e, ei, bb2->succs)
++	if ((e->flags & EDGE_EXECUTABLE)
++	    || (!allow_back && (e->flags & EDGE_DFS_BACK)))
++	  {
++	    if (succe)
+ 	      {
+ 		succe = NULL;
+ 		break;
+ 	      }
+-	}
++	    succe = e;
++	  }
+       if (succe)
+ 	{
+-	  bb2 = succe->dest;
++	  /* Verify the reached block is only reached through succe.
++	     If there is only one edge we can spare us the dominator
++	     check and iterate directly.  */
++	  if (EDGE_COUNT (succe->dest->preds) > 1)
++	    {
++	      FOR_EACH_EDGE (e, ei, succe->dest->preds)
++		if (e != succe
++		    && ((e->flags & EDGE_EXECUTABLE)
++			|| (!allow_back && (e->flags & EDGE_DFS_BACK))))
++		  {
++		    succe = NULL;
++		    break;
++		  }
++	    }
++	  if (succe)
++	    {
++	      bb2 = succe->dest;
+ 
+-	  /* Re-do the dominance check with changed bb2.  */
+-	  if (dominated_by_p (CDI_DOMINATORS, bb1, bb2))
+-	    return true;
++	      /* Re-do the dominance check with changed bb2.  */
++	      if (dominated_by_p (CDI_DOMINATORS, bb1, bb2))
++		return true;
++	    }
+ 	}
+     }
+ 
+diff --git a/gcc/tree-vect-loop.cc b/gcc/tree-vect-loop.cc
+index aed14e9b686..d1c19ce23fa 100644
+--- a/gcc/tree-vect-loop.cc
++++ b/gcc/tree-vect-loop.cc
+@@ -4287,7 +4287,8 @@ vect_estimate_min_profitable_iters (loop_vec_info loop_vinfo,
+       if (dump_enabled_p ())
+ 	dump_printf_loc (MSG_MISSED_OPTIMIZATION, vect_location,
+ 			 "can't unroll as unrolled vectorization factor larger"
+-			 " than maximum vectorization factor: %d\n",
++			 " than maximum vectorization factor: "
++			 HOST_WIDE_INT_PRINT_UNSIGNED "\n",
+ 			 LOOP_VINFO_MAX_VECT_FACTOR (loop_vinfo));
+       *suggested_unroll_factor = 1;
+     }
+diff --git a/gcc/tree-vect-slp-patterns.cc b/gcc/tree-vect-slp-patterns.cc
+index 879d17fd947..4b6384d7e25 100644
+--- a/gcc/tree-vect-slp-patterns.cc
++++ b/gcc/tree-vect-slp-patterns.cc
+@@ -96,8 +96,8 @@ vect_pattern_validate_optab (internal_fn ifn, slp_tree node)
+         {
+ 	  if (!vectype)
+ 	    dump_printf_loc (MSG_NOTE, vect_location,
+-			     "Target does not support vector type for %T\n",
+-			     SLP_TREE_DEF_TYPE (node));
++			     "Target does not support vector type for %G\n",
++			     STMT_VINFO_STMT (SLP_TREE_REPRESENTATIVE (node)));
+ 	  else
+ 	    dump_printf_loc (MSG_NOTE, vect_location,
+ 			     "Target does not support %s for vector type "
+diff --git a/gcc/tree-vect-slp.cc b/gcc/tree-vect-slp.cc
+index 0d400c00df1..0223056a186 100644
+--- a/gcc/tree-vect-slp.cc
++++ b/gcc/tree-vect-slp.cc
+@@ -2468,7 +2468,9 @@ vect_print_slp_tree (dump_flags_t dump_kind, dump_location_t loc,
+ 
+   dump_metadata_t metadata (dump_kind, loc.get_impl_location ());
+   dump_user_location_t user_loc = loc.get_user_location ();
+-  dump_printf_loc (metadata, user_loc, "node%s %p (max_nunits=%u, refcnt=%u)",
++  dump_printf_loc (metadata, user_loc,
++		   "node%s %p (max_nunits=" HOST_WIDE_INT_PRINT_UNSIGNED
++		   ", refcnt=%u)",
+ 		   SLP_TREE_DEF_TYPE (node) == vect_external_def
+ 		   ? " (external)"
+ 		   : (SLP_TREE_DEF_TYPE (node) == vect_constant_def
+@@ -4385,6 +4387,15 @@ vect_detect_hybrid_slp (loop_vec_info loop_vinfo)
+ 	 to use walk_gimple_op.  */
+       wi.is_lhs = 0;
+       walk_gimple_op (stmt_info->stmt, vect_detect_hybrid_slp, &wi);
++      /* For gather/scatter make sure to walk the offset operand, that
++	 can be a scaling and conversion away.  */
++      gather_scatter_info gs_info;
++      if (STMT_VINFO_GATHER_SCATTER_P (stmt_info)
++	  && vect_check_gather_scatter (stmt_info, loop_vinfo, &gs_info))
++	{
++	  int dummy;
++	  vect_detect_hybrid_slp (&gs_info.offset, &dummy, &wi);
++	}
+     }
+ }
+ 
+diff --git a/gcc/tree-vect-stmts.cc b/gcc/tree-vect-stmts.cc
+index d8da13e312a..4c5d20a0e2c 100644
+--- a/gcc/tree-vect-stmts.cc
++++ b/gcc/tree-vect-stmts.cc
+@@ -3419,6 +3419,14 @@ vectorizable_call (vec_info *vinfo,
+       return false;
+     }
+ 
++  if (vect_emulated_vector_p (vectype_in) || vect_emulated_vector_p (vectype_out))
++  {
++      if (dump_enabled_p ())
++	dump_printf_loc (MSG_MISSED_OPTIMIZATION, vect_location,
++			 "use emulated vector type for call\n");
++      return false;
++  }
++
+   /* FORNOW */
+   nunits_in = TYPE_VECTOR_SUBPARTS (vectype_in);
+   nunits_out = TYPE_VECTOR_SUBPARTS (vectype_out);
+diff --git a/libgcc/config/avr/libf7/ChangeLog b/libgcc/config/avr/libf7/ChangeLog
+index c9ad966f5e5..a56461b42e6 100644
+--- a/libgcc/config/avr/libf7/ChangeLog
++++ b/libgcc/config/avr/libf7/ChangeLog
+@@ -1,3 +1,12 @@
++2022-09-19  Georg-Johann Lay  <avr@gjlay.de>
++
++	Backported from master:
++	2022-09-19  Georg-Johann Lay  <avr@gjlay.de>
++
++	PR target/99184
++	* libf7-asm.sx (to_integer, to_unsigned): Don't round 16-bit
++	and 32-bit integers.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/libgcc/config/avr/libf7/libf7-asm.sx b/libgcc/config/avr/libf7/libf7-asm.sx
+index cfdbecdeffe..752a939f616 100644
+--- a/libgcc/config/avr/libf7/libf7-asm.sx
++++ b/libgcc/config/avr/libf7/libf7-asm.sx
+@@ -601,9 +601,6 @@ DEFUN to_integer
+     tst     C6
+     brmi    .Lsaturate.T    ;   > INTxx_MAX  =>  saturate
+ 
+-    rcall   .Lround
+-    brmi    .Lsaturate.T    ;   > INTxx_MAX  =>  saturate
+-
+     brtc 9f                 ;   >= 0         =>  return
+     sbrc    Mask,   5
+     .global __negdi2
+@@ -658,30 +655,6 @@ DEFUN to_integer
+     .global __clr_8
+     XJMP    __clr_8
+ 
+-.Lround:
+-    ;; C6.7 is known to be 0 here.
+-    ;; Return N = 1 iff we have to saturate.
+-    cpi     Mask,   0xf
+-    breq .Lround16
+-    cpi     Mask,   0x1f
+-    breq .Lround32
+-
+-    ;; For now, no rounding in the 64-bit case.  This rounding
+-    ;; would have to be integrated into the right-shift.
+-    cln
+-    ret
+-
+-.Lround32:
+-    rol     C2
+-    adc     C3,     ZERO
+-    adc     C4,     ZERO
+-    rjmp 2f
+-
+-.Lround16:
+-    rol     C4
+-2:  adc     C5,     ZERO
+-    adc     C6,     ZERO
+-    ret
+ ENDF to_integer
+ #endif /* F7MOD_to_integer_ */
+ 
+@@ -725,29 +698,6 @@ DEFUN to_unsigned
+     clr     CA
+     F7call  lshrdi3
+     POP     r16
+-
+-    ;; Rounding
+-    ;; ??? C6.7 is known to be 0 here.
+-    cpi     Mask,   0xf
+-    breq .Lround16
+-    cpi     Mask,   0x1f
+-    breq .Lround32
+-
+-    ;; For now, no rounding in the 64-bit case.  This rounding
+-    ;; would have to be integrated into the right-shift.
+-    ret
+-
+-.Lround32:
+-    rol     C2
+-    adc     C3,     ZERO
+-    adc     C4,     ZERO
+-    rjmp 2f
+-
+-.Lround16:
+-    rol     C4
+-2:  adc     C5,     ZERO
+-    adc     C6,     ZERO
+-    brcs    .Lset_0xffff    ; Rounding overflow  =>  saturate
+     ret
+ 
+ .Lset_0xffff:
+diff --git a/libgfortran/ChangeLog b/libgfortran/ChangeLog
+index 5aed23549c1..e8bafe9e2aa 100644
+--- a/libgfortran/ChangeLog
++++ b/libgfortran/ChangeLog
+@@ -1,3 +1,16 @@
++2022-08-29  Jakub Jelinek  <jakub@redhat.com>
++
++	Backported from master:
++	2022-08-26  Jakub Jelinek  <jakub@redhat.com>
++
++	PR fortran/106579
++	* ieee/ieee_helper.c (IEEE_OTHER_VALUE, IEEE_SIGNALING_NAN,
++	IEEE_QUIET_NAN, IEEE_NEGATIVE_INF, IEEE_NEGATIVE_NORMAL,
++	IEEE_NEGATIVE_DENORMAL, IEEE_NEGATIVE_SUBNORMAL,
++	IEEE_NEGATIVE_ZERO, IEEE_POSITIVE_ZERO, IEEE_POSITIVE_DENORMAL,
++	IEEE_POSITIVE_SUBNORMAL, IEEE_POSITIVE_NORMAL, IEEE_POSITIVE_INF):
++	Move to gcc/fortran/libgfortran.h.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/libgfortran/ieee/ieee_helper.c b/libgfortran/ieee/ieee_helper.c
+index 7e310f2c5b0..0b87fbf7e9d 100644
+--- a/libgfortran/ieee/ieee_helper.c
++++ b/libgfortran/ieee/ieee_helper.c
+@@ -51,26 +51,6 @@ extern int ieee_class_helper_16 (GFC_REAL_16 *);
+ internal_proto(ieee_class_helper_16);
+ #endif
+ 
+-/* Enumeration of the possible floating-point types. These values
+-   correspond to the hidden arguments of the IEEE_CLASS_TYPE
+-   derived-type of IEEE_ARITHMETIC.  */
+-
+-enum {
+-  IEEE_OTHER_VALUE = 0,
+-  IEEE_SIGNALING_NAN,
+-  IEEE_QUIET_NAN,
+-  IEEE_NEGATIVE_INF,
+-  IEEE_NEGATIVE_NORMAL,
+-  IEEE_NEGATIVE_DENORMAL,
+-  IEEE_NEGATIVE_SUBNORMAL = IEEE_NEGATIVE_DENORMAL,
+-  IEEE_NEGATIVE_ZERO,
+-  IEEE_POSITIVE_ZERO,
+-  IEEE_POSITIVE_DENORMAL,
+-  IEEE_POSITIVE_SUBNORMAL = IEEE_POSITIVE_DENORMAL,
+-  IEEE_POSITIVE_NORMAL,
+-  IEEE_POSITIVE_INF
+-};
+-
+ 
+ #define CLASSMACRO(TYPE) \
+   int ieee_class_helper_ ## TYPE (GFC_REAL_ ## TYPE *value) \
+diff --git a/libgomp/ChangeLog b/libgomp/ChangeLog
+index ad7a09c10ee..c0d4fbc01b5 100644
+--- a/libgomp/ChangeLog
++++ b/libgomp/ChangeLog
+@@ -1,3 +1,11 @@
++2022-08-23  Tobias Burnus  <tobias@codesourcery.com>
++
++	Backported from master:
++	2022-08-17  Tobias Burnus  <tobias@codesourcery.com>
++
++	PR middle-end/106548
++	* testsuite/libgomp.c/linear-2.c: New test.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/libgomp/testsuite/libgomp.c/linear-2.c b/libgomp/testsuite/libgomp.c/linear-2.c
+new file mode 100644
+index 00000000000..fd549a89490
+--- /dev/null
++++ b/libgomp/testsuite/libgomp.c/linear-2.c
+@@ -0,0 +1,254 @@
++/* PR middle-end/106548.  */
++/* { dg-additional-options "-msse2" { target sse2_runtime } } */
++/* { dg-additional-options "-mavx" { target avx_runtime } } */
++
++int a[256];
++
++__attribute__((noinline, noclone)) int
++f1 (int i)
++{
++  #pragma omp parallel for simd linear (i: 4)
++  for (int j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) short int
++f2 (short int i, char k)
++{
++  #pragma omp parallel for simd linear (i: k + 1)
++  for (long j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) long long int
++f3 (long long int i, long long int k)
++{
++  #pragma omp parallel for simd linear (i: k)
++  for (short j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) int
++f4 (int i)
++{
++  #pragma omp parallel for simd linear (i: 4) schedule(static, 3)
++  for (int j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) short int
++f5 (short int i, char k)
++{
++  #pragma omp parallel for simd linear (i: k + 1) schedule(static, 5)
++  for (long j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) long long int
++f6 (long long int i, long long int k)
++{
++  #pragma omp parallel for simd linear (i: k) schedule(static, 7)
++  for (short j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) int
++f7 (int i)
++{
++  #pragma omp parallel for simd linear (i: 4) schedule(dynamic, 3)
++  for (int j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) short int
++f8 (short int i, char k)
++{
++  #pragma omp parallel for simd linear (i: k + 1) schedule(dynamic, 5)
++  for (long j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) long long int
++f9 (long long int i, long long int k)
++{
++  #pragma omp parallel for simd linear (i: k) schedule(dynamic, 7)
++  for (short j = 16; j < 64; j++)
++    {
++      a[i] = j;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) int
++f10 (int i, long step)
++{
++  #pragma omp parallel for simd linear (i: 4)
++  for (int j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) short int
++f11 (short int i, char k, char step)
++{
++  #pragma omp parallel for simd linear (i: k + 1)
++  for (long j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) long long int
++f12 (long long int i, long long int k, int step)
++{
++  #pragma omp parallel for simd linear (i: k)
++  for (short j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) int
++f13 (int i, long long int step)
++{
++  #pragma omp parallel for simd linear (i: 4) schedule(static, 3)
++  for (int j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) short int
++f14 (short int i, char k, int step)
++{
++  #pragma omp parallel for simd linear (i: k + 1) schedule(static, 5)
++  for (long j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) long long int
++f15 (long long int i, long long int k, long int step)
++{
++  #pragma omp parallel for simd linear (i: k) schedule(static, 7)
++  for (short j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) int
++f16 (int i, long long int step)
++{
++  #pragma omp parallel for simd linear (i: 4) schedule(dynamic, 3)
++  for (int j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) short int
++f17 (short int i, char k, int step)
++{
++  #pragma omp parallel for simd linear (i: k + 1) schedule(dynamic, 5)
++  for (long j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++__attribute__((noinline, noclone)) long long int
++f18 (long long int i, long long int k, long int step)
++{
++  #pragma omp parallel for simd linear (i: k) schedule(dynamic, 7)
++  for (short j = 16; j < 112; j += step)
++    {
++      a[i] = j / 2 + 8;
++      i += 4;
++    }
++  return i;
++}
++
++int
++main ()
++{
++#define TEST(x) \
++  if (x != 8 + 48 * 4)				\
++    __builtin_abort ();				\
++  for (int i = 0; i < 256; i++)			\
++    if (a[i] != (((i & 3) == 0 && i >= 8	\
++		  && i < 8 + 48 * 4)		\
++		 ? ((i - 8) / 4) + 16 : 0))	\
++      __builtin_abort ();			\
++  __builtin_memset (a, 0, sizeof (a))
++  TEST (f1 (8));
++  TEST (f2 (8, 3));
++  TEST (f3 (8LL, 4LL));
++  TEST (f4 (8));
++  TEST (f5 (8, 3));
++  TEST (f6 (8LL, 4LL));
++  TEST (f7 (8));
++  TEST (f8 (8, 3));
++  TEST (f9 (8LL, 4LL));
++  TEST (f10 (8, 2));
++  TEST (f11 (8, 3, 2));
++  TEST (f12 (8LL, 4LL, 2));
++  TEST (f13 (8, 2));
++  TEST (f14 (8, 3, 2));
++  TEST (f15 (8LL, 4LL, 2));
++  TEST (f16 (8, 2));
++  TEST (f17 (8, 3, 2));
++  TEST (f18 (8LL, 4LL, 2));
++  return 0;
++}
+diff --git a/libstdc++-v3/ChangeLog b/libstdc++-v3/ChangeLog
+index 933d1b0809c..f9cf066cec7 100644
+--- a/libstdc++-v3/ChangeLog
++++ b/libstdc++-v3/ChangeLog
+@@ -1,3 +1,63 @@
++2022-09-16  Jonathan Wakely  <jwakely@redhat.com>
++
++	* doc/xml/manual/abi.xml: Document GLIBCXX_3.4.30 version.
++	* doc/html/manual/abi.html: Regenerate.
++
++2022-09-12  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-09-12  Patrick Palka  <ppalka@redhat.com>
++
++	PR libstdc++/106320
++	* testsuite/std/ranges/adaptors/join.cc (test13): New test.
++
++2022-09-07  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-08-22  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/106695
++	* include/bits/std_thread.h (thread::_State_impl): Forward
++	individual arguments to _Invoker constructor.
++	(thread::_Invoker): Add constructor. Delete copies.
++	* include/std/future (__future_base::_Deferred_state): Forward
++	individual arguments to _Invoker constructor.
++	(__future_base::_Async_state_impl): Likewise.
++	* testsuite/30_threads/async/106695.cc: New test.
++	* testsuite/30_threads/thread/106695.cc: New test.
++
++2022-09-07  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-08-22  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/106607
++	* include/bits/regex_compiler.tcc (_Compiler::_M_cur_int_value):
++	Use built-ins to check for integer overflow in back-reference
++	number.
++	* testsuite/28_regex/basic_regex/106607.cc: New test.
++
++2022-08-24  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-08-23  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/106589
++	* include/std/variant (__do_visit): Handle is_void<R> for zero
++	argument case.
++	* testsuite/20_util/variant/visit_r.cc: Check std::visit<void>(v).
++
++2022-08-23  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-08-22  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/105678
++	* doc/xml/manual/using.xml: Document -lstdc++_libbacktrace
++	requirement for using std::stacktrace. Also adjust -frtti and
++	-fexceptions to document non-default (i.e. negative) forms.
++	* doc/html/*: Regenerate.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/libstdc++-v3/doc/html/bk02.html b/libstdc++-v3/doc/html/bk02.html
+index 7c47759f223..182c94b59a6 100644
+--- a/libstdc++-v3/doc/html/bk02.html
++++ b/libstdc++-v3/doc/html/bk02.html
+@@ -1,2 +1,2 @@
+ <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title></title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><meta name="keywords" content="ISO C++, runtime, library" /><link rel="home" href="index.html" title="The GNU C++ Library" /><link rel="up" href="index.html" title="The GNU C++ Library" /><link rel="prev" href="manual/backwards.html" title="Backwards Compatibility" /><link rel="next" href="api.html" title="The GNU C++ Library API Reference" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="manual/backwards.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="api.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="article"><a href="api.html">The GNU C++ Library API Reference</a></span></dt></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="manual/backwards.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="api.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Backwards Compatibility </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The GNU C++ Library API Reference</td></tr></table></div></body></html>
+\ No newline at end of file
++<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title></title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><meta name="keywords" content="ISO C++, runtime, library" /><link rel="home" href="index.html" title="The GNU C++ Library" /><link rel="up" href="index.html" title="The GNU C++ Library" /><link rel="prev" href="manual/appendix_gfdl.html" title="Appendix E. GNU Free Documentation License" /><link rel="next" href="api.html" title="The GNU C++ Library API Reference" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center"></th></tr><tr><td width="20%" align="left"><a accesskey="p" href="manual/appendix_gfdl.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="api.html">Next</a></td></tr></table><hr /></div><div class="book"><div class="titlepage"><hr /></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="article"><a href="api.html">The GNU C++ Library API Reference</a></span></dt></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="manual/appendix_gfdl.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="api.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Appendix E. GNU Free Documentation License </td><td width="20%" align="center"><a accesskey="h" href="index.html">Home</a></td><td width="40%" align="right" valign="top"> The GNU C++ Library API Reference</td></tr></table></div></body></html>
+\ No newline at end of file
+diff --git a/libstdc++-v3/doc/html/manual/abi.html b/libstdc++-v3/doc/html/manual/abi.html
+index 82b03fd4fbb..c5ca94ac9f5 100644
+--- a/libstdc++-v3/doc/html/manual/abi.html
++++ b/libstdc++-v3/doc/html/manual/abi.html
+@@ -128,7 +128,7 @@ compatible.
+    GLIBCPP_3.2 for symbols that were introduced in the GCC 3.2.0
+    release.) If a particular release is not listed, it has the same
+    version labels as the preceding release.
+-   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>GCC 3.0.0: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.0.1: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.0.2: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.0.3: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.0.4: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.1.0: GLIBCPP_3.1, CXXABI_1</p></li><li class="listitem"><p>GCC 3.1.1: GLIBCPP_3.1, CXXABI_1</p></li><li class="listitem"><p>GCC 3.2.0: GLIBCPP_3.2, CXXABI_1.2</p></li><li class="listitem"><p>GCC 3.2.1: GLIBCPP_3.2.1, CXXABI_1.2</p></li><li class="listitem"><p>GCC 3.2.2: GLIBCPP_3.2.2, CXXABI_1.2</p></li><li class="listitem"><p>GCC 3.2.3: GLIBCPP_3.2.2, CXXABI_1.2</p></li><li class="listitem"><p>GCC 3.3.0: GLIBCPP_3.2.2, CXXABI_1.2.1</p></li><li class="listitem"><p>GCC 3.3.1: GLIBCPP_3.2.3, CXXABI_1.2.1</p></li><li class="listitem"><p>GCC 3.3.2: GLIBCPP_3.2.3, CXXABI_1.2.1</p></li><li class="listitem"><p>GCC 3.3.3: GLIBCPP_3.2.3, CXXABI_1.2.1</p></li><li class="listitem"><p>GCC 3.4.0: GLIBCXX_3.4, CXXABI_1.3</p></li><li class="listitem"><p>GCC 3.4.1: GLIBCXX_3.4.1, CXXABI_1.3</p></li><li class="listitem"><p>GCC 3.4.2: GLIBCXX_3.4.2</p></li><li class="listitem"><p>GCC 3.4.3: GLIBCXX_3.4.3</p></li><li class="listitem"><p>GCC 4.0.0: GLIBCXX_3.4.4, CXXABI_1.3.1</p></li><li class="listitem"><p>GCC 4.0.1: GLIBCXX_3.4.5</p></li><li class="listitem"><p>GCC 4.0.2: GLIBCXX_3.4.6</p></li><li class="listitem"><p>GCC 4.0.3: GLIBCXX_3.4.7</p></li><li class="listitem"><p>GCC 4.1.1: GLIBCXX_3.4.8</p></li><li class="listitem"><p>GCC 4.2.0: GLIBCXX_3.4.9</p></li><li class="listitem"><p>GCC 4.3.0: GLIBCXX_3.4.10, CXXABI_1.3.2</p></li><li class="listitem"><p>GCC 4.4.0: GLIBCXX_3.4.11, CXXABI_1.3.3</p></li><li class="listitem"><p>GCC 4.4.1: GLIBCXX_3.4.12, CXXABI_1.3.3</p></li><li class="listitem"><p>GCC 4.4.2: GLIBCXX_3.4.13, CXXABI_1.3.3</p></li><li class="listitem"><p>GCC 4.5.0: GLIBCXX_3.4.14, CXXABI_1.3.4</p></li><li class="listitem"><p>GCC 4.6.0: GLIBCXX_3.4.15, CXXABI_1.3.5</p></li><li class="listitem"><p>GCC 4.6.1: GLIBCXX_3.4.16, CXXABI_1.3.5</p></li><li class="listitem"><p>GCC 4.7.0: GLIBCXX_3.4.17, CXXABI_1.3.6</p></li><li class="listitem"><p>GCC 4.8.0: GLIBCXX_3.4.18, CXXABI_1.3.7</p></li><li class="listitem"><p>GCC 4.8.3: GLIBCXX_3.4.19, CXXABI_1.3.7</p></li><li class="listitem"><p>GCC 4.9.0: GLIBCXX_3.4.20, CXXABI_1.3.8</p></li><li class="listitem"><p>GCC 5.1.0: GLIBCXX_3.4.21, CXXABI_1.3.9</p></li><li class="listitem"><p>GCC 6.1.0: GLIBCXX_3.4.22, CXXABI_1.3.10</p></li><li class="listitem"><p>GCC 7.1.0: GLIBCXX_3.4.23, CXXABI_1.3.11</p></li><li class="listitem"><p>GCC 7.2.0: GLIBCXX_3.4.24, CXXABI_1.3.11</p></li><li class="listitem"><p>GCC 8.1.0: GLIBCXX_3.4.25, CXXABI_1.3.11</p></li><li class="listitem"><p>GCC 9.1.0: GLIBCXX_3.4.26, CXXABI_1.3.12</p></li><li class="listitem"><p>GCC 9.2.0: GLIBCXX_3.4.27, CXXABI_1.3.12</p></li><li class="listitem"><p>GCC 9.3.0: GLIBCXX_3.4.28, CXXABI_1.3.12</p></li><li class="listitem"><p>GCC 10.1.0: GLIBCXX_3.4.28, CXXABI_1.3.12</p></li><li class="listitem"><p>GCC 11.1.0: GLIBCXX_3.4.29, CXXABI_1.3.13</p></li></ul></div></li><li class="listitem"><p>Incremental bumping of a compiler pre-defined macro,
++   </p><div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>GCC 3.0.0: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.0.1: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.0.2: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.0.3: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.0.4: (Error, not versioned)</p></li><li class="listitem"><p>GCC 3.1.0: GLIBCPP_3.1, CXXABI_1</p></li><li class="listitem"><p>GCC 3.1.1: GLIBCPP_3.1, CXXABI_1</p></li><li class="listitem"><p>GCC 3.2.0: GLIBCPP_3.2, CXXABI_1.2</p></li><li class="listitem"><p>GCC 3.2.1: GLIBCPP_3.2.1, CXXABI_1.2</p></li><li class="listitem"><p>GCC 3.2.2: GLIBCPP_3.2.2, CXXABI_1.2</p></li><li class="listitem"><p>GCC 3.2.3: GLIBCPP_3.2.2, CXXABI_1.2</p></li><li class="listitem"><p>GCC 3.3.0: GLIBCPP_3.2.2, CXXABI_1.2.1</p></li><li class="listitem"><p>GCC 3.3.1: GLIBCPP_3.2.3, CXXABI_1.2.1</p></li><li class="listitem"><p>GCC 3.3.2: GLIBCPP_3.2.3, CXXABI_1.2.1</p></li><li class="listitem"><p>GCC 3.3.3: GLIBCPP_3.2.3, CXXABI_1.2.1</p></li><li class="listitem"><p>GCC 3.4.0: GLIBCXX_3.4, CXXABI_1.3</p></li><li class="listitem"><p>GCC 3.4.1: GLIBCXX_3.4.1, CXXABI_1.3</p></li><li class="listitem"><p>GCC 3.4.2: GLIBCXX_3.4.2</p></li><li class="listitem"><p>GCC 3.4.3: GLIBCXX_3.4.3</p></li><li class="listitem"><p>GCC 4.0.0: GLIBCXX_3.4.4, CXXABI_1.3.1</p></li><li class="listitem"><p>GCC 4.0.1: GLIBCXX_3.4.5</p></li><li class="listitem"><p>GCC 4.0.2: GLIBCXX_3.4.6</p></li><li class="listitem"><p>GCC 4.0.3: GLIBCXX_3.4.7</p></li><li class="listitem"><p>GCC 4.1.1: GLIBCXX_3.4.8</p></li><li class="listitem"><p>GCC 4.2.0: GLIBCXX_3.4.9</p></li><li class="listitem"><p>GCC 4.3.0: GLIBCXX_3.4.10, CXXABI_1.3.2</p></li><li class="listitem"><p>GCC 4.4.0: GLIBCXX_3.4.11, CXXABI_1.3.3</p></li><li class="listitem"><p>GCC 4.4.1: GLIBCXX_3.4.12, CXXABI_1.3.3</p></li><li class="listitem"><p>GCC 4.4.2: GLIBCXX_3.4.13, CXXABI_1.3.3</p></li><li class="listitem"><p>GCC 4.5.0: GLIBCXX_3.4.14, CXXABI_1.3.4</p></li><li class="listitem"><p>GCC 4.6.0: GLIBCXX_3.4.15, CXXABI_1.3.5</p></li><li class="listitem"><p>GCC 4.6.1: GLIBCXX_3.4.16, CXXABI_1.3.5</p></li><li class="listitem"><p>GCC 4.7.0: GLIBCXX_3.4.17, CXXABI_1.3.6</p></li><li class="listitem"><p>GCC 4.8.0: GLIBCXX_3.4.18, CXXABI_1.3.7</p></li><li class="listitem"><p>GCC 4.8.3: GLIBCXX_3.4.19, CXXABI_1.3.7</p></li><li class="listitem"><p>GCC 4.9.0: GLIBCXX_3.4.20, CXXABI_1.3.8</p></li><li class="listitem"><p>GCC 5.1.0: GLIBCXX_3.4.21, CXXABI_1.3.9</p></li><li class="listitem"><p>GCC 6.1.0: GLIBCXX_3.4.22, CXXABI_1.3.10</p></li><li class="listitem"><p>GCC 7.1.0: GLIBCXX_3.4.23, CXXABI_1.3.11</p></li><li class="listitem"><p>GCC 7.2.0: GLIBCXX_3.4.24, CXXABI_1.3.11</p></li><li class="listitem"><p>GCC 8.1.0: GLIBCXX_3.4.25, CXXABI_1.3.11</p></li><li class="listitem"><p>GCC 9.1.0: GLIBCXX_3.4.26, CXXABI_1.3.12</p></li><li class="listitem"><p>GCC 9.2.0: GLIBCXX_3.4.27, CXXABI_1.3.12</p></li><li class="listitem"><p>GCC 9.3.0: GLIBCXX_3.4.28, CXXABI_1.3.12</p></li><li class="listitem"><p>GCC 10.1.0: GLIBCXX_3.4.28, CXXABI_1.3.12</p></li><li class="listitem"><p>GCC 11.1.0: GLIBCXX_3.4.29, CXXABI_1.3.13</p></li><li class="listitem"><p>GCC 12.1.0: GLIBCXX_3.4.30, CXXABI_1.3.13</p></li></ul></div></li><li class="listitem"><p>Incremental bumping of a compiler pre-defined macro,
+     __GXX_ABI_VERSION. This macro is defined as the version of the
+     compiler v3 ABI, with g++ 3.0 being version 100. This macro will
+     be automatically defined whenever g++ is used (the curious can
+diff --git a/libstdc++-v3/doc/html/manual/extensions.html b/libstdc++-v3/doc/html/manual/extensions.html
+index 82bf42e54b0..1b13d711714 100644
+--- a/libstdc++-v3/doc/html/manual/extensions.html
++++ b/libstdc++-v3/doc/html/manual/extensions.html
+@@ -1,8 +1,8 @@
+ <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Part III.  Extensions</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><meta name="keywords" content="ISO C++, library" /><meta name="keywords" content="ISO C++, runtime, library" /><link rel="home" href="../index.html" title="The GNU C++ Library" /><link rel="up" href="index.html" title="The GNU C++ Library Manual" /><link rel="prev" href="io_and_c.html" title="Interacting with C" /><link rel="next" href="ext_preface.html" title="" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Part III. 
++<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Part III.  Extensions</title><meta name="generator" content="DocBook XSL Stylesheets Vsnapshot" /><meta name="keywords" content="ISO C++, library" /><meta name="keywords" content="ISO C++, runtime, library" /><link rel="home" href="../index.html" title="The GNU C++ Library" /><link rel="up" href="index.html" title="The GNU C++ Library Manual" /><link rel="prev" href="concurrency.html" title="Chapter 15.  Concurrency" /><link rel="next" href="ext_preface.html" title="" /></head><body><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Part III. 
+   Extensions
+   
+-</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="io_and_c.html">Prev</a> </td><th width="60%" align="center">The GNU C++ Library Manual</th><td width="20%" align="right"> <a accesskey="n" href="ext_preface.html">Next</a></td></tr></table><hr /></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="manual.ext"></a>Part III. 
++</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="concurrency.html">Prev</a> </td><th width="60%" align="center">The GNU C++ Library Manual</th><td width="20%" align="right"> <a accesskey="n" href="ext_preface.html">Next</a></td></tr></table><hr /></div><div class="part"><div class="titlepage"><div><div><h1 class="title"><a id="manual.ext"></a>Part III. 
+   Extensions
+   <a id="id-1.3.5.1.1.1" class="indexterm"></a>
+ </h1></div></div></div><div class="toc"><p><strong>Table of Contents</strong></p><dl class="toc"><dt><span class="preface"><a href="ext_preface.html"></a></span></dt><dt><span class="chapter"><a href="ext_compile_checks.html">16. Compile Time Checks</a></span></dt><dt><span class="chapter"><a href="debug_mode.html">17. Debug Mode</a></span></dt><dd><dl><dt><span class="section"><a href="debug_mode.html#manual.ext.debug_mode.intro">Intro</a></span></dt><dt><span class="section"><a href="debug_mode_semantics.html">Semantics</a></span></dt><dt><span class="section"><a href="debug_mode_using.html">Using</a></span></dt><dd><dl><dt><span class="section"><a href="debug_mode_using.html#debug_mode.using.mode">Using the Debug Mode</a></span></dt><dt><span class="section"><a href="debug_mode_using.html#debug_mode.using.specific">Using a Specific Debug Container</a></span></dt></dl></dd><dt><span class="section"><a href="debug_mode_design.html">Design</a></span></dt><dd><dl><dt><span class="section"><a href="debug_mode_design.html#debug_mode.design.goals">Goals</a></span></dt><dt><span class="section"><a href="debug_mode_design.html#debug_mode.design.methods">Methods</a></span></dt><dd><dl><dt><span class="section"><a href="debug_mode_design.html#debug_mode.design.methods.wrappers">The Wrapper Model</a></span></dt><dd><dl><dt><span class="section"><a href="debug_mode_design.html#debug_mode.design.methods.safe_iter">Safe Iterators</a></span></dt><dt><span class="section"><a href="debug_mode_design.html#debug_mode.design.methods.safe_seq">Safe Sequences (Containers)</a></span></dt></dl></dd><dt><span class="section"><a href="debug_mode_design.html#debug_mode.design.methods.precond">Precondition Checking</a></span></dt><dt><span class="section"><a href="debug_mode_design.html#debug_mode.design.methods.coexistence">Release- and debug-mode coexistence</a></span></dt><dd><dl><dt><span class="section"><a href="debug_mode_design.html#methods.coexistence.compile">Compile-time coexistence of release- and debug-mode components</a></span></dt><dt><span class="section"><a href="debug_mode_design.html#methods.coexistence.link">Link- and run-time coexistence of release- and
+@@ -68,4 +68,7 @@
+ 	  Text <code class="function">modify</code> Up
+ 	</a></span></dt><dt><span class="section"><a href="policy_based_data_structures_test.html#performance.priority_queue.text_modify_down">
+ 	  Text <code class="function">modify</code> Down
+-	</a></span></dt></dl></dd><dt><span class="section"><a href="policy_based_data_structures_test.html#pbds.test.performance.observations">Observations</a></span></dt><dd><dl><dt><span class="section"><a href="policy_based_data_structures_test.html#observations.associative">Associative</a></span></dt><dt><span class="section"><a href="policy_based_data_structures_test.html#observations.priority_queue">Priority_Queue</a></span></dt></dl></dd></dl></dd></dl></dd><dt><span class="section"><a href="policy_data_structures_ack.html">Acknowledgments</a></span></dt><dt><span class="bibliography"><a href="policy_data_structures.html#pbds.biblio">Bibliography</a></span></dt></dl></dd><dt><span class="chapter"><a href="ext_containers.html">22. HP/SGI Extensions</a></span></dt><dd><dl><dt><span class="section"><a href="ext_containers.html#manual.ext.containers.sgi">Backwards Compatibility</a></span></dt><dt><span class="section"><a href="ext_sgi.html">Deprecated</a></span></dt></dl></dd><dt><span class="chapter"><a href="ext_utilities.html">23. Utilities</a></span></dt><dt><span class="chapter"><a href="ext_algorithms.html">24. Algorithms</a></span></dt><dt><span class="chapter"><a href="ext_numerics.html">25. Numerics</a></span></dt><dt><span class="chapter"><a href="ext_iterators.html">26. Iterators</a></span></dt><dt><span class="chapter"><a href="ext_io.html">27. Input and Output</a></span></dt><dd><dl><dt><span class="section"><a href="ext_io.html#manual.ext.io.filebuf_derived">Derived filebufs</a></span></dt></dl></dd><dt><span class="chapter"><a href="ext_demangling.html">28. Demangling</a></span></dt><dt><span class="chapter"><a href="ext_concurrency.html">29. Concurrency</a></span></dt><dd><dl><dt><span class="section"><a href="ext_concurrency.html#manual.ext.concurrency.design">Design</a></span></dt><dd><dl><dt><span class="section"><a href="ext_concurrency.html#manual.ext.concurrency.design.threads">Interface to Locks and Mutexes</a></span></dt><dt><span class="section"><a href="ext_concurrency.html#manual.ext.concurrency.design.atomics">Interface to Atomic Functions</a></span></dt></dl></dd><dt><span class="section"><a href="ext_concurrency_impl.html">Implementation</a></span></dt><dd><dl><dt><span class="section"><a href="ext_concurrency_impl.html#manual.ext.concurrency.impl.atomic_fallbacks">Using Built-in Atomic Functions</a></span></dt><dt><span class="section"><a href="ext_concurrency_impl.html#manual.ext.concurrency.impl.thread">Thread Abstraction</a></span></dt></dl></dd><dt><span class="section"><a href="ext_concurrency_use.html">Use</a></span></dt></dl></dd></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="io_and_c.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ext_preface.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Interacting with C </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>
+\ No newline at end of file
++	</a></span></dt></dl></dd><dt><span class="section"><a href="policy_based_data_structures_test.html#pbds.test.performance.observations">Observations</a></span></dt><dd><dl><dt><span class="section"><a href="policy_based_data_structures_test.html#observations.associative">Associative</a></span></dt><dt><span class="section"><a href="policy_based_data_structures_test.html#observations.priority_queue">Priority_Queue</a></span></dt></dl></dd></dl></dd></dl></dd><dt><span class="section"><a href="policy_data_structures_ack.html">Acknowledgments</a></span></dt><dt><span class="bibliography"><a href="policy_data_structures.html#pbds.biblio">Bibliography</a></span></dt></dl></dd><dt><span class="chapter"><a href="ext_containers.html">22. HP/SGI Extensions</a></span></dt><dd><dl><dt><span class="section"><a href="ext_containers.html#manual.ext.containers.sgi">Backwards Compatibility</a></span></dt><dt><span class="section"><a href="ext_sgi.html">Deprecated</a></span></dt></dl></dd><dt><span class="chapter"><a href="ext_utilities.html">23. Utilities</a></span></dt><dt><span class="chapter"><a href="ext_algorithms.html">24. Algorithms</a></span></dt><dt><span class="chapter"><a href="ext_numerics.html">25. Numerics</a></span></dt><dt><span class="chapter"><a href="ext_iterators.html">26. Iterators</a></span></dt><dt><span class="chapter"><a href="ext_io.html">27. Input and Output</a></span></dt><dd><dl><dt><span class="section"><a href="ext_io.html#manual.ext.io.filebuf_derived">Derived filebufs</a></span></dt></dl></dd><dt><span class="chapter"><a href="ext_demangling.html">28. Demangling</a></span></dt><dt><span class="chapter"><a href="ext_concurrency.html">29. Concurrency</a></span></dt><dd><dl><dt><span class="section"><a href="ext_concurrency.html#manual.ext.concurrency.design">Design</a></span></dt><dd><dl><dt><span class="section"><a href="ext_concurrency.html#manual.ext.concurrency.design.threads">Interface to Locks and Mutexes</a></span></dt><dt><span class="section"><a href="ext_concurrency.html#manual.ext.concurrency.design.atomics">Interface to Atomic Functions</a></span></dt></dl></dd><dt><span class="section"><a href="ext_concurrency_impl.html">Implementation</a></span></dt><dd><dl><dt><span class="section"><a href="ext_concurrency_impl.html#manual.ext.concurrency.impl.atomic_fallbacks">Using Built-in Atomic Functions</a></span></dt><dt><span class="section"><a href="ext_concurrency_impl.html#manual.ext.concurrency.impl.thread">Thread Abstraction</a></span></dt></dl></dd><dt><span class="section"><a href="ext_concurrency_use.html">Use</a></span></dt></dl></dd></dl></div></div><div class="navfooter"><hr /><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="concurrency.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="index.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="ext_preface.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 15. 
++  Concurrency
++  
++ </td><td width="20%" align="center"><a accesskey="h" href="../index.html">Home</a></td><td width="40%" align="right" valign="top"> </td></tr></table></div></body></html>
+\ No newline at end of file
+diff --git a/libstdc++-v3/doc/html/manual/using.html b/libstdc++-v3/doc/html/manual/using.html
+index 641a08c688b..08facffa445 100644
+--- a/libstdc++-v3/doc/html/manual/using.html
++++ b/libstdc++-v3/doc/html/manual/using.html
+@@ -16,7 +16,11 @@
+       <span class="command"><strong>g++ -std=gnu++98</strong></span> for older releases.
+     </p><div class="table"><a id="table.cmd_options"></a><p class="title"><strong>Table 3.1. C++ Command Options</strong></p><div class="table-contents"><table class="table" summary="C++ Command Options" border="1"><colgroup><col align="left" class="c1" /><col align="left" class="c2" /></colgroup><thead><tr><th align="left">Option Flags</th><th align="left">Description</th></tr></thead><tbody><tr><td align="left"><code class="literal">-std=c++98</code> or <code class="literal">-std=c++03</code>
+       </td><td align="left">Use the 1998 ISO C++ standard plus amendments.</td></tr><tr><td align="left"><code class="literal">-std=gnu++98</code> or <code class="literal">-std=gnu++03</code>
+-      </td><td align="left">As directly above, with GNU extensions.</td></tr><tr><td align="left"><code class="literal">-std=c++11</code></td><td align="left">Use the 2011 ISO C++ standard.</td></tr><tr><td align="left"><code class="literal">-std=gnu++11</code></td><td align="left">As directly above, with GNU extensions.</td></tr><tr><td align="left"><code class="literal">-std=c++14</code></td><td align="left">Use the 2014 ISO C++ standard.</td></tr><tr><td align="left"><code class="literal">-std=gnu++14</code></td><td align="left">As directly above, with GNU extensions.</td></tr><tr><td align="left"><code class="literal">-fexceptions</code></td><td align="left">See <a class="link" href="using_exceptions.html#intro.using.exception.no" title="Doing without">exception-free dialect</a></td></tr><tr><td align="left"><code class="literal">-frtti</code></td><td align="left">As above, but RTTI-free dialect.</td></tr><tr><td align="left"><code class="literal">-pthread</code></td><td align="left">For ISO C++11
++      </td><td align="left">As directly above, with GNU extensions.</td></tr><tr><td align="left"><code class="literal">-std=c++11</code></td><td align="left">Use the 2011 ISO C++ standard.</td></tr><tr><td align="left"><code class="literal">-std=gnu++11</code></td><td align="left">As directly above, with GNU extensions.</td></tr><tr><td align="left"><code class="literal">-std=c++14</code></td><td align="left">Use the 2014 ISO C++ standard.</td></tr><tr><td align="left"><code class="literal">-std=gnu++14</code></td><td align="left">As directly above, with GNU extensions.</td></tr><tr><td align="left">
++	<code class="literal">-fno-exceptions</code>
++      </td><td align="left">See <a class="link" href="using_exceptions.html#intro.using.exception.no" title="Doing without">exception-free dialect</a></td></tr><tr><td align="left">
++	<code class="literal">-fno-rtti</code>
++      </td><td align="left">As above, but RTTI-free dialect.</td></tr><tr><td align="left"><code class="literal">-pthread</code></td><td align="left">For ISO C++11
+         <code class="filename">&lt;thread&gt;</code>,
+         <code class="filename">&lt;future&gt;</code>,
+         <code class="filename">&lt;mutex&gt;</code>,
+@@ -27,6 +31,12 @@
+       </td></tr><tr><td align="left"><code class="literal">-lstdc++fs</code></td><td align="left">Linking to <code class="filename">libstdc++fs</code>
+         is required for use of the Filesystem library extensions in
+         <code class="filename">&lt;experimental/filesystem&gt;</code>.
++      </td></tr><tr><td align="left"><code class="literal">-lstdc++_libbacktrace</code></td><td align="left">Until C++23 support is non-experimental, linking to
++	<code class="filename">libstdc++_libbacktrace.a</code>
++	is required for use of the C++23 type
++	<code class="classname">std::stacktrace</code>
++	and related types in
++	<code class="filename">&lt;stacktrace&gt;</code>.
+       </td></tr><tr><td align="left"><code class="literal">-fopenmp</code></td><td align="left">For <a class="link" href="parallel_mode.html" title="Chapter 18. Parallel Mode">parallel</a> mode.</td></tr><tr><td align="left"><code class="literal">-ltbb</code></td><td align="left">Linking to tbb (Thread Building Blocks) is required for use of the
+         Parallel Standard Algorithms and execution policies in
+         <code class="filename">&lt;execution&gt;</code>.
+diff --git a/libstdc++-v3/doc/xml/manual/abi.xml b/libstdc++-v3/doc/xml/manual/abi.xml
+index c2c0c028a8b..10bef12c768 100644
+--- a/libstdc++-v3/doc/xml/manual/abi.xml
++++ b/libstdc++-v3/doc/xml/manual/abi.xml
+@@ -348,6 +348,7 @@ compatible.
+     <listitem><para>GCC 9.3.0: GLIBCXX_3.4.28, CXXABI_1.3.12</para></listitem>
+     <listitem><para>GCC 10.1.0: GLIBCXX_3.4.28, CXXABI_1.3.12</para></listitem>
+     <listitem><para>GCC 11.1.0: GLIBCXX_3.4.29, CXXABI_1.3.13</para></listitem>
++    <listitem><para>GCC 12.1.0: GLIBCXX_3.4.30, CXXABI_1.3.13</para></listitem>
+ 
+     </itemizedlist>
+     </listitem>
+diff --git a/libstdc++-v3/doc/xml/manual/using.xml b/libstdc++-v3/doc/xml/manual/using.xml
+index 36b86702d22..0b9a0c98518 100644
+--- a/libstdc++-v3/doc/xml/manual/using.xml
++++ b/libstdc++-v3/doc/xml/manual/using.xml
+@@ -69,12 +69,16 @@
+     </row>
+ 
+     <row>
+-      <entry><literal>-fexceptions</literal></entry>
++      <entry>
++	<literal>-fno-exceptions</literal>
++      </entry>
+       <entry>See <link linkend="intro.using.exception.no">exception-free dialect</link></entry>
+     </row>
+ 
+     <row>
+-      <entry><literal>-frtti</literal></entry>
++      <entry>
++	<literal>-fno-rtti</literal>
++      </entry>
+       <entry>As above, but RTTI-free dialect.</entry>
+     </row>
+ 
+@@ -104,6 +108,17 @@
+       </entry>
+     </row>
+ 
++    <row>
++      <entry><literal>-lstdc++_libbacktrace</literal></entry>
++      <entry>Until C++23 support is non-experimental, linking to
++	<filename class="libraryfile">libstdc++_libbacktrace.a</filename>
++	is required for use of the C++23 type
++	<classname>std::stacktrace</classname>
++	and related types in
++	<filename class="headerfile">&lt;stacktrace&gt;</filename>.
++      </entry>
++    </row>
++
+     <row>
+       <entry><literal>-fopenmp</literal></entry>
+       <entry>For <link linkend="manual.ext.parallel_mode">parallel</link> mode.</entry>
+diff --git a/libstdc++-v3/include/bits/regex_compiler.tcc b/libstdc++-v3/include/bits/regex_compiler.tcc
+index c12f7502538..9f3ca63af51 100644
+--- a/libstdc++-v3/include/bits/regex_compiler.tcc
++++ b/libstdc++-v3/include/bits/regex_compiler.tcc
+@@ -583,10 +583,12 @@ namespace __detail
+     _Compiler<_TraitsT>::
+     _M_cur_int_value(int __radix)
+     {
+-      long __v = 0;
+-      for (typename _StringT::size_type __i = 0;
+-	   __i < _M_value.length(); ++__i)
+-	__v =__v * __radix + _M_traits.value(_M_value[__i], __radix);
++      int __v = 0;
++      for (_CharT __c : _M_value)
++	if (__builtin_mul_overflow(__v, __radix, &__v)
++	    || __builtin_add_overflow(__v, _M_traits.value(__c, __radix), &__v))
++	    std::__throw_regex_error(regex_constants::error_backref,
++				     "invalid back reference");
+       return __v;
+     }
+ 
+diff --git a/libstdc++-v3/include/bits/std_thread.h b/libstdc++-v3/include/bits/std_thread.h
+index dd625de3bc3..6adf5e6b467 100644
+--- a/libstdc++-v3/include/bits/std_thread.h
++++ b/libstdc++-v3/include/bits/std_thread.h
+@@ -203,7 +203,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+ 
+ 	template<typename... _Args>
+ 	  _State_impl(_Args&&... __args)
+-	  : _M_func{{std::forward<_Args>(__args)...}}
++	  : _M_func(std::forward<_Args>(__args)...)
+ 	  { }
+ 
+ 	void
+@@ -237,6 +237,12 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+     template<typename _Tuple>
+       struct _Invoker
+       {
++	template<typename... _Args>
++	  explicit
++	  _Invoker(_Args&&... __args)
++	  : _M_t(std::forward<_Args>(__args)...)
++	  { }
++
+ 	_Tuple _M_t;
+ 
+ 	template<typename>
+diff --git a/libstdc++-v3/include/std/future b/libstdc++-v3/include/std/future
+index 3bdbc636f69..6cda28c84cf 100644
+--- a/libstdc++-v3/include/std/future
++++ b/libstdc++-v3/include/std/future
+@@ -1659,7 +1659,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+ 	explicit
+ 	_Deferred_state(_Args&&... __args)
+ 	: _M_result(new _Result<_Res>()),
+-	  _M_fn{{std::forward<_Args>(__args)...}}
++	  _M_fn(std::forward<_Args>(__args)...)
+ 	{ }
+ 
+     private:
+@@ -1726,7 +1726,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+ 	explicit
+ 	_Async_state_impl(_Args&&... __args)
+ 	: _M_result(new _Result<_Res>()),
+-	  _M_fn{{std::forward<_Args>(__args)...}}
++	  _M_fn(std::forward<_Args>(__args)...)
+ 	{
+ 	  _M_thread = std::thread{&_Async_state_impl::_M_run, this};
+ 	}
+diff --git a/libstdc++-v3/include/std/variant b/libstdc++-v3/include/std/variant
+index beed396fccb..df0dd08d90a 100644
+--- a/libstdc++-v3/include/std/variant
++++ b/libstdc++-v3/include/std/variant
+@@ -1730,7 +1730,12 @@ namespace __variant
+     {
+       // Get the silly case of visiting no variants out of the way first.
+       if constexpr (sizeof...(_Variants) == 0)
+-	return std::forward<_Visitor>(__visitor)();
++	{
++	  if constexpr (is_void_v<_Result_type>)
++	    return (void) std::forward<_Visitor>(__visitor)();
++	  else
++	    return std::forward<_Visitor>(__visitor)();
++	}
+       else
+ 	{
+ 	  constexpr size_t __max = 11; // "These go to eleven."
+diff --git a/libstdc++-v3/testsuite/20_util/variant/visit_r.cc b/libstdc++-v3/testsuite/20_util/variant/visit_r.cc
+index 712459f25e3..c77b259c386 100644
+--- a/libstdc++-v3/testsuite/20_util/variant/visit_r.cc
++++ b/libstdc++-v3/testsuite/20_util/variant/visit_r.cc
+@@ -54,10 +54,18 @@ void test02()
+   std::visit<const void>(Visitor(), v);
+ }
+ 
++void test03()
++{
++  // PR libstdc++/106589 - visit<void> rejects lambdas that do not return void
++  auto visitor = []{ return 0; };
++  std::visit<void>(visitor);
++  std::visit<void>(static_cast<int(*)()>(visitor));
++}
+ 
+ int
+ main()
+ {
+   test01();
+   test02();
++  test03();
+ }
+diff --git a/libstdc++-v3/testsuite/28_regex/basic_regex/106607.cc b/libstdc++-v3/testsuite/28_regex/basic_regex/106607.cc
+new file mode 100644
+index 00000000000..f8e7fb2364d
+--- /dev/null
++++ b/libstdc++-v3/testsuite/28_regex/basic_regex/106607.cc
+@@ -0,0 +1,25 @@
++// { dg-do run { target c++11 } }
++
++#include <regex>
++#include <string>
++#include <climits>
++#include <testsuite_hooks.h>
++
++// PR libstdc++/106607 - Regex integer overflow on large backreference value
++
++int main()
++{
++  std::regex r("(.)\\1"); // OK
++
++  try
++  {
++    long long n = (unsigned)-1 + 2LL;          // 4294967297 for 32-bit int
++    VERIFY( (int)n == 1 );                     // 4294967297 % 2^32 == 1
++    std::regex r("(.)\\" + std::to_string(n)); // Invalid back reference.
++    VERIFY(false);
++  }
++  catch (const std::regex_error& e)
++  {
++    VERIFY( e.code() == std::regex_constants::error_backref );
++  }
++}
+diff --git a/libstdc++-v3/testsuite/30_threads/async/106695.cc b/libstdc++-v3/testsuite/30_threads/async/106695.cc
+new file mode 100644
+index 00000000000..74996342dc7
+--- /dev/null
++++ b/libstdc++-v3/testsuite/30_threads/async/106695.cc
+@@ -0,0 +1,29 @@
++// { dg-do compile { target c++11 } }
++// { dg-require-gthreads "" }
++
++// PR libstdc++/106695
++// Explicit copy constructor does not work for a parameter passed via std::async
++
++#include <future>
++
++struct A {
++  A() = default;
++  explicit A(const A&) = default;
++};
++
++void func(const A&) { }
++
++void
++test_async()
++{
++  (void) std::async(std::launch::async, func, A{});
++  (void) std::async(std::launch::deferred, func, A{});
++  (void) std::async(func, A{});
++}
++
++void
++test_task()
++{
++  std::packaged_task<void(const A&)> task(func);
++  task(A{});
++}
+diff --git a/libstdc++-v3/testsuite/30_threads/thread/106695.cc b/libstdc++-v3/testsuite/30_threads/thread/106695.cc
+new file mode 100644
+index 00000000000..97e9e922d8e
+--- /dev/null
++++ b/libstdc++-v3/testsuite/30_threads/thread/106695.cc
+@@ -0,0 +1,21 @@
++// { dg-do compile { target c++11 } }
++// { dg-require-gthreads "" }
++
++// PR libstdc++/106695
++// Explicit copy constructor does not work for a parameter passed via std::async
++
++#include <thread>
++
++struct A {
++  A() = default;
++  explicit A(const A&) = default;
++};
++
++void func(const A&) { }
++
++void
++test_thread()
++{
++  std::thread t(func, A{});
++  t.join();
++}
+diff --git a/libstdc++-v3/testsuite/std/ranges/adaptors/join.cc b/libstdc++-v3/testsuite/std/ranges/adaptors/join.cc
+index 8986f718229..530ab6663b5 100644
+--- a/libstdc++-v3/testsuite/std/ranges/adaptors/join.cc
++++ b/libstdc++-v3/testsuite/std/ranges/adaptors/join.cc
+@@ -205,6 +205,18 @@ test12()
+   }();
+ }
+ 
++void
++test13()
++{
++  // PR libstdc++/106320
++  auto l = std::views::transform([](auto x) {
++    return x | std::views::transform([i=0](auto y) {
++      return y;
++    });
++  });
++  std::vector<std::vector<int>> v{{5, 6, 7}};
++  v | l | std::views::join;
++}
+ int
+ main()
+ {
+@@ -220,4 +232,5 @@ main()
+   test10();
+   test11();
+   test12();
++  test13();
+ }
