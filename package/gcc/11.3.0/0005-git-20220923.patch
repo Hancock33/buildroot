@@ -6,10 +6,21 @@ index f628d2eafc5..0a47c95bb14 100644
 -11.3.0
 +11.3.1
 diff --git a/gcc/ChangeLog b/gcc/ChangeLog
-index a0587d18824..3deb69f998a 100644
+index a0587d18824..a3964c36c15 100644
 --- a/gcc/ChangeLog
 +++ b/gcc/ChangeLog
-@@ -1,3 +1,668 @@
+@@ -1,3 +1,679 @@
++2022-09-21  Richard Sandiford  <richard.sandiford@arm.com>
++
++	Backported from master:
++	2022-09-20  Richard Sandiford  <richard.sandiford@arm.com>
++
++	PR target/106491
++	* config/aarch64/aarch64-sve-builtins.cc (scalar_types)
++	(acle_vector_types, acle_svpattern, acle_svprfop): Add GTY
++	markup to (new) extern declarations instead of to the main
++	definition.
++
 +2022-09-14  Tom de Vries  <tdevries@suse.de>
 +
 +	Backported from master:
@@ -679,12 +690,12 @@ index a0587d18824..3deb69f998a 100644
  
  	* GCC 11.3.0 released.
 diff --git a/gcc/DATESTAMP b/gcc/DATESTAMP
-index d4ff129236b..437b57288fa 100644
+index d4ff129236b..6fbb09fe858 100644
 --- a/gcc/DATESTAMP
 +++ b/gcc/DATESTAMP
 @@ -1 +1 @@
 -20220421
-+20220915
++20220922
 diff --git a/gcc/alias.c b/gcc/alias.c
 index 69e1eb89ac6..ba4aa4dc8d9 100644
 --- a/gcc/alias.c
@@ -1033,6 +1044,40 @@ index b91eeeba101..ad62da81d31 100644
  };
  
  rtx aarch64_atomic_ool_func(machine_mode mode, rtx model_rtx,
+diff --git a/gcc/config/aarch64/aarch64-sve-builtins.cc b/gcc/config/aarch64/aarch64-sve-builtins.cc
+index f44f81f1375..fcc458af3d6 100644
+--- a/gcc/config/aarch64/aarch64-sve-builtins.cc
++++ b/gcc/config/aarch64/aarch64-sve-builtins.cc
+@@ -530,7 +530,8 @@ static CONSTEXPR const function_group_info function_groups[] = {
+ };
+ 
+ /* The scalar type associated with each vector type.  */
+-GTY(()) tree scalar_types[NUM_VECTOR_TYPES];
++extern GTY(()) tree scalar_types[NUM_VECTOR_TYPES];
++tree scalar_types[NUM_VECTOR_TYPES];
+ 
+ /* The single-predicate and single-vector types, with their built-in
+    "__SV..._t" name.  Allow an index of NUM_VECTOR_TYPES, which always
+@@ -538,13 +539,16 @@ GTY(()) tree scalar_types[NUM_VECTOR_TYPES];
+ static GTY(()) tree abi_vector_types[NUM_VECTOR_TYPES + 1];
+ 
+ /* Same, but with the arm_sve.h "sv..._t" name.  */
+-GTY(()) tree acle_vector_types[MAX_TUPLE_SIZE][NUM_VECTOR_TYPES + 1];
++extern GTY(()) tree acle_vector_types[MAX_TUPLE_SIZE][NUM_VECTOR_TYPES + 1];
++tree acle_vector_types[MAX_TUPLE_SIZE][NUM_VECTOR_TYPES + 1];
+ 
+ /* The svpattern enum type.  */
+-GTY(()) tree acle_svpattern;
++extern GTY(()) tree acle_svpattern;
++tree acle_svpattern;
+ 
+ /* The svprfop enum type.  */
+-GTY(()) tree acle_svprfop;
++extern GTY(()) tree acle_svprfop;
++tree acle_svprfop;
+ 
+ /* The list of all registered function decls, indexed by code.  */
+ static GTY(()) vec<registered_function *, va_gc> *registered_functions;
 diff --git a/gcc/config/aarch64/aarch64.c b/gcc/config/aarch64/aarch64.c
 index c155f4883cf..7e6f9d08ea3 100644
 --- a/gcc/config/aarch64/aarch64.c
@@ -8438,7 +8483,7 @@ index 9e3e8aa9da9..b7294cbeb4e 100644
  
        elements *= mpz_get_si (sym->as->upper[i]->value.integer)
 diff --git a/gcc/fortran/simplify.c b/gcc/fortran/simplify.c
-index 3599e1b3194..85ea1311c7e 100644
+index 3599e1b3194..e02c2e1cf3f 100644
 --- a/gcc/fortran/simplify.c
 +++ b/gcc/fortran/simplify.c
 @@ -3092,6 +3092,10 @@ gfc_simplify_extends_type_of (gfc_expr *a, gfc_expr *mold)
@@ -8611,6 +8656,15 @@ index 3599e1b3194..85ea1311c7e 100644
  	}
      }
  
+@@ -6451,7 +6382,7 @@ gfc_simplify_pack (gfc_expr *array, gfc_expr *mask, gfc_expr *vector)
+       /* Copy only those elements of ARRAY to RESULT whose
+ 	 MASK equals .TRUE..  */
+       mask_ctor = gfc_constructor_first (mask->value.constructor);
+-      while (mask_ctor)
++      while (mask_ctor && array_ctor)
+ 	{
+ 	  if (mask_ctor->expr->value.logical)
+ 	    {
 diff --git a/gcc/fortran/trans-decl.c b/gcc/fortran/trans-decl.c
 index 95af7d93162..38b09fed2cb 100644
 --- a/gcc/fortran/trans-decl.c
@@ -13803,6 +13857,24 @@ index 00000000000..89004bf9aa7
 +end
 +
 +! { dg-final { scan-tree-dump-not "_gfortran_stop_numeric" "original" } }
+diff --git a/gcc/testsuite/gfortran.dg/pr106857.f90 b/gcc/testsuite/gfortran.dg/pr106857.f90
+new file mode 100644
+index 00000000000..4b0f86a75a6
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr106857.f90
+@@ -0,0 +1,12 @@
++! { dg-do compile }
++! PR fortran/106857 - ICE in gfc_simplify_pack
++! Contributed by G.Steinmetz
++
++program p
++  type t
++     integer :: n
++  end type
++  type(t), parameter :: a(2,2) = t(1)
++  type(t), parameter :: b(4) = reshape(a, [2])                          ! { dg-error "Different shape" }
++  type(t), parameter :: c(2) = pack(b, [.false.,.true.,.false.,.true.]) ! { dg-error "Different shape" }
++end
 diff --git a/gcc/testsuite/gfortran.dg/pr47614.f b/gcc/testsuite/gfortran.dg/pr47614.f
 index 500d210a2a4..d772eef257f 100644
 --- a/gcc/testsuite/gfortran.dg/pr47614.f
@@ -14620,6 +14692,98 @@ index 88d2d84d100..6ec6df79392 100644
  
  LSE_OBJS := $(O0) $(O1)
  
+diff --git a/libgcc/config/avr/libf7/ChangeLog b/libgcc/config/avr/libf7/ChangeLog
+index 7e06f52d415..9081ecd3bd1 100644
+--- a/libgcc/config/avr/libf7/ChangeLog
++++ b/libgcc/config/avr/libf7/ChangeLog
+@@ -1,3 +1,12 @@
++2022-09-19  Georg-Johann Lay  <avr@gjlay.de>
++
++	Backported from master:
++	2022-09-19  Georg-Johann Lay  <avr@gjlay.de>
++
++	PR target/99184
++	* libf7-asm.sx (to_integer, to_unsigned): Don't round 16-bit
++	and 32-bit integers.
++
+ 2022-04-21  Release Manager
+ 
+ 	* GCC 11.3.0 released.
+diff --git a/libgcc/config/avr/libf7/libf7-asm.sx b/libgcc/config/avr/libf7/libf7-asm.sx
+index 7629e23e289..9d701f27582 100644
+--- a/libgcc/config/avr/libf7/libf7-asm.sx
++++ b/libgcc/config/avr/libf7/libf7-asm.sx
+@@ -601,9 +601,6 @@ DEFUN to_integer
+     tst     C6
+     brmi    .Lsaturate.T    ;   > INTxx_MAX  =>  saturate
+ 
+-    rcall   .Lround
+-    brmi    .Lsaturate.T    ;   > INTxx_MAX  =>  saturate
+-
+     brtc 9f                 ;   >= 0         =>  return
+     sbrc    Mask,   5
+     .global __negdi2
+@@ -658,30 +655,6 @@ DEFUN to_integer
+     .global __clr_8
+     XJMP    __clr_8
+ 
+-.Lround:
+-    ;; C6.7 is known to be 0 here.
+-    ;; Return N = 1 iff we have to saturate.
+-    cpi     Mask,   0xf
+-    breq .Lround16
+-    cpi     Mask,   0x1f
+-    breq .Lround32
+-
+-    ;; For now, no rounding in the 64-bit case.  This rounding
+-    ;; would have to be integrated into the right-shift.
+-    cln
+-    ret
+-
+-.Lround32:
+-    rol     C2
+-    adc     C3,     ZERO
+-    adc     C4,     ZERO
+-    rjmp 2f
+-
+-.Lround16:
+-    rol     C4
+-2:  adc     C5,     ZERO
+-    adc     C6,     ZERO
+-    ret
+ ENDF to_integer
+ #endif /* F7MOD_to_integer_ */
+ 
+@@ -725,29 +698,6 @@ DEFUN to_unsigned
+     clr     CA
+     F7call  lshrdi3
+     POP     r16
+-
+-    ;; Rounding
+-    ;; ??? C6.7 is known to be 0 here.
+-    cpi     Mask,   0xf
+-    breq .Lround16
+-    cpi     Mask,   0x1f
+-    breq .Lround32
+-
+-    ;; For now, no rounding in the 64-bit case.  This rounding
+-    ;; would have to be integrated into the right-shift.
+-    ret
+-
+-.Lround32:
+-    rol     C2
+-    adc     C3,     ZERO
+-    adc     C4,     ZERO
+-    rjmp 2f
+-
+-.Lround16:
+-    rol     C4
+-2:  adc     C5,     ZERO
+-    adc     C6,     ZERO
+-    brcs    .Lset_0xffff    ; Rounding overflow  =>  saturate
+     ret
+ 
+ .Lset_0xffff:
 diff --git a/libphobos/ChangeLog b/libphobos/ChangeLog
 index acd0b312ef2..f3d44133243 100644
 --- a/libphobos/ChangeLog
