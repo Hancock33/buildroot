@@ -6,10 +6,28 @@ index f628d2eafc5..0a47c95bb14 100644
 -11.3.0
 +11.3.1
 diff --git a/gcc/ChangeLog b/gcc/ChangeLog
-index a0587d18824..a3964c36c15 100644
+index a0587d18824..34ffa9b46e1 100644
 --- a/gcc/ChangeLog
 +++ b/gcc/ChangeLog
-@@ -1,3 +1,679 @@
+@@ -1,3 +1,697 @@
++2022-09-29  H.J. Lu  <hjl.tools@gmail.com>
++
++	Backported from master:
++	2022-09-28  H.J. Lu  <hjl.tools@gmail.com>
++
++	PR target/107061
++	* config/i386/predicates.md (encodekey128_operation): Check
++	XMM4-XMM6 as clobbered.
++	(encodekey256_operation): Likewise.
++	* config/i386/sse.md (encodekey128u32): Clobber XMM4-XMM6.
++	(encodekey256u32): Likewise.
++
++2022-09-28  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
++
++	* config/aarch64/aarch64-cores.def (neoverse-v2): New entry.
++	* config/aarch64/aarch64-tune.md: Regenerate.
++	* doc/invoke.texi (AArch64 Options): Document neoverse-v2.
++
 +2022-09-21  Richard Sandiford  <richard.sandiford@arm.com>
 +
 +	Backported from master:
@@ -690,12 +708,12 @@ index a0587d18824..a3964c36c15 100644
  
  	* GCC 11.3.0 released.
 diff --git a/gcc/DATESTAMP b/gcc/DATESTAMP
-index d4ff129236b..6fbb09fe858 100644
+index d4ff129236b..47b36b023d0 100644
 --- a/gcc/DATESTAMP
 +++ b/gcc/DATESTAMP
 @@ -1 +1 @@
 -20220421
-+20220922
++20220930
 diff --git a/gcc/alias.c b/gcc/alias.c
 index 69e1eb89ac6..ba4aa4dc8d9 100644
 --- a/gcc/alias.c
@@ -1031,6 +1049,18 @@ index 58294b7d7ac..18ff71ac5ad 100644
        if (ecx & bit_GFNI)
  	set_feature (FEATURE_GFNI);
        if (ecx & bit_MOVDIRI)
+diff --git a/gcc/config/aarch64/aarch64-cores.def b/gcc/config/aarch64/aarch64-cores.def
+index 4643e0e2795..911cd1be449 100644
+--- a/gcc/config/aarch64/aarch64-cores.def
++++ b/gcc/config/aarch64/aarch64-cores.def
+@@ -147,6 +147,7 @@ AARCH64_CORE("saphira",     saphira,    saphira,    8_4A,  AARCH64_FL_FOR_ARCH8_
+ 
+ /* Armv8.5-A Architecture Processors.  */
+ AARCH64_CORE("neoverse-n2", neoversen2, cortexa57, 8_5A, AARCH64_FL_FOR_ARCH8_5 | AARCH64_FL_I8MM | AARCH64_FL_BF16 | AARCH64_FL_F16 | AARCH64_FL_SVE | AARCH64_FL_SVE2 | AARCH64_FL_SVE2_BITPERM | AARCH64_FL_RNG | AARCH64_FL_MEMTAG, neoversen2, 0x41, 0xd49, -1)
++AARCH64_CORE("neoverse-v2", neoversev2, cortexa57, 8_5A, AARCH64_FL_FOR_ARCH8_5 | AARCH64_FL_I8MM | AARCH64_FL_BF16 | AARCH64_FL_F16 | AARCH64_FL_SVE | AARCH64_FL_SVE2 | AARCH64_FL_SVE2_BITPERM | AARCH64_FL_RNG | AARCH64_FL_MEMTAG, neoverse512tvb, 0x41, 0xd4f, -1)
+ 
+ /* ARMv8-A big.LITTLE implementations.  */
+ 
 diff --git a/gcc/config/aarch64/aarch64-protos.h b/gcc/config/aarch64/aarch64-protos.h
 index b91eeeba101..ad62da81d31 100644
 --- a/gcc/config/aarch64/aarch64-protos.h
@@ -1078,6 +1108,17 @@ index f44f81f1375..fcc458af3d6 100644
  
  /* The list of all registered function decls, indexed by code.  */
  static GTY(()) vec<registered_function *, va_gc> *registered_functions;
+diff --git a/gcc/config/aarch64/aarch64-tune.md b/gcc/config/aarch64/aarch64-tune.md
+index 2beac8c8353..85fb0fdf064 100644
+--- a/gcc/config/aarch64/aarch64-tune.md
++++ b/gcc/config/aarch64/aarch64-tune.md
+@@ -1,5 +1,5 @@
+ ;; -*- buffer-read-only: t -*-
+ ;; Generated automatically by gentune.sh from aarch64-cores.def
+ (define_attr "tune"
+-	"cortexa34,cortexa35,cortexa53,cortexa57,cortexa72,cortexa73,thunderx,thunderxt88p1,thunderxt88,octeontx,octeontxt81,octeontxt83,thunderxt81,thunderxt83,ampere1,emag,xgene1,falkor,qdf24xx,exynosm1,phecda,thunderx2t99p1,vulcan,thunderx2t99,cortexa55,cortexa75,cortexa76,cortexa76ae,cortexa77,cortexa78,cortexa78ae,cortexa78c,cortexa65,cortexa65ae,cortexx1,ares,neoversen1,neoversee1,octeontx2,octeontx2t98,octeontx2t96,octeontx2t93,octeontx2f95,octeontx2f95n,octeontx2f95mm,a64fx,tsv110,thunderx3t110,zeus,neoversev1,neoverse512tvb,saphira,neoversen2,cortexa57cortexa53,cortexa72cortexa53,cortexa73cortexa35,cortexa73cortexa53,cortexa75cortexa55,cortexa76cortexa55,cortexr82"
++	"cortexa34,cortexa35,cortexa53,cortexa57,cortexa72,cortexa73,thunderx,thunderxt88p1,thunderxt88,octeontx,octeontxt81,octeontxt83,thunderxt81,thunderxt83,ampere1,emag,xgene1,falkor,qdf24xx,exynosm1,phecda,thunderx2t99p1,vulcan,thunderx2t99,cortexa55,cortexa75,cortexa76,cortexa76ae,cortexa77,cortexa78,cortexa78ae,cortexa78c,cortexa65,cortexa65ae,cortexx1,ares,neoversen1,neoversee1,octeontx2,octeontx2t98,octeontx2t96,octeontx2t93,octeontx2f95,octeontx2f95n,octeontx2f95mm,a64fx,tsv110,thunderx3t110,zeus,neoversev1,neoverse512tvb,saphira,neoversen2,neoversev2,cortexa57cortexa53,cortexa72cortexa53,cortexa73cortexa35,cortexa73cortexa53,cortexa75cortexa55,cortexa76cortexa55,cortexr82"
+ 	(const (symbol_ref "((enum attr_tune) aarch64_tune)")))
 diff --git a/gcc/config/aarch64/aarch64.c b/gcc/config/aarch64/aarch64.c
 index c155f4883cf..7e6f9d08ea3 100644
 --- a/gcc/config/aarch64/aarch64.c
@@ -1695,8 +1736,46 @@ index 48300af9a09..1623bbcbd2d 100644
  
  	  /* addr = &temp; */
  	  t = build1 (ADDR_EXPR, build_pointer_type (type), temp);
+diff --git a/gcc/config/i386/predicates.md b/gcc/config/i386/predicates.md
+index b815aca0da7..58aebd416f4 100644
+--- a/gcc/config/i386/predicates.md
++++ b/gcc/config/i386/predicates.md
+@@ -1851,11 +1851,11 @@
+   for(i = 4; i < 7; i++)
+     {
+       elt = XVECEXP (op, 0, i);
+-      if (GET_CODE (elt) != SET
+-	  || GET_CODE (SET_DEST (elt)) != REG
+-	  || GET_MODE (SET_DEST (elt)) != V2DImode
+-	  || REGNO (SET_DEST (elt)) != GET_SSE_REGNO (i)
+-	  || SET_SRC (elt) != CONST0_RTX (V2DImode))
++      if (GET_CODE (elt) != CLOBBER
++	  || GET_MODE (elt) != VOIDmode
++	  || GET_CODE (XEXP (elt, 0)) != REG
++	  || GET_MODE (XEXP (elt, 0)) != V2DImode
++	  || REGNO (XEXP (elt, 0)) != GET_SSE_REGNO (i))
+ 	return false;
+     }
+ 
+@@ -1901,11 +1901,11 @@
+   for(i = 4; i < 7; i++)
+     {
+       elt = XVECEXP (op, 0, i + 1);
+-      if (GET_CODE (elt) != SET
+-	  || GET_CODE (SET_DEST (elt)) != REG
+-	  || GET_MODE (SET_DEST (elt)) != V2DImode
+-	  || REGNO (SET_DEST (elt)) != GET_SSE_REGNO (i)
+-	  || SET_SRC (elt) != CONST0_RTX (V2DImode))
++      if (GET_CODE (elt) != CLOBBER
++	  || GET_MODE (elt) != VOIDmode
++	  || GET_CODE (XEXP (elt, 0)) != REG
++	  || GET_MODE (XEXP (elt, 0)) != V2DImode
++	  || REGNO (XEXP (elt, 0)) != GET_SSE_REGNO (i))
+ 	return false;
+     }
+ 
 diff --git a/gcc/config/i386/sse.md b/gcc/config/i386/sse.md
-index fcfcba0134d..79dcb6b26d5 100644
+index fcfcba0134d..2334d0e7c63 100644
 --- a/gcc/config/i386/sse.md
 +++ b/gcc/config/i386/sse.md
 @@ -17256,9 +17256,9 @@
@@ -1712,6 +1791,24 @@ index fcfcba0134d..79dcb6b26d5 100644
  		    (match_operand:SI 3 "const_0_to_255_mul_8_operand" "n,n,n")]
  		   UNSPEC_PALIGNR))]
    "(TARGET_MMX || TARGET_MMX_WITH_SSE) && TARGET_SSSE3"
+@@ -24127,7 +24127,7 @@
+ 
+   for (i = 4; i < 7; i++)
+     XVECEXP (operands[2], 0, i)
+-      = gen_rtx_SET (xmm_regs[i], CONST0_RTX (V2DImode));
++      = gen_rtx_CLOBBER (VOIDmode, xmm_regs[i]);
+ 
+   XVECEXP (operands[2], 0, 7)
+     = gen_rtx_CLOBBER (VOIDmode, gen_rtx_REG (CCmode, FLAGS_REG));
+@@ -24184,7 +24184,7 @@
+ 
+   for (i = 4; i < 7; i++)
+     XVECEXP (operands[2], 0, i + 1)
+-      = gen_rtx_SET (xmm_regs[i], CONST0_RTX (V2DImode));
++      = gen_rtx_CLOBBER (VOIDmode, xmm_regs[i]);
+ 
+   XVECEXP (operands[2], 0, 8)
+     = gen_rtx_CLOBBER (VOIDmode, gen_rtx_REG (CCmode, FLAGS_REG));
 diff --git a/gcc/config/nvptx/nvptx.c b/gcc/config/nvptx/nvptx.c
 index 7a7a9130e84..d25ddf45408 100644
 --- a/gcc/config/nvptx/nvptx.c
@@ -8185,6 +8282,19 @@ index 9d6464deb07..a10d21e355e 100644
    finish_builtin_struct (type, ident->toChars (), fields, NULL_TREE);
  
    tinfo_types[tk] = type;
+diff --git a/gcc/doc/invoke.texi b/gcc/doc/invoke.texi
+index 35508efb4ef..49b78ef4522 100644
+--- a/gcc/doc/invoke.texi
++++ b/gcc/doc/invoke.texi
+@@ -18231,7 +18231,7 @@ performance of the code.  Permissible values for this option are:
+ @samp{cortex-a78}, @samp{cortex-a78ae}, @samp{cortex-a78c},
+ @samp{ares}, @samp{exynos-m1}, @samp{emag}, @samp{falkor},
+ @samp{neoverse-512tvb}, @samp{neoverse-e1}, @samp{neoverse-n1},
+-@samp{neoverse-n2}, @samp{neoverse-v1}, @samp{qdf24xx},
++@samp{neoverse-n2}, @samp{neoverse-v1},@samp{neoverse-v2}, @samp{qdf24xx},
+ @samp{saphira}, @samp{phecda}, @samp{xgene1}, @samp{vulcan},
+ @samp{octeontx}, @samp{octeontx81},  @samp{octeontx83},
+ @samp{octeontx2}, @samp{octeontx2t98}, @samp{octeontx2t96}
 diff --git a/gcc/dse.c b/gcc/dse.c
 index b634429449c..dd99756d151 100644
 --- a/gcc/dse.c
@@ -8276,10 +8386,37 @@ index 70c5b3886ef..8ce775753f3 100644
  	  return fold_build_pointer_plus_loc (loc, arg00, arg01);
  	}
 diff --git a/gcc/fortran/ChangeLog b/gcc/fortran/ChangeLog
-index ee1c7bb4b31..79c9816384e 100644
+index ee1c7bb4b31..35f26a7b82f 100644
 --- a/gcc/fortran/ChangeLog
 +++ b/gcc/fortran/ChangeLog
-@@ -1,3 +1,111 @@
+@@ -1,3 +1,138 @@
++2022-09-26  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-09-20  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/106986
++	* simplify.c (gfc_simplify_findloc): Do not try to simplify
++	intrinsic FINDLOC when the ARRAY argument has a NULL shape.
++
++2022-09-24  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	Backported from master:
++	2022-09-03  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	PR fortran/100245
++	* trans-expr.c (trans_class_assignment): Add if clause to handle
++	derived type in the LHS.
++
++2022-09-22  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-09-15  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/106857
++	* simplify.c (gfc_simplify_pack): Check for NULL pointer dereferences
++	while walking through constructors (error recovery).
++
 +2022-09-05  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
 +
 +	Backported from master:
@@ -8443,7 +8580,7 @@ index 602ad3e59bd..c25b53f9772 100644
  	&& current_ts.u.derived->attr.unlimited_polymorphic)
      goto ok;
 diff --git a/gcc/fortran/expr.c b/gcc/fortran/expr.c
-index edacd974a21..6f27b4bf440 100644
+index edacd974a21..64fdd04221f 100644
 --- a/gcc/fortran/expr.c
 +++ b/gcc/fortran/expr.c
 @@ -1591,7 +1591,9 @@ find_array_section (gfc_expr *expr, gfc_ref *ref)
@@ -8457,6 +8594,16 @@ index edacd974a21..6f27b4bf440 100644
  	    {
  	      t = false;
  	      goto cleanup;
+@@ -2281,7 +2283,8 @@ gfc_simplify_expr (gfc_expr *p, int type)
+ 	 initialization expression, or we want a subsection.  */
+       if (p->symtree->n.sym->attr.flavor == FL_PARAMETER
+ 	  && (gfc_init_expr_flag || p->ref
+-	      || p->symtree->n.sym->value->expr_type != EXPR_ARRAY))
++	      || (p->symtree->n.sym->value
++		  && p->symtree->n.sym->value->expr_type != EXPR_ARRAY)))
+ 	{
+ 	  if (!simplify_parameter_variable (p, type))
+ 	    return false;
 diff --git a/gcc/fortran/interface.c b/gcc/fortran/interface.c
 index 9e3e8aa9da9..b7294cbeb4e 100644
 --- a/gcc/fortran/interface.c
@@ -8483,7 +8630,7 @@ index 9e3e8aa9da9..b7294cbeb4e 100644
  
        elements *= mpz_get_si (sym->as->upper[i]->value.integer)
 diff --git a/gcc/fortran/simplify.c b/gcc/fortran/simplify.c
-index 3599e1b3194..e02c2e1cf3f 100644
+index 3599e1b3194..f13a8e57c83 100644
 --- a/gcc/fortran/simplify.c
 +++ b/gcc/fortran/simplify.c
 @@ -3092,6 +3092,10 @@ gfc_simplify_extends_type_of (gfc_expr *a, gfc_expr *mold)
@@ -8656,7 +8803,15 @@ index 3599e1b3194..e02c2e1cf3f 100644
  	}
      }
  
-@@ -6451,7 +6382,7 @@ gfc_simplify_pack (gfc_expr *array, gfc_expr *mask, gfc_expr *vector)
+@@ -5915,6 +5846,7 @@ gfc_simplify_findloc (gfc_expr *array, gfc_expr *value, gfc_expr *dim,
+   bool back_val = false;
+ 
+   if (!is_constant_array_expr (array)
++      || array->shape == NULL
+       || !gfc_is_constant_expr (dim))
+     return NULL;
+ 
+@@ -6451,7 +6383,7 @@ gfc_simplify_pack (gfc_expr *array, gfc_expr *mask, gfc_expr *vector)
        /* Copy only those elements of ARRAY to RESULT whose
  	 MASK equals .TRUE..  */
        mask_ctor = gfc_constructor_first (mask->value.constructor);
@@ -8665,11 +8820,51 @@ index 3599e1b3194..e02c2e1cf3f 100644
  	{
  	  if (mask_ctor->expr->value.logical)
  	    {
+@@ -7556,8 +7488,9 @@ simplify_size (gfc_expr *array, gfc_expr *dim, int k)
+     }
+ 
+   for (ref = array->ref; ref; ref = ref->next)
+-    if (ref->type == REF_ARRAY && ref->u.ar.as)
+-      gfc_resolve_array_spec (ref->u.ar.as, 0);
++    if (ref->type == REF_ARRAY && ref->u.ar.as
++	&& !gfc_resolve_array_spec (ref->u.ar.as, 0))
++      return NULL;
+ 
+   if (dim == NULL)
+     {
+@@ -8476,9 +8409,16 @@ gfc_simplify_unpack (gfc_expr *vector, gfc_expr *mask, gfc_expr *field)
+     {
+       if (mask_ctor->expr->value.logical)
+ 	{
+-	  gcc_assert (vector_ctor);
+-	  e = gfc_copy_expr (vector_ctor->expr);
+-	  vector_ctor = gfc_constructor_next (vector_ctor);
++	  if (vector_ctor)
++	    {
++	      e = gfc_copy_expr (vector_ctor->expr);
++	      vector_ctor = gfc_constructor_next (vector_ctor);
++	    }
++	  else
++	    {
++	      gfc_free_expr (result);
++	      return NULL;
++	    }
+ 	}
+       else if (field->expr_type == EXPR_ARRAY)
+ 	e = gfc_copy_expr (field_ctor->expr);
 diff --git a/gcc/fortran/trans-decl.c b/gcc/fortran/trans-decl.c
-index 95af7d93162..38b09fed2cb 100644
+index 95af7d93162..68fb19e6f2b 100644
 --- a/gcc/fortran/trans-decl.c
 +++ b/gcc/fortran/trans-decl.c
-@@ -6564,7 +6564,7 @@ gfc_generate_return (void)
+@@ -5624,6 +5624,7 @@ generate_coarray_sym_init (gfc_symbol *sym)
+ 
+   if (sym->attr.dummy || sym->attr.allocatable || !sym->attr.codimension
+       || sym->attr.use_assoc || !sym->attr.referenced
++      || sym->attr.associate_var
+       || sym->attr.select_type_temporary)
+     return;
+ 
+@@ -6564,7 +6565,7 @@ gfc_generate_return (void)
  	     NULL_TREE, and a 'return' is generated without a variable.
  	     The following generates a 'return __result_XXX' where XXX is
  	     the function name.  */
@@ -8679,7 +8874,7 @@ index 95af7d93162..38b09fed2cb 100644
  	      result = gfc_get_fake_result_decl (sym, 0);
  	      result = fold_build2_loc (input_location, MODIFY_EXPR,
 diff --git a/gcc/fortran/trans-expr.c b/gcc/fortran/trans-expr.c
-index a5c391d077e..7db91de4194 100644
+index a5c391d077e..a09accbcad0 100644
 --- a/gcc/fortran/trans-expr.c
 +++ b/gcc/fortran/trans-expr.c
 @@ -6808,16 +6808,15 @@ gfc_conv_procedure_call (gfc_se * se, gfc_symbol * sym,
@@ -8713,6 +8908,16 @@ index a5c391d077e..7db91de4194 100644
                              gfc_component *un, gfc_expr *init)
  {
    gfc_constructor *ctor;
+@@ -11021,6 +11020,9 @@ trans_class_assignment (stmtblock_t *block, gfc_expr *lhs, gfc_expr *rhs,
+       class_han = GFC_CLASS_TYPE_P (TREE_TYPE (lse->expr))
+ 	  ? gfc_class_data_get (lse->expr) : lse->expr;
+ 
++      if (!POINTER_TYPE_P (TREE_TYPE (class_han)))
++	class_han = gfc_build_addr_expr (NULL_TREE, class_han);
++
+       /* Allocate block.  */
+       gfc_init_block (&alloc);
+       gfc_allocate_using_malloc (&alloc, class_han, size, NULL_TREE);
 diff --git a/gcc/gcc.c b/gcc/gcc.c
 index 0af888c7d78..6b208f4680f 100644
 --- a/gcc/gcc.c
@@ -9246,10 +9451,44 @@ index 67a49e65fd8..88b37584f74 100644
  	  x = simplify_unary_operation (ZERO_EXTEND, GET_MODE (x),
  					new_rtx, GET_MODE (XEXP (x, 0)));
 diff --git a/gcc/testsuite/ChangeLog b/gcc/testsuite/ChangeLog
-index 5fc23605244..961a2246213 100644
+index 5fc23605244..8144b1e3f92 100644
 --- a/gcc/testsuite/ChangeLog
 +++ b/gcc/testsuite/ChangeLog
-@@ -1,3 +1,825 @@
+@@ -1,3 +1,859 @@
++2022-09-29  H.J. Lu  <hjl.tools@gmail.com>
++
++	Backported from master:
++	2022-09-28  H.J. Lu  <hjl.tools@gmail.com>
++
++	PR target/107061
++	* gcc.target/i386/keylocker-encodekey128.c: Don't check
++	XMM4-XMM6.
++	* gcc.target/i386/keylocker-encodekey256.c: Likewise.
++
++2022-09-26  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-09-20  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/106986
++	* gfortran.dg/pr106986.f90: New test.
++
++2022-09-24  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	Backported from master:
++	2022-09-03  José Rui Faustino de Sousa  <jrfsousa@gmail.com>
++
++	PR fortran/100245
++	* gfortran.dg/PR100245.f90: New test.
++
++2022-09-22  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-09-15  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/106857
++	* gfortran.dg/pr106857.f90: New test.
++
 +2022-09-13  Kewen Lin  <linkw@linux.ibm.com>
 +
 +	Backported from master:
@@ -12447,6 +12686,30 @@ index b4a4a140e54..9d6be88e7d5 100644
 +#ifdef __linux__
 +	.section	.note.GNU-stack,"",@progbits
 +#endif
+diff --git a/gcc/testsuite/gcc.target/i386/keylocker-encodekey128.c b/gcc/testsuite/gcc.target/i386/keylocker-encodekey128.c
+index 805e0628673..57fa9bdc831 100644
+--- a/gcc/testsuite/gcc.target/i386/keylocker-encodekey128.c
++++ b/gcc/testsuite/gcc.target/i386/keylocker-encodekey128.c
+@@ -6,7 +6,6 @@
+ /* { dg-final { scan-assembler "(?:movdqu|movups)\[ \\t\]+\[^\\n\]*%xmm0,\[^\\n\\r\]*" } } */
+ /* { dg-final { scan-assembler "(?:movdqu|movups)\[ \\t\]+\[^\\n\]*%xmm1,\[^\\n\\r\]*16\[^\\n\\r\]*" } } */
+ /* { dg-final { scan-assembler "(?:movdqu|movups)\[ \\t\]+\[^\\n\]*%xmm2,\[^\\n\\r\]*32\[^\\n\\r\]*" } } */
+-/* { dg-final { scan-assembler "(?:movdqa|movaps)\[ \\t\]+\[^\\n\]*%xmm\[4-6\],\[^\\n\\r\]*" } } */
+ 
+ #include <immintrin.h>
+ 
+diff --git a/gcc/testsuite/gcc.target/i386/keylocker-encodekey256.c b/gcc/testsuite/gcc.target/i386/keylocker-encodekey256.c
+index 26f04dcf014..a9398b4e7a2 100644
+--- a/gcc/testsuite/gcc.target/i386/keylocker-encodekey256.c
++++ b/gcc/testsuite/gcc.target/i386/keylocker-encodekey256.c
+@@ -8,7 +8,6 @@
+ /* { dg-final { scan-assembler "(?:movdqu|movups)\[ \\t\]+\[^\\n\]*%xmm1,\[^\\n\\r\]*16\[^\\n\\r\]*" } } */
+ /* { dg-final { scan-assembler "(?:movdqu|movups)\[ \\t\]+\[^\\n\]*%xmm2,\[^\\n\\r\]*32\[^\\n\\r\]*" } } */
+ /* { dg-final { scan-assembler "(?:movdqu|movups)\[ \\t\]+\[^\\n\]*%xmm3,\[^\\n\\r\]*48\[^\\n\\r\]*" } } */
+-/* { dg-final { scan-assembler "(?:movdqa|movaps)\[ \\t\]+\[^\\n\]*%xmm\[4-6\],\[^\\n\\r\]*" } } */
+ 
+ #include <immintrin.h>
+ 
 diff --git a/gcc/testsuite/gcc.target/i386/pr104637.c b/gcc/testsuite/gcc.target/i386/pr104637.c
 new file mode 100644
 index 00000000000..36e8b6ed97d
@@ -13545,6 +13808,61 @@ index 00000000000..922af4aecc3
 +  call add_class_c(c_init2())
 +
 +end program
+diff --git a/gcc/testsuite/gfortran.dg/PR100245.f90 b/gcc/testsuite/gfortran.dg/PR100245.f90
+new file mode 100644
+index 00000000000..07c1f7b3a1c
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/PR100245.f90
+@@ -0,0 +1,28 @@
++! { dg-do run }
++!
++! Test the fix for PR100245
++!
++
++program main_p
++
++  implicit none
++
++  type :: foo_t
++    integer :: a
++  end type foo_t
++
++  integer, parameter :: a = 42
++
++  class(foo_t), allocatable :: val
++  class(foo_t), allocatable :: rs1
++  type(foo_t),  allocatable :: rs2
++
++  allocate(val, source=foo_t(42))
++  if (val%a/=a) stop 1
++  rs1 = val
++  if (rs1%a/=a) stop 2
++  rs2 = val
++  if (rs2%a/=a) stop 3
++  deallocate(val, rs1, rs2)
++
++end program main_p
+diff --git a/gcc/testsuite/gfortran.dg/associate_26a.f90 b/gcc/testsuite/gfortran.dg/associate_26a.f90
+new file mode 100644
+index 00000000000..85aebebd4d8
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/associate_26a.f90
+@@ -0,0 +1,15 @@
++! { dg-do compile }
++! { dg-options "-fcoarray=lib" }
++!
++! Test the fix for PR78152 and the followup in PR82868
++!
++! Contributed by <physiker@toast2.net>
++!
++program co_assoc
++  implicit none
++  integer, parameter :: p = 5
++  real, allocatable :: a(:,:)[:,:]
++  allocate (a(p,p)[2,*])
++  associate (i => a(1:p, 1:p))
++  end associate
++end program co_assoc
 diff --git a/gcc/testsuite/gfortran.dg/class_58.f90 b/gcc/testsuite/gfortran.dg/class_58.f90
 index 20b601a2f51..fceb575432d 100644
 --- a/gcc/testsuite/gfortran.dg/class_58.f90
@@ -13779,6 +14097,23 @@ index 00000000000..607d1c6c8cc
 +end
 +
 +! { dg-prune-output "must be of INTEGER type" }
+diff --git a/gcc/testsuite/gfortran.dg/pr103694.f90 b/gcc/testsuite/gfortran.dg/pr103694.f90
+new file mode 100644
+index 00000000000..3ed8b2088da
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr103694.f90
+@@ -0,0 +1,11 @@
++! { dg-do compile }
++! PR fortran/103694 - ICE in gfc_conv_expr_op
++! Contributed by G.Steinmetz
++
++subroutine s
++  type t
++     integer :: a(2)
++  end type
++  type(t) :: x((0.)/0)
++  integer :: n = size(x(1)%a) ! { dg-error "does not reduce to a constant expression" }
++end
 diff --git a/gcc/testsuite/gfortran.dg/pr104313.f b/gcc/testsuite/gfortran.dg/pr104313.f
 new file mode 100644
 index 00000000000..89c8947cb0a
@@ -13874,6 +14209,53 @@ index 00000000000..4b0f86a75a6
 +  type(t), parameter :: a(2,2) = t(1)
 +  type(t), parameter :: b(4) = reshape(a, [2])                          ! { dg-error "Different shape" }
 +  type(t), parameter :: c(2) = pack(b, [.false.,.true.,.false.,.true.]) ! { dg-error "Different shape" }
++end
+diff --git a/gcc/testsuite/gfortran.dg/pr106985.f90 b/gcc/testsuite/gfortran.dg/pr106985.f90
+new file mode 100644
+index 00000000000..f4ed92577a3
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr106985.f90
+@@ -0,0 +1,8 @@
++! { dg-do compile }
++! PR fortran/106985 - ICE in gfc_simplify_expr
++! Contributed by G.Steinmetz
++
++program p
++  integer, parameter :: a(2) = 1
++  integer, parameter :: b = a(2) + b ! { dg-error "before its definition is complete" }
++end
+diff --git a/gcc/testsuite/gfortran.dg/pr106986.f90 b/gcc/testsuite/gfortran.dg/pr106986.f90
+new file mode 100644
+index 00000000000..a309b25d181
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr106986.f90
+@@ -0,0 +1,8 @@
++! { dg-do compile }
++! PR fortran/106986 - ICE in simplify_findloc_nodim
++! Contributed by G.Steinmetz
++
++program p
++  integer, parameter :: a(:) = [1] ! { dg-error "deferred shape" }
++  print *, findloc (a, 1)
++end
+diff --git a/gcc/testsuite/gfortran.dg/pr107054.f90 b/gcc/testsuite/gfortran.dg/pr107054.f90
+new file mode 100644
+index 00000000000..bbfe646beba
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr107054.f90
+@@ -0,0 +1,13 @@
++! { dg-do compile }
++! PR fortran/107054 - ICE in gfc_simplify_unpack
++! Contributed by G.Steinmetz
++
++program p
++  type t
++     integer :: n = 0
++  end type
++  type(t), parameter :: a(4) = t(2)
++  type(t), parameter :: b(4) = reshape(a,[2]) ! { dg-error "Different shape" }
++  type(t), parameter :: c(2) = pack(b,[.false.,.true.,.false.,.true.]) ! { dg-error "Different shape" }
++  type(t), parameter :: d(4) = unpack(c,[.false.,.true.,.false.,.true.],a)
 +end
 diff --git a/gcc/testsuite/gfortran.dg/pr47614.f b/gcc/testsuite/gfortran.dg/pr47614.f
 index 500d210a2a4..d772eef257f 100644
