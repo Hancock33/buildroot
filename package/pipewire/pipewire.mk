@@ -37,8 +37,8 @@ PIPEWIRE_CONF_OPTS += \
 # i don't know why meson uses bad ssl certificates and doesn't manage to download them
 define PIPEWIRE_DWD_DEPENDENCIES
 	mkdir -p $(@D)/subprojects/packagecache
-	$(HOST_DIR)/bin/curl -L https://www.lua.org/ftp/lua-5.4.4.tar.gz               -o $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
-	$(HOST_DIR)/bin/curl -L https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch -o $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip
+	wget -O $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz      https://www.lua.org/ftp/lua-5.4.4.tar.gz
+	wget -O $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch
 endef
 PIPEWIRE_DEPENDENCIES += host-libcurl
 PIPEWIRE_PRE_CONFIGURE_HOOKS += PIPEWIRE_DWD_DEPENDENCIES
