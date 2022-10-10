@@ -14,6 +14,7 @@ SDL2_CPE_ID_PRODUCT = simple_directmedia_layer
 SDL2_INSTALL_STAGING = YES
 SDL2_CONFIG_SCRIPTS = sdl2-config
 
+# batocera - Removed --disable-video-wayland and --disable-video-vulkan
 SDL2_CONF_OPTS += \
 	--disable-rpath \
 	--disable-arts \
@@ -207,7 +208,7 @@ SDL2_CONF_OPTS += --disable-video-kmsdrm
 endif
 
 # batocera - enable/disable Wayland video driver
-ifeq ($(BR2_PACKAGE_SDL2_WAYLAND),y)
+ifeq ($(BR2_PACKAGE_WAYLAND),y)
 SDL2_DEPENDENCIES += wayland
 SDL2_CONF_OPTS += --enable-video-wayland
 else
@@ -215,7 +216,7 @@ SDL2_CONF_OPTS += --disable-video-wayland
 endif
 
 # batocera - enable/disable Vulkan support
-ifeq ($(BR2_PACKAGE_SDL2_VULKAN),y)
+ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
 SDL2_DEPENDENCIES += vulkan-headers vulkan-loader
 SDL2_CONF_OPTS += --enable-video-vulkan
 else
