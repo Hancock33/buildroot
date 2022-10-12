@@ -3,10 +3,9 @@
 # pipewire
 #
 ################################################################################
-
-PIPEWIRE_VERSION = 0.3.59
-PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
-PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
+# Version: Commits on Oct 07, 2022
+PIPEWIRE_VERSION = 9dd1c78f50aa67f5998e334e9e199a730d0a054a
+PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(RPI_FIRMWARE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
 PIPEWIRE_INSTALL_STAGING = YES
