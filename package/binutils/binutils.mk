@@ -47,6 +47,7 @@ BINUTILS_DISABLE_GDB_CONF_OPTS = \
 BINUTILS_CONF_OPTS = \
 	--disable-multilib \
 	--disable-werror \
+	--disable-gold \
 	--host=$(GNU_TARGET_NAME) \
 	--target=$(GNU_TARGET_NAME) \
 	--enable-install-libiberty \
@@ -81,6 +82,7 @@ endif
 HOST_BINUTILS_CONF_OPTS = \
 	--disable-multilib \
 	--disable-werror \
+	--disable-gold \
 	--target=$(GNU_TARGET_NAME) \
 	--disable-shared \
 	--enable-static \
