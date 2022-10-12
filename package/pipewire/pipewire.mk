@@ -5,7 +5,7 @@
 ################################################################################
 # Version: Commits on Oct 12, 2022
 PIPEWIRE_VERSION = 59e49d31ebd663d9e642c8ac22385b609aaf19cc
-PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(RPI_FIRMWARE_VERSION))
+PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
 PIPEWIRE_INSTALL_STAGING = YES
