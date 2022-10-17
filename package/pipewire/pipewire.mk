@@ -3,8 +3,9 @@
 # pipewire
 #
 ################################################################################
-# Version: Commits on Oct 13, 2022
-PIPEWIRE_VERSION = 3e9b4657cbf2aa6c63bdf3fc4752ebb2d3bc8614
+
+# Version: Commits on Oct 17, 2022
+PIPEWIRE_VERSION = e6356f7415e44451384fb110225225e077481ec4
 PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
@@ -19,6 +20,7 @@ PIPEWIRE_CONF_OPTS += \
 	-Dspa-plugins=enabled \
 	-Daudiomixer=enabled \
 	-Daudioconvert=enabled \
+	-Dbluez5-codec-lc3=disabled \
 	-Dbluez5-codec-lc3plus=disabled \
 	-Dcontrol=enabled \
 	-Daudiotestsrc=enabled \
