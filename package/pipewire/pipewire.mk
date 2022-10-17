@@ -3,7 +3,6 @@
 # pipewire
 #
 ################################################################################
-
 # Version: Commits on Oct 17, 2022
 PIPEWIRE_VERSION = e6356f7415e44451384fb110225225e077481ec4
 PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
