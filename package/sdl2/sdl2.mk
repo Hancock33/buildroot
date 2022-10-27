@@ -20,7 +20,23 @@ SDL2_CONF_OPTS += \
 	--disable-arts \
 	--disable-esd \
 	--disable-dbus \
-	--disable-pulseaudio
+	--disable-pulseaudio \
+	--disable-video-vivante \
+	--disable-video-cocoa \
+	--disable-video-metal \
+	--disable-video-dummy \
+	--disable-video-offscreen \
+	--disable-ime \
+	--disable-ibus \
+	--disable-fcitx \
+	--disable-joystick-mfi \
+	--disable-directx \
+	--disable-xinput \
+	--disable-wasapi \
+	--disable-hidapi-joystick \
+	--disable-hidapi-libusb \
+	--disable-joystick-virtual \
+	--disable-render-d3d
 
 # We are using autotools build system for sdl2, so the sdl2-config.cmake
 # include path are not resolved like for sdl2-config script.
@@ -133,12 +149,13 @@ else
 SDL2_CONF_OPTS += --disable-video-x11-xcursor
 endif
 
-ifeq ($(BR2_PACKAGE_XLIB_LIBXINERAMA),y)
-SDL2_DEPENDENCIES += xlib_libXinerama
-SDL2_CONF_OPTS += --enable-video-x11-xinerama
-else
-SDL2_CONF_OPTS += --disable-video-x11-xinerama
-endif
+# batocera - needs removing, not a valid option
+#ifeq ($(BR2_PACKAGE_XLIB_LIBXINERAMA),y)
+#SDL2_DEPENDENCIES += xlib_libXinerama
+#SDL2_CONF_OPTS += --enable-video-x11-xinerama
+#else
+#SDL2_CONF_OPTS += --disable-video-x11-xinerama
+#endif
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBXI),y)
 SDL2_DEPENDENCIES += xlib_libXi
@@ -161,12 +178,13 @@ else
 SDL2_CONF_OPTS += --disable-video-x11-scrnsaver
 endif
 
-ifeq ($(BR2_PACKAGE_XLIB_LIBXXF86VM),y)
-SDL2_DEPENDENCIES += xlib_libXxf86vm
-SDL2_CONF_OPTS += --enable-video-x11-vm
-else
-SDL2_CONF_OPTS += --disable-video-x11-vm
-endif
+# batocera - needs removing, not a valid option
+#ifeq ($(BR2_PACKAGE_XLIB_LIBXXF86VM),y)
+#SDL2_DEPENDENCIES += xlib_libXxf86vm
+#SDL2_CONF_OPTS += --enable-video-x11-vm
+#else
+#SDL2_CONF_OPTS += --disable-video-x11-vm
+#endif
 
 else
 SDL2_CONF_OPTS += --disable-video-x11 --without-x
@@ -209,7 +227,7 @@ endif
 
 # batocera - enable/disable Wayland video driver
 ifeq ($(BR2_PACKAGE_WAYLAND),y)
-SDL2_DEPENDENCIES += wayland wayland-protocols libxkbcommon
+SDL2_DEPENDENCIES += wayland waylandpp wayland-protocols libxkbcommon
 SDL2_CONF_OPTS += --enable-video-wayland
 else
 SDL2_CONF_OPTS += --disable-video-wayland
