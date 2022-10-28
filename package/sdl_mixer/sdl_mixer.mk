@@ -7,8 +7,8 @@
 # The latest officially released version of SDL_mixer is 1.2.12, released in 2012.
 # Since then, there have been many bugfixes on master.
 #
-# This commit points to the SDL-1.2 branch from 11 May 2022.
-SDL_MIXER_VERSION = c62f361283fb5cfb720f543dcc356f2d02db8954
+# This commit points to the SDL-1.2 branch from 10 Oct 2022.
+SDL_MIXER_VERSION = 7804621c533dddfe970e97c94c4ea72d48ed7f48
 SDL_MIXER_SITE = $(call github,libsdl-org,SDL_mixer,$(SDL_MIXER_VERSION))
 SDL_MIXER_LICENSE = Zlib
 SDL_MIXER_LICENSE_FILES = COPYING
