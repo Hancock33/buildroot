@@ -25,7 +25,6 @@ endif
 # Can't build with static & shared at the same time (1.0.25+)
 ifeq ($(BR2_STATIC_LIBS),y)
 ALSA_LIB_CONF_OPTS += \
-	--disable-topology \
 	--enable-shared=no \
 	--without-libdl
 else
