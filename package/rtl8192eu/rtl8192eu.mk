@@ -3,8 +3,8 @@
 # rtl8192eu
 #
 ################################################################################
-# Version: Commits on Oct 26, 2022
-RTL8192EU_VERSION = 2181717490b6399b84f02066a2bd14e49c8a6fc4
+# Version: Commits on Oct 27, 2022
+RTL8192EU_VERSION = 4c8ce6c083ec4327f6ea74ae14518724d629114e
 RTL8192EU_SITE = $(call github,clnhub,rtl8192eu-linux,$(RTL8192EU_VERSION))
 RTL8192EU_LICENSE = GPL-2.0
 RTL8192EU_MODULE_MAKE_OPTS = \
