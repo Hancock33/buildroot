@@ -3,9 +3,9 @@
 # mesa3d
 #
 ################################################################################
-# batocera (update)
+# Version: Commits on Nov 09, 2022 (22.3.0-rc2)
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 6d38a9768f8c562e3c20a171e69dbb59b08ab9e0
+MESA3D_VERSION = 38cb64bfe9636f0b4fd48d330331e5d9ec5a74bd
 MESA3D_SITE = $(call github,Mesa3D,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
