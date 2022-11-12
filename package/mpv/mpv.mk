@@ -27,7 +27,8 @@ MPV_CONF_OPTS = \
 	--disable-opensles \
 	--disable-rubberband \
 	--disable-uchardet \
-	--disable-vapoursynth
+	--disable-vapoursynth \
+	--disable-sdl2-gamepad
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 MPV_CONF_OPTS += --disable-build-date
@@ -168,7 +169,7 @@ endif
 # SDL support
 # Sdl2 requires 64-bit sync intrinsics
 ifeq ($(BR2_TOOLCHAIN_HAS_SYNC_8)$(BR2_PACKAGE_SDL2),yy)
-MPV_CONF_OPTS += --enable-sdl2 --enable-sdl2-gamepad
+MPV_CONF_OPTS += --enable-sdl2
 MPV_DEPENDENCIES += sdl2
 else
 MPV_CONF_OPTS += --disable-sdl2
