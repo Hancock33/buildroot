@@ -3,10 +3,9 @@
 # sdl2
 #
 ################################################################################
-
-SDL2_VERSION = 2.24.2
-SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
-SDL2_SITE = http://www.libsdl.org/release
+# Version: Commits on Nov 17, 2022 (release-2.24.x)
+SDL2_VERSION = 4d605ae0029ff362b7fb84f3cbbb186c8bddeda3
+SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = LICENSE.txt
 SDL2_CPE_ID_VENDOR = libsdl
