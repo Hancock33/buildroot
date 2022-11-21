@@ -15,7 +15,7 @@ SDL_TTF_LICENSE = Zlib
 SDL_TTF_LICENSE_FILES = COPYING
 
 SDL_TTF_INSTALL_STAGING = YES
-SDL_TTF_DEPENDENCIES = sdl freetype
+SDL_TTF_DEPENDENCIES = sdl2-compat freetype
 SDL_TTF_CONF_OPTS = \
 	--without-x \
 	--with-freetype-prefix=$(STAGING_DIR)/usr \

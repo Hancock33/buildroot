@@ -11,7 +11,7 @@ SDL_GFX_SITE = http://www.ferzkopp.net/Software/SDL_gfx-$(SDL_GFX_VERSION_MAJOR)
 SDL_GFX_LICENSE = Zlib
 SDL_GFX_LICENSE_FILES = COPYING LICENSE
 SDL_GFX_INSTALL_STAGING = YES
-SDL_GFX_DEPENDENCIES = sdl
+SDL_GFX_DEPENDENCIES = sdl2-compat
 SDL_GFX_CONF_OPTS = \
 	--with-sdl-prefix=$(STAGING_DIR)/usr \
 	--disable-sdltest \
