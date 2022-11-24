@@ -3,8 +3,8 @@
 # sdl2
 #
 ################################################################################
-# Version: Commits on Nov 22, 2022 (release-2.26.x)
-SDL2_VERSION = 479e972e561fc4bb40293946c1b9b299e4de9785
+
+SDL2_VERSION = release-2.0.22
 SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = LICENSE.txt
