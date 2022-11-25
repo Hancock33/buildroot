@@ -3,9 +3,9 @@
 # mesa3d
 #
 ################################################################################
-# Version: Commits on Nov 24, 2022 (22.3.0-rc4)
+# Version: Commits on Nov 25, 2022 (22.3.0-rc4)
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 4c07e4acc34157c743511e59a9e5479b5f1a1709
+MESA3D_VERSION = a1631f2de22c5460935c5e4a33845775c7ee96df
 MESA3D_SITE = $(call github,Mesa3D,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
