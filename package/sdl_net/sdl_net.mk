@@ -20,6 +20,6 @@ SDL_NET_CONF_OPTS = \
 
 SDL_NET_INSTALL_STAGING = YES
 
-SDL_NET_DEPENDENCIES = sdl2-compat
+SDL_NET_DEPENDENCIES = sdl12-compat
 
 $(eval $(autotools-package))

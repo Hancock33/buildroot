@@ -38,7 +38,7 @@ SDL_IMAGE_CONF_OPTS = \
 	--enable-xpm=$(if $(BR2_PACKAGE_SDL_IMAGE_XPM),yes,no) \
 	--enable-xv=$(if $(BR2_PACKAGE_SDL_IMAGE_XV),yes,no)
 
-SDL_IMAGE_DEPENDENCIES = sdl2-compat jpeg libpng tiff \
+SDL_IMAGE_DEPENDENCIES = sdl12-compat jpeg libpng tiff \
 	$(if $(BR2_PACKAGE_SDL_IMAGE_WEBP),webp)
 
 HOST_SDL_IMAGE_CONF_OPTS = \
