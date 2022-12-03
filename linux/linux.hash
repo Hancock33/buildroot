@@ -1,9 +1,9 @@
 # From https://www.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc
-sha256  39e57fcd84cd70bfa3e1a4185d3aa0ed7f1432f24c6548d16326b0c3c9541dd0  linux-6.0.10.tar.xz
+sha256  2bae6131e64971e1e34ff395fa542971134c857bdb0b29069ab847c7c9a9c762  linux-6.0.11.tar.xz
 # From https://www.kernel.org/pub/linux/kernel/v5.x/sha256sums.asc
 sha256  59f596f6714317955cf481590babcf015aff2bc1900bd8e8dc8f7af73bc560aa  linux-5.4.225.tar.xz
-sha256  679e9964ca720027967391b61db990ceb7868e93e203f87724f18310f4955923  linux-5.10.156.tar.xz
-sha256  3b321a6466d2021f60ed8d4e33bba21db2f23efc2ddd2d9fb775393d9afdfd4d  linux-5.15.80.tar.xz
+sha256  fc4cd7c0777ed53f1350e73877e9918df3c40d8e8abe93c6e1a0eb21556d327f  linux-5.10.157.tar.xz
+sha256  8f885cdebd754d6e63b920cf6c3e5713e91bbf5f52e9d99eb0054ef7e8f096ab  linux-5.15.81.tar.xz
 sha256  c93bb384a97ad1f0a4f18e442ce0291242722f78023eca658b22344541f09489  linux-5.19.17.tar.xz
 # From https://www.kernel.org/pub/linux/kernel/v4.x/sha256sums.asc
 sha256  697afba5d75283d2107ef6a469f16e809df68eb4a7a4c51fa58645574522506a  linux-4.9.334.tar.xz
