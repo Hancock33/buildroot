@@ -65,7 +65,7 @@ mk_tar_gz() {
              -T "${tmp}.sorted" >"${tmp}.tar"
 
     # Compress the archive
-    gzip -6 -n <"${tmp}.tar" >"${out}"
+    pigz -6 -n <"${tmp}.tar" >"${out}"
 
     rm -f "${tmp}"{.list,.sorted,.tar}
 
