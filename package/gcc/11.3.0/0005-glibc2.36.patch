@@ -6,10 +6,42 @@ index f628d2eafc5..0a47c95bb14 100644
 -11.3.0
 +11.3.1
 diff --git a/gcc/ChangeLog b/gcc/ChangeLog
-index a0587d18824..80d9e220900 100644
+index a0587d18824..cf1de8ba9be 100644
 --- a/gcc/ChangeLog
 +++ b/gcc/ChangeLog
-@@ -1,3 +1,1068 @@
+@@ -1,3 +1,1100 @@
++2022-12-12  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-10-06  Richard Biener  <rguenther@suse.de>
++
++	PR tree-optimization/107107
++	* tree-ssa-sccvn.c (visit_reference_op_store): Do not
++	affect value-numbering when doing the tail merging
++	MODIFY_EXPR lookup.
++
++2022-12-01  liuhongt  <hongtao.liu@intel.com>
++
++	PR target/107863
++	* config/i386/i386-expand.c (ix86_expand_vec_set_builtin):
++	Convert op1 to target mode whenever mode mismatch.
++
++2022-11-30  John David Anglin  <danglin@gcc.gnu.org>
++
++	* config/pa/pa.md (addvdi3): Force operand 2 to a register.
++	Remove "addi,tsv,*" instruction from unamed pattern.
++	(subvdi3): Force operand 1 to a register.
++	Remove "subi,tsv" instruction from from unamed pattern.
++
++2022-11-29  Max Filippov  <jcmvbkbc@gmail.com>
++
++	Backported from master:
++	2022-11-08  Max Filippov  <jcmvbkbc@gmail.com>
++
++	PR rtl-optimization/107482
++	* ira-color.c (assign_hard_reg): Only call
++	update_costs_from_copies when retry_p is false.
++
 +2022-11-25  Eric Botcazou  <ebotcazou@adacore.com>
 +
 +	* range-op.cc (operator_bitwise_xor::op1_range): Fix thinko.
@@ -1079,12 +1111,12 @@ index a0587d18824..80d9e220900 100644
  
  	* GCC 11.3.0 released.
 diff --git a/gcc/DATESTAMP b/gcc/DATESTAMP
-index d4ff129236b..ba378581096 100644
+index d4ff129236b..fb5d5da64c6 100644
 --- a/gcc/DATESTAMP
 +++ b/gcc/DATESTAMP
 @@ -1 +1 @@
 -20220421
-+20221126
++20221214
 diff --git a/gcc/alias.c b/gcc/alias.c
 index 69e1eb89ac6..ba4aa4dc8d9 100644
 --- a/gcc/alias.c
@@ -2776,6 +2808,19 @@ index 515ee0c1728..1ce6bade1b4 100644
  #endif
  
  #define _mm_mask_scalef_sd(W, U, A, B) \
+diff --git a/gcc/config/i386/i386-expand.c b/gcc/config/i386/i386-expand.c
+index 31eae75d277..d95adaf962b 100644
+--- a/gcc/config/i386/i386-expand.c
++++ b/gcc/config/i386/i386-expand.c
+@@ -11028,7 +11028,7 @@ ix86_expand_vec_set_builtin (tree exp)
+   op1 = expand_expr (arg1, NULL_RTX, mode1, EXPAND_NORMAL);
+   elt = get_element_number (TREE_TYPE (arg0), arg2);
+ 
+-  if (GET_MODE (op1) != mode1 && GET_MODE (op1) != VOIDmode)
++  if (GET_MODE (op1) != mode1)
+     op1 = convert_modes (mode1, GET_MODE (op1), op1, true);
+ 
+   op0 = force_reg (tmode, op0);
 diff --git a/gcc/config/i386/i386.c b/gcc/config/i386/i386.c
 index 48300af9a09..1623bbcbd2d 100644
 --- a/gcc/config/i386/i386.c
@@ -3170,6 +3215,80 @@ index 0f15609ee4b..f1b32e285d7 100644
  (define_expand "memory_barrier"
    [(set (match_dup 0)
  	(unspec_volatile:BLK [(match_dup 0)] UNSPECV_MEMBAR))]
+diff --git a/gcc/config/pa/pa.md b/gcc/config/pa/pa.md
+index 31e3b1bff80..3e0bfb09da2 100644
+--- a/gcc/config/pa/pa.md
++++ b/gcc/config/pa/pa.md
+@@ -5071,23 +5071,25 @@
+ 						    (match_dup 2))))
+ 		       (const_int 0))])]
+   ""
+-  "")
++  "
++{
++  if (TARGET_64BIT)
++    operands[2] = force_reg (DImode, operands[2]);
++}")
+ 
+ (define_insn ""
+-  [(set (match_operand:DI 0 "register_operand" "=r,r")
+-	(plus:DI (match_operand:DI 1 "reg_or_0_operand" "%rM,rM")
+-		 (match_operand:DI 2 "arith11_operand" "r,I")))
++  [(set (match_operand:DI 0 "register_operand" "=r")
++	(plus:DI (match_operand:DI 1 "reg_or_0_operand" "%rM")
++		 (match_operand:DI 2 "register_operand" "r")))
+    (trap_if (ne (plus:TI (sign_extend:TI (match_dup 1))
+ 			 (sign_extend:TI (match_dup 2)))
+ 		(sign_extend:TI (plus:DI (match_dup 1)
+ 					 (match_dup 2))))
+ 	    (const_int 0))]
+   "TARGET_64BIT"
+-  "@
+-  add,tsv,* %2,%1,%0
+-  addi,tsv,* %2,%1,%0"
+-  [(set_attr "type" "binary,binary")
+-   (set_attr "length" "4,4")])
++  "add,tsv,* %2,%1,%0"
++  [(set_attr "type" "binary")
++   (set_attr "length" "4")])
+ 
+ (define_insn ""
+   [(set (match_operand:DI 0 "register_operand" "=r")
+@@ -5262,23 +5264,25 @@
+ 						     (match_dup 2))))
+ 		       (const_int 0))])]
+   ""
+-  "")
++  "
++{
++  if (TARGET_64BIT)
++    operands[1] = force_reg (DImode, operands[1]);
++}")
+ 
+ (define_insn ""
+-  [(set (match_operand:DI 0 "register_operand" "=r,r")
+-	(minus:DI (match_operand:DI 1 "arith11_operand" "r,I")
+-		  (match_operand:DI 2 "reg_or_0_operand" "rM,rM")))
++  [(set (match_operand:DI 0 "register_operand" "=r")
++	(minus:DI (match_operand:DI 1 "register_operand" "r")
++		  (match_operand:DI 2 "reg_or_0_operand" "rM")))
+    (trap_if (ne (minus:TI (sign_extend:TI (match_dup 1))
+ 			  (sign_extend:TI (match_dup 2)))
+ 		(sign_extend:TI (minus:DI (match_dup 1)
+ 					  (match_dup 2))))
+ 	    (const_int 0))]
+   "TARGET_64BIT"
+-  "@
+-  {subo|sub,tsv} %1,%2,%0
+-  {subio|subi,tsv} %1,%2,%0"
+-  [(set_attr "type" "binary,binary")
+-   (set_attr "length" "4,4")])
++  "sub,tsv,* %1,%2,%0"
++  [(set_attr "type" "binary")
++   (set_attr "length" "4")])
+ 
+ (define_insn ""
+   [(set (match_operand:DI 0 "register_operand" "=r,&r")
 diff --git a/gcc/config/riscv/arch-canonicalize b/gcc/config/riscv/arch-canonicalize
 index 3a91cfe687f..0bdf6aafe35 100755
 --- a/gcc/config/riscv/arch-canonicalize
@@ -9559,10 +9678,31 @@ index af112fd0985..14478eec238 100644
  extern rtx cselib_expand_value_rtx (rtx, bitmap, int);
  typedef rtx (*cselib_expand_callback)(rtx, bitmap, int, void *);
 diff --git a/gcc/d/ChangeLog b/gcc/d/ChangeLog
-index 6021ffdbf78..a32a7f3ea2a 100644
+index 6021ffdbf78..791007eeaa5 100644
 --- a/gcc/d/ChangeLog
 +++ b/gcc/d/ChangeLog
-@@ -1,3 +1,45 @@
+@@ -1,3 +1,66 @@
++2022-12-11  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	Backported from master:
++	2022-12-11  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	PR d/108050
++	* decl.cc (DeclVisitor::visit (Import *)): Handle build_import_decl
++	returning a TREE_LIST.
++	* imports.cc (ImportVisitor::visit (OverloadSet *)): New override.
++
++2022-11-30  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	Backported from master:
++	2022-11-30  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	PR d/107592
++	* toir.cc (IRVisitor::push_unrolled_continue_label): New method.
++	(IRVisitor::pop_unrolled_continue_label): New method.
++	(IRVisitor::visit (UnrolledLoopStatement *)): Use them instead of
++	push_continue_label and pop_continue_label.
++
 +2022-08-16  Iain Buclaw  <ibuclaw@gdcproject.org>
 +
 +	Backported from master:
@@ -9727,6 +9867,29 @@ index b12d28f1047..1304126a675 100644
  #endif
        if (saw_libcxx)
  	new_decoded_options[j++] = *saw_libcxx;
+diff --git a/gcc/d/decl.cc b/gcc/d/decl.cc
+index a30549ce8e0..fff7a7c2a74 100644
+--- a/gcc/d/decl.cc
++++ b/gcc/d/decl.cc
+@@ -197,8 +197,16 @@ public:
+ 	    tree name = (alias != NULL)
+ 	      ? get_identifier (alias->toChars ()) : NULL_TREE;
+ 
+-	    debug_hooks->imported_module_or_decl (decl, name, context,
+-						  false, false);
++	    if (TREE_CODE (decl) != TREE_LIST)
++	      debug_hooks->imported_module_or_decl (decl, name, context,
++						    false, false);
++	    else
++	      {
++		/* Overload sets return a list of imported decls.  */
++		for (; decl != NULL_TREE; decl = TREE_CHAIN (decl))
++		  debug_hooks->imported_module_or_decl (TREE_VALUE (decl), name,
++							context, false, false);
++	      }
+ 	  }
+       }
+     else
 diff --git a/gcc/d/dmd/expressionsem.c b/gcc/d/dmd/expressionsem.c
 index 5ae5fe6a717..fe90039d6f0 100644
 --- a/gcc/d/dmd/expressionsem.c
@@ -9794,11 +9957,65 @@ index 095f7ecca41..0976aebd7d4 100644
  @item field
  List all non-mutable fields which occupy an object instance.
  @item nogc
+diff --git a/gcc/d/imports.cc b/gcc/d/imports.cc
+index 2288843c61a..399c3ee3d25 100644
+--- a/gcc/d/imports.cc
++++ b/gcc/d/imports.cc
+@@ -157,6 +157,20 @@ public:
+       }
+   }
+ 
++  /* Build IMPORTED_DECLs for all overloads in a set.  */
++  void visit (OverloadSet *d)
++  {
++    vec<tree, va_gc> *tset = NULL;
++
++    vec_alloc (tset, d->a.length);
++
++    for (size_t i = 0; i < d->a.length; i++)
++      vec_safe_push (tset, build_import_decl (d->a[i]));
++
++    d->isym = build_tree_list_vec (tset);
++    tset->truncate (0);
++  }
++
+   /* Function aliases are the same as alias symbols.  */
+   void visit (FuncAliasDeclaration *d)
+   {
 diff --git a/gcc/d/toir.cc b/gcc/d/toir.cc
-index eaee6f7e803..460edc15143 100644
+index eaee6f7e803..1db50b8cfbe 100644
 --- a/gcc/d/toir.cc
 +++ b/gcc/d/toir.cc
-@@ -1090,6 +1090,7 @@ public:
+@@ -541,6 +541,28 @@ public:
+     this->do_label (label);
+   }
+ 
++  /* Generate and set a new continue label for the current unrolled loop.  */
++
++  void push_unrolled_continue_label (UnrolledLoopStatement *s)
++  {
++    this->push_continue_label (s);
++  }
++
++  /* Finish with the continue label for the unrolled loop.  */
++
++  void pop_unrolled_continue_label (UnrolledLoopStatement *s)
++  {
++    Statement *stmt = s->getRelatedLabeled ();
++    d_label_entry *ent = d_function_chain->labels->get (stmt);
++    gcc_assert (ent != NULL && ent->bc_label == true);
++
++    this->pop_continue_label (TREE_VEC_ELT (ent->label, bc_continue));
++
++    /* Remove the continue label from the label htab, as a new one must be
++       inserted at the end of every unrolled loop.  */
++    ent->label = TREE_VEC_ELT (ent->label, bc_break);
++  }
++
+   /* Visitor interfaces.  */
+ 
+ 
+@@ -1090,6 +1112,7 @@ public:
  	    /* Generate: (<retval> = expr, return <retval>);  */
  	    tree expr = build_expr_dtor (s->exp);
  	    tree init = stabilize_expr (&expr);
@@ -9806,6 +10023,18 @@ index eaee6f7e803..460edc15143 100644
  	    expr = build_assign (INIT_EXPR, this->func_->shidden, expr);
  	    add_stmt (compound_expr (init, expr));
  	  }
+@@ -1156,9 +1179,9 @@ public:
+ 
+ 	if (statement != NULL)
+ 	  {
+-	    tree lcontinue = this->push_continue_label (statement);
++	    this->push_unrolled_continue_label (s);
+ 	    this->build_stmt (statement);
+-	    this->pop_continue_label (lcontinue);
++	    this->pop_unrolled_continue_label (s);
+ 	  }
+       }
+ 
 diff --git a/gcc/d/typeinfo.cc b/gcc/d/typeinfo.cc
 index 9d6464deb07..a10d21e355e 100644
 --- a/gcc/d/typeinfo.cc
@@ -11248,6 +11477,21 @@ index b6c6b51612d..c1ddf8ba11e 100644
    if (DECL_P (base))
      {
        int index = ipa_get_param_decl_index_1 (descriptors, base);
+diff --git a/gcc/ira-color.c b/gcc/ira-color.c
+index d9f66e1e2bc..9f44157456d 100644
+--- a/gcc/ira-color.c
++++ b/gcc/ira-color.c
+@@ -1967,8 +1967,8 @@ assign_hard_reg (ira_allocno_t a, bool retry_p)
+     restore_costs_from_copies (a);
+   ALLOCNO_HARD_REGNO (a) = best_hard_regno;
+   ALLOCNO_ASSIGNED_P (a) = true;
+-  if (best_hard_regno >= 0)
+-    update_costs_from_copies (a, true, ! retry_p);
++  if (best_hard_regno >= 0 && !retry_p)
++    update_costs_from_copies (a, true, true);
+   ira_assert (ALLOCNO_CLASS (a) == aclass);
+   /* We don't need updated costs anymore.  */
+   ira_free_allocno_updated_costs (a);
 diff --git a/gcc/ira.c b/gcc/ira.c
 index b93588d8a9f..ad40506d2a9 100644
 --- a/gcc/ira.c
@@ -11915,10 +12159,41 @@ index 67a49e65fd8..88b37584f74 100644
  	  x = simplify_unary_operation (ZERO_EXTEND, GET_MODE (x),
  					new_rtx, GET_MODE (XEXP (x, 0)));
 diff --git a/gcc/testsuite/ChangeLog b/gcc/testsuite/ChangeLog
-index 5fc23605244..c52416f089a 100644
+index 5fc23605244..b32d4b85576 100644
 --- a/gcc/testsuite/ChangeLog
 +++ b/gcc/testsuite/ChangeLog
-@@ -1,3 +1,1192 @@
+@@ -1,3 +1,1223 @@
++2022-12-12  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-10-06  Richard Biener  <rguenther@suse.de>
++
++	PR tree-optimization/107107
++	* gcc.dg/pr107107.c: New testcase.
++
++2022-12-11  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	Backported from master:
++	2022-12-11  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	PR d/108050
++	* gdc.dg/imports/pr108050/mod1.d: New.
++	* gdc.dg/imports/pr108050/mod2.d: New.
++	* gdc.dg/imports/pr108050/package.d: New.
++	* gdc.dg/pr108050.d: New test.
++
++2022-12-01  liuhongt  <hongtao.liu@intel.com>
++
++	* gcc.target/i386/pr107863.c: New test.
++
++2022-11-30  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	Backported from master:
++	2022-11-30  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	PR d/107592
++	* gdc.dg/pr107592.d: New test.
++
 +2022-11-25  Harald Anlauf  <anlauf@gmx.de>
 +
 +	Backported from master:
@@ -15131,6 +15406,37 @@ index 00000000000..0eca8343c56
 +
 +int a_n_0_0_a[][0];
 +void a_n_0_0() { T(((char *)a_n_0_0_a)[1]); }
+diff --git a/gcc/testsuite/gcc.dg/pr107107.c b/gcc/testsuite/gcc.dg/pr107107.c
+new file mode 100644
+index 00000000000..5ad6a63159e
+--- /dev/null
++++ b/gcc/testsuite/gcc.dg/pr107107.c
+@@ -0,0 +1,25 @@
++/* { dg-do run } */
++/* { dg-options "-O2 -ftree-tail-merge" } */
++
++static inline void set_longish(int is_long_long, void *p, long x)
++{
++  if (is_long_long)
++    *(long long*)p = x;
++  else
++    *(long*)p = x;
++}
++static long test(long long *p, int index, int mode)
++{
++  *p = 1;
++  set_longish(mode, p+index, 2);
++  return *p;
++}
++long (*volatile vtest)(long long*, int, int) = test;
++int main(void)
++{
++  long long x;
++  long result = vtest(&x, 0, 1);
++  if (result != 2 || x != 2)
++    __builtin_abort ();
++  return 0;
++}
 diff --git a/gcc/testsuite/gcc.dg/pragma-message.c b/gcc/testsuite/gcc.dg/pragma-message.c
 index 2f44b617710..1b7cf09de0a 100644
 --- a/gcc/testsuite/gcc.dg/pragma-message.c
@@ -16679,6 +16985,20 @@ index 00000000000..24d68795e7f
 +      s->v = __builtin_shuffle(tmp.v, mask2->v);
 +  }
 +}
+diff --git a/gcc/testsuite/gcc.target/i386/pr107863.c b/gcc/testsuite/gcc.target/i386/pr107863.c
+new file mode 100644
+index 00000000000..99fd85d9765
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/i386/pr107863.c
+@@ -0,0 +1,8 @@
++/* { dg-do compile } */
++/* { dg-options "-mavx2 -O" } */
++
++typedef char v16qi __attribute__((vector_size(16)));
++
++v16qi foo(v16qi a){
++  return __builtin_ia32_vec_set_v16qi (a, -1, 2);
++}
 diff --git a/gcc/testsuite/gcc.target/i386/sse-14.c b/gcc/testsuite/gcc.target/i386/sse-14.c
 index 4ce0ffffaf3..4c728f230f7 100644
 --- a/gcc/testsuite/gcc.target/i386/sse-14.c
@@ -17643,6 +17963,30 @@ index 00000000000..8a9cca7e225
 +// { dg-options "-Wpadded" }
 +
 +class EmptyClass { }
+diff --git a/gcc/testsuite/gdc.dg/imports/pr108050/mod1.d b/gcc/testsuite/gdc.dg/imports/pr108050/mod1.d
+new file mode 100644
+index 00000000000..f27a13dc051
+--- /dev/null
++++ b/gcc/testsuite/gdc.dg/imports/pr108050/mod1.d
+@@ -0,0 +1,2 @@
++module imports.pr108050.mod1;
++string[] split() { return null; }
+diff --git a/gcc/testsuite/gdc.dg/imports/pr108050/mod2.d b/gcc/testsuite/gdc.dg/imports/pr108050/mod2.d
+new file mode 100644
+index 00000000000..29d8aa8f53e
+--- /dev/null
++++ b/gcc/testsuite/gdc.dg/imports/pr108050/mod2.d
+@@ -0,0 +1,2 @@
++module imports.pr108050.mod2;
++string[] split() { return null; }
+diff --git a/gcc/testsuite/gdc.dg/imports/pr108050/package.d b/gcc/testsuite/gdc.dg/imports/pr108050/package.d
+new file mode 100644
+index 00000000000..b8b03b832af
+--- /dev/null
++++ b/gcc/testsuite/gdc.dg/imports/pr108050/package.d
+@@ -0,0 +1,2 @@
++module imports.pr108050;
++public import imports.pr108050.mod1, imports.pr108050.mod2;
 diff --git a/gcc/testsuite/gdc.dg/pr106139a.d b/gcc/testsuite/gdc.dg/pr106139a.d
 new file mode 100644
 index 00000000000..f635eabc745
@@ -17793,6 +18137,35 @@ index 00000000000..4c6f0ef3a3a
 +{
 +    v = cast(__vector(V))a;
 +}
+diff --git a/gcc/testsuite/gdc.dg/pr107592.d b/gcc/testsuite/gdc.dg/pr107592.d
+new file mode 100644
+index 00000000000..59f34477356
+--- /dev/null
++++ b/gcc/testsuite/gdc.dg/pr107592.d
+@@ -0,0 +1,13 @@
++// https://gcc.gnu.org/bugzilla/show_bug.cgi?id=107592
++// { dg-do compile }
++
++void test107592(Things...)(Things things)
++{
++    label:
++    foreach (thing; things)
++    {
++        continue label;
++    }
++}
++
++alias a107592 = test107592!(string);
+diff --git a/gcc/testsuite/gdc.dg/pr108050.d b/gcc/testsuite/gdc.dg/pr108050.d
+new file mode 100644
+index 00000000000..69134e73137
+--- /dev/null
++++ b/gcc/testsuite/gdc.dg/pr108050.d
+@@ -0,0 +1,4 @@
++// { dg-do compile }
++// { dg-additional-sources "imports/pr108050/package.d imports/pr108050/mod1.d imports/pr108050/mod2.d" }
++// { dg-options "-g" }
++import imports.pr108050 : split;
 diff --git a/gcc/testsuite/gdc.test/fail_compilation/ice20264.d b/gcc/testsuite/gdc.test/fail_compilation/ice20264.d
 new file mode 100644
 index 00000000000..0d697e22c9f
@@ -19454,7 +19827,7 @@ index 32e1632705b..c8cb7328a63 100644
  	    }
  	}
 diff --git a/gcc/tree-ssa-sccvn.c b/gcc/tree-ssa-sccvn.c
-index eaa97566d35..b4c9fac198b 100644
+index eaa97566d35..62d713bab26 100644
 --- a/gcc/tree-ssa-sccvn.c
 +++ b/gcc/tree-ssa-sccvn.c
 @@ -3197,12 +3197,12 @@ vn_reference_lookup_3 (ao_ref *ref, tree vuse, void *data_,
@@ -19514,6 +19887,37 @@ index eaa97566d35..b4c9fac198b 100644
  
    return NULL_TREE;
  }
+@@ -5239,19 +5247,6 @@ visit_reference_op_store (tree lhs, tree op, gimple *stmt)
+ 
+   if (!resultsame)
+     {
+-      /* Only perform the following when being called from PRE
+-	 which embeds tail merging.  */
+-      if (default_vn_walk_kind == VN_WALK)
+-	{
+-	  assign = build2 (MODIFY_EXPR, TREE_TYPE (lhs), lhs, op);
+-	  vn_reference_lookup (assign, vuse, VN_NOWALK, &vnresult, false);
+-	  if (vnresult)
+-	    {
+-	      VN_INFO (vdef)->visited = true;
+-	      return set_ssa_val_to (vdef, vnresult->result_vdef);
+-	    }
+-	}
+-
+       if (dump_file && (dump_flags & TDF_DETAILS))
+ 	{
+ 	  fprintf (dump_file, "No store match\n");
+@@ -5276,7 +5271,9 @@ visit_reference_op_store (tree lhs, tree op, gimple *stmt)
+       if (default_vn_walk_kind == VN_WALK)
+ 	{
+ 	  assign = build2 (MODIFY_EXPR, TREE_TYPE (lhs), lhs, op);
+-	  vn_reference_insert (assign, lhs, vuse, vdef);
++	  vn_reference_lookup (assign, vuse, VN_NOWALK, &vnresult, false);
++	  if (!vnresult)
++	    vn_reference_insert (assign, lhs, vuse, vdef);
+ 	}
+     }
+   else
 diff --git a/gcc/tree-ssa-sink.c b/gcc/tree-ssa-sink.c
 index 3c2ed795f85..b3097531203 100644
 --- a/gcc/tree-ssa-sink.c
@@ -20293,10 +20697,23 @@ index 00000000000..f03aef6a030
 +  return 0;
 +}
 diff --git a/libphobos/ChangeLog b/libphobos/ChangeLog
-index acd0b312ef2..f3d44133243 100644
+index acd0b312ef2..9656a808272 100644
 --- a/libphobos/ChangeLog
 +++ b/libphobos/ChangeLog
-@@ -1,3 +1,27 @@
+@@ -1,3 +1,40 @@
++2022-12-13  Iain Buclaw  <ibuclaw@gdcproject.org>
++
++	* libdruntime/core/stdc/fenv.d: Compile in MIPS uClibc bindings on
++	MIPS_Any targets.
++	* libdruntime/core/stdc/math.d: Likewise.
++	* libdruntime/core/sys/posix/dlfcn.d: Likewise.
++	* libdruntime/core/sys/posix/setjmp.d: Add MIPS64 definitions for
++	CRuntime_UClibc.
++	* libdruntime/core/sys/posix/sys/types.d: Likewise.
++	* src/std/path.d (expandTilde): Handle more errno codes that could be
++	left set by getpwnam_r.
++	* src/std/stdio.d: Set CRuntime_UClibc as GENERIC_IO target.
++
 +2022-06-15  Iain Buclaw  <ibuclaw@gdcproject.org>
 +
 +	Backported from master:
@@ -20324,6 +20741,95 @@ index acd0b312ef2..f3d44133243 100644
  2022-04-21  Release Manager
  
  	* GCC 11.3.0 released.
+diff --git a/libphobos/libdruntime/core/stdc/fenv.d b/libphobos/libdruntime/core/stdc/fenv.d
+index 3002c022613..665f383167d 100644
+--- a/libphobos/libdruntime/core/stdc/fenv.d
++++ b/libphobos/libdruntime/core/stdc/fenv.d
+@@ -481,7 +481,7 @@ else version (CRuntime_UClibc)
+ 
+         alias fexcept_t = ushort;
+     }
+-    else version (MIPS32)
++    else version (MIPS_Any)
+     {
+         struct fenv_t
+         {
+diff --git a/libphobos/libdruntime/core/stdc/math.d b/libphobos/libdruntime/core/stdc/math.d
+index 2de6e579575..2a965444f2c 100644
+--- a/libphobos/libdruntime/core/stdc/math.d
++++ b/libphobos/libdruntime/core/stdc/math.d
+@@ -113,7 +113,7 @@ else version (CRuntime_UClibc)
+         ///
+         enum int FP_ILOGBNAN      = int.min;
+     }
+-    else version (MIPS32)
++    else version (MIPS_Any)
+     {
+         ///
+         enum int FP_ILOGB0        = -int.max;
+diff --git a/libphobos/libdruntime/core/sys/posix/dlfcn.d b/libphobos/libdruntime/core/sys/posix/dlfcn.d
+index f6476ec3106..ff24896cdb6 100644
+--- a/libphobos/libdruntime/core/sys/posix/dlfcn.d
++++ b/libphobos/libdruntime/core/sys/posix/dlfcn.d
+@@ -316,7 +316,7 @@ else version (CRuntime_UClibc)
+         enum RTLD_LOCAL             = 0;
+         enum RTLD_NODELETE          = 0x01000;
+     }
+-    else version (MIPS32)
++    else version (MIPS_Any)
+     {
+         enum RTLD_LAZY              = 0x0001;
+         enum RTLD_NOW               = 0x0002;
+diff --git a/libphobos/libdruntime/core/sys/posix/setjmp.d b/libphobos/libdruntime/core/sys/posix/setjmp.d
+index b98d321a883..547e52e8edc 100644
+--- a/libphobos/libdruntime/core/sys/posix/setjmp.d
++++ b/libphobos/libdruntime/core/sys/posix/setjmp.d
+@@ -366,6 +366,22 @@ else version (CRuntime_UClibc)
+                 double[6] __fpregs;
+         }
+     }
++    else version (MIPS64)
++    {
++        struct __jmp_buf
++        {
++            long __pc;
++            long __sp;
++            long[8] __regs;
++            long __fp;
++            long __gp;
++            int __fpc_csr;
++            version (MIPS_N64)
++                double[8] __fpregs;
++            else
++                double[6] __fpregs;
++        }
++    }
+     else
+         static assert(0, "unimplemented");
+ 
+diff --git a/libphobos/libdruntime/core/sys/posix/sys/types.d b/libphobos/libdruntime/core/sys/posix/sys/types.d
+index abcea99019f..529df1bae82 100644
+--- a/libphobos/libdruntime/core/sys/posix/sys/types.d
++++ b/libphobos/libdruntime/core/sys/posix/sys/types.d
+@@ -1277,6 +1277,18 @@ else version (CRuntime_UClibc)
+         enum __SIZEOF_PTHREAD_BARRIER_T     = 20;
+         enum __SIZEOF_PTHREAD_BARRIERATTR_T = 4;
+      }
++     else version (MIPS64)
++     {
++        enum __SIZEOF_PTHREAD_ATTR_T        = 56;
++        enum __SIZEOF_PTHREAD_MUTEX_T       = 40;
++        enum __SIZEOF_PTHREAD_MUTEXATTR_T   = 4;
++        enum __SIZEOF_PTHREAD_COND_T        = 48;
++        enum __SIZEOF_PTHREAD_CONDATTR_T    = 4;
++        enum __SIZEOF_PTHREAD_RWLOCK_T      = 56;
++        enum __SIZEOF_PTHREAD_RWLOCKATTR_T  = 8;
++        enum __SIZEOF_PTHREAD_BARRIER_T     = 32;
++        enum __SIZEOF_PTHREAD_BARRIERATTR_T = 4;
++     }
+      else version (ARM)
+      {
+         enum __SIZEOF_PTHREAD_ATTR_T = 36;
 diff --git a/libphobos/libdruntime/gcc/emutls.d b/libphobos/libdruntime/gcc/emutls.d
 index 462230508ab..ebeeb8deda3 100644
 --- a/libphobos/libdruntime/gcc/emutls.d
@@ -20383,6 +20889,69 @@ index 592b3afcb71..68ddd1d5410 100644
  {
      _Unwind_Exception_Class exception_class;
      _Unwind_Exception_Cleanup_Fn exception_cleanup;
+diff --git a/libphobos/src/std/path.d b/libphobos/src/std/path.d
+index 4a435efba6c..d250953ee1c 100644
+--- a/libphobos/src/std/path.d
++++ b/libphobos/src/std/path.d
+@@ -3850,7 +3850,7 @@ string expandTilde(string inputPath) nothrow
+     version (Posix)
+     {
+         import core.exception : onOutOfMemoryError;
+-        import core.stdc.errno : errno, ERANGE;
++        import core.stdc.errno : errno, EBADF, ENOENT, EPERM, ERANGE, ESRCH;
+         import core.stdc.stdlib : malloc, free, realloc;
+ 
+         /*  Joins a path from a C string to the remainder of path.
+@@ -3950,7 +3950,7 @@ string expandTilde(string inputPath) nothrow
+                 scope(exit) free(extra_memory);
+ 
+                 passwd result;
+-                while (1)
++                loop: while (1)
+                 {
+                     extra_memory = cast(char*) realloc(extra_memory, extra_memory_size * char.sizeof);
+                     if (extra_memory == null)
+@@ -3969,10 +3969,23 @@ string expandTilde(string inputPath) nothrow
+                         break;
+                     }
+ 
+-                    if (errno != ERANGE &&
++                    switch (errno)
++                    {
++                        case ERANGE:
+                         // On BSD and OSX, errno can be left at 0 instead of set to ERANGE
+-                        errno != 0)
+-                        onOutOfMemoryError();
++                        case 0:
++                            break;
++
++                        case ENOENT:
++                        case ESRCH:
++                        case EBADF:
++                        case EPERM:
++                            // The given name or uid was not found.
++                            break loop;
++
++                        default:
++                            onOutOfMemoryError();
++                    }
+ 
+                     // extra_memory isn't large enough
+                     import core.checkedint : mulu;
+diff --git a/libphobos/src/std/stdio.d b/libphobos/src/std/stdio.d
+index bbf785773d4..1dc91bc2e35 100644
+--- a/libphobos/src/std/stdio.d
++++ b/libphobos/src/std/stdio.d
+@@ -52,8 +52,7 @@ else version (CRuntime_Musl)
+ }
+ else version (CRuntime_UClibc)
+ {
+-    // uClibc supports GCC IO
+-    version = GCC_IO;
++    version = GENERIC_IO;
+ }
+ else version (OSX)
+ {
 diff --git a/libphobos/testsuite/testsuite_flags.in b/libphobos/testsuite/testsuite_flags.in
 index bafd5ad4502..8e2f1eefd5b 100755
 --- a/libphobos/testsuite/testsuite_flags.in
