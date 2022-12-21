@@ -3,9 +3,9 @@
 # mesa3d
 #
 ################################################################################
-# Version: Commits on Dec 16, 2022 (22.3.1)
+# Version: Commits on Dec 20, 2022 (22.3.1)
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = bc7a7510145cdc3bab868efec1dbef52ee977b01
+MESA3D_VERSION = 7332b170edac5aabc7965ca75b7056ac3c43eda2
 MESA3D_SITE = https://gitlab.freedesktop.org/mesa/mesa.git
 MESA3D_SITE_METHOD=git
 MESA3D_LICENSE = MIT, SGI, Khronos
