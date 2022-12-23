@@ -3,8 +3,8 @@
 # sdl2
 #
 ################################################################################
-# Version: Commits on Dec 13, 2022 (release-2.26.x branch)
-SDL2_VERSION = 40698ee33c7f5596f0bdea6ae0d13ad747cf0297
+# Version: Commits on Dec 19, 2022 (release-2.26.x branch)
+SDL2_VERSION = 690e2f21f25801e7f56aab1e29bb4d2a151b7995
 SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = LICENSE.txt
@@ -216,8 +216,9 @@ else
 SDL2_CONF_OPTS += --disable-alsa
 endif
 
+# batocera
 ifeq ($(BR2_PACKAGE_SDL2_KMSDRM),y)
-SDL2_DEPENDENCIES += libdrm libgbm libegl
+SDL2_DEPENDENCIES += libdrm
 SDL2_CONF_OPTS += --enable-video-kmsdrm
 else
 SDL2_CONF_OPTS += --disable-video-kmsdrm

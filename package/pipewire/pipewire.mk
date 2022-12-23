@@ -19,7 +19,6 @@ PIPEWIRE_CONF_OPTS += \
 	-Dspa-plugins=enabled \
 	-Daudiomixer=enabled \
 	-Daudioconvert=enabled \
-	-Dbluez5-codec-lc3=disabled \
 	-Dbluez5-codec-lc3plus=disabled \
 	-Dcontrol=enabled \
 	-Daudiotestsrc=enabled \
@@ -117,8 +116,14 @@ endif
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_SBC),yy)
 PIPEWIRE_CONF_OPTS += -Dbluez5=enabled
 PIPEWIRE_DEPENDENCIES += bluez5_utils sbc
+ifeq ($(BR2_PACKAGE_OPUS),y)
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-opus=enabled
+PIPEWIRE_DEPENDENCIES += opus
 else
-PIPEWIRE_CONF_OPTS += -Dbluez5=disabled
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-opus=disabled
+endif
+else
+PIPEWIRE_CONF_OPTS += -Dbluez5=disabled -Dbluez5-codec-opus=disabled
 endif
 
 # batocera, circular dependancy
@@ -177,7 +182,7 @@ endif
 # batocera
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER)$(BR2_PACKAGE_VULKAN_LOADER),yy)
 PIPEWIRE_CONF_OPTS += -Dvulkan=enabled
-PIPEWIRE_DEPENDENCIES += mesa3d vulkan-loader 
+PIPEWIRE_DEPENDENCIES += mesa3d vulkan-loader
 else
 PIPEWIRE_CONF_OPTS += -Dvulkan=disabled
 endif
