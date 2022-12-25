@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIRC_TOOLS_VERSION = 0.10.1
+LIRC_TOOLS_VERSION = 0.10.2
 LIRC_TOOLS_SOURCE = lirc-$(LIRC_TOOLS_VERSION).tar.bz2
 LIRC_TOOLS_SITE = http://downloads.sourceforge.net/project/lirc/LIRC/$(LIRC_TOOLS_VERSION)
 LIRC_TOOLS_LICENSE = GPL-2.0+
@@ -17,6 +17,15 @@ LIRC_TOOLS_AUTORECONF = YES
 
 LIRC_TOOLS_CONF_ENV = XSLTPROC=yes HAVE_WORKING_POLL=yes
 LIRC_TOOLS_CONF_OPTS = --without-x --enable-devinput --enable-uinput
+
+# batocera
+define LIRC_TOOLS_BUILD_CMDS
+	$(TARGET_CONFIGURE_OPTS) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" \
+		CC_FOR_BUILD="$(TARGET_CC)" GCC_FOR_BUILD="$(TARGET_CC)" \
+		CXX_FOR_BUILD="$(TARGET_CXX)" LD_FOR_BUILD="$(TARGET_LD)" \
+                CROSS_COMPILE="$(STAGING_DIR)/usr/bin/" \
+		$(MAKE) -C $(@D)
+endef
 
 ifeq ($(BR2_TOOLCHAIN_HEADERS_AT_LEAST_4_4),y)
 LIRC_TOOLS_CONF_ENV += \
