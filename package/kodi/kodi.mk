@@ -6,10 +6,9 @@
 
 # When updating the version, please also update kodi-jsonschemabuilder
 # and kodi-texturepacker
-KODI_VERSION_MAJOR = 19.4
+KODI_VERSION_MAJOR = 19.5
 KODI_VERSION_NAME = Matrix
-# batocera - backported v19.4 commit with libfmt 9.0 support.
-KODI_VERSION = fd5651963cba4971ffae5cb0ba79198662366395
+KODI_VERSION = $(KODI_VERSION_MAJOR)-$(KODI_VERSION_NAME)
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
