@@ -6,10 +6,42 @@ index f628d2eafc5..0a47c95bb14 100644
 -11.3.0
 +11.3.1
 diff --git a/gcc/ChangeLog b/gcc/ChangeLog
-index a0587d18824..cf1de8ba9be 100644
+index a0587d18824..071c198d53f 100644
 --- a/gcc/ChangeLog
 +++ b/gcc/ChangeLog
-@@ -1,3 +1,1100 @@
+@@ -1,3 +1,1132 @@
++2022-12-22  Martin Liska  <mliska@suse.cz>
++
++	Backported from master:
++	2022-08-10  Martin Liska  <mliska@suse.cz>
++
++	* opts-jobserver.h: Add one member.
++	* opts-common.c (jobserver_info::jobserver_info): Parse FIFO
++	format of --jobserver-auth.
++
++2022-12-22  Martin Liska  <mliska@suse.cz>
++
++	Backported from master:
++	2022-08-10  Martin Liska  <mliska@suse.cz>
++
++	* gcc.c (driver::detect_jobserver): Remove and move to
++	jobserver.h.
++	* lto-wrapper.c (jobserver_active_p): Likewise.
++	(run_gcc): Likewise.
++	* opts-jobserver.h: New file.
++	* opts-common.c (jobserver_info::jobserver_info): New function.
++
++2022-12-15  Sebastian Pop  <spop@amazon.com>
++
++	PR target/98776
++	* config/aarch64/aarch64-protos.h (aarch64_output_patchable_area):
++	Declared.
++	* config/aarch64/aarch64.c (aarch64_print_patchable_function_entry):
++	Emit an UNSPECV_PATCHABLE_AREA pseudo instruction.
++	(aarch64_output_patchable_area): New.
++	* config/aarch64/aarch64.md (UNSPECV_PATCHABLE_AREA): New.
++	(patchable_area): Define.
++
 +2022-12-12  Richard Biener  <rguenther@suse.de>
 +
 +	Backported from master:
@@ -1111,12 +1143,12 @@ index a0587d18824..cf1de8ba9be 100644
  
  	* GCC 11.3.0 released.
 diff --git a/gcc/DATESTAMP b/gcc/DATESTAMP
-index d4ff129236b..fb5d5da64c6 100644
+index d4ff129236b..6c91a6094a4 100644
 --- a/gcc/DATESTAMP
 +++ b/gcc/DATESTAMP
 @@ -1 +1 @@
 -20220421
-+20221214
++20221226
 diff --git a/gcc/alias.c b/gcc/alias.c
 index 69e1eb89ac6..ba4aa4dc8d9 100644
 --- a/gcc/alias.c
@@ -1885,7 +1917,7 @@ index d6be7304dc0..14bcfa8c71c 100644
  
  #undef AARCH64_FUSION_PAIR
 diff --git a/gcc/config/aarch64/aarch64-protos.h b/gcc/config/aarch64/aarch64-protos.h
-index b91eeeba101..ad62da81d31 100644
+index b91eeeba101..fdc79b1dced 100644
 --- a/gcc/config/aarch64/aarch64-protos.h
 +++ b/gcc/config/aarch64/aarch64-protos.h
 @@ -1034,7 +1034,7 @@ bool aarch64_high_bits_all_ones_p (HOST_WIDE_INT);
@@ -1897,6 +1929,13 @@ index b91eeeba101..ad62da81d31 100644
  };
  
  rtx aarch64_atomic_ool_func(machine_mode mode, rtx model_rtx,
+@@ -1052,4 +1052,6 @@ const char *aarch64_indirect_call_asm (rtx);
+ extern bool aarch64_harden_sls_retbr_p (void);
+ extern bool aarch64_harden_sls_blr_p (void);
+ 
++extern void aarch64_output_patchable_area (unsigned int, bool);
++
+ #endif /* GCC_AARCH64_PROTOS_H */
 diff --git a/gcc/config/aarch64/aarch64-sve-builtins.cc b/gcc/config/aarch64/aarch64-sve-builtins.cc
 index f44f81f1375..fcc458af3d6 100644
 --- a/gcc/config/aarch64/aarch64-sve-builtins.cc
@@ -2104,7 +2143,7 @@ index 2beac8c8353..b5f35c68e23 100644
 +	"cortexa34,cortexa35,cortexa53,cortexa57,cortexa72,cortexa73,thunderx,thunderxt88p1,thunderxt88,octeontx,octeontxt81,octeontxt83,thunderxt81,thunderxt83,ampere1,ampere1a,emag,xgene1,falkor,qdf24xx,exynosm1,phecda,thunderx2t99p1,vulcan,thunderx2t99,cortexa55,cortexa75,cortexa76,cortexa76ae,cortexa77,cortexa78,cortexa78ae,cortexa78c,cortexa65,cortexa65ae,cortexx1,ares,neoversen1,neoversee1,octeontx2,octeontx2t98,octeontx2t96,octeontx2t93,octeontx2f95,octeontx2f95n,octeontx2f95mm,a64fx,tsv110,thunderx3t110,zeus,neoversev1,neoverse512tvb,saphira,neoversen2,neoversev2,cortexa57cortexa53,cortexa72cortexa53,cortexa73cortexa35,cortexa73cortexa53,cortexa75cortexa55,cortexa76cortexa55,cortexr82"
  	(const (symbol_ref "((enum attr_tune) aarch64_tune)")))
 diff --git a/gcc/config/aarch64/aarch64.c b/gcc/config/aarch64/aarch64.c
-index c155f4883cf..b3a96e14e7c 100644
+index c155f4883cf..7f45b582918 100644
 --- a/gcc/config/aarch64/aarch64.c
 +++ b/gcc/config/aarch64/aarch64.c
 @@ -1749,6 +1749,37 @@ static const struct tune_params ampere1_tunings =
@@ -2145,7 +2184,79 @@ index c155f4883cf..b3a96e14e7c 100644
  static const advsimd_vec_cost neoversev1_advsimd_vector_cost =
  {
    2, /* int_stmt_cost  */
-@@ -21627,14 +21658,14 @@ aarch64_emit_unlikely_jump (rtx insn)
+@@ -21508,30 +21539,56 @@ aarch64_declare_function_name (FILE *stream, const char* name,
+   cfun->machine->label_is_assembled = true;
+ }
+ 
+-/* Implement PRINT_PATCHABLE_FUNCTION_ENTRY.  Check if the patch area is after
+-   the function label and emit a BTI if necessary.  */
++/* Implement PRINT_PATCHABLE_FUNCTION_ENTRY.  */
+ 
+ void
+ aarch64_print_patchable_function_entry (FILE *file,
+ 					unsigned HOST_WIDE_INT patch_area_size,
+ 					bool record_p)
+ {
+-  if (cfun->machine->label_is_assembled
+-      && aarch64_bti_enabled ()
+-      && !cgraph_node::get (cfun->decl)->only_called_directly_p ())
++  if (!cfun->machine->label_is_assembled)
++    {
++      /* Emit the patching area before the entry label, if any.  */
++      default_print_patchable_function_entry (file, patch_area_size,
++					      record_p);
++      return;
++    }
++
++  rtx pa = gen_patchable_area (GEN_INT (patch_area_size),
++			       GEN_INT (record_p));
++  basic_block bb = ENTRY_BLOCK_PTR_FOR_FN (cfun)->next_bb;
++
++  if (!aarch64_bti_enabled ()
++      || cgraph_node::get (cfun->decl)->only_called_directly_p ())
++    {
++      /* Emit the patchable_area at the beginning of the function.  */
++      rtx_insn *insn = emit_insn_before (pa, BB_HEAD (bb));
++      INSN_ADDRESSES_NEW (insn, -1);
++      return;
++    }
++
++  rtx_insn *insn = next_real_nondebug_insn (get_insns ());
++  if (!insn
++      || !INSN_P (insn)
++      || GET_CODE (PATTERN (insn)) != UNSPEC_VOLATILE
++      || XINT (PATTERN (insn), 1) != UNSPECV_BTI_C)
+     {
+-      /* Remove the BTI that follows the patch area and insert a new BTI
+-	 before the patch area right after the function label.  */
+-      rtx_insn *insn = next_real_nondebug_insn (get_insns ());
+-      if (insn
+-	  && INSN_P (insn)
+-	  && GET_CODE (PATTERN (insn)) == UNSPEC_VOLATILE
+-	  && XINT (PATTERN (insn), 1) == UNSPECV_BTI_C)
+-	delete_insn (insn);
+-      asm_fprintf (file, "\thint\t34 // bti c\n");
++      /* Emit a BTI_C.  */
++      insn = emit_insn_before (gen_bti_c (), BB_HEAD (bb));
+     }
+ 
+-  default_print_patchable_function_entry (file, patch_area_size, record_p);
++  /* Emit the patchable_area after BTI_C.  */
++  insn = emit_insn_after (pa, insn);
++  INSN_ADDRESSES_NEW (insn, -1);
++}
++
++/* Output patchable area.  */
++
++void
++aarch64_output_patchable_area (unsigned int patch_area_size, bool record_p)
++{
++  default_print_patchable_function_entry (asm_out_file, patch_area_size,
++					  record_p);
+ }
+ 
+ /* Implement ASM_OUTPUT_DEF_FROM_DECLS.  Output .variant_pcs for aliases.  */
+@@ -21627,14 +21684,14 @@ aarch64_emit_unlikely_jump (rtx insn)
    add_reg_br_prob_note (jump, profile_probability::very_unlikely ());
  }
  
@@ -2162,7 +2273,7 @@ index c155f4883cf..b3a96e14e7c 100644
    int mode_idx, model_idx;
  
    switch (mode)
-@@ -21674,6 +21705,11 @@ aarch64_atomic_ool_func(machine_mode mode, rtx model_rtx,
+@@ -21674,6 +21731,11 @@ aarch64_atomic_ool_func(machine_mode mode, rtx model_rtx,
      case MEMMODEL_SEQ_CST:
        model_idx = 3;
        break;
@@ -2174,7 +2285,7 @@ index c155f4883cf..b3a96e14e7c 100644
      default:
        gcc_unreachable ();
      }
-@@ -21686,7 +21722,8 @@ aarch64_atomic_ool_func(machine_mode mode, rtx model_rtx,
+@@ -21686,7 +21748,8 @@ aarch64_atomic_ool_func(machine_mode mode, rtx model_rtx,
    { "__aarch64_" #B #N "_relax", \
      "__aarch64_" #B #N "_acq", \
      "__aarch64_" #B #N "_rel", \
@@ -2184,7 +2295,7 @@ index c155f4883cf..b3a96e14e7c 100644
  
  #define DEF4(B)  DEF0(B, 1), DEF0(B, 2), DEF0(B, 4), DEF0(B, 8), \
  		 { NULL, NULL, NULL, NULL }
-@@ -24282,6 +24319,33 @@ aarch_macro_fusion_pair_p (rtx_insn *prev, rtx_insn *curr)
+@@ -24282,6 +24345,33 @@ aarch_macro_fusion_pair_p (rtx_insn *prev, rtx_insn *curr)
  	}
      }
  
@@ -2241,10 +2352,18 @@ index bfffbcd6abf..bb383acfae8 100644
  #define AARCH64_ISA_RNG		   (aarch64_isa_flags & AARCH64_FL_RNG)
  #define AARCH64_ISA_V8_5	   (aarch64_isa_flags & AARCH64_FL_V8_5)
 diff --git a/gcc/config/aarch64/aarch64.md b/gcc/config/aarch64/aarch64.md
-index aef6da9732d..06616c66a80 100644
+index aef6da9732d..1cca0f5c79f 100644
 --- a/gcc/config/aarch64/aarch64.md
 +++ b/gcc/config/aarch64/aarch64.md
-@@ -4762,7 +4762,7 @@
+@@ -294,6 +294,7 @@
+     UNSPEC_TAG_SPACE		; Translate address to MTE tag address space.
+     UNSPEC_LD1RO
+     UNSPEC_SALT_ADDR
++    UNSPECV_PATCHABLE_AREA
+ ])
+ 
+ (define_c_enum "unspecv" [
+@@ -4762,7 +4763,7 @@
      rtx ccreg = aarch64_gen_compare_reg (EQ, operands[1], const0_rtx);
      rtx x = gen_rtx_NE (VOIDmode, ccreg, const0_rtx);
  
@@ -2253,7 +2372,7 @@ index aef6da9732d..06616c66a80 100644
      emit_insn (gen_clz<mode>2 (operands[0], operands[0]));
      emit_insn (gen_csinc3<mode>_insn (operands[0], x, operands[0], const0_rtx));
      DONE;
-@@ -4808,7 +4808,7 @@
+@@ -4808,7 +4809,7 @@
    [(set_attr "type" "clz")]
  )
  
@@ -2262,7 +2381,7 @@ index aef6da9732d..06616c66a80 100644
    [(set (match_operand:GPI 0 "register_operand" "=r")
  	(unspec:GPI [(match_operand:GPI 1 "register_operand" "r")] UNSPEC_RBIT))]
    ""
-@@ -4829,7 +4829,7 @@
+@@ -4829,7 +4830,7 @@
    "reload_completed"
    [(const_int 0)]
    "
@@ -2271,7 +2390,7 @@ index aef6da9732d..06616c66a80 100644
    emit_insn (gen_clz<mode>2 (operands[0], operands[0]));
    DONE;
  ")
-@@ -5819,6 +5819,13 @@
+@@ -5819,6 +5820,13 @@
    [(set_attr "type" "rev")]
  )
  
@@ -2285,6 +2404,26 @@ index aef6da9732d..06616c66a80 100644
  (define_insn "*aarch64_bfxil<mode>"
    [(set (match_operand:GPI 0 "register_operand" "=r,r")
      (ior:GPI (and:GPI (match_operand:GPI 1 "register_operand" "r,0")
+@@ -7515,6 +7523,19 @@
+   [(set_attr "type" "memtag")]
+ )
+ 
++(define_insn "patchable_area"
++  [(unspec_volatile [(match_operand 0 "const_int_operand")
++		     (match_operand 1 "const_int_operand")]
++		    UNSPECV_PATCHABLE_AREA)]
++  ""
++{
++  aarch64_output_patchable_area (INTVAL (operands[0]),
++			         INTVAL (operands[1]) != 0);
++  return "";
++}
++  [(set (attr "length") (symbol_ref "INTVAL (operands[0])"))]
++)
++
+ ;; AdvSIMD Stuff
+ (include "aarch64-simd.md")
+ 
 diff --git a/gcc/config/aarch64/arm_acle.h b/gcc/config/aarch64/arm_acle.h
 index 73b29f4b8dc..2f419351706 100644
 --- a/gcc/config/aarch64/arm_acle.h
@@ -8532,10 +8671,25 @@ index cdf22f14b94..fabc313197a 100644
  	}
  
 diff --git a/gcc/cp/ChangeLog b/gcc/cp/ChangeLog
-index 85c8fdd38cd..b76ffb0806c 100644
+index 85c8fdd38cd..850dfaeb3bc 100644
 --- a/gcc/cp/ChangeLog
 +++ b/gcc/cp/ChangeLog
-@@ -1,3 +1,244 @@
+@@ -1,3 +1,259 @@
++2022-12-16  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2021-10-28  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/102780
++	PR c++/108138
++	* constexpr.c (potential_constant_expression_1) <case TRUTH_*_EXPR>:
++	When tf_error isn't set, preemptively check potentiality of the
++	second operand before performing trial evaluation of the first
++	operand.
++	(potential_constant_expression_1): When tf_error is set, first check
++	potentiality quietly and return true if successful, otherwise
++	proceed noisily to give errors.
++
 +2022-11-18  Marek Polacek  <polacek@redhat.com>
 +
 +	Backported from master:
@@ -8832,7 +8986,7 @@ index 55bb9c45f8c..46c2a066499 100644
      return error_mark_node;
  
 diff --git a/gcc/cp/constexpr.c b/gcc/cp/constexpr.c
-index c13c920ade3..d7bea558bfb 100644
+index c13c920ade3..8bd41166dd9 100644
 --- a/gcc/cp/constexpr.c
 +++ b/gcc/cp/constexpr.c
 @@ -890,7 +890,7 @@ maybe_save_constexpr_fundef (tree fun)
@@ -8915,6 +9069,48 @@ index c13c920ade3..d7bea558bfb 100644
    else
      mod = fold_build2 (inc ? PLUS_EXPR : MINUS_EXPR, type, val, offset);
    if (!ptr)
+@@ -8868,13 +8882,18 @@ potential_constant_expression_1 (tree t, bool want_rval, bool strict, bool now,
+       tmp = boolean_false_node;
+     truth:
+       {
+-	tree op = TREE_OPERAND (t, 0);
+-	if (!RECUR (op, rval))
++	tree op0 = TREE_OPERAND (t, 0);
++	tree op1 = TREE_OPERAND (t, 1);
++	if (!RECUR (op0, rval))
+ 	  return false;
++	if (!(flags & tf_error) && RECUR (op1, rval))
++	  /* When quiet, try to avoid expensive trial evaluation by first
++	     checking potentiality of the second operand.  */
++	  return true;
+ 	if (!processing_template_decl)
+-	  op = cxx_eval_outermost_constant_expr (op, true);
+-	if (tree_int_cst_equal (op, tmp))
+-	  return RECUR (TREE_OPERAND (t, 1), rval);
++	  op0 = cxx_eval_outermost_constant_expr (op0, true);
++	if (tree_int_cst_equal (op0, tmp))
++	  return (flags & tf_error) ? RECUR (op1, rval) : false;
+ 	else
+ 	  return true;
+       }
+@@ -9075,6 +9094,17 @@ bool
+ potential_constant_expression_1 (tree t, bool want_rval, bool strict, bool now,
+ 				 tsubst_flags_t flags)
+ {
++  if (flags & tf_error)
++    {
++      /* Check potentiality quietly first, as that could be performed more
++	 efficiently in some cases (currently only for TRUTH_*_EXPR).  If
++	 that fails, replay the check noisily to give errors.  */
++      flags &= ~tf_error;
++      if (potential_constant_expression_1 (t, want_rval, strict, now, flags))
++	return true;
++      flags |= tf_error;
++    }
++
+   tree target = NULL_TREE;
+   return potential_constant_expression_1 (t, want_rval, strict, now,
+ 					  flags, &target);
 diff --git a/gcc/cp/cp-tree.h b/gcc/cp/cp-tree.h
 index a2d8c1c77b3..fded2527e5e 100644
 --- a/gcc/cp/cp-tree.h
@@ -10258,10 +10454,19 @@ index 70c5b3886ef..5b4053df520 100644
  
        if ((tem = fold_truth_andor (loc, code, type, arg0, arg1, op0, op1))
 diff --git a/gcc/fortran/ChangeLog b/gcc/fortran/ChangeLog
-index ee1c7bb4b31..b36bd8e1a0b 100644
+index ee1c7bb4b31..4edfc801749 100644
 --- a/gcc/fortran/ChangeLog
 +++ b/gcc/fortran/ChangeLog
-@@ -1,3 +1,269 @@
+@@ -1,3 +1,278 @@
++2022-12-18  Paul Thomas  <pault@gcc.gnu.org>
++
++	Backported from master:
++	2022-12-09  Paul Thomas  <pault@gcc.gnu.org>
++
++	PR fortran/107872
++	* resolve.c (derived_inaccessible): Skip over allocatable components
++	to prevent an infinite loop.
++
 +2022-11-25  Harald Anlauf  <anlauf@gmx.de>
 +
 +	Backported from master:
@@ -10649,6 +10854,20 @@ index 9e3e8aa9da9..bcc835513d4 100644
  	  /* TS 29113, C407b.  */
  	  if (a->expr && a->expr->expr_type == EXPR_VARIABLE
  	      && symbol_rank (a->expr->symtree->n.sym) == -1)
+diff --git a/gcc/fortran/resolve.c b/gcc/fortran/resolve.c
+index a26a90993a7..cb7a755b693 100644
+--- a/gcc/fortran/resolve.c
++++ b/gcc/fortran/resolve.c
+@@ -7497,7 +7497,8 @@ derived_inaccessible (gfc_symbol *sym)
+   for (c = sym->components; c; c = c->next)
+     {
+ 	/* Prevent an infinite loop through this function.  */
+-	if (c->ts.type == BT_DERIVED && c->attr.pointer
++	if (c->ts.type == BT_DERIVED
++	    && (c->attr.pointer || c->attr.allocatable)
+ 	    && sym == c->ts.u.derived)
+ 	  continue;
+ 
 diff --git a/gcc/fortran/simplify.c b/gcc/fortran/simplify.c
 index 3599e1b3194..f13a8e57c83 100644
 --- a/gcc/fortran/simplify.c
@@ -11279,10 +11498,26 @@ index 69d3fdcfdac..bc032231d3a 100644
  
  
 diff --git a/gcc/gcc.c b/gcc/gcc.c
-index 0af888c7d78..6b208f4680f 100644
+index 0af888c7d78..795cf9eb01d 100644
 --- a/gcc/gcc.c
 +++ b/gcc/gcc.c
-@@ -4487,10 +4487,12 @@ driver_handle_option (struct gcc_options *opts,
+@@ -27,6 +27,7 @@ CC recognizes how to compile each input file by suffixes in the file names.
+ Once it knows which kind of compilation to perform, the procedure for
+ compilation is specified by a string called a "spec".  */
+ 
++#define INCLUDE_STRING
+ #include "config.h"
+ #include "system.h"
+ #include "coretypes.h"
+@@ -43,6 +44,7 @@ compilation is specified by a string called a "spec".  */
+ #include "opts.h"
+ #include "filenames.h"
+ #include "spellcheck.h"
++#include "opts-jobserver.h"
+ 
+ 
+ 
+@@ -4487,10 +4489,12 @@ driver_handle_option (struct gcc_options *opts,
      case OPT_static_libgcc:
      case OPT_shared_libgcc:
      case OPT_static_libgfortran:
@@ -11297,6 +11532,48 @@ index 0af888c7d78..6b208f4680f 100644
        validated = true;
        break;
  
+@@ -9071,38 +9075,9 @@ driver::final_actions () const
+ void
+ driver::detect_jobserver () const
+ {
+-  /* Detect jobserver and drop it if it's not working.  */
+-  const char *makeflags = env.get ("MAKEFLAGS");
+-  if (makeflags != NULL)
+-    {
+-      const char *needle = "--jobserver-auth=";
+-      const char *n = strstr (makeflags, needle);
+-      if (n != NULL)
+-	{
+-	  int rfd = -1;
+-	  int wfd = -1;
+-
+-	  bool jobserver
+-	    = (sscanf (n + strlen (needle), "%d,%d", &rfd, &wfd) == 2
+-	       && rfd > 0
+-	       && wfd > 0
+-	       && is_valid_fd (rfd)
+-	       && is_valid_fd (wfd));
+-
+-	  /* Drop the jobserver if it's not working now.  */
+-	  if (!jobserver)
+-	    {
+-	      unsigned offset = n - makeflags;
+-	      char *dup = xstrdup (makeflags);
+-	      dup[offset] = '\0';
+-
+-	      const char *space = strchr (makeflags + offset, ' ');
+-	      if (space != NULL)
+-		strcpy (dup + offset, space);
+-	      xputenv (concat ("MAKEFLAGS=", dup, NULL));
+-	    }
+-	}
+-    }
++  jobserver_info jinfo;
++  if (!jinfo.is_active && !jinfo.skipped_makeflags.empty ())
++    xputenv (jinfo.skipped_makeflags.c_str ());
+ }
+ 
+ /* Determine what the exit code of the driver should be.  */
 diff --git a/gcc/gimple-array-bounds.cc b/gcc/gimple-array-bounds.cc
 index b1179518651..8bcc0077b8c 100644
 --- a/gcc/gimple-array-bounds.cc
@@ -11595,6 +11872,99 @@ index eb8a7dc57b0..0c5af5cecef 100644
  
    /* Stream references to early generated DIEs.  Keep in sync with the
       trees handled in dwarf2out_register_external_die.  */
+diff --git a/gcc/lto-wrapper.c b/gcc/lto-wrapper.c
+index 03a5922f8ea..4429182a61a 100644
+--- a/gcc/lto-wrapper.c
++++ b/gcc/lto-wrapper.c
+@@ -37,6 +37,7 @@ along with GCC; see the file COPYING3.  If not see
+    ./ccCJuXGv.lto.ltrans.o
+ */
+ 
++#define INCLUDE_STRING
+ #include "config.h"
+ #include "system.h"
+ #include "coretypes.h"
+@@ -48,6 +49,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "simple-object.h"
+ #include "lto-section-names.h"
+ #include "collect-utils.h"
++#include "opts-jobserver.h"
+ 
+ /* Environment variable, used for passing the names of offload targets from GCC
+    driver to lto-wrapper.  */
+@@ -1304,37 +1306,6 @@ init_num_threads (void)
+ #endif
+ }
+ 
+-/* FIXME: once using -std=c++11, we can use std::thread::hardware_concurrency.  */
+-
+-/* Test and return reason why a jobserver cannot be detected.  */
+-
+-static const char *
+-jobserver_active_p (void)
+-{
+-  #define JS_PREFIX "jobserver is not available: "
+-  #define JS_NEEDLE "--jobserver-auth="
+-
+-  const char *makeflags = getenv ("MAKEFLAGS");
+-  if (makeflags == NULL)
+-    return JS_PREFIX "%<MAKEFLAGS%> environment variable is unset";
+-
+-  const char *n = strstr (makeflags, JS_NEEDLE);
+-  if (n == NULL)
+-    return JS_PREFIX "%<" JS_NEEDLE "%> is not present in %<MAKEFLAGS%>";
+-
+-  int rfd = -1;
+-  int wfd = -1;
+-
+-  if (sscanf (n + strlen (JS_NEEDLE), "%d,%d", &rfd, &wfd) == 2
+-      && rfd > 0
+-      && wfd > 0
+-      && is_valid_fd (rfd)
+-      && is_valid_fd (wfd))
+-    return NULL;
+-  else
+-    return JS_PREFIX "cannot access %<" JS_NEEDLE "%> file descriptors";
+-}
+-
+ /* Test that a make command is present and working, return true if so.  */
+ 
+ static bool
+@@ -1581,14 +1552,14 @@ run_gcc (unsigned argc, char *argv[])
+     }
+   else
+     {
+-      const char *jobserver_error = jobserver_active_p ();
+-      if (jobserver && jobserver_error != NULL)
++      jobserver_info jinfo;
++      if (jobserver && !jinfo.is_active)
+ 	{
+-	  warning (0, jobserver_error);
++	  warning (0, jinfo.error_msg.c_str ());
+ 	  parallel = 0;
+ 	  jobserver = 0;
+ 	}
+-      else if (!jobserver && jobserver_error == NULL)
++      else if (!jobserver && jinfo.is_active)
+ 	{
+ 	  parallel = 1;
+ 	  jobserver = 1;
+@@ -1903,6 +1874,15 @@ cont:
+       maybe_unlink (ltrans_output_file);
+       ltrans_output_file = NULL;
+ 
++      if (nr > 1)
++	{
++	  jobserver_info jinfo;
++	  if (jobserver && !jinfo.is_active)
++	    warning (0, jinfo.error_msg.c_str ());
++	  else if (parallel == 0)
++	    warning (0, "using serial compilation of %d LTRANS jobs", nr);
++	}
++
+       if (parallel)
+ 	{
+ 	  makefile = make_temp_file (".mk");
 diff --git a/gcc/match.pd b/gcc/match.pd
 index e89601c0c14..8126f90ee75 100644
 --- a/gcc/match.pd
@@ -11685,6 +12055,134 @@ index 962cf886710..91330a92b30 100644
    gimple_bind_add_seq (bind, dseq);
  
    pop_gimplify_context (bind);
+diff --git a/gcc/opts-common.c b/gcc/opts-common.c
+index 5e10edeb4cf..e41d21d8ddc 100644
+--- a/gcc/opts-common.c
++++ b/gcc/opts-common.c
+@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
+ along with GCC; see the file COPYING3.  If not see
+ <http://www.gnu.org/licenses/>.  */
+ 
++#define INCLUDE_STRING
+ #include "config.h"
+ #include "system.h"
+ #include "intl.h"
+@@ -25,6 +26,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "options.h"
+ #include "diagnostic.h"
+ #include "spellcheck.h"
++#include "opts-jobserver.h"
+ 
+ static void prune_options (struct cl_decoded_option **, unsigned int *);
+ 
+@@ -1848,3 +1850,55 @@ void prepend_xassembler_to_collect_as_options (const char *collect_as_options,
+       obstack_1grow (o, '\'');
+     }
+ }
++
++jobserver_info::jobserver_info ()
++{
++  /* Traditionally, GNU make uses opened pipes for jobserver-auth,
++    e.g. --jobserver-auth=3,4.
++    Starting with GNU make 4.4, one can use --jobserver-style=fifo
++    and then named pipe is used: --jobserver-auth=fifo:/tmp/hcsparta.  */
++
++  /* Detect jobserver and drop it if it's not working.  */
++  string js_needle = "--jobserver-auth=";
++  string fifo_prefix = "fifo:";
++
++  const char *envval = getenv ("MAKEFLAGS");
++  if (envval != NULL)
++    {
++      string makeflags = envval;
++      size_t n = makeflags.rfind (js_needle);
++      if (n != string::npos)
++	{
++	  string ending = makeflags.substr (n + js_needle.size ());
++	  if (ending.find (fifo_prefix) == 0)
++	    {
++	      ending = ending.substr (fifo_prefix.size ());
++	      pipe_path = ending.substr (0, ending.find (' '));
++	      is_active = true;
++	    }
++	  else if (sscanf (makeflags.c_str () + n + js_needle.size (),
++			   "%d,%d", &rfd, &wfd) == 2
++	      && rfd > 0
++	      && wfd > 0
++	      && is_valid_fd (rfd)
++	      && is_valid_fd (wfd))
++	    is_active = true;
++	  else
++	    {
++	      string dup = makeflags.substr (0, n);
++	      size_t pos = makeflags.find (' ', n);
++	      if (pos != string::npos)
++		dup += makeflags.substr (pos);
++	      skipped_makeflags = "MAKEFLAGS=" + dup;
++	      error_msg
++		= "cannot access %<" + js_needle + "%> file descriptors";
++	    }
++	}
++      error_msg = "%<" + js_needle + "%> is not present in %<MAKEFLAGS%>";
++    }
++  else
++    error_msg = "%<MAKEFLAGS%> environment variable is unset";
++
++  if (!error_msg.empty ())
++    error_msg = "jobserver is not available: " + error_msg;
++}
+diff --git a/gcc/opts-jobserver.h b/gcc/opts-jobserver.h
+new file mode 100644
+index 00000000000..98ea2579962
+--- /dev/null
++++ b/gcc/opts-jobserver.h
+@@ -0,0 +1,46 @@
++/* GNU make's jobserver related functionality.
++   Copyright (C) 2022 Free Software Foundation, Inc.
++
++This file is part of GCC.
++
++GCC is free software; you can redistribute it and/or modify it under
++the terms of the GNU General Public License as published by the Free
++Software Foundation; either version 3, or (at your option) any later
++version.
++
++GCC is distributed in the hope that it will be useful, but WITHOUT ANY
++WARRANTY; without even the implied warranty of MERCHANTABILITY or
++FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++for more details.
++
++You should have received a copy of the GNU General Public License
++along with GCC; see the file COPYING3.  If not see
++<http://www.gnu.org/licenses/>.
++
++See dbgcnt.def for usage information.  */
++
++#ifndef GCC_JOBSERVER_H
++#define GCC_JOBSERVER_H
++
++using namespace std;
++
++struct jobserver_info
++{
++  /* Default constructor.  */
++  jobserver_info ();
++
++  /* Error message if there is a problem.  */
++  string error_msg = "";
++  /* Skipped MAKEFLAGS where --jobserver-auth is skipped.  */
++  string skipped_makeflags = "";
++  /* File descriptor for reading used for jobserver communication.  */
++  int rfd = -1;
++  /* File descriptor for writing used for jobserver communication.  */
++  int wfd = -1;
++  /* Named pipe path.  */
++  string pipe_path = "";
++  /* Return true if jobserver is active.  */
++  bool is_active = false;
++};
++
++#endif /* GCC_JOBSERVER_H */
 diff --git a/gcc/postreload.c b/gcc/postreload.c
 index 60a622dbaf3..ed5f54aaeb0 100644
 --- a/gcc/postreload.c
@@ -12159,10 +12657,40 @@ index 67a49e65fd8..88b37584f74 100644
  	  x = simplify_unary_operation (ZERO_EXTEND, GET_MODE (x),
  					new_rtx, GET_MODE (XEXP (x, 0)));
 diff --git a/gcc/testsuite/ChangeLog b/gcc/testsuite/ChangeLog
-index 5fc23605244..b32d4b85576 100644
+index 5fc23605244..3459ed4ac2b 100644
 --- a/gcc/testsuite/ChangeLog
 +++ b/gcc/testsuite/ChangeLog
-@@ -1,3 +1,1223 @@
+@@ -1,3 +1,1253 @@
++2022-12-24  John David Anglin  <danglin@gcc.gnu.org>
++
++	* g++.dg/guality/guality.exp: Skip on hppa*-*-hpux*.
++	* gcc.dg/guality/guality.exp: Likewise.
++	* gfortran.dg/guality/guality.exp: Likewise.
++
++2022-12-18  Paul Thomas  <pault@gcc.gnu.org>
++
++	Backported from master:
++	2022-12-09  Paul Thomas  <pault@gcc.gnu.org>
++
++	PR fortran/107872
++	* gfortran.dg/pr107872.f90: New test.
++
++2022-12-16  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2021-10-28  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/102780
++	PR c++/108138
++	* g++.dg/cpp1z/fold13.C: New test.
++
++2022-12-15  Sebastian Pop  <spop@amazon.com>
++
++	PR target/98776
++	* gcc.target/aarch64/pr98776.c: New.
++	* gcc.target/aarch64/pr92424-2.c: Adjust pattern.
++	* gcc.target/aarch64/pr92424-3.c: Adjust pattern.
++
 +2022-12-12  Richard Biener  <rguenther@suse.de>
 +
 +	Backported from master:
@@ -13998,6 +14526,41 @@ index 00000000000..c30e3f2361d
 +  constexpr Matrix<2, 3>
 +    mat {{ {1.0, 2.0, 3.0}, {4.0, 5.0, 6.0} }}; // { dg-error "before its definition" }
 +}
+diff --git a/gcc/testsuite/g++.dg/cpp1z/fold13.C b/gcc/testsuite/g++.dg/cpp1z/fold13.C
+new file mode 100644
+index 00000000000..9d7554f8999
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp1z/fold13.C
+@@ -0,0 +1,29 @@
++// { dg-do compile { target c++17 } }
++// Verify constexpr evaluation of a large left fold logical expression
++// isn't quadratic in the size of the expanded expression.
++
++template<int> struct S { static constexpr bool value = true; };
++
++template<class T, T...> struct integer_sequence { };
++
++template<class T, T N>
++using make_integer_sequence
++#if __has_builtin(__make_integer_seq)
++  = __make_integer_seq<integer_sequence, T, N>;
++#else
++  = integer_sequence<T, __integer_pack(N)...>;
++#endif
++
++template<int... Is>
++constexpr bool f_impl(integer_sequence<int, Is...>) {
++  return (... && S<Is>::value);
++}
++
++static_assert(f_impl(make_integer_sequence<int, 1024>()));
++
++template<int... Is>
++constexpr bool g_impl(integer_sequence<int, Is...>) {
++  return (... || !S<Is>::value);
++}
++
++static_assert(!g_impl(make_integer_sequence<int, 1024>()));
 diff --git a/gcc/testsuite/g++.dg/cpp23/lambda-attr1.C b/gcc/testsuite/g++.dg/cpp23/lambda-attr1.C
 new file mode 100644
 index 00000000000..1528f734461
@@ -14348,6 +14911,21 @@ index 00000000000..f263bb42710
 +int i[1024];
 +Sptr<int *> sptr(i);
 +Uptr uptr(&i[100]);
+diff --git a/gcc/testsuite/g++.dg/guality/guality.exp b/gcc/testsuite/g++.dg/guality/guality.exp
+index 1d5b65fef57..2d736d292e9 100644
+--- a/gcc/testsuite/g++.dg/guality/guality.exp
++++ b/gcc/testsuite/g++.dg/guality/guality.exp
+@@ -8,6 +8,10 @@ if { [istarget *-*-darwin*] } {
+     return
+ }
+ 
++if { [istarget hppa*-*-hpux*] } {
++    return
++}
++
+ if { [istarget "powerpc-ibm-aix*"] } {
+     set torture_execute_xfail "powerpc-ibm-aix*"
+     return
 diff --git a/gcc/testsuite/g++.dg/ipa/pr100413.C b/gcc/testsuite/g++.dg/ipa/pr100413.C
 new file mode 100644
 index 00000000000..96d71e7cf35
@@ -15151,6 +15729,21 @@ index 00000000000..d4bd7f12476
 +
 +/* { dg-output "ERROR: AddressSanitizer: stack-buffer-overflow on address.*(\n|\r\n|\r)" } */
 +/* { dg-output "WRITE of size.*" } */
+diff --git a/gcc/testsuite/gcc.dg/guality/guality.exp b/gcc/testsuite/gcc.dg/guality/guality.exp
+index ba87132aef2..075bebe34e8 100644
+--- a/gcc/testsuite/gcc.dg/guality/guality.exp
++++ b/gcc/testsuite/gcc.dg/guality/guality.exp
+@@ -8,6 +8,10 @@ if { [istarget *-*-darwin*] } {
+     return
+ }
+ 
++if { [istarget hppa*-*-hpux*] } {
++    return
++}
++
+ if { [istarget "powerpc-ibm-aix*"] } {
+     set torture_execute_xfail "powerpc-ibm-aix*"
+     return
 diff --git a/gcc/testsuite/gcc.dg/ipa/pr105739.c b/gcc/testsuite/gcc.dg/ipa/pr105739.c
 new file mode 100644
 index 00000000000..8dbe8fc2494
@@ -16646,6 +17239,43 @@ index 00000000000..b5f0a3005f5
 +   character read when stitching the fgets-calls together.  With the
 +   test data provided, this would truncate the 'sha512' into 'ha512'
 +   (dropping the 'sha3' feature). */
+diff --git a/gcc/testsuite/gcc.target/aarch64/pr92424-2.c b/gcc/testsuite/gcc.target/aarch64/pr92424-2.c
+index 0e75657a153..86bb92e6f32 100644
+--- a/gcc/testsuite/gcc.target/aarch64/pr92424-2.c
++++ b/gcc/testsuite/gcc.target/aarch64/pr92424-2.c
+@@ -9,4 +9,4 @@ __attribute__ ((target("branch-protection=bti"),
+ f10_bti ()
+ {
+ }
+-/* { dg-final { scan-assembler "f10_bti:\n\thint\t34 // bti c\n.*\.LPFE1:\n\tnop\n.*\tret\n" } } */
++/* { dg-final { scan-assembler "hint\t34 // bti c\n.*\.LPFE1:\n\tnop\n.*\tret\n" } } */
+diff --git a/gcc/testsuite/gcc.target/aarch64/pr92424-3.c b/gcc/testsuite/gcc.target/aarch64/pr92424-3.c
+index 0a1f74d4096..daac2faf18e 100644
+--- a/gcc/testsuite/gcc.target/aarch64/pr92424-3.c
++++ b/gcc/testsuite/gcc.target/aarch64/pr92424-3.c
+@@ -9,4 +9,4 @@ __attribute__ ((target("branch-protection=bti+pac-ret+leaf"),
+ f10_pac ()
+ {
+ }
+-/* { dg-final { scan-assembler "f10_pac:\n\thint\t34 // bti c\n.*\.LPFE1:\n\tnop\n.*\thint\t25 // paciasp\n.*\thint\t29 // autiasp\n.*\tret\n" } } */
++/* { dg-final { scan-assembler "hint\t34 // bti c\n.*\.LPFE1:\n\tnop\n.*\thint\t25 // paciasp\n.*\thint\t29 // autiasp\n.*\tret\n" } } */
+diff --git a/gcc/testsuite/gcc.target/aarch64/pr98776.c b/gcc/testsuite/gcc.target/aarch64/pr98776.c
+new file mode 100644
+index 00000000000..d193df8e66d
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/aarch64/pr98776.c
+@@ -0,0 +1,11 @@
++/* { dg-do "compile" } */
++/* { dg-options "-O1 -fpatchable-function-entry=1 -fasynchronous-unwind-tables" } */
++
++/* Test the placement of the .LPFE1 label.  */
++
++void
++foo (void)
++{
++}
++
++/* { dg-final { scan-assembler "\t\.cfi_startproc\n.*\.LPFE1:\n\tnop\n\tret\n" } } */
 diff --git a/gcc/testsuite/gcc.target/aarch64/pragma_cpp_predefs_1.c b/gcc/testsuite/gcc.target/aarch64/pragma_cpp_predefs_1.c
 index bfb044f5d14..307fa3d67da 100644
 --- a/gcc/testsuite/gcc.target/aarch64/pragma_cpp_predefs_1.c
@@ -18669,6 +19299,21 @@ index 00000000000..3b47210fb40
 +  30  ASSIGN 10 TO M
 +  40  GOTO M,(10,20,30)
 +      END
+diff --git a/gcc/testsuite/gfortran.dg/guality/guality.exp b/gcc/testsuite/gfortran.dg/guality/guality.exp
+index 0375edfffe4..86a966a9133 100644
+--- a/gcc/testsuite/gfortran.dg/guality/guality.exp
++++ b/gcc/testsuite/gfortran.dg/guality/guality.exp
+@@ -8,6 +8,10 @@ if { [istarget *-*-darwin*] } {
+   return
+ }
+ 
++if { [istarget hppa*-*-hpux*] } {
++    return
++}
++
+ if { [istarget "powerpc-ibm-aix*"] } {
+     set torture_execute_xfail "powerpc-ibm-aix*"
+     return
 diff --git a/gcc/testsuite/gfortran.dg/illegal_boz_arg_4.f90 b/gcc/testsuite/gfortran.dg/illegal_boz_arg_4.f90
 new file mode 100644
 index 00000000000..856cfa9211f
@@ -19092,6 +19737,52 @@ index 00000000000..bbfe646beba
 +  type(t), parameter :: b(4) = reshape(a,[2]) ! { dg-error "Different shape" }
 +  type(t), parameter :: c(2) = pack(b,[.false.,.true.,.false.,.true.]) ! { dg-error "Different shape" }
 +  type(t), parameter :: d(4) = unpack(c,[.false.,.true.,.false.,.true.],a)
++end
+diff --git a/gcc/testsuite/gfortran.dg/pr107872.f90 b/gcc/testsuite/gfortran.dg/pr107872.f90
+new file mode 100644
+index 00000000000..09838479e92
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr107872.f90
+@@ -0,0 +1,40 @@
++! { dg-do run }
++!
++! Test the fix for PR107872, where an ICE occurred in
++! resolve.cc(derived_inaccessible) because derived types with
++! recursive allocatable components were not catered for.
++!
++module mod1
++  type t
++     integer :: data
++     type(t), allocatable :: next
++   contains
++     procedure, private :: write_t
++     generic :: write(formatted) => write_t
++  end type
++contains
++  recursive subroutine write_t(this, unit, iotype, v_list, iostat, iomsg)
++    class(t), intent(in) :: this
++    integer, intent(in) :: unit
++    character(*), intent(in) :: iotype
++    integer, intent(in) :: v_list(:)
++    integer, intent(out) :: iostat
++    character(*), intent(inout) :: iomsg
++    if (ALLOCATED(this%next)) &
++         write (unit, '(dt)') this%next
++    write (unit, '(i2)') this%data
++  end subroutine
++end module
++
++  use mod1
++  type(t) :: a
++  character (8) :: buffer
++  a%data = 1
++  allocate (a%next)
++  a%next%data = 2
++  allocate (a%next%next)
++  a%next%next%data = 3
++  write (buffer, '(dt)')a
++  deallocate (a%next)
++  if (trim (buffer) .ne. ' 3 2 1') stop 1
 +end
 diff --git a/gcc/testsuite/gfortran.dg/pr47614.f b/gcc/testsuite/gfortran.dg/pr47614.f
 index 500d210a2a4..d772eef257f 100644
@@ -20994,10 +21685,19 @@ index 025e575b5bc..5743516c046 100644
    unsigned IOCTL_GIO_FONT = GIO_FONT;
    unsigned IOCTL_GIO_UNIMAP = GIO_UNIMAP;
 diff --git a/libstdc++-v3/ChangeLog b/libstdc++-v3/ChangeLog
-index 85e04c45288..5db6c6f6084 100644
+index 85e04c45288..a7aa638dc05 100644
 --- a/libstdc++-v3/ChangeLog
 +++ b/libstdc++-v3/ChangeLog
-@@ -1,3 +1,928 @@
+@@ -1,3 +1,937 @@
++2022-12-22  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-11-23  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/107814
++	* testsuite/experimental/filesystem/iterators/error_reporting.cc:
++	Use a static buffer with space after it.
++
 +2022-11-08  Jonathan Wakely  <jwakely@redhat.com>
 +
 +	Backported from master:
@@ -28528,10 +29228,68 @@ index 00000000000..97e9e922d8e
 +  t.join();
 +}
 diff --git a/libstdc++-v3/testsuite/experimental/filesystem/iterators/error_reporting.cc b/libstdc++-v3/testsuite/experimental/filesystem/iterators/error_reporting.cc
-index 806c511ebef..f005b7d5293 100644
+index 806c511ebef..aabed14679c 100644
 --- a/libstdc++-v3/testsuite/experimental/filesystem/iterators/error_reporting.cc
 +++ b/libstdc++-v3/testsuite/experimental/filesystem/iterators/error_reporting.cc
-@@ -99,7 +99,7 @@ void
+@@ -29,35 +29,44 @@
+ 
+ int choice;
+ 
+-struct dirent global_dirent;
+-
+ extern "C" struct dirent* readdir(DIR*)
+ {
++  // On some targets dirent::d_name is very small, but the OS allocates
++  // a trailing char array after the dirent struct. Emulate that here.
++  union State
++  {
++    struct dirent d;
++    char buf[sizeof(struct dirent) + 16] = {};
++  };
++
++  static State state;
++  char* d_name = state.buf + offsetof(struct dirent, d_name);
++
+   switch (choice)
+   {
+   case 1:
+-    global_dirent.d_ino = 999;
++    state.d.d_ino = 999;
+ #if defined _GLIBCXX_HAVE_STRUCT_DIRENT_D_TYPE && defined DT_REG
+-    global_dirent.d_type = DT_REG;
++    state.d.d_type = DT_REG;
+ #endif
+-    global_dirent.d_reclen = 0;
+-    std::char_traits<char>::copy(global_dirent.d_name, "file", 5);
++    state.d.d_reclen = 0;
++    std::char_traits<char>::copy(d_name, "file", 5);
+     choice = 0;
+-    return &global_dirent;
++    return &state.d;
+   case 2:
+-    global_dirent.d_ino = 111;
++    state.d.d_ino = 111;
+ #if defined _GLIBCXX_HAVE_STRUCT_DIRENT_D_TYPE && defined DT_DIR
+-    global_dirent.d_type = DT_DIR;
++    state.d.d_type = DT_DIR;
+ #endif
+-    global_dirent.d_reclen = 60;
+-    std::char_traits<char>::copy(global_dirent.d_name, "subdir", 7);
++    state.d.d_reclen = 60;
++    std::char_traits<char>::copy(d_name, "subdir", 7);
+     choice = 1;
+-    return &global_dirent;
++    return &state.d;
+   default:
+     errno = EIO;
+     return nullptr;
+   }
+-  return &global_dirent;
++  return &state.d;
+ }
+ 
+ void
+@@ -99,7 +108,7 @@ void
  test02()
  {
    namespace fs = std::experimental::filesystem;
@@ -28540,7 +29298,7 @@ index 806c511ebef..f005b7d5293 100644
    fs::create_directories(dir/"subdir");
  
    std::error_code ec;
-@@ -129,7 +129,12 @@ test02()
+@@ -129,7 +138,12 @@ test02()
    }
  #endif
  
