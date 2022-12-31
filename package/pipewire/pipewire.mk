@@ -3,9 +3,13 @@
 # pipewire
 #
 ################################################################################
-# Version: Commits on Dec 21, 2022
-PIPEWIRE_VERSION = b0853ad34a2b08d873391a93973c4275a7c31f88
-PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
+
+
+PIPEWIRE_VERSION = 0.3.58
+# Batocera > .58 has issues with wireplumber
+#PIPEWIRE_VERSION = 0.3.59
+PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
+PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
 PIPEWIRE_INSTALL_STAGING = YES
@@ -33,13 +37,17 @@ PIPEWIRE_CONF_OPTS += \
 	-Davb=disabled \
 	-Dlibcanberra=disabled
 
+# batocera - remove these 3.59 options for now
+#-Dbluez5-codec-lc3=disabled
+#-Dflatpak=disabled
+
 # batocera
 # this is a not nice workaround
 # i don't know why meson uses bad ssl certificates and doesn't manage to download them
 define PIPEWIRE_DWD_DEPENDENCIES
 	mkdir -p $(@D)/subprojects/packagecache
-	wget -O $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz      https://www.lua.org/ftp/lua-5.4.4.tar.gz
-	wget -O $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch
+	$(HOST_DIR)/bin/curl -L https://www.lua.org/ftp/lua-5.4.4.tar.gz               -o $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
+	$(HOST_DIR)/bin/curl -L https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch -o $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip
 endef
 PIPEWIRE_DEPENDENCIES += host-libcurl
 PIPEWIRE_PRE_CONFIGURE_HOOKS += PIPEWIRE_DWD_DEPENDENCIES
