@@ -16,7 +16,8 @@ LIBGPG_ERROR_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES)
 LIBGPG_ERROR_CONF_OPTS = \
 	--host=$(BR2_PACKAGE_LIBGPG_ERROR_SYSCFG) \
 	--disable-tests \
-	--disable-languages
+	--disable-languages \
+	--enable-install-gpg-error-config
 
 ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 LIBGPG_ERROR_CONF_OPTS += --enable-threads
