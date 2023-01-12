@@ -6,8 +6,8 @@
 
 # Compiler-RT should be bumped together with LLVM and Clang as the run-time is
 # tied to the version of those tools
-# batocera bump to 15.0.6
-COMPILER_RT_VERSION = 15.0.6
+# batocera bump to 15.0.7
+COMPILER_RT_VERSION = 15.0.7
 COMPILER_RT_SOURCE = compiler-rt-$(COMPILER_RT_VERSION).src.tar.xz
 COMPILER_RT_SITE = https://github.com/llvm/llvm-project/releases/download/llvmorg-$(COMPILER_RT_VERSION)
 COMPILER_RT_LICENSE = NCSA MIT
