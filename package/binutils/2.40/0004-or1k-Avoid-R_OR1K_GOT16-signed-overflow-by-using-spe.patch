@@ -1,0 +1,28 @@
+diff --git a/bfd/elf32-or1k.c b/bfd/elf32-or1k.c
+index 2967a62fe03..802239e504e 100644
+--- a/bfd/elf32-or1k.c
++++ b/bfd/elf32-or1k.c
+@@ -845,6 +845,23 @@ static reloc_howto_type or1k_elf_got16_no_overflow_howto =
+ 	 0xffff,		/* dst_mask */
+ 	 false);		/* pcrel_offset */
+ 
++/* A copy of the R_OR1K_GOT16 used in the presense of R_OR1K_GOT_AHI16
++   relocations when we know we can ignore overflows.  */
++static reloc_howto_type or1k_elf_got16_no_overflow_howto =
++  HOWTO (R_OR1K_GOT16,		/* type */
++	 0,			/* rightshift */
++	 2,			/* size (0 = byte, 1 = short, 2 = long) */
++	 16,			/* bitsize */
++	 false,			/* pc_relative */
++	 0,			/* bitpos */
++	 complain_overflow_dont, /* complain_on_overflow */
++	 bfd_elf_generic_reloc, /* special_function */
++	 "R_OR1K_GOT16",	/* name */
++	 false,			/* partial_inplace */
++	 0,			/* src_mask */
++	 0xffff,		/* dst_mask */
++	 false);		/* pcrel_offset */
++
+ /* Map BFD reloc types to Or1k ELF reloc types.  */
+ 
+ struct or1k_reloc_map
