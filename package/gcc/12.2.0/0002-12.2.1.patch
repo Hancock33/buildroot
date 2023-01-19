@@ -6,10 +6,106 @@ index 685332623b2..9e3b205825b 100644
 -12.2.0
 +12.2.1
 diff --git a/gcc/ChangeLog b/gcc/ChangeLog
-index f267a27b057..b52edac67bd 100644
+index f267a27b057..e9e0b550e93 100644
 --- a/gcc/ChangeLog
 +++ b/gcc/ChangeLog
-@@ -1,3 +1,1027 @@
+@@ -1,3 +1,1123 @@
++2023-01-11  Eric Botcazou  <ebotcazou@adacore.com>
++
++	PR tree-optimization/108199
++	* tree-sra.cc (sra_modify_expr): Deal with reverse storage order
++	for bit-field references.
++
++2023-01-11  Martin Liska  <mliska@suse.cz>
++
++	Backported from master:
++	2022-12-28  Martin Liska  <mliska@suse.cz>
++
++	PR tree-optimization/108137
++	* tree-ssa-strlen.cc (get_range_strlen_phi): Reject anything
++	different from INTEGER_CST.
++
++2023-01-10  Stam Markianos-Wright  <stam.markianos-wright@arm.com>
++
++	Backported from master:
++	2022-12-30  Stam Markianos-Wright  <stam.markianos-wright@arm.com>
++
++	PR target/107714
++	* config/arm/arm-protos.h (mve_struct_mem_operand): New protoype.
++	* config/arm/arm.cc (mve_struct_mem_operand): New function.
++	* config/arm/constraints.md (Ug): New constraint.
++	* config/arm/mve.md (mve_vst4q<mode>): Change constraint.
++	(mve_vst2q<mode>): Likewise.
++	(mve_vld4q<mode>): Likewise.
++	(mve_vld2q<mode>): Likewise.
++	* config/arm/predicates.md (mve_struct_operand): New predicate.
++
++2023-01-10  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
++
++	Backported from master:
++	2022-12-19  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
++
++	PR target/108140
++	* config/aarch64/aarch64-builtins.cc
++	(aarch64_expand_builtin_data_intrinsic): Handle NULL target.
++
++2023-01-05  Kewen Lin  <linkw@linux.ibm.com>
++
++	PR target/106736
++	* config/rs6000/mma.md (define_expand movoo): Call function
++	rs6000_opaque_type_invalid_use_p to check and emit error message for
++	the invalid use of opaque type.
++	(define_expand movxo): Likewise.
++	* config/rs6000/rs6000-protos.h
++	(rs6000_opaque_type_invalid_use_p): New function declaration.
++	(currently_expanding_gimple_stmt): New extern declaration.
++	* config/rs6000/rs6000.cc (rs6000_opaque_type_invalid_use_p): New
++	function.
++
++2022-12-22  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-12-22  Richard Biener  <rguenther@suse.de>
++
++	PR bootstrap/106482
++	* doc/install.texi (ISO C++11 Compiler): Document GCC version
++	known to work.
++
++2022-12-22  Martin Liska  <mliska@suse.cz>
++
++	Backported from master:
++	2022-08-10  Martin Liska  <mliska@suse.cz>
++
++	* opts-jobserver.h: Add one member.
++	* opts-common.cc (jobserver_info::jobserver_info): Parse FIFO
++	format of --jobserver-auth.
++
++2022-12-22  Martin Liska  <mliska@suse.cz>
++
++	Backported from master:
++	2022-08-10  Martin Liska  <mliska@suse.cz>
++
++	* gcc.cc (driver::detect_jobserver): Remove and move to
++	jobserver.h.
++	* lto-wrapper.cc (jobserver_active_p): Likewise.
++	(run_gcc): Likewise.
++	* opts-jobserver.h: New file.
++	* opts-common.cc (jobserver_info::jobserver_info): New function.
++
++2022-12-20  Richard Biener  <rguenther@suse.de>
++
++	Backported from master:
++	2022-12-20  Richard Biener  <rguenther@suse.de>
++
++	PR d/104749
++	* doc/install.texi (GDC): Document GDC 9.4 or later is required
++	to build the D language frontend.
++
++2022-12-20  Hongyu Wang  <hongyu.wang@intel.com>
++
++	* config/i386/x86-tune.def (X86_TUNE_AVOID_256FMA_CHAINS): Add
++	m_SAPPHIRERAPIDS, m_ALDERLAKE.
++
 +2022-12-15  Sebastian Pop  <spop@amazon.com>
 +
 +	PR target/98776
@@ -1038,12 +1134,12 @@ index f267a27b057..b52edac67bd 100644
  
  	* GCC 12.2.0 released.
 diff --git a/gcc/DATESTAMP b/gcc/DATESTAMP
-index 918be360b57..ee0b6666b54 100644
+index 918be360b57..847dee113d4 100644
 --- a/gcc/DATESTAMP
 +++ b/gcc/DATESTAMP
 @@ -1 +1 @@
 -20220819
-+20221217
++20230119
 diff --git a/gcc/alias.cc b/gcc/alias.cc
 index 8c08452e0ac..c62837dd854 100644
 --- a/gcc/alias.cc
@@ -1125,10 +1221,18 @@ index b2596518ac9..ee3db466763 100644
  /* This alias set can be used to force a memory to conflict with all
     other memories, creating a barrier across which no memory reference
 diff --git a/gcc/c-family/ChangeLog b/gcc/c-family/ChangeLog
-index 6fe340fbb73..75ecf66d765 100644
+index 6fe340fbb73..97fa7792343 100644
 --- a/gcc/c-family/ChangeLog
 +++ b/gcc/c-family/ChangeLog
-@@ -1,3 +1,7 @@
+@@ -1,3 +1,15 @@
++2022-12-19  Marek Polacek  <polacek@redhat.com>
++
++	Backported from master:
++	2022-12-19  Marek Polacek  <polacek@redhat.com>
++
++	PR c/98487
++	* c-format.cc (check_function_format): Use get_attribute_name.
++
 +2022-09-27  Marek Polacek  <polacek@redhat.com>
 +
 +	* c-format.cc (c_keywords): Drop nothrow.
@@ -1137,9 +1241,18 @@ index 6fe340fbb73..75ecf66d765 100644
  
  	* GCC 12.2.0 released.
 diff --git a/gcc/c-family/c-format.cc b/gcc/c-family/c-format.cc
-index ebdac57f943..d05e5acd063 100644
+index ebdac57f943..fe5ed48b86b 100644
 --- a/gcc/c-family/c-format.cc
 +++ b/gcc/c-family/c-format.cc
+@@ -1205,7 +1205,7 @@ check_function_format (const_tree fntype, tree attrs, int nargs,
+ 	      for (c = TYPE_ATTRIBUTES (TREE_TYPE (current_function_decl));
+ 		   c;
+ 		   c = TREE_CHAIN (c))
+-		if (is_attribute_p ("format", TREE_PURPOSE (c))
++		if (is_attribute_p ("format", get_attribute_name (c))
+ 		    && (decode_format_type (IDENTIFIER_POINTER
+ 					    (TREE_VALUE (TREE_VALUE (c))))
+ 			== info.format_type))
 @@ -2933,7 +2933,6 @@ static const token_t c_keywords[] =
     NAME ("noinline", NULL),
     NAME ("nonnull", NULL),
@@ -1423,6 +1536,19 @@ index c5064dd3766..58136821afc 100644
  	md_file=stormy16/stormy16.md
  	out_file=stormy16/stormy16.cc
  	extra_options=stormy16/stormy16.opt
+diff --git a/gcc/config/aarch64/aarch64-builtins.cc b/gcc/config/aarch64/aarch64-builtins.cc
+index 1b0db677f34..60966fef099 100644
+--- a/gcc/config/aarch64/aarch64-builtins.cc
++++ b/gcc/config/aarch64/aarch64-builtins.cc
+@@ -2437,7 +2437,7 @@ static rtx
+ aarch64_expand_builtin_data_intrinsic (unsigned int fcode, tree exp, rtx target)
+ {
+   expand_operand ops[2];
+-  machine_mode mode = GET_MODE (target);
++  machine_mode mode = TYPE_MODE (TREE_TYPE (exp));
+   create_output_operand (&ops[0], target, mode);
+   create_input_operand (&ops[1], expand_normal (CALL_EXPR_ARG (exp, 0)), mode);
+   enum insn_code icode;
 diff --git a/gcc/config/aarch64/aarch64-c.cc b/gcc/config/aarch64/aarch64-c.cc
 index 767ee0c763c..a4c407724a7 100644
 --- a/gcc/config/aarch64/aarch64-c.cc
@@ -2369,10 +2495,18 @@ index 00000000000..479a89bb120
 +#define TARGET_D_CPU_VERSIONS arm_d_target_versions
 +#define TARGET_D_REGISTER_CPU_TARGET_INFO arm_d_register_target_info
 diff --git a/gcc/config/arm/arm-protos.h b/gcc/config/arm/arm-protos.h
-index 9d142096cb6..adcde586e2f 100644
+index 9d142096cb6..f8a63e98ef4 100644
 --- a/gcc/config/arm/arm-protos.h
 +++ b/gcc/config/arm/arm-protos.h
-@@ -403,10 +403,6 @@ extern void arm_lang_object_attributes_init (void);
+@@ -123,6 +123,7 @@ extern int arm_coproc_mem_operand_wb (rtx, int);
+ extern int neon_vector_mem_operand (rtx, int, bool);
+ extern int mve_vector_mem_operand (machine_mode, rtx, bool);
+ extern int neon_struct_mem_operand (rtx);
++extern int mve_struct_mem_operand (rtx);
+ 
+ extern rtx *neon_vcmla_lane_prepare_operands (rtx *);
+ 
+@@ -403,10 +404,6 @@ extern void arm_lang_object_attributes_init (void);
  extern void arm_register_target_pragmas (void);
  extern void arm_cpu_cpp_builtins (struct cpp_reader *);
  
@@ -2383,6 +2517,35 @@ index 9d142096cb6..adcde586e2f 100644
  extern bool arm_is_constant_pool_ref (rtx);
  
  /* The bits in this mask specify which instruction scheduling options should
+diff --git a/gcc/config/arm/arm.cc b/gcc/config/arm/arm.cc
+index d88086fbd13..b700c23b866 100644
+--- a/gcc/config/arm/arm.cc
++++ b/gcc/config/arm/arm.cc
+@@ -13657,6 +13657,24 @@ neon_vector_mem_operand (rtx op, int type, bool strict)
+   return FALSE;
+ }
+ 
++/* Return TRUE if OP is a mem suitable for loading/storing an MVE struct
++   type.  */
++int
++mve_struct_mem_operand (rtx op)
++{
++  rtx ind = XEXP (op, 0);
++
++  /* Match: (mem (reg)).  */
++  if (REG_P (ind))
++    return arm_address_register_rtx_p (ind, 0);
++
++  /* Allow only post-increment by the mode size.  */
++  if (GET_CODE (ind) == POST_INC)
++    return arm_address_register_rtx_p (XEXP (ind, 0), 0);
++
++  return FALSE;
++}
++
+ /* Return TRUE if OP is a mem suitable for loading/storing a Neon struct
+    type.  */
+ int
 diff --git a/gcc/config/arm/arm.h b/gcc/config/arm/arm.h
 index f479540812a..e15722b0be3 100644
 --- a/gcc/config/arm/arm.h
@@ -2398,10 +2561,35 @@ index f479540812a..e15722b0be3 100644
  #include "config/arm/arm-opts.h"
  
  /* The processor for which instructions should be scheduled.  */
+diff --git a/gcc/config/arm/constraints.md b/gcc/config/arm/constraints.md
+index 2b411b0cb0f..db316d81dcc 100644
+--- a/gcc/config/arm/constraints.md
++++ b/gcc/config/arm/constraints.md
+@@ -466,6 +466,11 @@
+  (and (match_code "mem")
+       (match_test "TARGET_32BIT && arm_coproc_mem_operand (op, FALSE)")))
+ 
++(define_memory_constraint "Ug"
++ "@internal
++  In Thumb-2 state a valid MVE struct load/store address."
++ (match_operand 0 "mve_struct_operand"))
++
+ (define_memory_constraint "Uj"
+  "@internal
+   In ARM/Thumb-2 state a VFP load/store address that supports writeback
 diff --git a/gcc/config/arm/mve.md b/gcc/config/arm/mve.md
-index 369d7a79f6c..469e7e7f8dc 100644
+index 369d7a79f6c..01448717b7a 100644
 --- a/gcc/config/arm/mve.md
 +++ b/gcc/config/arm/mve.md
+@@ -92,7 +92,7 @@
+ ;; [vst4q])
+ ;;
+ (define_insn "mve_vst4q<mode>"
+-  [(set (match_operand:XI 0 "neon_struct_operand" "=Um")
++  [(set (match_operand:XI 0 "mve_struct_operand" "=Ug")
+ 	(unspec:XI [(match_operand:XI 1 "s_register_operand" "w")
+ 		    (unspec:MVE_VLD_ST [(const_int 0)] UNSPEC_VSTRUCTDUMMY)]
+ 	 VST4Q))
 @@ -1617,7 +1617,7 @@
    [
     (set (match_operand:MVE_2 0 "s_register_operand" "=w")
@@ -2537,6 +2725,33 @@ index 369d7a79f6c..469e7e7f8dc 100644
  		       (match_operand:<MVE_VPRED> 4 "vpr_register_operand" "Up")]
  	 VQRSHRUNBQ_M_N_S))
    ]
+@@ -9952,7 +9952,7 @@
+ ;; [vst2q])
+ ;;
+ (define_insn "mve_vst2q<mode>"
+-  [(set (match_operand:OI 0 "neon_struct_operand" "=Um")
++  [(set (match_operand:OI 0 "mve_struct_operand" "=Ug")
+ 	(unspec:OI [(match_operand:OI 1 "s_register_operand" "w")
+ 		    (unspec:MVE_VLD_ST [(const_int 0)] UNSPEC_VSTRUCTDUMMY)]
+ 	 VST2Q))
+@@ -9981,7 +9981,7 @@
+ ;;
+ (define_insn "mve_vld2q<mode>"
+   [(set (match_operand:OI 0 "s_register_operand" "=w")
+-	(unspec:OI [(match_operand:OI 1 "neon_struct_operand" "Um")
++	(unspec:OI [(match_operand:OI 1 "mve_struct_operand" "Ug")
+ 		    (unspec:MVE_VLD_ST [(const_int 0)] UNSPEC_VSTRUCTDUMMY)]
+ 	 VLD2Q))
+   ]
+@@ -10009,7 +10009,7 @@
+ ;;
+ (define_insn "mve_vld4q<mode>"
+   [(set (match_operand:XI 0 "s_register_operand" "=w")
+-	(unspec:XI [(match_operand:XI 1 "neon_struct_operand" "Um")
++	(unspec:XI [(match_operand:XI 1 "mve_struct_operand" "Ug")
+ 		    (unspec:MVE_VLD_ST [(const_int 0)] UNSPEC_VSTRUCTDUMMY)]
+ 	 VLD4Q))
+   ]
 @@ -10462,7 +10462,7 @@
  )
  
@@ -2555,6 +2770,21 @@ index 369d7a79f6c..469e7e7f8dc 100644
  	 UNSPEC_MISALIGNED_ACCESS))]
    "((TARGET_HAVE_MVE && VALID_MVE_SI_MODE (<MODE>mode))
      || (TARGET_HAVE_MVE_FLOAT && VALID_MVE_SF_MODE (<MODE>mode)))
+diff --git a/gcc/config/arm/predicates.md b/gcc/config/arm/predicates.md
+index aab5a91ad4d..67f2fdb4f8f 100644
+--- a/gcc/config/arm/predicates.md
++++ b/gcc/config/arm/predicates.md
+@@ -876,6 +876,10 @@
+   (and (match_code "mem")
+        (match_test "TARGET_32BIT && neon_vector_mem_operand (op, 2, true)")))
+ 
++(define_predicate "mve_struct_operand"
++  (and (match_code "mem")
++       (match_test "TARGET_HAVE_MVE && mve_struct_mem_operand (op)")))
++
+ (define_predicate "neon_permissive_struct_operand"
+   (and (match_code "mem")
+        (match_test "TARGET_32BIT && neon_vector_mem_operand (op, 2, false)")))
 diff --git a/gcc/config/arm/vec-common.md b/gcc/config/arm/vec-common.md
 index fd878cba22d..1fd68f3ac43 100644
 --- a/gcc/config/arm/vec-common.md
@@ -3397,6 +3627,20 @@ index 3d990a12331..00c28c3964a 100644
  
  /* Implement TARGET_D_OS_VERSIONS for Windows targets.  */
  
+diff --git a/gcc/config/i386/x86-tune.def b/gcc/config/i386/x86-tune.def
+index d983e2f6213..1e1b206a71c 100644
+--- a/gcc/config/i386/x86-tune.def
++++ b/gcc/config/i386/x86-tune.def
+@@ -485,7 +485,8 @@ DEF_TUNE (X86_TUNE_AVOID_128FMA_CHAINS, "avoid_fma_chains", m_ZNVER)
+ 
+ /* X86_TUNE_AVOID_256FMA_CHAINS: Avoid creating loops with tight 256bit or
+    smaller FMA chain.  */
+-DEF_TUNE (X86_TUNE_AVOID_256FMA_CHAINS, "avoid_fma256_chains", m_ZNVER2 | m_ZNVER3)
++DEF_TUNE (X86_TUNE_AVOID_256FMA_CHAINS, "avoid_fma256_chains", m_ZNVER2 | m_ZNVER3
++	  | m_ALDERLAKE | m_SAPPHIRERAPIDS)
+ 
+ /* X86_TUNE_V2DF_REDUCTION_PREFER_PHADDPD: Prefer haddpd
+    for v2df vector reduction.  */
 diff --git a/gcc/config/loongarch/loongarch.cc b/gcc/config/loongarch/loongarch.cc
 index 5c9a33c14f7..22901cb6101 100644
 --- a/gcc/config/loongarch/loongarch.cc
@@ -3834,10 +4078,10 @@ index b3eb6abc2aa..b30b4576c09 100644
  #define DEFAULT_ENDIAN_SPEC    "b"
  #else
 diff --git a/gcc/config/rs6000/mma.md b/gcc/config/rs6000/mma.md
-index a183b6a168a..032f4263cb0 100644
+index a183b6a168a..f2952a3c3be 100644
 --- a/gcc/config/rs6000/mma.md
 +++ b/gcc/config/rs6000/mma.md
-@@ -268,10 +268,25 @@
+@@ -268,10 +268,28 @@
  (define_expand "movoo"
    [(set (match_operand:OO 0 "nonimmediate_operand")
  	(match_operand:OO 1 "input_operand"))]
@@ -3861,12 +4105,15 @@ index a183b6a168a..032f4263cb0 100644
 +	 expanding to RTL and have seen errors.  It would not cause further ICEs
 +	 as the compilation would stop soon after expanding.  */
 +    }
++  else if (rs6000_opaque_type_invalid_use_p (currently_expanding_gimple_stmt))
++    ;
 +  else
-+    gcc_unreachable ();
++    /* Catch unexpected cases.  */
++    gcc_assert (false);
  })
  
  (define_insn_and_split "*movoo"
-@@ -300,10 +315,22 @@
+@@ -300,10 +318,25 @@
  (define_expand "movxo"
    [(set (match_operand:XO 0 "nonimmediate_operand")
  	(match_operand:XO 1 "input_operand"))]
@@ -3887,8 +4134,11 @@ index a183b6a168a..032f4263cb0 100644
 +	 some missing required conditions.  So do the same handlings for XOmode
 +	 as OOmode here.  */
 +    }
++  else if (rs6000_opaque_type_invalid_use_p (currently_expanding_gimple_stmt))
++    ;
 +  else
-+    gcc_unreachable ();
++    /* Catch unexpected cases.  */
++    gcc_assert (false);
  })
  
  (define_insn_and_split "*movxo"
@@ -4088,7 +4338,7 @@ index 59fe1c8cb8b..a868ede24fb 100644
  	  insn = get_last_insn ();
  	  add_reg_note (insn, REG_CFA_DEF_CFA,
 diff --git a/gcc/config/rs6000/rs6000-protos.h b/gcc/config/rs6000/rs6000-protos.h
-index 3ea01023609..5d203d96346 100644
+index 3ea01023609..36f7f7faac3 100644
 --- a/gcc/config/rs6000/rs6000-protos.h
 +++ b/gcc/config/rs6000/rs6000-protos.h
 @@ -324,10 +324,6 @@ extern void rs6000_target_modify_macros (bool, HOST_WIDE_INT, HOST_WIDE_INT);
@@ -4102,8 +4352,15 @@ index 3ea01023609..5d203d96346 100644
  #ifdef NO_DOLLAR_IN_LABEL
  const char * rs6000_xcoff_strip_dollar (const char *);
  #endif
+@@ -349,4 +345,6 @@ extern rtx rs6000_gen_lvx (enum machine_mode, rtx, rtx);
+ extern rtx rs6000_gen_stvx (enum machine_mode, rtx, rtx);
+ 
+ extern void rs6000_emit_xxspltidp_v2df (rtx, long value);
++extern gimple *currently_expanding_gimple_stmt;
++extern bool rs6000_opaque_type_invalid_use_p (gimple *);
+ #endif  /* rs6000-protos.h */
 diff --git a/gcc/config/rs6000/rs6000.cc b/gcc/config/rs6000/rs6000.cc
-index 1aadd2b96b8..e382f5f1135 100644
+index 1aadd2b96b8..19ef1e983fc 100644
 --- a/gcc/config/rs6000/rs6000.cc
 +++ b/gcc/config/rs6000/rs6000.cc
 @@ -28287,28 +28287,6 @@ rs6000_invalid_conversion (const_tree fromtype, const_tree totype)
@@ -4135,6 +4392,52 @@ index 1aadd2b96b8..e382f5f1135 100644
  
    /* Conversion allowed.  */
    return NULL;
+@@ -28792,7 +28770,44 @@ constant_generates_xxspltidp (vec_const_128bit_type *vsx_const)
+   return sf_value;
+ }
+ 
+-
++/* Now we have only two opaque types, they are __vector_quad and
++   __vector_pair built-in types.  They are target specific and
++   only available when MMA is supported.  With MMA supported, it
++   simply returns true, otherwise it checks if the given gimple
++   STMT is an assignment stmt and uses either of these two opaque
++   types unexpectedly, if yes, it would raise an error message
++   and returns true, otherwise it returns false.  */
++
++bool
++rs6000_opaque_type_invalid_use_p (gimple *stmt)
++{
++  if (TARGET_MMA)
++    return false;
++
++  if (stmt)
++    {
++      /* The usage of MMA opaque types is very limited for now,
++	 to check with gassign is enough so far.  */
++      if (gassign *ga = dyn_cast<gassign *> (stmt))
++	{
++	  tree lhs = gimple_assign_lhs (ga);
++	  tree type = TREE_TYPE (lhs);
++	  if (type == vector_quad_type_node)
++	    {
++	      error ("type %<__vector_quad%> requires the %qs option", "-mmma");
++	      return true;
++	    }
++	  else if (type == vector_pair_type_node)
++	    {
++	      error ("type %<__vector_pair%> requires the %qs option", "-mmma");
++	      return true;
++	    }
++	}
++    }
++
++  return false;
++}
++
+ struct gcc_target targetm = TARGET_INITIALIZER;
+ 
+ #include "gt-rs6000.h"
 diff --git a/gcc/config/rs6000/rs6000.h b/gcc/config/rs6000/rs6000.h
 index bc48f450210..5c886d909aa 100644
 --- a/gcc/config/rs6000/rs6000.h
@@ -4562,10 +4865,70 @@ index 23bee7010a3..992a50e7b20 100644
         tm_d_file_list="${tm_d_file_list} \$(srcdir)/config/$f"
         tm_d_include_list="${tm_d_include_list} config/$f"
 diff --git a/gcc/cp/ChangeLog b/gcc/cp/ChangeLog
-index dc03a2518f3..4c71410c0fe 100644
+index dc03a2518f3..4d1ac08b8c4 100644
 --- a/gcc/cp/ChangeLog
 +++ b/gcc/cp/ChangeLog
-@@ -1,3 +1,89 @@
+@@ -1,3 +1,149 @@
++2023-01-04  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2023-01-04  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/108282
++	* decl2.cc (mark_single_function): Ignore mark_used failure
++	only in a non-SFINAE context rather than in a SFINAE one.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-12-15  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/100295
++	PR c++/107579
++	* pt.cc (el_data::skip_unevaluated_operands): New data member.
++	(extract_locals_r): If skip_unevaluated_operands is true,
++	don't walk into unevaluated contexts.
++	(extract_local_specs): Walk the pattern twice, first with
++	skip_unevaluated_operands true followed by it set to false.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-12-15  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/108104
++	* pt.cc (unify) <default>: Relax assert to accept any
++	CONSTRUCTOR parm, not just COMPOUND_LITERAL_P one.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-12-04  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/107417
++	* pt.cc (for_each_template_parm_r) <case REQUIRES_EXPR>: Move
++	walking of the TREE_TYPE of each parameter to ...
++	* tree.cc (cp_walk_subtrees) <case REQUIRES_EXPR>: ... here.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-12-03  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/103081
++	* pt.cc (tsubst_copy) <case CONST_DECL>: Generalize
++	early exit test for namespace-scope decls to check dependence of
++	the enclosing scope instead.  Remove dead early exit test.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-11-30  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/107542
++	* typeck.cc (cp_build_binary_op): In the SPACESHIP_EXPR case,
++	handle an error_mark_node result type.
++
 +2022-11-20  Jakub Jelinek  <jakub@redhat.com>
 +
 +	Backported from master:
@@ -4765,6 +5128,19 @@ index 9f78c500a15..ed47d262078 100644
  	      {
  		error_at (declspecs->locations[ds_constinit],
  			  "%<constinit%> on function return type is not "
+diff --git a/gcc/cp/decl2.cc b/gcc/cp/decl2.cc
+index d7e9980ff1e..37985a37df6 100644
+--- a/gcc/cp/decl2.cc
++++ b/gcc/cp/decl2.cc
+@@ -5779,7 +5779,7 @@ mark_single_function (tree expr, tsubst_flags_t complain)
+ 
+   if (is_overloaded_fn (expr) == 1
+       && !mark_used (expr, complain)
+-      && (complain & tf_error))
++      && !(complain & tf_error))
+     return false;
+   return true;
+ }
 diff --git a/gcc/cp/except.cc b/gcc/cp/except.cc
 index da0a65c613d..58d8772fc95 100644
 --- a/gcc/cp/except.cc
@@ -4807,10 +5183,99 @@ index 56fc11f425b..f3e155b7ba3 100644
  			      "deprecated"))
  		/* Make sure not to warn about this assignment again.  */
 diff --git a/gcc/cp/pt.cc b/gcc/cp/pt.cc
-index bef31416fb7..2f3cbf4895d 100644
+index bef31416fb7..735c106c7d6 100644
 --- a/gcc/cp/pt.cc
 +++ b/gcc/cp/pt.cc
-@@ -27952,11 +27952,11 @@ type_dependent_expression_p (tree expression)
+@@ -10648,21 +10648,6 @@ for_each_template_parm_r (tree *tp, int *walk_subtrees, void *d)
+ 	return error_mark_node;
+       break;
+ 
+-    case REQUIRES_EXPR:
+-      {
+-	if (!fn)
+-	  return error_mark_node;
+-
+-	/* Recursively walk the type of each constraint variable.  */
+-	tree p = TREE_OPERAND (t, 0);
+-	while (p)
+-	  {
+-	    WALK_SUBTREE (TREE_TYPE (p));
+-	    p = TREE_CHAIN (p);
+-	  }
+-      }
+-      break;
+-
+     default:
+       break;
+     }
+@@ -13006,17 +12991,26 @@ public:
+   /* List of local_specializations used within the pattern.  */
+   tree extra;
+   tsubst_flags_t complain;
++  /* True iff we don't want to walk into unevaluated contexts.  */
++  bool skip_unevaluated_operands = false;
+ 
+   el_data (tsubst_flags_t c)
+     : extra (NULL_TREE), complain (c) {}
+ };
+ static tree
+-extract_locals_r (tree *tp, int */*walk_subtrees*/, void *data_)
++extract_locals_r (tree *tp, int *walk_subtrees, void *data_)
+ {
+   el_data &data = *reinterpret_cast<el_data*>(data_);
+   tree *extra = &data.extra;
+   tsubst_flags_t complain = data.complain;
+ 
++  if (data.skip_unevaluated_operands
++      && unevaluated_p (TREE_CODE (*tp)))
++    {
++      *walk_subtrees = 0;
++      return NULL_TREE;
++    }
++
+   if (TYPE_P (*tp) && typedef_variant_p (*tp))
+     /* Remember local typedefs (85214).  */
+     tp = &TYPE_NAME (*tp);
+@@ -13108,6 +13102,14 @@ static tree
+ extract_local_specs (tree pattern, tsubst_flags_t complain)
+ {
+   el_data data (complain);
++  /* Walk the pattern twice, ignoring unevaluated operands the first time
++     around, so that if a local specialization appears in both an evaluated
++     and unevaluated context we prefer to process it in the evaluated context
++     (since e.g. process_outer_var_ref is a no-op inside an unevaluated
++     context).  */
++  data.skip_unevaluated_operands = true;
++  cp_walk_tree (&pattern, extract_locals_r, &data, &data.visited);
++  data.skip_unevaluated_operands = false;
+   cp_walk_tree (&pattern, extract_locals_r, &data, &data.visited);
+   return data.extra;
+ }
+@@ -16967,13 +16969,8 @@ tsubst_copy (tree t, tree args, tsubst_flags_t complain, tree in_decl)
+ 
+ 	if (DECL_TEMPLATE_PARM_P (t))
+ 	  return tsubst_copy (DECL_INITIAL (t), args, complain, in_decl);
+-	/* There is no need to substitute into namespace-scope
+-	   enumerators.  */
+-	if (DECL_NAMESPACE_SCOPE_P (t))
++	if (!uses_template_parms (DECL_CONTEXT (t)))
+ 	  return t;
+-	/* If ARGS is NULL, then T is known to be non-dependent.  */
+-	if (args == NULL_TREE)
+-	  return scalar_constant_value (t);
+ 
+ 	if (tree ref = maybe_dependent_member_ref (t, args, complain, in_decl))
+ 	  return ref;
+@@ -24830,7 +24827,7 @@ unify (tree tparms, tree targs, tree parm, tree arg, int strict,
+       if (is_overloaded_fn (parm) || type_unknown_p (parm))
+ 	return unify_success (explain_p);
+       gcc_assert (EXPR_P (parm)
+-		  || COMPOUND_LITERAL_P (parm)
++		  || TREE_CODE (parm) == CONSTRUCTOR
+ 		  || TREE_CODE (parm) == TRAIT_EXPR);
+     expr:
+       /* We must be looking at an expression.  This can happen with
+@@ -27952,11 +27949,11 @@ type_dependent_expression_p (tree expression)
       If the array has no length and has an initializer, it must be that
       we couldn't determine its length in cp_complete_array_type because
       it is dependent.  */
@@ -4863,8 +5328,40 @@ index 972a1966f69..de755904d50 100644
        if (field1 == NULL_TREE || field2 == NULL_TREE)
  	break;
        if (r
+diff --git a/gcc/cp/tree.cc b/gcc/cp/tree.cc
+index 3b37567cbd7..bc521f8ae9c 100644
+--- a/gcc/cp/tree.cc
++++ b/gcc/cp/tree.cc
+@@ -5488,15 +5488,18 @@ cp_walk_subtrees (tree *tp, int *walk_subtrees_p, walk_tree_fn func,
+       break;
+  
+     case REQUIRES_EXPR:
+-      // Only recurse through the nested expression. Do not
+-      // walk the parameter list. Doing so causes false
+-      // positives in the pack expansion checker since the
+-      // requires parameters are introduced as pack expansions.
+-      ++cp_unevaluated_operand;
+-      result = cp_walk_tree (&REQUIRES_EXPR_REQS (*tp), func, data, pset);
+-      --cp_unevaluated_operand;
+-      *walk_subtrees_p = 0;
+-      break;
++      {
++	cp_unevaluated u;
++	for (tree parm = REQUIRES_EXPR_PARMS (*tp); parm; parm = DECL_CHAIN (parm))
++	  /* Walk the types of each parameter, but not the parameter itself,
++	     since doing so would cause false positives in the unexpanded pack
++	     checker if the requires-expr introduces a function parameter pack,
++	     e.g. requires (Ts... ts) { }.   */
++	  WALK_SUBTREE (TREE_TYPE (parm));
++	WALK_SUBTREE (REQUIRES_EXPR_REQS (*tp));
++	*walk_subtrees_p = 0;
++	break;
++      }
+ 
+     case DECL_EXPR:
+       /* User variables should be mentioned in BIND_EXPR_VARS
 diff --git a/gcc/cp/typeck.cc b/gcc/cp/typeck.cc
-index ceb80d9744f..b2ffde34dde 100644
+index ceb80d9744f..c36508b8cc5 100644
 --- a/gcc/cp/typeck.cc
 +++ b/gcc/cp/typeck.cc
 @@ -1627,7 +1627,7 @@ similar_type_p (tree type1, tree type2)
@@ -4885,7 +5382,19 @@ index ceb80d9744f..b2ffde34dde 100644
  		return false;
  	      if (field1 == NULL_TREE)
  		return true;
-@@ -9126,10 +9126,14 @@ cp_build_modify_expr (location_t loc, tree lhs, enum tree_code modifycode,
+@@ -5921,8 +5921,9 @@ cp_build_binary_op (const op_location_t &location,
+       tree_code orig_code0 = TREE_CODE (orig_type0);
+       tree orig_type1 = TREE_TYPE (orig_op1);
+       tree_code orig_code1 = TREE_CODE (orig_type1);
+-      if (!result_type)
+-	/* Nope.  */;
++      if (!result_type || result_type == error_mark_node)
++	/* Nope.  */
++	result_type = NULL_TREE;
+       else if ((orig_code0 == BOOLEAN_TYPE) != (orig_code1 == BOOLEAN_TYPE))
+ 	/* "If one of the operands is of type bool and the other is not, the
+ 	   program is ill-formed."  */
+@@ -9126,10 +9127,14 @@ cp_build_modify_expr (location_t loc, tree lhs, enum tree_code modifycode,
  
  	  /* An expression of the form E1 op= E2.  [expr.ass] says:
  	     "Such expressions are deprecated if E1 has volatile-qualified
@@ -5234,10 +5743,39 @@ index 84e6f6694ab..e705e94603f 100644
  
  Here is an example:
 diff --git a/gcc/doc/install.texi b/gcc/doc/install.texi
-index 48408d842db..b609d832db5 100644
+index 48408d842db..19d073256a9 100644
 --- a/gcc/doc/install.texi
 +++ b/gcc/doc/install.texi
-@@ -3579,16 +3579,28 @@ information have to.
+@@ -227,7 +227,9 @@ described below.
+ @heading Tools/packages necessary for building GCC
+ @table @asis
+ @item ISO C++11 compiler
+-Necessary to bootstrap GCC.
++Necessary to bootstrap GCC.  GCC 4.8.3 or newer has sufficient
++support for used C++11 features, with earlier GCC versions you
++might run into implementation bugs.
+ 
+ Versions of GCC prior to 11 also allow bootstrapping with an ISO C++98
+ compiler, versions of GCC prior to 4.8 also allow bootstrapping with a
+@@ -236,7 +238,7 @@ bootstrapping with a traditional (K&R) C compiler.
+ 
+ To build all languages in a cross-compiler or other configuration where
+ 3-stage bootstrap is not performed, you need to start with an existing
+-GCC binary (version 4.8 or later) because source code for language
++GCC binary (version 4.8.3 or later) because source code for language
+ frontends other than C might use GCC extensions.
+ 
+ @item C standard library and headers
+@@ -287,7 +289,7 @@ section.
+ @item @anchor{GDC-prerequisite}GDC
+ 
+ In order to build GDC, the D compiler, you need a working GDC
+-compiler (GCC version 9.1 or later) and D runtime library,
++compiler (GCC version 9.4 or later) and D runtime library,
+ @samp{libphobos}, as the D front end is written in D.
+ 
+ Versions of GDC prior to 12 can be built with an ISO C++11 compiler, which can
+@@ -3579,16 +3581,28 @@ information have to.
  @item
  @uref{#alpha-x-x,,alpha*-*-*}
  @item
@@ -5266,7 +5804,7 @@ index 48408d842db..b609d832db5 100644
  @uref{#x-x-freebsd,,*-*-freebsd*}
  @item
  @uref{#h8300-hms,,h8300-hms}
-@@ -3613,6 +3625,8 @@ information have to.
+@@ -3613,6 +3627,8 @@ information have to.
  @item
  @uref{#iq2000-x-elf,,iq2000-*-elf}
  @item
@@ -5275,7 +5813,7 @@ index 48408d842db..b609d832db5 100644
  @uref{#lm32-x-elf,,lm32-*-elf}
  @item
  @uref{#lm32-x-uclinux,,lm32-*-uclinux}
-@@ -3623,12 +3637,16 @@ information have to.
+@@ -3623,12 +3639,16 @@ information have to.
  @item
  @uref{#m68k-x-x,,m68k-*-*}
  @item
@@ -5293,7 +5831,7 @@ index 48408d842db..b609d832db5 100644
  @uref{#nds32le-x-elf,,nds32le-*-elf}
  @item
  @uref{#nds32be-x-elf,,nds32be-*-elf}
-@@ -3667,6 +3685,10 @@ information have to.
+@@ -3667,6 +3687,10 @@ information have to.
  @item
  @uref{#riscv64-x-linux,,riscv64-*-linux}
  @item
@@ -5304,7 +5842,7 @@ index 48408d842db..b609d832db5 100644
  @uref{#s390-x-linux,,s390-*-linux*}
  @item
  @uref{#s390x-x-linux,,s390x-*-linux*}
-@@ -3787,14 +3809,14 @@ This is a synonym for @samp{x86_64-*-solaris2*}.
+@@ -3787,14 +3811,14 @@ This is a synonym for @samp{x86_64-*-solaris2*}.
  @heading amdgcn-*-amdhsa
  AMD GCN GPU target.
  
@@ -5321,7 +5859,7 @@ index 48408d842db..b609d832db5 100644
  
  To run the binaries, install the HSA Runtime from the
  @uref{https://rocm.github.io,,ROCm Platform}, and use
-@@ -4635,8 +4657,7 @@ Instead of GNU binutils, you will need to install
+@@ -4635,8 +4659,7 @@ Instead of GNU binutils, you will need to install
  Tell GCC where to find it:
  @option{--with-build-time-tools=[install-nvptx-tools]/nvptx-none/bin}.
  
@@ -5439,10 +5977,29 @@ index 948e13a22d8..eec4c1820ed 100644
  		}
  	      break;
 diff --git a/gcc/fortran/ChangeLog b/gcc/fortran/ChangeLog
-index 97166527031..90cde4f78d8 100644
+index 97166527031..2f89c6d8c25 100644
 --- a/gcc/fortran/ChangeLog
 +++ b/gcc/fortran/ChangeLog
-@@ -1,3 +1,224 @@
+@@ -1,3 +1,243 @@
++2022-12-28  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-12-23  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/108131
++	* array.cc (match_array_element_spec): Avoid too early simplification
++	of matched array element specs that can lead to a misinterpretation
++	when used as array bounds in array declarations.
++
++2022-12-18  Paul Thomas  <pault@gcc.gnu.org>
++
++	Backported from master:
++	2022-12-09  Paul Thomas  <pault@gcc.gnu.org>
++
++	PR fortran/107872
++	* resolve.cc (derived_inaccessible): Skip over allocatable components
++	to prevent an infinite loop.
++
 +2022-11-25  Harald Anlauf  <anlauf@gmx.de>
 +
 +	Backported from master:
@@ -5667,6 +6224,28 @@ index 97166527031..90cde4f78d8 100644
  2022-08-19  Release Manager
  
  	* GCC 12.2.0 released.
+diff --git a/gcc/fortran/array.cc b/gcc/fortran/array.cc
+index bbdb5b392fc..f4003c2a2fe 100644
+--- a/gcc/fortran/array.cc
++++ b/gcc/fortran/array.cc
+@@ -499,8 +499,6 @@ match_array_element_spec (gfc_array_spec *as)
+   if (!gfc_expr_check_typed (*upper, gfc_current_ns, false))
+     return AS_UNKNOWN;
+ 
+-  gfc_try_simplify_expr (*upper, 0);
+-
+   if (((*upper)->expr_type == EXPR_CONSTANT
+ 	&& (*upper)->ts.type != BT_INTEGER) ||
+       ((*upper)->expr_type == EXPR_FUNCTION
+@@ -533,8 +531,6 @@ match_array_element_spec (gfc_array_spec *as)
+   if (!gfc_expr_check_typed (*upper, gfc_current_ns, false))
+     return AS_UNKNOWN;
+ 
+-  gfc_try_simplify_expr (*upper, 0);
+-
+   if (((*upper)->expr_type == EXPR_CONSTANT
+ 	&& (*upper)->ts.type != BT_INTEGER) ||
+       ((*upper)->expr_type == EXPR_FUNCTION
 diff --git a/gcc/fortran/expr.cc b/gcc/fortran/expr.cc
 index be94c18c836..69d0b57c688 100644
 --- a/gcc/fortran/expr.cc
@@ -5800,6 +6379,20 @@ index e6e915d2a5e..d1c72ef92e7 100644
  	{
  	  unexpected_statement (st);
  	  st = next_statement ();
+diff --git a/gcc/fortran/resolve.cc b/gcc/fortran/resolve.cc
+index 29df531cdb6..f4b5441622e 100644
+--- a/gcc/fortran/resolve.cc
++++ b/gcc/fortran/resolve.cc
+@@ -7528,7 +7528,8 @@ derived_inaccessible (gfc_symbol *sym)
+   for (c = sym->components; c; c = c->next)
+     {
+ 	/* Prevent an infinite loop through this function.  */
+-	if (c->ts.type == BT_DERIVED && c->attr.pointer
++	if (c->ts.type == BT_DERIVED
++	    && (c->attr.pointer || c->attr.allocatable)
+ 	    && sym == c->ts.u.derived)
+ 	  continue;
+ 
 diff --git a/gcc/fortran/simplify.cc b/gcc/fortran/simplify.cc
 index 2f4f13b6a83..d48ae1af584 100644
 --- a/gcc/fortran/simplify.cc
@@ -6501,6 +7094,68 @@ index 623aceed520..6451a633e60 100644
  void gfc_conv_expr_type (gfc_se * se, gfc_expr *, tree);
  
  
+diff --git a/gcc/gcc.cc b/gcc/gcc.cc
+index bb07cc244e3..b4c8d659014 100644
+--- a/gcc/gcc.cc
++++ b/gcc/gcc.cc
+@@ -27,6 +27,7 @@ CC recognizes how to compile each input file by suffixes in the file names.
+ Once it knows which kind of compilation to perform, the procedure for
+ compilation is specified by a string called a "spec".  */
+ 
++#define INCLUDE_STRING
+ #include "config.h"
+ #include "system.h"
+ #include "coretypes.h"
+@@ -43,6 +44,7 @@ compilation is specified by a string called a "spec".  */
+ #include "opts.h"
+ #include "filenames.h"
+ #include "spellcheck.h"
++#include "opts-jobserver.h"
+ 
+ 
+ 
+@@ -9178,38 +9180,9 @@ driver::final_actions () const
+ void
+ driver::detect_jobserver () const
+ {
+-  /* Detect jobserver and drop it if it's not working.  */
+-  const char *makeflags = env.get ("MAKEFLAGS");
+-  if (makeflags != NULL)
+-    {
+-      const char *needle = "--jobserver-auth=";
+-      const char *n = strstr (makeflags, needle);
+-      if (n != NULL)
+-	{
+-	  int rfd = -1;
+-	  int wfd = -1;
+-
+-	  bool jobserver
+-	    = (sscanf (n + strlen (needle), "%d,%d", &rfd, &wfd) == 2
+-	       && rfd > 0
+-	       && wfd > 0
+-	       && is_valid_fd (rfd)
+-	       && is_valid_fd (wfd));
+-
+-	  /* Drop the jobserver if it's not working now.  */
+-	  if (!jobserver)
+-	    {
+-	      unsigned offset = n - makeflags;
+-	      char *dup = xstrdup (makeflags);
+-	      dup[offset] = '\0';
+-
+-	      const char *space = strchr (makeflags + offset, ' ');
+-	      if (space != NULL)
+-		strcpy (dup + offset, space);
+-	      xputenv (concat ("MAKEFLAGS=", dup, NULL));
+-	    }
+-	}
+-    }
++  jobserver_info jinfo;
++  if (!jinfo.is_active && !jinfo.skipped_makeflags.empty ())
++    xputenv (jinfo.skipped_makeflags.c_str ());
+ }
+ 
+ /* Determine what the exit code of the driver should be.  */
 diff --git a/gcc/gimple-ssa-warn-access.cc b/gcc/gimple-ssa-warn-access.cc
 index 39aa8186de6..efe55dab917 100644
 --- a/gcc/gimple-ssa-warn-access.cc
@@ -6722,6 +7377,102 @@ index e3b3c549120..a287026a275 100644
    };
  
    int max_regno_before_rm = max_reg_num ();
+diff --git a/gcc/lto-wrapper.cc b/gcc/lto-wrapper.cc
+index d070829bacb..9fede90c277 100644
+--- a/gcc/lto-wrapper.cc
++++ b/gcc/lto-wrapper.cc
+@@ -37,6 +37,7 @@ along with GCC; see the file COPYING3.  If not see
+    ./ccCJuXGv.lto.ltrans.o
+ */
+ 
++#define INCLUDE_STRING
+ #include "config.h"
+ #include "system.h"
+ #include "coretypes.h"
+@@ -49,6 +50,8 @@ along with GCC; see the file COPYING3.  If not see
+ #include "lto-section-names.h"
+ #include "collect-utils.h"
+ #include "opts-diagnostic.h"
++#include "opt-suggestions.h"
++#include "opts-jobserver.h"
+ 
+ /* Environment variable, used for passing the names of offload targets from GCC
+    driver to lto-wrapper.  */
+@@ -1336,35 +1339,6 @@ init_num_threads (void)
+ #endif
+ }
+ 
+-/* Test and return reason why a jobserver cannot be detected.  */
+-
+-static const char *
+-jobserver_active_p (void)
+-{
+-  #define JS_PREFIX "jobserver is not available: "
+-  #define JS_NEEDLE "--jobserver-auth="
+-
+-  const char *makeflags = getenv ("MAKEFLAGS");
+-  if (makeflags == NULL)
+-    return JS_PREFIX "%<MAKEFLAGS%> environment variable is unset";
+-
+-  const char *n = strstr (makeflags, JS_NEEDLE);
+-  if (n == NULL)
+-    return JS_PREFIX "%<" JS_NEEDLE "%> is not present in %<MAKEFLAGS%>";
+-
+-  int rfd = -1;
+-  int wfd = -1;
+-
+-  if (sscanf (n + strlen (JS_NEEDLE), "%d,%d", &rfd, &wfd) == 2
+-      && rfd > 0
+-      && wfd > 0
+-      && is_valid_fd (rfd)
+-      && is_valid_fd (wfd))
+-    return NULL;
+-  else
+-    return JS_PREFIX "cannot access %<" JS_NEEDLE "%> file descriptors";
+-}
+-
+ /* Print link to -flto documentation with a hint message.  */
+ 
+ void
+@@ -1422,7 +1396,6 @@ run_gcc (unsigned argc, char *argv[])
+   bool jobserver_requested = false;
+   int auto_parallel = 0;
+   bool no_partition = false;
+-  const char *jobserver_error = NULL;
+   bool fdecoded_options_first = true;
+   vec<cl_decoded_option> fdecoded_options;
+   fdecoded_options.create (16);
+@@ -1654,14 +1627,14 @@ run_gcc (unsigned argc, char *argv[])
+     }
+   else
+     {
+-      jobserver_error = jobserver_active_p ();
+-      if (jobserver && jobserver_error != NULL)
++      jobserver_info jinfo;
++      if (jobserver && !jinfo.is_active)
+ 	{
+ 	  /* Fall back to auto parallelism.  */
+ 	  jobserver = 0;
+ 	  auto_parallel = 1;
+ 	}
+-      else if (!jobserver && jobserver_error == NULL)
++      else if (!jobserver && jinfo.is_active)
+ 	{
+ 	  parallel = 1;
+ 	  jobserver = 1;
+@@ -1976,9 +1949,10 @@ cont:
+ 
+       if (nr > 1)
+ 	{
+-	  if (jobserver_requested && jobserver_error != NULL)
++	  jobserver_info jinfo;
++	  if (jobserver_requested && !jinfo.is_active)
+ 	    {
+-	      warning (0, jobserver_error);
++	      warning (0, jinfo.error_msg.c_str ());
+ 	      print_lto_docs_link ();
+ 	    }
+ 	  else if (parallel == 0)
 diff --git a/gcc/lto/ChangeLog b/gcc/lto/ChangeLog
 index 4805a59b044..639d861d399 100644
 --- a/gcc/lto/ChangeLog
@@ -6913,6 +7664,134 @@ index 4386787ba3c..ec9b0faab0a 100644
  
        {
  	tree clauses = gimple_omp_for_clauses (stmt);
+diff --git a/gcc/opts-common.cc b/gcc/opts-common.cc
+index 1663be1f602..7c07d504696 100644
+--- a/gcc/opts-common.cc
++++ b/gcc/opts-common.cc
+@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
+ along with GCC; see the file COPYING3.  If not see
+ <http://www.gnu.org/licenses/>.  */
+ 
++#define INCLUDE_STRING
+ #include "config.h"
+ #include "system.h"
+ #include "intl.h"
+@@ -25,6 +26,7 @@ along with GCC; see the file COPYING3.  If not see
+ #include "options.h"
+ #include "diagnostic.h"
+ #include "spellcheck.h"
++#include "opts-jobserver.h"
+ 
+ static void prune_options (struct cl_decoded_option **, unsigned int *);
+ 
+@@ -2003,3 +2005,55 @@ void prepend_xassembler_to_collect_as_options (const char *collect_as_options,
+       obstack_1grow (o, '\'');
+     }
+ }
++
++jobserver_info::jobserver_info ()
++{
++  /* Traditionally, GNU make uses opened pipes for jobserver-auth,
++    e.g. --jobserver-auth=3,4.
++    Starting with GNU make 4.4, one can use --jobserver-style=fifo
++    and then named pipe is used: --jobserver-auth=fifo:/tmp/hcsparta.  */
++
++  /* Detect jobserver and drop it if it's not working.  */
++  string js_needle = "--jobserver-auth=";
++  string fifo_prefix = "fifo:";
++
++  const char *envval = getenv ("MAKEFLAGS");
++  if (envval != NULL)
++    {
++      string makeflags = envval;
++      size_t n = makeflags.rfind (js_needle);
++      if (n != string::npos)
++	{
++	  string ending = makeflags.substr (n + js_needle.size ());
++	  if (ending.find (fifo_prefix) == 0)
++	    {
++	      ending = ending.substr (fifo_prefix.size ());
++	      pipe_path = ending.substr (0, ending.find (' '));
++	      is_active = true;
++	    }
++	  else if (sscanf (makeflags.c_str () + n + js_needle.size (),
++			   "%d,%d", &rfd, &wfd) == 2
++	      && rfd > 0
++	      && wfd > 0
++	      && is_valid_fd (rfd)
++	      && is_valid_fd (wfd))
++	    is_active = true;
++	  else
++	    {
++	      string dup = makeflags.substr (0, n);
++	      size_t pos = makeflags.find (' ', n);
++	      if (pos != string::npos)
++		dup += makeflags.substr (pos);
++	      skipped_makeflags = "MAKEFLAGS=" + dup;
++	      error_msg
++		= "cannot access %<" + js_needle + "%> file descriptors";
++	    }
++	}
++      error_msg = "%<" + js_needle + "%> is not present in %<MAKEFLAGS%>";
++    }
++  else
++    error_msg = "%<MAKEFLAGS%> environment variable is unset";
++
++  if (!error_msg.empty ())
++    error_msg = "jobserver is not available: " + error_msg;
++}
+diff --git a/gcc/opts-jobserver.h b/gcc/opts-jobserver.h
+new file mode 100644
+index 00000000000..98ea2579962
+--- /dev/null
++++ b/gcc/opts-jobserver.h
+@@ -0,0 +1,46 @@
++/* GNU make's jobserver related functionality.
++   Copyright (C) 2022 Free Software Foundation, Inc.
++
++This file is part of GCC.
++
++GCC is free software; you can redistribute it and/or modify it under
++the terms of the GNU General Public License as published by the Free
++Software Foundation; either version 3, or (at your option) any later
++version.
++
++GCC is distributed in the hope that it will be useful, but WITHOUT ANY
++WARRANTY; without even the implied warranty of MERCHANTABILITY or
++FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License
++for more details.
++
++You should have received a copy of the GNU General Public License
++along with GCC; see the file COPYING3.  If not see
++<http://www.gnu.org/licenses/>.
++
++See dbgcnt.def for usage information.  */
++
++#ifndef GCC_JOBSERVER_H
++#define GCC_JOBSERVER_H
++
++using namespace std;
++
++struct jobserver_info
++{
++  /* Default constructor.  */
++  jobserver_info ();
++
++  /* Error message if there is a problem.  */
++  string error_msg = "";
++  /* Skipped MAKEFLAGS where --jobserver-auth is skipped.  */
++  string skipped_makeflags = "";
++  /* File descriptor for reading used for jobserver communication.  */
++  int rfd = -1;
++  /* File descriptor for writing used for jobserver communication.  */
++  int wfd = -1;
++  /* Named pipe path.  */
++  string pipe_path = "";
++  /* Return true if jobserver is active.  */
++  bool is_active = false;
++};
++
++#endif /* GCC_JOBSERVER_H */
 diff --git a/gcc/postreload.cc b/gcc/postreload.cc
 index 4a67d0d437a..f17d2f0d0e1 100644
 --- a/gcc/postreload.cc
@@ -7171,10 +8050,128 @@ index 5afeadf8c49..0ee0e7648f8 100644
  
        src1 = get_true_reg (&XEXP (pat_src, 0));
 diff --git a/gcc/testsuite/ChangeLog b/gcc/testsuite/ChangeLog
-index a8926aad239..724d45ebe29 100644
+index a8926aad239..1395871f38a 100644
 --- a/gcc/testsuite/ChangeLog
 +++ b/gcc/testsuite/ChangeLog
-@@ -1,3 +1,750 @@
+@@ -1,3 +1,868 @@
++2023-01-11  Eric Botcazou  <ebotcazou@adacore.com>
++
++	* gcc.dg/sso-17.c: New test.
++
++2023-01-11  Martin Liska  <mliska@suse.cz>
++
++	Backported from master:
++	2022-12-28  Martin Liska  <mliska@suse.cz>
++
++	PR tree-optimization/108137
++	* gcc.dg/tree-ssa/pr108137.c: New test.
++
++2023-01-10  Stam Markianos-Wright  <stam.markianos-wright@arm.com>
++
++	Backported from master:
++	2022-12-30  Stam Markianos-Wright  <stam.markianos-wright@arm.com>
++
++	PR target/107714
++	* gcc.target/arm/mve/intrinsics/vldst24q_reg_offset.c: New test.
++
++2023-01-10  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
++
++	Backported from master:
++	2022-12-19  Kyrylo Tkachov  <kyrylo.tkachov@arm.com>
++
++	PR target/108140
++	* gcc.target/aarch64/acle/pr108140.c: New test.
++
++2023-01-05  Kewen Lin  <linkw@linux.ibm.com>
++
++	PR target/106736
++	* gcc.target/powerpc/pr106736-1.c: New test.
++	* gcc.target/powerpc/pr106736-2.c: Likewise.
++	* gcc.target/powerpc/pr106736-3.c: Likewise.
++	* gcc.target/powerpc/pr106736-4.c: Likewise.
++	* gcc.target/powerpc/pr106736-5.c: Likewise.
++
++2023-01-04  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2023-01-04  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/108282
++	* g++.dg/cpp2a/concepts-requires34.C: New test.
++
++2022-12-28  Harald Anlauf  <anlauf@gmx.de>
++
++	Backported from master:
++	2022-12-23  Harald Anlauf  <anlauf@gmx.de>
++
++	PR fortran/108131
++	* gfortran.dg/pr103505.f90: Adjust expected patterns.
++	* gfortran.dg/pr108131.f90: New test.
++
++2022-12-24  John David Anglin  <danglin@gcc.gnu.org>
++
++	* g++.dg/guality/guality.exp: Skip on hppa*-*-hpux*.
++	* gcc.dg/guality/guality.exp: Likewise.
++	* gfortran.dg/guality/guality.exp: Likewise.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-12-15  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/100295
++	PR c++/107579
++	* g++.dg/cpp1z/constexpr-if-lambda5.C: New test.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-12-15  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/108104
++	* g++.dg/template/ptrmem33.C: New test.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-12-04  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/107417
++	* g++.dg/cpp2a/concepts-requires33.C: New test.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-12-03  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/103081
++	* g++.dg/cpp2a/using-enum-10.C: New test.
++	* g++.dg/cpp2a/using-enum-10a.C: New test.
++
++2022-12-19  Patrick Palka  <ppalka@redhat.com>
++
++	Backported from master:
++	2022-11-30  Patrick Palka  <ppalka@redhat.com>
++
++	PR c++/107542
++	* g++.dg/cpp2a/spaceship-sfinae2.C: New test.
++
++2022-12-19  Marek Polacek  <polacek@redhat.com>
++
++	Backported from master:
++	2022-12-19  Marek Polacek  <polacek@redhat.com>
++
++	PR c/98487
++	* c-c++-common/Wsuggest-attribute-1.c: New test.
++
++2022-12-18  Paul Thomas  <pault@gcc.gnu.org>
++
++	Backported from master:
++	2022-12-09  Paul Thomas  <pault@gcc.gnu.org>
++
++	PR fortran/107872
++	* gfortran.dg/pr107872.f90: New test.
++
 +2022-12-15  Sebastian Pop  <spop@amazon.com>
 +
 +	PR target/98776
@@ -7953,6 +8950,48 @@ index 00000000000..179948553c5
 +  }
 +  return error;
 +}
+diff --git a/gcc/testsuite/c-c++-common/Wsuggest-attribute-1.c b/gcc/testsuite/c-c++-common/Wsuggest-attribute-1.c
+new file mode 100644
+index 00000000000..8b5b398fb78
+--- /dev/null
++++ b/gcc/testsuite/c-c++-common/Wsuggest-attribute-1.c
+@@ -0,0 +1,36 @@
++/* PR c/98487 */
++/* { dg-do compile { target { c || c++11 } } } */
++/* { dg-options "-Wsuggest-attribute=format" } */
++
++#include <stdarg.h>
++
++[[gnu::__format__(__printf__, 1, 2)]]
++void
++do_printf(const char * const a0, ...)
++{
++  va_list ap;
++  va_start(ap, a0);
++  __builtin_vprintf(a0, ap);
++  va_end(ap);
++}
++
++[[gnu::__format__(__scanf__, 1, 2)]]
++void
++do_scanf(const char * const a0, ...)
++{
++  va_list ap;
++  va_start(ap, a0);
++  __builtin_vscanf(a0, ap);
++  va_end(ap);
++}
++
++struct tm;
++
++[[gnu::__format__(__strftime__, 1, 0)]]
++void
++do_strftime(const char * const a0, struct tm * a1)
++{
++  char buff[256];
++  __builtin_strftime(buff, sizeof(buff), a0, a1);
++  __builtin_puts(buff);
++}
 diff --git a/gcc/testsuite/c-c++-common/goacc/kernels-decompose-pr100400-1-2.c b/gcc/testsuite/c-c++-common/goacc/kernels-decompose-pr100400-1-2.c
 index a643f109bf1..8b65e07c623 100644
 --- a/gcc/testsuite/c-c++-common/goacc/kernels-decompose-pr100400-1-2.c
@@ -8206,6 +9245,68 @@ index 00000000000..8ca6fce7570
 +}
 +
 +constexpr auto a = foo ();
+diff --git a/gcc/testsuite/g++.dg/cpp1z/constexpr-if-lambda5.C b/gcc/testsuite/g++.dg/cpp1z/constexpr-if-lambda5.C
+new file mode 100644
+index 00000000000..d2bf0221743
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp1z/constexpr-if-lambda5.C
+@@ -0,0 +1,15 @@
++// PR c++/100295
++// { dg-do compile { target c++17 } }
++
++template<typename... Ts>
++void f(Ts... ts) {
++  auto lambda = [=](auto x) {
++    if constexpr (sizeof((ts+x) + ...) != 0)
++      (..., ts);
++  };
++  lambda(0);
++}
++
++int main() {
++  f(0, 'a');
++}
+diff --git a/gcc/testsuite/g++.dg/cpp2a/concepts-requires33.C b/gcc/testsuite/g++.dg/cpp2a/concepts-requires33.C
+new file mode 100644
+index 00000000000..1ff237ac382
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp2a/concepts-requires33.C
+@@ -0,0 +1,10 @@
++// PR c++/107417
++// { dg-do compile { target c++20 } }
++
++template<class... T>
++void f() requires (requires (T x) { true; } && ...);
++
++int main() {
++  f<int>();
++  f<int, void>(); // { dg-error "no match" }
++}
+diff --git a/gcc/testsuite/g++.dg/cpp2a/concepts-requires34.C b/gcc/testsuite/g++.dg/cpp2a/concepts-requires34.C
+new file mode 100644
+index 00000000000..5bbd62f6d8e
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp2a/concepts-requires34.C
+@@ -0,0 +1,19 @@
++// PR c++/108282
++// { dg-do compile { target c++20 } }
++
++template<class T>
++concept TEST = requires { T::TT; };
++
++struct C { };
++
++template<class AT>
++struct B {
++  static void TT() requires TEST<AT>;
++};
++
++int main() {
++  static_assert( !TEST<C> );
++  static_assert( !TEST<B<C>> );
++
++  B<C>::TT();  // { dg-error "no match" }
++}
 diff --git a/gcc/testsuite/g++.dg/cpp2a/cond-triv3.C b/gcc/testsuite/g++.dg/cpp2a/cond-triv3.C
 new file mode 100644
 index 00000000000..d0711cf2607
@@ -8274,6 +9375,88 @@ index 00000000000..51b4f0273be
 +
 +constinit void bad (); // { dg-error ".constinit. on function return type is not allowed" }
 +constinit void bad () { } // { dg-error ".constinit. on function return type is not allowed" }
+diff --git a/gcc/testsuite/g++.dg/cpp2a/spaceship-sfinae2.C b/gcc/testsuite/g++.dg/cpp2a/spaceship-sfinae2.C
+new file mode 100644
+index 00000000000..7105a2c7f2a
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp2a/spaceship-sfinae2.C
+@@ -0,0 +1,29 @@
++// PR c++/107542
++// { dg-do compile { target c++20 } }
++
++#include <compare>
++
++template<class T, class U>
++concept same_as = __is_same(T, U);
++
++template<class Lhs, class Rhs>
++concept Ord = requires(Lhs lhs, Rhs rhs) {
++  { lhs <=> rhs } -> same_as<std::strong_ordering>;
++};
++
++static_assert(Ord<int*, int*>);   // Works.
++static_assert(!Ord<int*, char*>); // ICE.
++
++template<class T>
++struct S {
++  T* p;
++};
++
++template<class T, class U>
++  requires(Ord<const T*, const U*>)
++constexpr inline auto operator<=>(const S<T>& l, const S<U>& r) noexcept {
++  return l.p <=> r.p;
++}
++
++static_assert(Ord<S<int>, S<int>>);   // Works.
++static_assert(!Ord<S<int>, S<char>>); // ICE.
+diff --git a/gcc/testsuite/g++.dg/cpp2a/using-enum-10.C b/gcc/testsuite/g++.dg/cpp2a/using-enum-10.C
+new file mode 100644
+index 00000000000..98fe0644729
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp2a/using-enum-10.C
+@@ -0,0 +1,16 @@
++// PR c++/103081
++// { dg-do compile { target c++20 } }
++
++enum class Pig { OINK };
++
++struct Hog {
++  using enum Pig;
++  Hog(Pig) { }
++};
++
++template<int>
++void pen() {
++  Hog(Hog::OINK);
++}
++
++template void pen<0>();
+diff --git a/gcc/testsuite/g++.dg/cpp2a/using-enum-10a.C b/gcc/testsuite/g++.dg/cpp2a/using-enum-10a.C
+new file mode 100644
+index 00000000000..daa3221b77a
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/cpp2a/using-enum-10a.C
+@@ -0,0 +1,19 @@
++// A version of using-enum-10.C where Hog is a template.
++// PR c++/103081
++// { dg-do compile { target c++20 } }
++
++enum class Pig { OINK };
++
++template<int>
++struct Hog {
++  using enum Pig;
++  Hog(Pig) { OINK; }
++};
++
++template<int N>
++void pen() {
++  Hog<1>(Hog<1>::OINK);
++  Hog<N>(Hog<N>::OINK);
++}
++
++template void pen<0>();
 diff --git a/gcc/testsuite/g++.dg/cpp2a/volatile1.C b/gcc/testsuite/g++.dg/cpp2a/volatile1.C
 index 7ea6b477ca2..a0264a47bc7 100644
 --- a/gcc/testsuite/g++.dg/cpp2a/volatile1.C
@@ -8517,6 +9700,21 @@ index 00000000000..0295efb88ee
 +#pragma omp target
 +  std::complex<double> c = 0.0;
 +}
+diff --git a/gcc/testsuite/g++.dg/guality/guality.exp b/gcc/testsuite/g++.dg/guality/guality.exp
+index 1d5b65fef57..2d736d292e9 100644
+--- a/gcc/testsuite/g++.dg/guality/guality.exp
++++ b/gcc/testsuite/g++.dg/guality/guality.exp
+@@ -8,6 +8,10 @@ if { [istarget *-*-darwin*] } {
+     return
+ }
+ 
++if { [istarget hppa*-*-hpux*] } {
++    return
++}
++
+ if { [istarget "powerpc-ibm-aix*"] } {
+     set torture_execute_xfail "powerpc-ibm-aix*"
+     return
 diff --git a/gcc/testsuite/g++.dg/opt/pr106860.C b/gcc/testsuite/g++.dg/opt/pr106860.C
 new file mode 100644
 index 00000000000..a0209dcf9da
@@ -8545,6 +9743,42 @@ index 00000000000..a0209dcf9da
 +   }
 +
 +  return 0;
++}
+diff --git a/gcc/testsuite/g++.dg/template/ptrmem33.C b/gcc/testsuite/g++.dg/template/ptrmem33.C
+new file mode 100644
+index 00000000000..dca741ae5e2
+--- /dev/null
++++ b/gcc/testsuite/g++.dg/template/ptrmem33.C
+@@ -0,0 +1,30 @@
++// PR c++/108104
++// { dg-do compile { target c++11 } }
++
++struct A {
++  void x();
++  void y();
++};
++
++enum State { On };
++
++template<State state, void (A::*)()>
++struct B {
++  static void f();
++};
++
++template<State state>
++struct B<state, nullptr> {
++  static void g();
++};
++
++template<State state>
++struct B<state, &A::y> {
++  static void h();
++};
++
++int main() {
++  B<State::On, &A::x>::f();
++  B<State::On, nullptr>::g();
++  B<State::On, &A::y>::h();
 +}
 diff --git a/gcc/testsuite/g++.dg/torture/pr106922.C b/gcc/testsuite/g++.dg/torture/pr106922.C
 new file mode 100644
@@ -9174,6 +10408,21 @@ index 00000000000..f782a5e07a1
 +  char *a = __builtin_memcpy(*p, "", 1);
 +  *a = 0; /* { dg-bogus "dangling" } */
 +}
+diff --git a/gcc/testsuite/gcc.dg/guality/guality.exp b/gcc/testsuite/gcc.dg/guality/guality.exp
+index ba87132aef2..075bebe34e8 100644
+--- a/gcc/testsuite/gcc.dg/guality/guality.exp
++++ b/gcc/testsuite/gcc.dg/guality/guality.exp
+@@ -8,6 +8,10 @@ if { [istarget *-*-darwin*] } {
+     return
+ }
+ 
++if { [istarget hppa*-*-hpux*] } {
++    return
++}
++
+ if { [istarget "powerpc-ibm-aix*"] } {
+     set torture_execute_xfail "powerpc-ibm-aix*"
+     return
 diff --git a/gcc/testsuite/gcc.dg/guality/param-6.c b/gcc/testsuite/gcc.dg/guality/param-6.c
 new file mode 100644
 index 00000000000..9c4ba5cb46a
@@ -9265,6 +10514,64 @@ index 00000000000..2378103c555
 +foo (void)
 +{
 +  d = d < (D) __builtin_convertvector (u, V);
++}
+diff --git a/gcc/testsuite/gcc.dg/sso-17.c b/gcc/testsuite/gcc.dg/sso-17.c
+new file mode 100644
+index 00000000000..67e2d3793fd
+--- /dev/null
++++ b/gcc/testsuite/gcc.dg/sso-17.c
+@@ -0,0 +1,52 @@
++/* { dg-do run } */
++/* { dg-options "-O2" } */
++
++#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
++#define REV_ENDIANNESS __attribute__((scalar_storage_order("big-endian")))
++#else
++#define REV_ENDIANNESS __attribute__((scalar_storage_order("little-endian")))
++#endif
++
++typedef unsigned long long u64;
++
++union DST {
++  u64 val;
++
++  struct {
++    u64 x : 1;
++    u64 y : 1;
++    u64 r: 62;
++  } REV_ENDIANNESS;
++} REV_ENDIANNESS;
++
++
++struct SRC {
++  u64 a;
++} REV_ENDIANNESS;
++
++[[gnu::noipa]]
++void foo () {__builtin_abort();}
++
++[[gnu::noinline]]
++int bar(struct SRC *src)
++{
++  union DST dst;
++  
++  dst.val = src->a;
++
++  if (dst.y) {
++    foo();
++  }
++  return 0;
++}
++
++int main(void)
++{
++#if __BYTE_ORDER__ == __ORDER_LITTLE_ENDIAN__
++  struct SRC t = {-1ull & (~(0x01ull<<62))};
++#else
++  struct SRC t = {-1ull & (~(0x01ull<<1))};
++#endif
++  bar(&t);
++  return 0;
 +}
 diff --git a/gcc/testsuite/gcc.dg/torture/pr106590.c b/gcc/testsuite/gcc.dg/torture/pr106590.c
 new file mode 100644
@@ -9522,6 +10829,20 @@ index 00000000000..1204b6e36d5
 +    __builtin_abort ();
 +  return 0;
 +}
+diff --git a/gcc/testsuite/gcc.dg/tree-ssa/pr108137.c b/gcc/testsuite/gcc.dg/tree-ssa/pr108137.c
+new file mode 100644
+index 00000000000..f0cb71b2267
+--- /dev/null
++++ b/gcc/testsuite/gcc.dg/tree-ssa/pr108137.c
+@@ -0,0 +1,8 @@
++// PR tree-optimization/108137
++// { dg-do compile }
++// { dg-options "-Wformat-overflow" }
++
++void f(unsigned short x_port, unsigned int x_host)
++{
++    __builtin_printf("missing %s", x_port ? "host" : &"host:port"[x_host ? 5 : 0]);
++}
 diff --git a/gcc/testsuite/gcc.dg/tree-ssa/ssa-fre-100.c b/gcc/testsuite/gcc.dg/tree-ssa/ssa-fre-100.c
 new file mode 100644
 index 00000000000..ead76548f3d
@@ -9699,6 +11020,27 @@ index 00000000000..109c2b991a6
 +    __builtin_abort();
 +  return 0;
 +}
+diff --git a/gcc/testsuite/gcc.target/aarch64/acle/pr108140.c b/gcc/testsuite/gcc.target/aarch64/acle/pr108140.c
+new file mode 100644
+index 00000000000..967928a7dca
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/aarch64/acle/pr108140.c
+@@ -0,0 +1,15 @@
++/* PR target/108140  */
++/* { dg-do compile } */
++/* { dg-options "-O2" } */
++
++#include<arm_acle.h>
++
++int
++main(int argc, char *argv[])
++{
++	unsigned long long input = argc-1;
++	unsigned long long v = __clz(__rbit(input));
++	__builtin_printf("%d %d\n", argc, v >= 64 ? 123 : 456);
++	return 0;
++}
++
 diff --git a/gcc/testsuite/gcc.target/aarch64/cpunative/info_18 b/gcc/testsuite/gcc.target/aarch64/cpunative/info_18
 new file mode 100644
 index 00000000000..25061a4abe8
@@ -9955,6 +11297,313 @@ index 00000000000..a9f650f971a
 +  for (i = 0; i < count; ++i)
 +    dest[i] = !__builtin_isunordered (a[i], 0) ? src[i] : 0;
 +}
+diff --git a/gcc/testsuite/gcc.target/arm/mve/intrinsics/vldst24q_reg_offset.c b/gcc/testsuite/gcc.target/arm/mve/intrinsics/vldst24q_reg_offset.c
+new file mode 100644
+index 00000000000..d028b91e81a
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/arm/mve/intrinsics/vldst24q_reg_offset.c
+@@ -0,0 +1,300 @@
++/* { dg-require-effective-target arm_v8_1m_mve_ok } */
++/* { dg-add-options arm_v8_1m_mve } */
++/* { dg-additional-options "-O1" } */
++/* { dg-final { check-function-bodies "**" "" } } */
++
++#include "arm_mve.h"
++
++#ifdef __cplusplus
++extern "C" {
++#endif
++
++/*
++**test:
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test(const uint8_t * in, uint8_t * out, int width)
++{
++  uint8x16x2_t rg = vld2q(in);
++  uint8x16x2_t gb = vld2q(in + width);
++  vst2q (out, rg);
++  vst2q (out + width, gb);
++}
++
++/*
++**test2:
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]!
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]!
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test2(const uint8_t * in, uint8_t * out)
++{
++  uint8x16x2_t rg = vld2q(in);
++  uint8x16x2_t gb = vld2q(in + 32);
++  vst2q (out, rg);
++  vst2q (out + 32, gb);
++}
++
++/*
++**test3:
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test3(const uint8_t * in, uint8_t * out)
++{
++  uint8x16x2_t rg = vld2q(in);
++  uint8x16x2_t gb = vld2q(in - 32);
++  vst2q (out, rg);
++  vst2q (out - 32, gb);
++}
++
++/*
++**test4:
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test4(const uint8_t * in, uint8_t * out)
++{
++  uint8x16x2_t rg = vld2q(in);
++  uint8x16x2_t gb = vld2q(in + 64);
++  vst2q (out, rg);
++  vst2q (out + 64, gb);
++}
++
++/*
++**test5:
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vld20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst20.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst21.8	{q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test5(const uint8_t * in, uint8_t * out)
++{
++  uint8x16x2_t rg = vld2q(in);
++  uint8x16x2_t gb = vld2q(in + 42);
++  vst2q (out, rg);
++  vst2q (out + 42, gb);
++}
++
++/*
++**test6:
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test6(const uint8_t * in, uint8_t * out, int width)
++{
++  uint8x16x4_t rg = vld4q(in);
++  uint8x16x4_t gb = vld4q(in + width);
++  vst4q (out, rg);
++  vst4q (out + width, gb);
++}
++
++/*
++**test7:
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test7(const uint8_t * in, uint8_t * out)
++{
++  uint8x16x4_t rg = vld4q(in);
++  uint8x16x4_t gb = vld4q(in + 32);
++  vst4q (out, rg);
++  vst4q (out + 32, gb);
++}
++
++/*
++**test8:
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]!
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]!
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test8(const uint8_t * in, uint8_t * out)
++{
++  uint8x16x4_t rg = vld4q(in);
++  uint8x16x4_t gb = vld4q(in + 64);
++  vst4q (out, rg);
++  vst4q (out + 64, gb);
++}
++
++/*
++**test9:
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test9(const uint8_t * in, uint8_t * out)
++{
++  uint8x16x4_t rg = vld4q(in);
++  uint8x16x4_t gb = vld4q(in - 64);
++  vst4q (out, rg);
++  vst4q (out - 64, gb);
++}
++
++/*
++**test10:
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vld40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vld43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++**	vst40.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst41.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst42.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	vst43.8	{q[0-9]+, q[0-9]+, q[0-9]+, q[0-9]+}, \[(?:ip|fp|r[0-9]+)\]
++**	...
++*/
++void
++test10(const uint8_t * in, uint8_t * out)
++{
++  uint8x16x4_t rg = vld4q(in);
++  uint8x16x4_t gb = vld4q(in + 42);
++  vst4q (out, rg);
++  vst4q (out + 42, gb);
++}
++
++#ifdef __cplusplus
++}
++#endif
++
++/* { dg-final { scan-assembler-not "__ARM_undef" } } */
+\ No newline at end of file
 diff --git a/gcc/testsuite/gcc.target/i386/amx-check.h b/gcc/testsuite/gcc.target/i386/amx-check.h
 index 434b0e59703..6fff5ff4631 100644
 --- a/gcc/testsuite/gcc.target/i386/amx-check.h
@@ -10456,6 +12105,128 @@ index 00000000000..c05072d3416
 +
 +  return 0;
 +}
+diff --git a/gcc/testsuite/gcc.target/powerpc/pr106736-1.c b/gcc/testsuite/gcc.target/powerpc/pr106736-1.c
+new file mode 100644
+index 00000000000..65bd79d3dce
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/powerpc/pr106736-1.c
+@@ -0,0 +1,20 @@
++/* { dg-require-effective-target powerpc_p9modulo_ok } */
++/* If the default cpu type is power10 or later, type __vector_quad is
++   supported.  To keep the test point available all the time, this case
++   specifies -mdejagnu-cpu=power9 here.  */
++/* { dg-options "-mdejagnu-cpu=power9" } */
++
++/* Verify there is no ICE and don't check the error messages on unsupported
++   type since they could be fragile and are not test points of this case.  */
++
++/* { dg-excess-errors "pr106736-1" } */
++
++extern void bar (__vector_quad *);
++
++void
++foo (__vector_quad *a, __vector_quad *b)
++{
++  __vector_quad arr[2] = {*a, *b};
++  bar (&arr[0]);
++}
++
+diff --git a/gcc/testsuite/gcc.target/powerpc/pr106736-2.c b/gcc/testsuite/gcc.target/powerpc/pr106736-2.c
+new file mode 100644
+index 00000000000..12ad936fccc
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/powerpc/pr106736-2.c
+@@ -0,0 +1,17 @@
++/* { dg-require-effective-target powerpc_p9modulo_ok } */
++/* If the default cpu type is power10 or later, type __vector_pair is
++   supported.  To keep the test point available all the time, this case
++   specifies -mdejagnu-cpu=power9 here.  */
++/* { dg-options "-mdejagnu-cpu=power9" } */
++
++/* Verify there is no ICE and don't check the error messages on unsupported
++   type since they could be fragile and are not test points of this case.  */
++
++/* { dg-excess-errors "pr106736-2" } */
++
++void
++foo (__vector_pair *a, __vector_pair *b)
++{
++  *a = *b;
++}
++
+diff --git a/gcc/testsuite/gcc.target/powerpc/pr106736-3.c b/gcc/testsuite/gcc.target/powerpc/pr106736-3.c
+new file mode 100644
+index 00000000000..4fb368b8fb5
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/powerpc/pr106736-3.c
+@@ -0,0 +1,18 @@
++/* { dg-require-effective-target powerpc_p9modulo_ok } */
++/* If the default cpu type is power10 or later, type __vector_quad is
++   supported.  To keep the test point available all the time, this case
++   specifies -mdejagnu-cpu=power9 here.  */
++/* { dg-options "-mdejagnu-cpu=power9" } */
++
++/* Verify there is no ICE and don't check the error messages on unsupported
++   type since they could be fragile and are not test points of this case.  */
++
++/* { dg-excess-errors "pr106736-3" } */
++
++__vector_quad ga;
++void
++foo (__vector_quad *a)
++{
++  ga = *a;
++}
++
+diff --git a/gcc/testsuite/gcc.target/powerpc/pr106736-4.c b/gcc/testsuite/gcc.target/powerpc/pr106736-4.c
+new file mode 100644
+index 00000000000..4b366416b0a
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/powerpc/pr106736-4.c
+@@ -0,0 +1,19 @@
++/* { dg-require-effective-target powerpc_p9modulo_ok } */
++/* If the default cpu type is power10 or later, type __vector_quad is
++   supported.  To keep the test point available all the time, this case
++   specifies -mdejagnu-cpu=power9 here.  */
++/* { dg-options "-mdejagnu-cpu=power9" } */
++
++/* Verify there is no ICE and don't check the error messages on unsupported
++   type since they could be fragile and are not test points of this case.  */
++
++/* { dg-excess-errors "pr106736-4" } */
++
++__vector_quad ga;
++__vector_quad gb;
++void
++foo ()
++{
++  gb = ga;
++}
++
+diff --git a/gcc/testsuite/gcc.target/powerpc/pr106736-5.c b/gcc/testsuite/gcc.target/powerpc/pr106736-5.c
+new file mode 100644
+index 00000000000..d7370b81e81
+--- /dev/null
++++ b/gcc/testsuite/gcc.target/powerpc/pr106736-5.c
+@@ -0,0 +1,18 @@
++/* { dg-require-effective-target powerpc_p9modulo_ok } */
++/* If the default cpu type is power10 or later, type __vector_pair is
++   supported.  To keep the test point available all the time, this case
++   specifies -mdejagnu-cpu=power9 here.  */
++/* { dg-options "-mdejagnu-cpu=power9" } */
++
++/* Verify there is no ICE and don't check the error messages on unsupported
++   type since they could be fragile and are not test points of this case.  */
++
++/* { dg-excess-errors "pr106736-5" } */
++
++__vector_pair ga;
++void
++foo (__vector_pair *a)
++{
++  *a = ga;
++}
++
 diff --git a/gcc/testsuite/gcc.target/powerpc/pr96072.c b/gcc/testsuite/gcc.target/powerpc/pr96072.c
 new file mode 100644
 index 00000000000..10341c91d2f
@@ -11258,6 +13029,21 @@ index 00000000000..6bddb17a1be
 +
 +      RETURN
 +      END
+diff --git a/gcc/testsuite/gfortran.dg/guality/guality.exp b/gcc/testsuite/gfortran.dg/guality/guality.exp
+index 0375edfffe4..86a966a9133 100644
+--- a/gcc/testsuite/gfortran.dg/guality/guality.exp
++++ b/gcc/testsuite/gfortran.dg/guality/guality.exp
+@@ -8,6 +8,10 @@ if { [istarget *-*-darwin*] } {
+   return
+ }
+ 
++if { [istarget hppa*-*-hpux*] } {
++    return
++}
++
+ if { [istarget "powerpc-ibm-aix*"] } {
+     set torture_execute_xfail "powerpc-ibm-aix*"
+     return
 diff --git a/gcc/testsuite/gfortran.dg/illegal_boz_arg_4.f90 b/gcc/testsuite/gfortran.dg/illegal_boz_arg_4.f90
 new file mode 100644
 index 00000000000..856cfa9211f
@@ -11383,6 +13169,23 @@ index 00000000000..ea49f9630c9
 +  call r(null(z))
 +  call s(null(z)) ! { dg-error "requires an explicit interface" }
 +end
+diff --git a/gcc/testsuite/gfortran.dg/pr103505.f90 b/gcc/testsuite/gfortran.dg/pr103505.f90
+index 522e53efcb2..01308019b2c 100644
+--- a/gcc/testsuite/gfortran.dg/pr103505.f90
++++ b/gcc/testsuite/gfortran.dg/pr103505.f90
+@@ -3,7 +3,9 @@
+ ! Testcase by G.Steinmetz
+ 
+ program p
+-  integer, parameter :: a((2.))   = [4,8] ! { dg-error "scalar INTEGER" }
+-  integer, parameter :: z(1:(2.)) = [4,8] ! { dg-error "scalar INTEGER" }
+-  print *, a(1:1)                         ! { dg-error "Syntax error" }
++  integer, parameter :: a((2.))   = [4,8] ! { dg-error "INTEGER type" }
++  integer, parameter :: z(1:(2.)) = [4,8] ! { dg-error "INTEGER type" }
++  print *, a(1:1)
+ end
++
++! { dg-prune-output "Parameter array" }
 diff --git a/gcc/testsuite/gfortran.dg/pr103694.f90 b/gcc/testsuite/gfortran.dg/pr103694.f90
 new file mode 100644
 index 00000000000..3ed8b2088da
@@ -11492,6 +13295,83 @@ index 00000000000..bbfe646beba
 +  type(t), parameter :: c(2) = pack(b,[.false.,.true.,.false.,.true.]) ! { dg-error "Different shape" }
 +  type(t), parameter :: d(4) = unpack(c,[.false.,.true.,.false.,.true.],a)
 +end
+diff --git a/gcc/testsuite/gfortran.dg/pr107872.f90 b/gcc/testsuite/gfortran.dg/pr107872.f90
+new file mode 100644
+index 00000000000..09838479e92
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr107872.f90
+@@ -0,0 +1,40 @@
++! { dg-do run }
++!
++! Test the fix for PR107872, where an ICE occurred in
++! resolve.cc(derived_inaccessible) because derived types with
++! recursive allocatable components were not catered for.
++!
++module mod1
++  type t
++     integer :: data
++     type(t), allocatable :: next
++   contains
++     procedure, private :: write_t
++     generic :: write(formatted) => write_t
++  end type
++contains
++  recursive subroutine write_t(this, unit, iotype, v_list, iostat, iomsg)
++    class(t), intent(in) :: this
++    integer, intent(in) :: unit
++    character(*), intent(in) :: iotype
++    integer, intent(in) :: v_list(:)
++    integer, intent(out) :: iostat
++    character(*), intent(inout) :: iomsg
++    if (ALLOCATED(this%next)) &
++         write (unit, '(dt)') this%next
++    write (unit, '(i2)') this%data
++  end subroutine
++end module
++
++  use mod1
++  type(t) :: a
++  character (8) :: buffer
++  a%data = 1
++  allocate (a%next)
++  a%next%data = 2
++  allocate (a%next%next)
++  a%next%next%data = 3
++  write (buffer, '(dt)')a
++  deallocate (a%next)
++  if (trim (buffer) .ne. ' 3 2 1') stop 1
++end
+diff --git a/gcc/testsuite/gfortran.dg/pr108131.f90 b/gcc/testsuite/gfortran.dg/pr108131.f90
+new file mode 100644
+index 00000000000..8bf36d361ba
+--- /dev/null
++++ b/gcc/testsuite/gfortran.dg/pr108131.f90
+@@ -0,0 +1,25 @@
++! { dg-do run }
++! { dg-additional-options "-fdump-tree-original" }
++! PR fortran/108131
++!
++! Incorrect array bounds when bound intrinsic used in declaration
++
++program test
++  implicit none
++  integer, parameter :: mg(7:10)                 = 0
++  integer, parameter :: u =   ubound(mg, dim=1)
++  integer, parameter :: cx(-1:ubound(mg, dim=1)) = 1
++  integer, parameter :: dx(lbound(mg, dim=1):ubound(cx, dim=1)) = 2
++
++  write(*,*) ubound(mg, dim=1)
++  write(*,*) ubound(cx, dim=1)
++  if (u /= 10) stop 1
++  if (ubound(mg, dim=1) /= 10) stop 2
++  if (ubound(cx, dim=1) /= 10) stop 3
++  if (ubound(dx, dim=1) /= 10) stop 4
++  if (lbound(mg, dim=1) /=  7) stop 5
++  if (lbound(cx, dim=1) /= -1) stop 6
++  if (lbound(dx, dim=1) /=  7) stop 7
++end program test
++
++! { dg-final { scan-tree-dump-not "_gfortran_stop_numeric" "original" } }
 diff --git a/gcc/testsuite/gfortran.dg/vect/pr107254.f90 b/gcc/testsuite/gfortran.dg/vect/pr107254.f90
 new file mode 100644
 index 00000000000..85bcb5f3fa2
@@ -12089,7 +13969,7 @@ index fb457250bbd..3666b90ba5c 100644
  				  get_object_alignment (ref));
    ref = build2 (MEM_REF, type, addr, alias_ptr);
 diff --git a/gcc/tree-sra.cc b/gcc/tree-sra.cc
-index 099e8dbe873..95291e8df93 100644
+index 099e8dbe873..09dbd7be77f 100644
 --- a/gcc/tree-sra.cc
 +++ b/gcc/tree-sra.cc
 @@ -260,6 +260,9 @@ struct access
@@ -12120,6 +14000,31 @@ index 099e8dbe873..95291e8df93 100644
  	  propagate_subaccesses_from_lhs (lchild, new_acc);
  	}
        else
+@@ -3851,7 +3858,23 @@ sra_modify_expr (tree *expr, gimple_stmt_iterator *gsi, bool write)
+ 	    }
+ 	}
+       else
+-	*expr = repl;
++	{
++	  /* If we are going to replace a scalar field in a structure with
++	     reverse storage order by a stand-alone scalar, we are going to
++	     effectively byte-swap the scalar and we also need to byte-swap
++	     the portion of it represented by the bit-field.  */
++	  if (bfr && REF_REVERSE_STORAGE_ORDER (bfr))
++	    {
++	      REF_REVERSE_STORAGE_ORDER (bfr) = 0;
++	      TREE_OPERAND (bfr, 2)
++		= size_binop (MINUS_EXPR, TYPE_SIZE (TREE_TYPE (repl)),
++			      size_binop (PLUS_EXPR, TREE_OPERAND (bfr, 1),
++						     TREE_OPERAND (bfr, 2)));
++	    }
++
++	  *expr = repl;
++	}
++
+       sra_stats.exprs++;
+     }
+   else if (write && access->grp_to_be_debug_replaced)
 diff --git a/gcc/tree-ssa-dse.cc b/gcc/tree-ssa-dse.cc
 index 881a2d0f98d..e647f0e7368 100644
 --- a/gcc/tree-ssa-dse.cc
@@ -12679,6 +14584,32 @@ index e22c7026556..a63f5c8c307 100644
  	}
      }
    else
+diff --git a/gcc/tree-ssa-strlen.cc b/gcc/tree-ssa-strlen.cc
+index 9ae25d1dde2..2d7db6da5bc 100644
+--- a/gcc/tree-ssa-strlen.cc
++++ b/gcc/tree-ssa-strlen.cc
+@@ -1136,14 +1136,15 @@ get_range_strlen_phi (tree src, gphi *phi,
+ 
+       /* Adjust the minimum and maximum length determined so far and
+ 	 the upper bound on the array size.  */
+-      if (!pdata->minlen
+-	  || tree_int_cst_lt (argdata.minlen, pdata->minlen))
++      if (TREE_CODE (argdata.minlen) == INTEGER_CST
++	  && (!pdata->minlen
++	      || tree_int_cst_lt (argdata.minlen, pdata->minlen)))
+ 	pdata->minlen = argdata.minlen;
+ 
+-      if (!pdata->maxlen
+-	  || (argdata.maxlen
+-	      && TREE_CODE (argdata.maxlen) == INTEGER_CST
+-	      && tree_int_cst_lt (pdata->maxlen, argdata.maxlen)))
++      if (TREE_CODE (argdata.maxlen) == INTEGER_CST
++	  && (!pdata->maxlen
++	      || (argdata.maxlen
++		  && tree_int_cst_lt (pdata->maxlen, argdata.maxlen))))
+ 	pdata->maxlen = argdata.maxlen;
+ 
+       if (!pdata->maxbound
 diff --git a/gcc/tree-ssa-uninit.cc b/gcc/tree-ssa-uninit.cc
 index f326f1775c0..30aafda68f7 100644
 --- a/gcc/tree-ssa-uninit.cc
@@ -13150,10 +15081,18 @@ index 6f6499c58c3..10e1c5f5dbb 100644
      }
  #endif
 diff --git a/libcpp/po/ChangeLog b/libcpp/po/ChangeLog
-index 1dff84d4094..ffe71140a6e 100644
+index 1dff84d4094..8d5e5ce9ff4 100644
 --- a/libcpp/po/ChangeLog
 +++ b/libcpp/po/ChangeLog
-@@ -1,3 +1,7 @@
+@@ -1,3 +1,15 @@
++2023-01-16  Joseph Myers  <joseph@codesourcery.com>
++
++	* ka.po: New.
++
++2023-01-09  Joseph Myers  <joseph@codesourcery.com>
++
++	* eo.po: Update.
++
 +2022-10-10  Joseph Myers  <joseph@codesourcery.com>
 +
 +	* ro.po: New.
@@ -13161,6 +15100,1291 @@ index 1dff84d4094..ffe71140a6e 100644
  2022-08-19  Release Manager
  
  	* GCC 12.2.0 released.
+diff --git a/libcpp/po/eo.po b/libcpp/po/eo.po
+index 30543642cc5..846fcf476df 100644
+--- a/libcpp/po/eo.po
++++ b/libcpp/po/eo.po
+@@ -1,14 +1,14 @@
+ # Translation of cpplib to Esperanto
+-# Copyright (C) 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021 Free Software Foundation, Inc.
++# Copyright (C) 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2023 Free Software Foundation, Inc.
+ # This file is distributed under the same license as the gcc package.
+-# Felipe Castro <fefcas@gmail.com>, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021.
++# Felipe Castro <fefcas@gmail.com>, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2023.
+ #
+ msgid ""
+ msgstr ""
+-"Project-Id-Version: cpplib 11.1-b20210207\n"
++"Project-Id-Version: cpplib 12.1-b20220213\n"
+ "Report-Msgid-Bugs-To: https://gcc.gnu.org/bugs/\n"
+ "POT-Creation-Date: 2022-02-11 23:02+0000\n"
+-"PO-Revision-Date: 2021-03-07 10:29-0300\n"
++"PO-Revision-Date: 2023-01-08 14:43-0300\n"
+ "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
+ "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
+ "Language: eo\n"
+@@ -208,10 +208,9 @@ msgid "style of line directive is a GCC extension"
+ msgstr "stilo de lini-direktivoj estas aldono de GCC"
+ 
+ #: directives.cc:541
+-#, fuzzy, c-format
+-#| msgid "invalid preprocessing directive #%s"
++#, c-format
+ msgid "invalid preprocessing directive #%s; did you mean #%s?"
+-msgstr "malvalida antaŭproceza direktivo #%s"
++msgstr "malvalida antaŭproceza direktivo #%s; ĉu vi intencis #%s?"
+ 
+ #: directives.cc:547
+ #, c-format
+@@ -394,28 +393,24 @@ msgid "the conditional began here"
+ msgstr "la kondiĉo komencis ĉi tie"
+ 
+ #: directives.cc:2108
+-#, fuzzy, c-format
+-#| msgid "#else without #if"
++#, c-format
+ msgid "#%s without #if"
+-msgstr "#else sen #if"
++msgstr "#%s sen #if"
+ 
+ #: directives.cc:2113
+-#, fuzzy, c-format
+-#| msgid "#else after #else"
++#, c-format
+ msgid "#%s after #else"
+-msgstr "#else post #else"
++msgstr "#%s post #else"
+ 
+ #: directives.cc:2136 directives.cc:2175
+-#, fuzzy, c-format
+-#| msgid "#%s is a GCC extension"
++#, c-format
+ msgid "#%s before C++23 is a GCC extension"
+-msgstr "#%s estas aldono de GCC"
++msgstr "#%s antaŭ C++23 estas aldono de GCC"
+ 
+ #: directives.cc:2140 directives.cc:2179
+-#, fuzzy, c-format
+-#| msgid "#%s is a GCC extension"
++#, c-format
+ msgid "#%s before C2X is a GCC extension"
+-msgstr "#%s estas aldono de GCC"
++msgstr "#%s antaŭ C2X estas aldono de GCC"
+ 
+ #: directives.cc:2215
+ msgid "#endif without #if"
+@@ -724,30 +719,30 @@ msgstr "trigrafikaĵo ??%c preteratentita, uzu -trigraphs por ebligi"
+ 
+ #: lex.cc:1536
+ msgid "end of bidirectional context"
+-msgstr ""
++msgstr "fino de dudirekta kunteksto"
+ 
+ #: lex.cc:1577
+ msgid "unpaired UTF-8 bidirectional control characters detected"
+-msgstr ""
++msgstr "neparigitaj dudirektaj regaj signoj de UTF-8 estas detektitaj"
+ 
+ #: lex.cc:1581
+ msgid "unpaired UTF-8 bidirectional control character detected"
+-msgstr ""
++msgstr "neparigita dudirekta rega signo de UTF-8 estas detektita"
+ 
+ #: lex.cc:1619
+ #, c-format
+ msgid "UTF-8 vs UCN mismatch when closing a context by \"%s\""
+-msgstr ""
++msgstr "Malkongruo inter UTF-8 kaj UCN dum fermo de kunteksto farite de \"%s\""
+ 
+ #: lex.cc:1628
+ #, c-format
+ msgid "\"%s\" is closing an unopened context"
+-msgstr ""
++msgstr "\"%s\" fermas malfermitan kuntekston"
+ 
+ #: lex.cc:1632
+ #, c-format
+ msgid "found problematic Unicode character \"%s\""
+-msgstr ""
++msgstr "estas trovita problema unikoda signo \"%s\""
+ 
+ #: lex.cc:1682
+ msgid "\"/*\" within comment"
+@@ -800,7 +795,7 @@ msgstr "la identiganto \"%s\" estas speciala operator-nomo en C++"
+ 
+ #: lex.cc:2132
+ msgid "adjacent digit separators"
+-msgstr ""
++msgstr "apudaj cifero-apartigiloj"
+ 
+ #: lex.cc:2450
+ msgid "raw string delimiter longer than 16 characters"
+@@ -884,20 +879,16 @@ msgid "'##' cannot appear at either end of __VA_OPT__"
+ msgstr "'##' ne povas aperi ĉe iu ajn flanko de __VA_OPT__"
+ 
+ #: macro.cc:144
+-#, fuzzy
+-#| msgid "'##' cannot appear at either end of __VA_OPT__"
+ msgid "__VA_OPT__ may not appear in a __VA_OPT__"
+-msgstr "'##' ne povas aperi ĉe iu ajn flanko de __VA_OPT__"
++msgstr "__VA_OPT__ ne povas aperi ene de __VA_OPT__"
+ 
+ #: macro.cc:157
+ msgid "__VA_OPT__ must be followed by an open parenthesis"
+-msgstr ""
++msgstr "__VA_OPT__ devas esti sekvata de malferma ronda krampo"
+ 
+ #: macro.cc:235
+-#, fuzzy
+-#| msgid "unterminated #%s"
+ msgid "unterminated __VA_OPT__"
+-msgstr "nefinigita #%s"
++msgstr "nefinigita __VA_OPT__"
+ 
+ #: macro.cc:397
+ #, c-format
+@@ -951,10 +942,9 @@ msgid "invalid string literal, ignoring final '\\'"
+ msgstr "malvalida ĉena literaĵo, ni preterpasas finan '\\'"
+ 
+ #: macro.cc:980
+-#, fuzzy, c-format
+-#| msgid "pasting \"%s\" and \"%s\" does not give a valid preprocessing token"
++#, c-format
+ msgid "pasting \"%.*s\" and \"%.*s\" does not give a valid preprocessing token"
+-msgstr "algluo de \"%s\" kaj \"%s\" ne rezultas en valida antaŭproceza ĵetono"
++msgstr "algluo de \"%.*s\" kaj \"%.*s\" ne rezultas en valida antaŭproceza ĵetono"
+ 
+ #: macro.cc:1112
+ msgid "ISO C++11 requires at least one argument for the \"...\" in a variadic macro"
+@@ -975,10 +965,9 @@ msgid "macro \"%s\" passed %u arguments, but takes just %u"
+ msgstr "la makroo \"%s\" pasis %u argumentojn, sed ĝi prenas nur %u"
+ 
+ #: macro.cc:1132
+-#, fuzzy, c-format
+-#| msgid "macro \"%s\" is not used"
++#, c-format
+ msgid "macro \"%s\" defined here"
+-msgstr "makroo \"%s\" ne estas uzata"
++msgstr "makroo \"%s\" difinita ĉi tie"
+ 
+ #: macro.cc:1326 traditional.cc:822
+ #, c-format
+diff --git a/libcpp/po/ka.po b/libcpp/po/ka.po
+new file mode 100644
+index 00000000000..785e8e6250f
+--- /dev/null
++++ b/libcpp/po/ka.po
+@@ -0,0 +1,1110 @@
++# Georgian translation for cpplib.
++# Copyright (C) 2023 Free Software Foundation, Inc.
++# This file is distributed under the same license as the gcc package.
++# Temuri Doghonadze <temuri.doghonadze@gmail.com>, 2023.
++#
++msgid ""
++msgstr ""
++"Project-Id-Version: cpplib 12.1-b20220213\n"
++"Report-Msgid-Bugs-To: https://gcc.gnu.org/bugs/\n"
++"POT-Creation-Date: 2022-02-11 23:02+0000\n"
++"PO-Revision-Date: 2023-01-15 07:01+0100\n"
++"Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
++"Language-Team: Georgian <(nothing)>\n"
++"Language: ka\n"
++"X-Bugs: Report translation errors to the Language-Team address.\n"
++"MIME-Version: 1.0\n"
++"Content-Type: text/plain; charset=UTF-8\n"
++"Content-Transfer-Encoding: 8bit\n"
++"Plural-Forms: nplurals=2; plural=(n != 1);\n"
++"X-Generator: Poedit 3.2.2\n"
++
++#: charset.cc:683
++#, c-format
++msgid "conversion from %s to %s not supported by iconv"
++msgstr "%s-დან %s-ზე გადაყვანა iconv-ს მიერ მხარდაჭერილი არაა"
++
++#: charset.cc:686
++msgid "iconv_open"
++msgstr "iconv_open"
++
++#: charset.cc:696
++#, c-format
++msgid "no iconv implementation, cannot convert from %s to %s"
++msgstr "iconv-ის გარეშე. %s-დან %s-ზე გადაყვანა შეუძლებელია"
++
++#: charset.cc:794
++#, c-format
++msgid "character 0x%lx is not in the basic source character set\n"
++msgstr ""
++
++#: charset.cc:811 charset.cc:1800
++msgid "converting to execution character set"
++msgstr "გაშვების სიმბოლოების ნაკრებში გადაყვანა"
++
++#: charset.cc:817
++#, c-format
++msgid "character 0x%lx is not unibyte in execution character set"
++msgstr ""
++
++#: charset.cc:1087
++msgid "universal character names are only valid in C++ and C99"
++msgstr ""
++
++#: charset.cc:1091
++msgid "C99's universal character names are incompatible with C90"
++msgstr ""
++
++#: charset.cc:1094
++#, c-format
++msgid "the meaning of '\\%c' is different in traditional C"
++msgstr ""
++
++#: charset.cc:1103
++msgid "In _cpp_valid_ucn but not a UCN"
++msgstr "არსებობს _cpp_valid_ucn -ში, მაგრამ არა UCN"
++
++#: charset.cc:1136
++#, c-format
++msgid "incomplete universal character name %.*s"
++msgstr "დაუსრულებელი უნივერსალური სიმბოლოს სახელი %.*s"
++
++#: charset.cc:1151
++#, c-format
++msgid "%.*s is not a valid universal character"
++msgstr "%.*s სწორი უნივერსალური სიმბოლო არაა"
++
++#: charset.cc:1161 lex.cc:1876
++msgid "'$' in identifier or number"
++msgstr "\"$\" იდენტიფიკატორში ან რიცხვში"
++
++#: charset.cc:1171
++#, c-format
++msgid "universal character %.*s is not valid in an identifier"
++msgstr "უნივერსალური სიმბოლო %.*s იდენტიფიკატორში დაუშვებელია"
++
++#: charset.cc:1175
++#, c-format
++msgid "universal character %.*s is not valid at the start of an identifier"
++msgstr "უნივერსალური სიმბოლო %.*s იდენტიფიკატორის დასაწყისში დაუშვებელია"
++
++#: charset.cc:1182
++#, c-format
++msgid "%.*s is outside the UCS codespace"
++msgstr "%.*s UCS კოდის სივრცის გარეთაა"
++
++#: charset.cc:1227 charset.cc:2145
++msgid "converting UCN to source character set"
++msgstr ""
++
++#: charset.cc:1234
++msgid "converting UCN to execution character set"
++msgstr ""
++
++#: charset.cc:1298
++#, c-format
++msgid "extended character %.*s is not valid in an identifier"
++msgstr ""
++
++#: charset.cc:1315
++#, c-format
++msgid "extended character %.*s is not valid at the start of an identifier"
++msgstr ""
++
++#: charset.cc:1401
++msgid "the meaning of '\\x' is different in traditional C"
++msgstr ""
++
++#: charset.cc:1426
++msgid "\\x used with no following hex digits"
++msgstr ""
++
++#: charset.cc:1433
++msgid "hex escape sequence out of range"
++msgstr "თექვსმეტობითი სპეციალური სიმბოლო დიაპაზონს გარეთაა"
++
++#: charset.cc:1483
++msgid "octal escape sequence out of range"
++msgstr "რვაობით სპეციალური სიმბოლო დიაპაზონს გარეთაა"
++
++#: charset.cc:1564
++msgid "the meaning of '\\a' is different in traditional C"
++msgstr ""
++
++#: charset.cc:1571
++#, c-format
++msgid "non-ISO-standard escape sequence, '\\%c'"
++msgstr "არა-ISO-სტანდარტის სპეციალური მიმდევრობა, '\\%c'"
++
++#: charset.cc:1579
++#, c-format
++msgid "unknown escape sequence: '\\%c'"
++msgstr "უცნობი სპეციალური მიმდევრობა: '\\%c'"
++
++#: charset.cc:1589
++#, c-format
++msgid "unknown escape sequence: '\\%s'"
++msgstr "უცნობი სპეციალური მიმდევრობა: '\\%s'"
++
++#: charset.cc:1597
++msgid "converting escape sequence to execution character set"
++msgstr ""
++
++#: charset.cc:1737
++msgid "missing open quote"
++msgstr "გამხსნელი ბრჭყალი აღმოჩენილი არაა"
++
++#: charset.cc:1955 charset.cc:2034
++msgid "character constant too long for its type"
++msgstr "სიმბოლოების მუდმივა ძალიან გრძელია თავისი ტიპისთვის"
++
++#: charset.cc:1958
++msgid "multi-character character constant"
++msgstr "მრავალსიმბოლოიანი სიმბოლური მუდმივა"
++
++#: charset.cc:2074
++msgid "empty character constant"
++msgstr "ცარიელი სიმბოლური მუდმივა"
++
++#: charset.cc:2230
++#, c-format
++msgid "failure to convert %s to %s"
++msgstr "%s-ის %s-ში გადაყვანის შეცდომა"
++
++#: directives.cc:237 directives.cc:280
++#, c-format
++msgid "extra tokens at end of #%s directive"
++msgstr "დამატებითი კოდები #%s დირექტივის ბოლოში"
++
++#: directives.cc:387
++#, c-format
++msgid "#%s is a GCC extension"
++msgstr "#%s GCC-ის გაფართოებაა"
++
++#: directives.cc:392
++#, c-format
++msgid "#%s is a deprecated GCC extension"
++msgstr "#%s GCC-ის მოძველებული გაფართოებაა"
++
++#: directives.cc:405
++msgid "suggest not using #elif in traditional C"
++msgstr "რჩევა, ტრადიციულ C-ში არ გამოიყენოთ #elif"
++
++#: directives.cc:408
++#, c-format
++msgid "traditional C ignores #%s with the # indented"
++msgstr ""
++
++#: directives.cc:412
++#, c-format
++msgid "suggest hiding #%s from traditional C with an indented #"
++msgstr ""
++
++#: directives.cc:438
++msgid "embedding a directive within macro arguments is not portable"
++msgstr ""
++
++#: directives.cc:466
++msgid "style of line directive is a GCC extension"
++msgstr "ხაზის დირექტივების სტილი GCC-ს გაფართოებაა"
++
++#: directives.cc:541
++#, c-format
++msgid "invalid preprocessing directive #%s; did you mean #%s?"
++msgstr ""
++
++#: directives.cc:547
++#, c-format
++msgid "invalid preprocessing directive #%s"
++msgstr "არასწორი პრეპროცესორის დირექტივა #%s"
++
++#: directives.cc:617
++#, c-format
++msgid "\"%s\" cannot be used as a macro name"
++msgstr "\"%s\" -ს მაკროს სახელში ვერ გამოიყენებთ"
++
++#: directives.cc:624
++#, c-format
++msgid "\"%s\" cannot be used as a macro name as it is an operator in C++"
++msgstr ""
++
++#: directives.cc:627
++#, c-format
++msgid "no macro name given in #%s directive"
++msgstr ""
++
++#: directives.cc:630
++msgid "macro names must be identifiers"
++msgstr "მაკროს სახელები იდენტიფიკატორებს უნდა წარმოადგენდნენ"
++
++#: directives.cc:679 directives.cc:684
++#, c-format
++msgid "undefining \"%s\""
++msgstr "\"%s\"-ის აღწერის გაუქმება"
++
++#: directives.cc:741
++msgid "missing terminating > character"
++msgstr "დამაბოლოებელი > სიმბოლო აღმოჩენილი არაა"
++
++#: directives.cc:800
++#, c-format
++msgid "#%s expects \"FILENAME\" or <FILENAME>"
++msgstr "#%s მოელის \"FILENAME\"-ს ან <FILENAME>-ს"
++
++#: directives.cc:846
++#, c-format
++msgid "empty filename in #%s"
++msgstr "ფაილის ცარიელი სახელი #%s -ში"
++
++#: directives.cc:855
++#, c-format
++msgid "#include nested depth %u exceeds maximum of %u (use -fmax-include-depth=DEPTH to increase the maximum)"
++msgstr ""
++
++#: directives.cc:900
++msgid "#include_next in primary source file"
++msgstr "#include_next კოდის ძირითად ფაილში"
++
++#: directives.cc:926
++#, c-format
++msgid "invalid flag \"%s\" in line directive"
++msgstr "არასწორი ალამი \"%s' ხაზის დირექტივაში"
++
++#: directives.cc:993
++msgid "unexpected end of file after #line"
++msgstr "ფაილის მოულოდნელი დასასრული #line-ის შემდეგ"
++
++#: directives.cc:996
++#, c-format
++msgid "\"%s\" after #line is not a positive integer"
++msgstr "\"%s\" #line-ის შემდეგ დადებითი მთელი რიცხვი არაა"
++
++#: directives.cc:1002 directives.cc:1004
++msgid "line number out of range"
++msgstr "ხაზის ნომერი დიაპაზონს გარეთაა"
++
++#: directives.cc:1017 directives.cc:1098
++#, c-format
++msgid "\"%s\" is not a valid filename"
++msgstr "'%s' არასწორი ფაილის სახელია"
++
++#: directives.cc:1058
++#, c-format
++msgid "\"%s\" after # is not a positive integer"
++msgstr "\"%s\" #-ის შემდეგ დადებითი მთელი რიცხვი არაა"
++
++#: directives.cc:1125
++#, c-format
++msgid "file \"%s\" linemarker ignored due to incorrect nesting"
++msgstr ""
++
++#: directives.cc:1203 directives.cc:1205 directives.cc:1207 directives.cc:1795
++#, c-format
++msgid "%s"
++msgstr "%s"
++
++#: directives.cc:1231
++#, c-format
++msgid "invalid #%s directive"
++msgstr "#%s: არასწორი დირექტივა"
++
++#: directives.cc:1294
++#, c-format
++msgid "registering pragmas in namespace \"%s\" with mismatched name expansion"
++msgstr ""
++
++#: directives.cc:1303
++#, c-format
++msgid "registering pragma \"%s\" with name expansion and no namespace"
++msgstr ""
++
++#: directives.cc:1321
++#, c-format
++msgid "registering \"%s\" as both a pragma and a pragma namespace"
++msgstr ""
++
++#: directives.cc:1324
++#, c-format
++msgid "#pragma %s %s is already registered"
++msgstr "#pragma %s %s უკვე რეგისტრირებულია"
++
++#: directives.cc:1327
++#, c-format
++msgid "#pragma %s is already registered"
++msgstr "#pragma %s უკვე დარეგისტრირებულია"
++
++#: directives.cc:1357
++msgid "registering pragma with NULL handler"
++msgstr ""
++
++#: directives.cc:1574
++msgid "#pragma once in main file"
++msgstr "#pragma ერთხელ მთავარ ფაილში"
++
++#: directives.cc:1597
++msgid "invalid #pragma push_macro directive"
++msgstr "არასწორი #pragma push_macro დირექტივა"
++
++#: directives.cc:1654
++msgid "invalid #pragma pop_macro directive"
++msgstr "არასწორი #pragma pop_macro დირექტივა"
++
++#: directives.cc:1709
++msgid "invalid #pragma GCC poison directive"
++msgstr ""
++
++#: directives.cc:1718
++#, c-format
++msgid "poisoning existing macro \"%s\""
++msgstr ""
++
++#: directives.cc:1737
++msgid "#pragma system_header ignored outside include file"
++msgstr ""
++
++#: directives.cc:1762
++#, c-format
++msgid "cannot find source file %s"
++msgstr "წყაროს ფაილი %s ვერ ვიპოვე"
++
++#: directives.cc:1766
++#, c-format
++msgid "current file is older than %s"
++msgstr "მიმდინარე ფაილი ძველია, ვიდრე %s"
++
++#: directives.cc:1790
++#, c-format
++msgid "invalid \"#pragma GCC %s\" directive"
++msgstr "არასწორი \"#pragma GCC %s\" დირექტივა"
++
++#: directives.cc:1992
++msgid "_Pragma takes a parenthesized string literal"
++msgstr ""
++
++#: directives.cc:2075
++msgid "#else without #if"
++msgstr "#else -ს #if -ი აკლია"
++
++#: directives.cc:2080
++msgid "#else after #else"
++msgstr "#else-ი #else-ის შემდეგ"
++
++#: directives.cc:2082 directives.cc:2116
++msgid "the conditional began here"
++msgstr "პირობა აქ იწყება"
++
++#: directives.cc:2108
++#, c-format
++msgid "#%s without #if"
++msgstr "#%s -ი #if -ის გარეშე"
++
++#: directives.cc:2113
++#, c-format
++msgid "#%s after #else"
++msgstr "#%s-ი #else -ის შემდეგ"
++
++#: directives.cc:2136 directives.cc:2175
++#, c-format
++msgid "#%s before C++23 is a GCC extension"
++msgstr "#%s -ი C++23 -ის შემდეგ GCC -ის გაფართოებაა"
++
++#: directives.cc:2140 directives.cc:2179
++#, c-format
++msgid "#%s before C2X is a GCC extension"
++msgstr ""
++
++#: directives.cc:2215
++msgid "#endif without #if"
++msgstr "#endif -ი #if -ის გარეშე"
++
++#: directives.cc:2291
++msgid "missing '(' after predicate"
++msgstr ""
++
++#: directives.cc:2309
++msgid "missing ')' to complete answer"
++msgstr ""
++
++#: directives.cc:2321
++msgid "predicate's answer is empty"
++msgstr "პრედიკატის პასუხი ცარიელია"
++
++#: directives.cc:2351
++msgid "assertion without predicate"
++msgstr "დამტკიცება პრედიკატის გარეშე"
++
++#: directives.cc:2354
++msgid "predicate must be an identifier"
++msgstr "პრედიკატი იდენტიფიკატორი უნდა იყოს"
++
++#: directives.cc:2436
++#, c-format
++msgid "\"%s\" re-asserted"
++msgstr ""
++
++#: directives.cc:2754
++#, c-format
++msgid "unterminated #%s"
++msgstr "დაუსრულებელი #%s"
++
++#: errors.cc:335 errors.cc:350
++#, c-format
++msgid "%s: %s"
++msgstr "%s: %s"
++
++#: errors.cc:348
++msgid "stdout"
++msgstr "stdout"
++
++#: expr.cc:632 expr.cc:749
++msgid "fixed-point constants are a GCC extension"
++msgstr ""
++
++#: expr.cc:657
++msgid "invalid prefix \"0b\" for floating constant"
++msgstr ""
++
++#: expr.cc:670
++msgid "use of C++17 hexadecimal floating constant"
++msgstr ""
++
++#: expr.cc:673
++msgid "use of C99 hexadecimal floating constant"
++msgstr ""
++
++#: expr.cc:717
++#, c-format
++msgid "invalid suffix \"%.*s\" on floating constant"
++msgstr ""
++
++#: expr.cc:728 expr.cc:795
++#, c-format
++msgid "traditional C rejects the \"%.*s\" suffix"
++msgstr ""
++
++#: expr.cc:736
++msgid "suffix for double constant is a GCC extension"
++msgstr ""
++
++#: expr.cc:742
++#, c-format
++msgid "invalid suffix \"%.*s\" with hexadecimal floating constant"
++msgstr ""
++
++#: expr.cc:755 expr.cc:759
++msgid "decimal float constants are a C2X feature"
++msgstr ""
++
++#: expr.cc:778
++#, c-format
++msgid "invalid suffix \"%.*s\" on integer constant"
++msgstr ""
++
++#: expr.cc:803
++msgid "use of C++11 long long integer constant"
++msgstr ""
++
++#: expr.cc:804
++msgid "use of C99 long long integer constant"
++msgstr ""
++
++#: expr.cc:818
++msgid "use of C++23 %<size_t%> integer constant"
++msgstr ""
++
++#: expr.cc:819
++msgid "use of C++23 %<make_signed_t<size_t>%> integer constant"
++msgstr ""
++
++#: expr.cc:830
++msgid "imaginary constants are a GCC extension"
++msgstr ""
++
++#: expr.cc:837
++msgid "binary constants are a C++14 feature or GCC extension"
++msgstr ""
++
++#: expr.cc:839
++msgid "binary constants are a C2X feature or GCC extension"
++msgstr ""
++
++#: expr.cc:844
++msgid "binary constants are a C2X feature"
++msgstr ""
++
++#: expr.cc:940
++msgid "integer constant is too large for its type"
++msgstr ""
++
++#: expr.cc:971
++msgid "integer constant is so large that it is unsigned"
++msgstr ""
++
++#: expr.cc:1066
++msgid "missing ')' after \"defined\""
++msgstr ""
++
++#: expr.cc:1073
++msgid "operator \"defined\" requires an identifier"
++msgstr ""
++
++#: expr.cc:1081
++#, c-format
++msgid "(\"%s\" is an alternative token for \"%s\" in C++)"
++msgstr ""
++
++#: expr.cc:1094
++msgid "this use of \"defined\" may not be portable"
++msgstr ""
++
++#: expr.cc:1139
++msgid "user-defined literal in preprocessor expression"
++msgstr ""
++
++#: expr.cc:1144
++msgid "floating constant in preprocessor expression"
++msgstr ""
++
++#: expr.cc:1150
++msgid "imaginary number in preprocessor expression"
++msgstr ""
++
++#: expr.cc:1199
++#, c-format
++msgid "\"%s\" is not defined, evaluates to 0"
++msgstr ""
++
++#: expr.cc:1212
++msgid "assertions are a GCC extension"
++msgstr ""
++
++#: expr.cc:1215
++msgid "assertions are a deprecated extension"
++msgstr ""
++
++#: expr.cc:1461
++#, c-format
++msgid "unbalanced stack in %s"
++msgstr ""
++
++#: expr.cc:1481
++#, c-format
++msgid "impossible operator '%u'"
++msgstr "შეუძლებელი ოპერატორი '%u'"
++
++#: expr.cc:1582
++msgid "missing ')' in expression"
++msgstr "გამოსახულებას ')' აკლია"
++
++#: expr.cc:1611
++msgid "'?' without following ':'"
++msgstr "'?' -ი მომყოლი ':'-ის გარეშე"
++
++#: expr.cc:1621
++msgid "integer overflow in preprocessor expression"
++msgstr ""
++
++#: expr.cc:1626
++msgid "missing '(' in expression"
++msgstr ""
++
++#: expr.cc:1658
++#, c-format
++msgid "the left operand of \"%s\" changes sign when promoted"
++msgstr ""
++
++#: expr.cc:1663
++#, c-format
++msgid "the right operand of \"%s\" changes sign when promoted"
++msgstr ""
++
++#: expr.cc:1922
++msgid "traditional C rejects the unary plus operator"
++msgstr ""
++
++#: expr.cc:2020
++msgid "comma operator in operand of #if"
++msgstr ""
++
++#: expr.cc:2156
++msgid "division by zero in #if"
++msgstr "ნულზე გაყოფა #if -ში"
++
++#: files.cc:516
++msgid "NULL directory in find_file"
++msgstr ""
++
++#: files.cc:570
++msgid "one or more PCH files were found, but they were invalid"
++msgstr ""
++
++#: files.cc:574
++msgid "use -Winvalid-pch for more information"
++msgstr ""
++
++#: files.cc:688
++#, c-format
++msgid "%s is a block device"
++msgstr "%s ბლოკური მოწყობილობაა"
++
++#: files.cc:707
++#, c-format
++msgid "%s is too large"
++msgstr "%s ძალიან დიდია"
++
++#: files.cc:748
++#, c-format
++msgid "%s is shorter than expected"
++msgstr "%s მოსალოდნელზე მოკლეა"
++
++#: files.cc:1060
++#, c-format
++msgid "no include path in which to search for %s"
++msgstr ""
++
++#: files.cc:1578
++msgid "Multiple include guards may be useful for:\n"
++msgstr ""
++
++#: init.cc:618
++msgid "cppchar_t must be an unsigned type"
++msgstr ""
++
++#: init.cc:622
++#, c-format
++msgid "preprocessor arithmetic has maximum precision of %lu bits; target requires %lu bits"
++msgstr ""
++
++#: init.cc:629
++msgid "CPP arithmetic must be at least as precise as a target int"
++msgstr ""
++
++#: init.cc:632
++msgid "target char is less than 8 bits wide"
++msgstr ""
++
++#: init.cc:636
++msgid "target wchar_t is narrower than target char"
++msgstr ""
++
++#: init.cc:640
++msgid "target int is narrower than target char"
++msgstr ""
++
++#: init.cc:645
++msgid "CPP half-integer narrower than CPP character"
++msgstr ""
++
++#: init.cc:649
++#, c-format
++msgid "CPP on this host cannot handle wide character constants over %lu bits, but the target requires %lu bits"
++msgstr ""
++
++#: lex.cc:1126
++msgid "backslash and newline separated by space"
++msgstr ""
++
++#: lex.cc:1131
++msgid "backslash-newline at end of file"
++msgstr ""
++
++#: lex.cc:1147
++#, c-format
++msgid "trigraph ??%c converted to %c"
++msgstr ""
++
++#: lex.cc:1155
++#, c-format
++msgid "trigraph ??%c ignored, use -trigraphs to enable"
++msgstr ""
++
++#: lex.cc:1536
++msgid "end of bidirectional context"
++msgstr ""
++
++#: lex.cc:1577
++msgid "unpaired UTF-8 bidirectional control characters detected"
++msgstr ""
++
++#: lex.cc:1581
++msgid "unpaired UTF-8 bidirectional control character detected"
++msgstr ""
++
++#: lex.cc:1619
++#, c-format
++msgid "UTF-8 vs UCN mismatch when closing a context by \"%s\""
++msgstr ""
++
++#: lex.cc:1628
++#, c-format
++msgid "\"%s\" is closing an unopened context"
++msgstr "\"%s\" გაუხსნელ კონტექსტს ხურავს"
++
++#: lex.cc:1632
++#, c-format
++msgid "found problematic Unicode character \"%s\""
++msgstr "აღმოჩენილია პრობლემატური უნიკოდის სიმბოლო \"%s\""
++
++#: lex.cc:1682
++msgid "\"/*\" within comment"
++msgstr "\"/*\" კომენტარში"
++
++#: lex.cc:1772
++#, c-format
++msgid "%s in preprocessing directive"
++msgstr "%s პრეპროცესორის დირექტივაში"
++
++#: lex.cc:1784
++msgid "null character(s) ignored"
++msgstr "ნულოვანი შეტყობინებები გამოტოვებულია"
++
++#: lex.cc:1844
++#, c-format
++msgid "`%.*s' is not in NFKC"
++msgstr "`%.*s'-ი NFKC-ში არაა"
++
++#: lex.cc:1847 lex.cc:1850
++#, c-format
++msgid "`%.*s' is not in NFC"
++msgstr "`%.*s' -ი NFC-ში არაა"
++
++#: lex.cc:1932
++msgid "__VA_OPT__ is not available until C++20"
++msgstr "__VA_OPT__ -ი C++20-მდე ხელმიუწვდომელია"
++
++#: lex.cc:1939
++msgid "__VA_OPT__ can only appear in the expansion of a C++20 variadic macro"
++msgstr ""
++
++#: lex.cc:1970 lex.cc:2066
++#, c-format
++msgid "attempt to use poisoned \"%s\""
++msgstr "მოწამლული \"%s\"-ის გამოყენების მცდელობა"
++
++#: lex.cc:1980 lex.cc:2076
++msgid "__VA_ARGS__ can only appear in the expansion of a C++11 variadic macro"
++msgstr ""
++
++#: lex.cc:1984 lex.cc:2080
++msgid "__VA_ARGS__ can only appear in the expansion of a C99 variadic macro"
++msgstr ""
++
++#: lex.cc:1994 lex.cc:2092
++#, c-format
++msgid "identifier \"%s\" is a special operator name in C++"
++msgstr ""
++
++#: lex.cc:2132
++msgid "adjacent digit separators"
++msgstr "მოსაზღვრე ციფრის გამყოფები"
++
++#: lex.cc:2450
++msgid "raw string delimiter longer than 16 characters"
++msgstr ""
++
++#: lex.cc:2454
++msgid "invalid new-line in raw string delimiter"
++msgstr ""
++
++#: lex.cc:2458 lex.cc:5257
++#, c-format
++msgid "invalid character '%c' in raw string delimiter"
++msgstr ""
++
++#: lex.cc:2497 lex.cc:2520
++msgid "unterminated raw string"
++msgstr "დაუსრულებელი დაუმუშავებელი სტრიქონი"
++
++#: lex.cc:2552 lex.cc:2701
++msgid "invalid suffix on literal; C++11 requires a space between literal and string macro"
++msgstr ""
++
++#: lex.cc:2684
++msgid "null character(s) preserved in literal"
++msgstr ""
++
++#: lex.cc:2687
++#, c-format
++msgid "missing terminating %c character"
++msgstr "დამაბოლოებელი %c სიმბოლო აღმოჩენილი არაა"
++
++#: lex.cc:2719
++msgid "C++11 requires a space between string literal and macro"
++msgstr ""
++
++#: lex.cc:3312
++msgid "module control-line cannot be in included file"
++msgstr ""
++
++#: lex.cc:3326
++#, c-format
++msgid "module control-line \"%s\" cannot be an object-like macro"
++msgstr ""
++
++#: lex.cc:3714 lex.cc:5090 traditional.cc:174
++msgid "unterminated comment"
++msgstr "დაუსრულებელი კომენტარი"
++
++#: lex.cc:3728 lex.cc:3762
++msgid "C++ style comments are not allowed in ISO C90"
++msgstr ""
++
++#: lex.cc:3730 lex.cc:3741 lex.cc:3765
++msgid "(this will be reported only once per input file)"
++msgstr ""
++
++#: lex.cc:3739
++msgid "C++ style comments are incompatible with C90"
++msgstr ""
++
++#: lex.cc:3771
++msgid "multi-line comment"
++msgstr "მრავალხაზიანი კომენტარი"
++
++#: lex.cc:4165
++#, c-format
++msgid "unspellable token %s"
++msgstr "გაურკვეველი კოდი %s"
++
++#: lex.cc:5245
++#, c-format
++msgid "raw string delimiter longer than %d characters"
++msgstr ""
++
++#: lex.cc:5315
++msgid "unterminated literal"
++msgstr "დაუსრულებელი ლიტერალი"
++
++#: macro.cc:94
++msgid "'##' cannot appear at either end of __VA_OPT__"
++msgstr ""
++
++#: macro.cc:144
++msgid "__VA_OPT__ may not appear in a __VA_OPT__"
++msgstr ""
++
++#: macro.cc:157
++msgid "__VA_OPT__ must be followed by an open parenthesis"
++msgstr ""
++
++#: macro.cc:235
++msgid "unterminated __VA_OPT__"
++msgstr "დაუსრულებელი __VA_OPT__"
++
++#: macro.cc:397
++#, c-format
++msgid "\"%s\" used outside of preprocessing directive"
++msgstr ""
++
++#: macro.cc:407
++#, c-format
++msgid "missing '(' before \"%s\" operand"
++msgstr ""
++
++#: macro.cc:422
++#, c-format
++msgid "operator \"%s\" requires a header-name"
++msgstr ""
++
++#: macro.cc:439
++#, c-format
++msgid "missing ')' after \"%s\" operand"
++msgstr ""
++
++#: macro.cc:459
++#, c-format
++msgid "macro \"%s\" is not used"
++msgstr "მაკრო \"%s\" არ გამოიყენება"
++
++#: macro.cc:498 macro.cc:797
++#, c-format
++msgid "invalid built-in macro \"%s\""
++msgstr "არასწორი ჩაშენებული მაკრო \"%s\""
++
++#: macro.cc:505 macro.cc:613
++#, c-format
++msgid "macro \"%s\" might prevent reproducible builds"
++msgstr ""
++
++#: macro.cc:536
++msgid "could not determine file timestamp"
++msgstr "ფაილის დროის შტამპის გარკვევის შეცდომა"
++
++#: macro.cc:627
++msgid "could not determine date and time"
++msgstr "დროისა და თარიღის გარკვევა შეუძლებელია"
++
++#: macro.cc:659
++msgid "__COUNTER__ expanded inside directive with -fdirectives-only"
++msgstr ""
++
++#: macro.cc:916
++msgid "invalid string literal, ignoring final '\\'"
++msgstr "არასწორი სტრიქონი ლიტერალი. ბოლო '\\' გამოტოვებული იქნება"
++
++#: macro.cc:980
++#, c-format
++msgid "pasting \"%.*s\" and \"%.*s\" does not give a valid preprocessing token"
++msgstr ""
++
++#: macro.cc:1112
++msgid "ISO C++11 requires at least one argument for the \"...\" in a variadic macro"
++msgstr ""
++
++#: macro.cc:1116
++msgid "ISO C99 requires at least one argument for the \"...\" in a variadic macro"
++msgstr ""
++
++#: macro.cc:1123
++#, c-format
++msgid "macro \"%s\" requires %u arguments, but only %u given"
++msgstr ""
++
++#: macro.cc:1128
++#, c-format
++msgid "macro \"%s\" passed %u arguments, but takes just %u"
++msgstr ""
++
++#: macro.cc:1132
++#, c-format
++msgid "macro \"%s\" defined here"
++msgstr "მაკრო \"%s\" აქაა აღწერილი"
++
++#: macro.cc:1326 traditional.cc:822
++#, c-format
++msgid "unterminated argument list invoking macro \"%s\""
++msgstr ""
++
++#: macro.cc:1472
++#, c-format
++msgid "function-like macro \"%s\" must be used with arguments in traditional C"
++msgstr ""
++
++#: macro.cc:2307
++#, c-format
++msgid "invoking macro %s argument %d: empty macro arguments are undefined in ISO C++98"
++msgstr ""
++
++#: macro.cc:2315 macro.cc:2324
++#, c-format
++msgid "invoking macro %s argument %d: empty macro arguments are undefined in ISO C90"
++msgstr ""
++
++#: macro.cc:3375
++#, c-format
++msgid "duplicate macro parameter \"%s\""
++msgstr "დუბლირებული მაკროს პარამეტრი \"%s\""
++
++#: macro.cc:3457
++#, c-format
++msgid "expected parameter name, found \"%s\""
++msgstr "მოველოდი პარამეტრის სახელს, მივიღე \"%s\""
++
++#: macro.cc:3458
++#, c-format
++msgid "expected ',' or ')', found \"%s\""
++msgstr "მოველოდი ','-ს ან ')'-ს. აღმოჩენილია \"%s\""
++
++#: macro.cc:3459
++msgid "expected parameter name before end of line"
++msgstr "ხაზის ბოლომდე პარამეტრს მოველოდი"
++
++#: macro.cc:3460
++msgid "expected ')' before end of line"
++msgstr "ხაზის ბოლომდე ')'-ს მოველოდი"
++
++#: macro.cc:3461
++msgid "expected ')' after \"...\""
++msgstr "\"...\"-ის შემდეგ ')'-ს მოველოდი"
++
++#: macro.cc:3518
++msgid "anonymous variadic macros were introduced in C++11"
++msgstr "ანონიმური არგუმენტების ცვლადი რიცხვის მქონე მაკროები C++11-ში გამოჩნდნენ"
++
++#: macro.cc:3519 macro.cc:3523
++msgid "anonymous variadic macros were introduced in C99"
++msgstr "ანონიმური არგუმენტების ცვლადი რიცხვის მქონე მაკროები C99-ში გამოჩნდნენ"
++
++#: macro.cc:3529
++msgid "ISO C++ does not permit named variadic macros"
++msgstr "ISO C++ სახელიან არგუმენტების ცვლადი რიცხვის მქონე მაკროებს მხარს არ უჭერს"
++
++#: macro.cc:3530
++msgid "ISO C does not permit named variadic macros"
++msgstr ""
++
++#: macro.cc:3576
++msgid "'##' cannot appear at either end of a macro expansion"
++msgstr ""
++
++#: macro.cc:3614
++msgid "ISO C++11 requires whitespace after the macro name"
++msgstr ""
++
++#: macro.cc:3615
++msgid "ISO C99 requires whitespace after the macro name"
++msgstr ""
++
++#: macro.cc:3639
++msgid "missing whitespace after the macro name"
++msgstr ""
++
++#: macro.cc:3692
++msgid "'#' is not followed by a macro parameter"
++msgstr ""
++
++#: macro.cc:3848
++#, c-format
++msgid "\"%s\" redefined"
++msgstr "\"%s\" ხელახლა აღიწერა"
++
++#: macro.cc:3853
++msgid "this is the location of the previous definition"
++msgstr "ეს წინა აღწერის მდებარეობაა"
++
++#: macro.cc:3990
++#, c-format
++msgid "macro argument \"%s\" would be stringified in traditional C"
++msgstr ""
++
++#: pch.cc:90 pch.cc:342 pch.cc:356 pch.cc:374 pch.cc:380 pch.cc:389 pch.cc:396
++msgid "while writing precompiled header"
++msgstr "წინასწარ აგებული თავსართის ჩაწერისას"
++
++#: pch.cc:616
++#, c-format
++msgid "%s: not used because `%.*s' is poisoned"
++msgstr ""
++
++#: pch.cc:638
++#, c-format
++msgid "%s: not used because `%.*s' not defined"
++msgstr ""
++
++#: pch.cc:650
++#, c-format
++msgid "%s: not used because `%.*s' defined as `%s' not `%.*s'"
++msgstr ""
++
++#: pch.cc:691
++#, c-format
++msgid "%s: not used because `%s' is defined"
++msgstr ""
++
++#: pch.cc:711
++#, c-format
++msgid "%s: not used because `__COUNTER__' is invalid"
++msgstr ""
++
++#: pch.cc:720 pch.cc:876
++msgid "while reading precompiled header"
++msgstr ""
++
++#: traditional.cc:891
++#, c-format
++msgid "detected recursion whilst expanding macro \"%s\""
++msgstr ""
++
++#: traditional.cc:1114
++msgid "syntax error in macro parameter list"
++msgstr "სინტაქსის შეცდომა მაკროს პარამეტრების სიაში"
 diff --git a/libcpp/po/ro.po b/libcpp/po/ro.po
 new file mode 100644
 index 00000000000..5084b0b25d8
@@ -14400,10 +17624,17 @@ index cfdbecdeffe..752a939f616 100644
  
  .Lset_0xffff:
 diff --git a/libgfortran/ChangeLog b/libgfortran/ChangeLog
-index 5aed23549c1..e8bafe9e2aa 100644
+index 5aed23549c1..feb1bf9deb3 100644
 --- a/libgfortran/ChangeLog
 +++ b/libgfortran/ChangeLog
-@@ -1,3 +1,16 @@
+@@ -1,3 +1,23 @@
++2022-12-21  Tobias Burnus  <tobias@codesourcery.com>
++
++	PR libfortran/108056
++	* runtime/ISO_Fortran_binding.c (cfi_desc_to_gfc_desc,
++	gfc_desc_to_cfi_desc): Mostly revert to GCC 11 version for
++	those backward-compatiblity-only functions.
++
 +2022-08-29  Jakub Jelinek  <jakub@redhat.com>
 +
 +	Backported from master:
@@ -14451,6 +17682,201 @@ index 7e310f2c5b0..0b87fbf7e9d 100644
  
  #define CLASSMACRO(TYPE) \
    int ieee_class_helper_ ## TYPE (GFC_REAL_ ## TYPE *value) \
+diff --git a/libgfortran/runtime/ISO_Fortran_binding.c b/libgfortran/runtime/ISO_Fortran_binding.c
+index 342df4275b9..e63a717a69b 100644
+--- a/libgfortran/runtime/ISO_Fortran_binding.c
++++ b/libgfortran/runtime/ISO_Fortran_binding.c
+@@ -39,60 +39,31 @@ export_proto(cfi_desc_to_gfc_desc);
+ void
+ cfi_desc_to_gfc_desc (gfc_array_void *d, CFI_cdesc_t **s_ptr)
+ {
+-  signed char type;
+-  size_t size;
+   int n;
++  index_type kind;
+   CFI_cdesc_t *s = *s_ptr;
+ 
+   if (!s)
+     return;
+ 
+-  /* Verify descriptor.  */
+-  switch (s->attribute)
+-    {
+-    case CFI_attribute_pointer:
+-    case CFI_attribute_allocatable:
+-      break;
+-    case CFI_attribute_other:
+-      if (s->base_addr)
+-	break;
+-      runtime_error ("Nonallocatable, nonpointer actual argument to BIND(C) "
+-		     "dummy argument where the effective argument is either "
+-		     "not allocated or not associated");
+-      break;
+-    default:
+-      runtime_error ("Invalid attribute type %d in CFI_cdesc_t descriptor",
+-		     (int) s->attribute);
+-      break;
+-    }
+   GFC_DESCRIPTOR_DATA (d) = s->base_addr;
++  GFC_DESCRIPTOR_TYPE (d) = (signed char)(s->type & CFI_type_mask);
++  kind = (index_type)((s->type - (s->type & CFI_type_mask)) >> CFI_type_kind_shift);
+ 
+   /* Correct the unfortunate difference in order with types.  */
+-  type = (signed char)(s->type & CFI_type_mask);
+-  switch (type)
+-    {
+-    case CFI_type_Character:
+-      type = BT_CHARACTER;
+-      break;
+-    case CFI_type_struct:
+-      type = BT_DERIVED;
+-      break;
+-    case CFI_type_cptr:
+-      /* FIXME: PR 100915.  GFC descriptors do not distinguish between
+-	 CFI_type_cptr and CFI_type_cfunptr.  */
+-      type = BT_VOID;
+-      break;
+-    default:
+-      break;
+-    }
+-
+-  GFC_DESCRIPTOR_TYPE (d) = type;
+-  GFC_DESCRIPTOR_SIZE (d) = s->elem_len;
++  if (GFC_DESCRIPTOR_TYPE (d) == BT_CHARACTER)
++    GFC_DESCRIPTOR_TYPE (d) = BT_DERIVED;
++  else if (GFC_DESCRIPTOR_TYPE (d) == BT_DERIVED)
++    GFC_DESCRIPTOR_TYPE (d) = BT_CHARACTER;
++
++  if (!s->rank || s->dim[0].sm == (CFI_index_t)s->elem_len)
++    GFC_DESCRIPTOR_SIZE (d) = s->elem_len;
++  else if (GFC_DESCRIPTOR_TYPE (d) != BT_DERIVED)
++    GFC_DESCRIPTOR_SIZE (d) = kind;
++  else
++    GFC_DESCRIPTOR_SIZE (d) = s->elem_len;
+ 
+   d->dtype.version = 0;
+-
+-  if (s->rank < 0 || s->rank > CFI_MAX_RANK)
+-    internal_error (NULL, "Invalid rank in descriptor");
+   GFC_DESCRIPTOR_RANK (d) = (signed char)s->rank;
+ 
+   d->dtype.attribute = (signed short)s->attribute;
+@@ -131,7 +102,6 @@ gfc_desc_to_cfi_desc (CFI_cdesc_t **d_ptr, const gfc_array_void *s)
+ {
+   int n;
+   CFI_cdesc_t *d;
+-  signed char type, kind;
+ 
+   /* Play it safe with allocation of the flexible array member 'dim'
+      by setting the length to CFI_MAX_RANK. This should not be necessary
+@@ -142,99 +112,22 @@ gfc_desc_to_cfi_desc (CFI_cdesc_t **d_ptr, const gfc_array_void *s)
+   else
+     d = *d_ptr;
+ 
+-  /* Verify descriptor.  */
+-  switch (s->dtype.attribute)
+-    {
+-    case CFI_attribute_pointer:
+-    case CFI_attribute_allocatable:
+-      break;
+-    case CFI_attribute_other:
+-      if (s->base_addr)
+-	break;
+-      runtime_error ("Nonallocatable, nonpointer actual argument to BIND(C) "
+-		     "dummy argument where the effective argument is either "
+-		     "not allocated or not associated");
+-      break;
+-    default:
+-      internal_error (NULL, "Invalid attribute in gfc_array descriptor");
+-      break;
+-    }
+   d->base_addr = GFC_DESCRIPTOR_DATA (s);
+   d->elem_len = GFC_DESCRIPTOR_SIZE (s);
+-  if (d->elem_len <= 0)
+-    internal_error (NULL, "Invalid size in descriptor");
+-
+   d->version = CFI_VERSION;
+-
+   d->rank = (CFI_rank_t)GFC_DESCRIPTOR_RANK (s);
+-  if (d->rank < 0 || d->rank > CFI_MAX_RANK)
+-    internal_error (NULL, "Invalid rank in descriptor");
+-
+   d->attribute = (CFI_attribute_t)s->dtype.attribute;
+ 
+-  type = GFC_DESCRIPTOR_TYPE (s);
+-  switch (type)
+-    {
+-    case BT_CHARACTER:
+-      d->type = CFI_type_Character;
+-      break;
+-    case BT_DERIVED:
+-      d->type = CFI_type_struct;
+-      break;
+-    case BT_VOID:
+-      /* FIXME: PR 100915.  GFC descriptors do not distinguish between
+-	 CFI_type_cptr and CFI_type_cfunptr.  */
+-      d->type = CFI_type_cptr;
+-      break;
+-    default:
+-      d->type = (CFI_type_t)type;
+-      break;
+-    }
+-
+-  switch (d->type)
+-    {
+-    case CFI_type_Integer:
+-    case CFI_type_Logical:
+-    case CFI_type_Real:
+-      kind = (signed char)d->elem_len;
+-      break;
+-    case CFI_type_Complex:
+-      kind = (signed char)(d->elem_len >> 1);
+-      break;
+-    case CFI_type_Character:
+-      /* FIXME: we can't distinguish between kind/len because
+-	 the GFC descriptor only encodes the elem_len..
+-	 Until PR92482 is fixed, assume elem_len refers to the
+-	 character size and not the string length.  */
+-      kind = (signed char)d->elem_len;
+-      break;
+-    case CFI_type_struct:
+-    case CFI_type_cptr:
+-    case CFI_type_other:
+-      /* FIXME: PR 100915.  GFC descriptors do not distinguish between
+-	 CFI_type_cptr and CFI_type_cfunptr.  */
+-      kind = 0;
+-      break;
+-    default:
+-      internal_error (NULL, "Invalid type in descriptor");
+-    }
+-
+-  if (kind < 0)
+-    internal_error (NULL, "Invalid kind in descriptor");
+-
+-  /* FIXME: This is PR100917.  Because the GFC descriptor encodes only the
+-     elem_len and not the kind, we get into trouble with long double kinds
+-     that do not correspond directly to the elem_len, specifically the
+-     kind 10 80-bit long double on x86 targets.  On x86_64, this has size
+-     16 and cannot be differentiated from true _Float128.  Prefer the
+-     standard long double type over the GNU extension in that case.  */
+-  if (d->type == CFI_type_Real && kind == sizeof (long double))
+-    d->type = CFI_type_long_double;
+-  else if (d->type == CFI_type_Complex && kind == sizeof (long double))
+-    d->type = CFI_type_long_double_Complex;
++  if (GFC_DESCRIPTOR_TYPE (s) == BT_CHARACTER)
++    d->type = CFI_type_Character;
++  else if (GFC_DESCRIPTOR_TYPE (s) == BT_DERIVED)
++    d->type = CFI_type_struct;
+   else
++    d->type = (CFI_type_t)GFC_DESCRIPTOR_TYPE (s);
++
++  if (GFC_DESCRIPTOR_TYPE (s) != BT_DERIVED)
+     d->type = (CFI_type_t)(d->type
+-			   + ((CFI_type_t)kind << CFI_type_kind_shift));
++		+ ((CFI_type_t)d->elem_len << CFI_type_kind_shift));
+ 
+   if (d->base_addr)
+     /* Full pointer or allocatable arrays retain their lower_bounds.  */
 diff --git a/libgomp/ChangeLog b/libgomp/ChangeLog
 index ad7a09c10ee..349cc6d4769 100644
 --- a/libgomp/ChangeLog
@@ -15295,6 +18721,120 @@ index b31f4066152..498ef70b63a 100644
      do i = 1, 15
        scalar(i:i) = achar(ichar('A') + i)
      end do
+diff --git a/libiberty/ChangeLog b/libiberty/ChangeLog
+index 3bfb448a1fe..86254dcc8bd 100644
+--- a/libiberty/ChangeLog
++++ b/libiberty/ChangeLog
+@@ -1,3 +1,17 @@
++2023-01-04  Florian Weimer  <fweimer@redhat.com>
++
++	Backported from master:
++	2022-10-18  Florian Weimer  <fweimer@redhat.com>
++
++	* acinclude.m4 (ac_cv_func_strncmp_works): Add missing
++	int return type and parameter list to the definition of main.
++	Include <stdlib.h> and <string.h> for prototypes.
++	(ac_cv_c_stack_direction): Add missing
++	int return type and parameter list to the definitions of
++	main, find_stack_direction.  Include <stdlib.h> for exit
++	prototype.
++	* configure: Regenerate.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/libiberty/acinclude.m4 b/libiberty/acinclude.m4
+index 6bd127e9826..6bb690597bf 100644
+--- a/libiberty/acinclude.m4
++++ b/libiberty/acinclude.m4
+@@ -24,6 +24,8 @@ AC_CACHE_CHECK([for working strncmp], ac_cv_func_strncmp_works,
+ [AC_TRY_RUN([
+ /* Test by Jim Wilson and Kaveh Ghazi.
+    Check whether strncmp reads past the end of its string parameters. */
++#include <stdlib.h>
++#include <string.h>
+ #include <sys/types.h>
+ 
+ #ifdef HAVE_FCNTL_H
+@@ -51,7 +53,8 @@ AC_CACHE_CHECK([for working strncmp], ac_cv_func_strncmp_works,
+ 
+ #define MAP_LEN 0x10000
+ 
+-main ()
++int
++main (void)
+ {
+ #if defined(HAVE_MMAP) || defined(HAVE_MMAP_ANYWHERE)
+   char *p;
+@@ -157,7 +160,10 @@ if test $ac_cv_os_cray = yes; then
+ fi
+ 
+ AC_CACHE_CHECK(stack direction for C alloca, ac_cv_c_stack_direction,
+-[AC_TRY_RUN([find_stack_direction ()
++[AC_TRY_RUN([#include <stdlib.h>
++
++int
++find_stack_direction (void)
+ {
+   static char *addr = 0;
+   auto char dummy;
+@@ -169,7 +175,9 @@ AC_CACHE_CHECK(stack direction for C alloca, ac_cv_c_stack_direction,
+   else
+     return (&dummy > addr) ? 1 : -1;
+ }
+-main ()
++
++int
++main (void)
+ {
+   exit (find_stack_direction() < 0);
+ }],
+diff --git a/libiberty/configure b/libiberty/configure
+index 0a797255c70..ca83f89da6d 100755
+--- a/libiberty/configure
++++ b/libiberty/configure
+@@ -6780,7 +6780,10 @@ else
+ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+-find_stack_direction ()
++#include <stdlib.h>
++
++int
++find_stack_direction (void)
+ {
+   static char *addr = 0;
+   auto char dummy;
+@@ -6792,7 +6795,9 @@ find_stack_direction ()
+   else
+     return (&dummy > addr) ? 1 : -1;
+ }
+-main ()
++
++int
++main (void)
+ {
+   exit (find_stack_direction() < 0);
+ }
+@@ -7617,6 +7622,8 @@ else
+ 
+ /* Test by Jim Wilson and Kaveh Ghazi.
+    Check whether strncmp reads past the end of its string parameters. */
++#include <stdlib.h>
++#include <string.h>
+ #include <sys/types.h>
+ 
+ #ifdef HAVE_FCNTL_H
+@@ -7644,7 +7651,8 @@ else
+ 
+ #define MAP_LEN 0x10000
+ 
+-main ()
++int
++main (void)
+ {
+ #if defined(HAVE_MMAP) || defined(HAVE_MMAP_ANYWHERE)
+   char *p;
 diff --git a/libphobos/ChangeLog b/libphobos/ChangeLog
 index 09991973dba..7327053c48b 100644
 --- a/libphobos/ChangeLog
@@ -15528,11 +19068,116 @@ index 1bde73d628d..ca6f48c7c13 100644
  }
  else version (OSX)
  {
+diff --git a/libsanitizer/ChangeLog b/libsanitizer/ChangeLog
+index 3a9a5ce6b03..b86d1cdf58e 100644
+--- a/libsanitizer/ChangeLog
++++ b/libsanitizer/ChangeLog
+@@ -1,3 +1,12 @@
++2023-01-04  Florian Weimer  <fweimer@redhat.com>
++
++	Backported from master:
++	2022-10-18  Florian Weimer  <fweimer@redhat.com>
++
++	* configure.ac (sanitizer_supported): Include <unistd.h> for
++	syscall prototype.
++	* configure: Regenerate.
++
+ 2022-08-19  Release Manager
+ 
+ 	* GCC 12.2.0 released.
+diff --git a/libsanitizer/configure b/libsanitizer/configure
+index 771b135573a..ae8c1bd7e83 100755
+--- a/libsanitizer/configure
++++ b/libsanitizer/configure
+@@ -16028,6 +16028,7 @@ case "$target" in
+     cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <sys/syscall.h>
++#include <unistd.h>
+ int
+ main ()
+ {
+diff --git a/libsanitizer/configure.ac b/libsanitizer/configure.ac
+index 7f1ef3979c4..ad49f29db7e 100644
+--- a/libsanitizer/configure.ac
++++ b/libsanitizer/configure.ac
+@@ -161,7 +161,8 @@ case "$target" in
+   *-*-linux*)
+     # Some old Linux distributions miss required syscalls.
+     sanitizer_supported=no
+-    AC_TRY_COMPILE([#include <sys/syscall.h>],[
++    AC_TRY_COMPILE([#include <sys/syscall.h>
++#include <unistd.h>],[
+       syscall (__NR_gettid);
+       syscall (__NR_futex);
+       syscall (__NR_exit_group);
 diff --git a/libstdc++-v3/ChangeLog b/libstdc++-v3/ChangeLog
-index 933d1b0809c..e43750b6db9 100644
+index 933d1b0809c..8399993fd50 100644
 --- a/libstdc++-v3/ChangeLog
 +++ b/libstdc++-v3/ChangeLog
-@@ -1,3 +1,262 @@
+@@ -1,3 +1,324 @@
++2023-01-18  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-12-22  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/105730
++	* src/c++11/compatibility-condvar.cc (__nothrow_wait_cv::wait):
++	Access private data member of base class and call its wait
++	member.
++
++2023-01-16  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-08-04  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/106183
++	* include/bits/atomic_wait.h (__waiter_pool_base::_M_notify):
++	Move increment of _M_ver here.
++	[!_GLIBCXX_HAVE_PLATFORM_WAIT]: Lock mutex around increment.
++	Use relaxed memory order and always notify all waiters.
++	(__waiter_base::_M_do_wait) [!_GLIBCXX_HAVE_PLATFORM_WAIT]:
++	Check value again after locking mutex.
++	(__waiter_base::_M_notify): Remove increment of _M_ver.
++
++2023-01-05  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2023-01-05  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/108265
++	* include/std/chrono (hh_mm_ss): Do not use chrono::abs if
++	duration rep is unsigned. Remove incorrect noexcept-specifier.
++	* testsuite/std/time/hh_mm_ss/1.cc: Check unsigned rep. Check
++	floating-point representations. Check default construction.
++
++2022-12-21  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-11-23  Jonathan Wakely  <jwakely@redhat.com>
++
++	PR libstdc++/107814
++	* testsuite/experimental/filesystem/iterators/error_reporting.cc:
++	Use a static buffer with space after it.
++
++2022-12-21  Jonathan Wakely  <jwakely@redhat.com>
++
++	Backported from master:
++	2022-12-16  Jonathan Wakely  <jwakely@redhat.com>
++
++	* include/std/expected (expected::_M_swap_val_unex): Guard the
++	correct object.
++	(expected::swap): Move is_swappable
++	requirement from static_assert to constraint.
++	(swap): Likewise.
++	(operator==): Remove noexcept-specifier.
++	* testsuite/20_util/expected/swap.cc: Check swapping of
++	types without non-throwing move constructor. Check constraints
++	on swap.
++	* testsuite/20_util/expected/unexpected.cc: Check constraints on
++	swap.
++	* testsuite/20_util/expected/equality.cc: New test.
++
 +2022-12-14  Jonathan Wakely  <jwakely@redhat.com>
 +
 +	Backported from master:
@@ -16189,6 +19834,78 @@ index 36b86702d22..a8a549eebcd 100644
  	removes older ARM-style iostreams code, and other anachronisms
  	from the API.  This macro is dependent on the version of the
  	standard being tracked, and as a result may give different results for
+diff --git a/libstdc++-v3/include/bits/atomic_wait.h b/libstdc++-v3/include/bits/atomic_wait.h
+index a6d55d3af8a..76ed7409937 100644
+--- a/libstdc++-v3/include/bits/atomic_wait.h
++++ b/libstdc++-v3/include/bits/atomic_wait.h
+@@ -221,18 +221,25 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+       }
+ 
+       void
+-      _M_notify(const __platform_wait_t* __addr, bool __all, bool __bare) noexcept
++      _M_notify(__platform_wait_t* __addr, [[maybe_unused]] bool __all,
++		bool __bare) noexcept
+       {
+-	if (!(__bare || _M_waiting()))
+-	  return;
+-
+ #ifdef _GLIBCXX_HAVE_PLATFORM_WAIT
+-	__platform_notify(__addr, __all);
++	if (__addr == &_M_ver)
++	  {
++	    __atomic_fetch_add(__addr, 1, __ATOMIC_SEQ_CST);
++	    __all = true;
++	  }
++
++	if (__bare || _M_waiting())
++	  __platform_notify(__addr, __all);
+ #else
+-	if (__all)
++	{
++	  lock_guard<mutex> __l(_M_mtx);
++	  __atomic_fetch_add(__addr, 1, __ATOMIC_RELAXED);
++	}
++	if (__bare || _M_waiting())
+ 	  _M_cv.notify_all();
+-	else
+-	  _M_cv.notify_one();
+ #endif
+       }
+ 
+@@ -259,7 +266,9 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+ 	if (__val == __old)
+ 	  {
+ 	    lock_guard<mutex> __l(_M_mtx);
+-	    _M_cv.wait(_M_mtx);
++	    __atomic_load(__addr, &__val, __ATOMIC_RELAXED);
++	    if (__val == __old)
++	      _M_cv.wait(_M_mtx);
+ 	  }
+ #endif // __GLIBCXX_HAVE_PLATFORM_WAIT
+       }
+@@ -297,20 +306,9 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+ 	    , _M_addr(_S_wait_addr(__addr, &_M_w._M_ver))
+ 	  { }
+ 
+-	bool
+-	_M_laundered() const
+-	{ return _M_addr == &_M_w._M_ver; }
+-
+ 	void
+-	_M_notify(bool __all, bool __bare = false)
+-	{
+-	  if (_M_laundered())
+-	    {
+-	      __atomic_fetch_add(_M_addr, 1, __ATOMIC_SEQ_CST);
+-	      __all = true;
+-	    }
+-	  _M_w._M_notify(_M_addr, __all, __bare);
+-	}
++	_M_notify(bool __all, bool __bare = false) noexcept
++	{ _M_w._M_notify(_M_addr, __all, __bare); }
+ 
+ 	template<typename _Up, typename _ValFn,
+ 		 typename _Spin = __default_spin_policy>
 diff --git a/libstdc++-v3/include/bits/basic_string.h b/libstdc++-v3/include/bits/basic_string.h
 index 9777deaf2e9..f1a0e6984a1 100644
 --- a/libstdc++-v3/include/bits/basic_string.h
@@ -16869,11 +20586,89 @@ index 2a2650546ad..997e0a8f7ab 100644
  // <http://www.gnu.org/licenses/>.
  
  // This implementation is based on libcxx/include/barrier
+diff --git a/libstdc++-v3/include/std/chrono b/libstdc++-v3/include/std/chrono
+index 3732a40962a..83e0e5b8bd0 100644
+--- a/libstdc++-v3/include/std/chrono
++++ b/libstdc++-v3/include/std/chrono
+@@ -1945,6 +1945,29 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+ 	  return __width;
+ 	}
+ 
++	constexpr
++	hh_mm_ss(_Duration __d, bool __is_neg)
++	: _M_is_neg(__is_neg),
++	  _M_h (duration_cast<chrono::hours>(__d)),
++	  _M_m (duration_cast<chrono::minutes>(__d - hours())),
++	  _M_s (duration_cast<chrono::seconds>(__d - hours() - minutes()))
++	{
++	  auto __ss = __d - hours() - minutes() - seconds();
++	  if constexpr (treat_as_floating_point_v<typename precision::rep>)
++	    _M_ss = __ss;
++	  else
++	    _M_ss = duration_cast<precision>(__ss);
++	}
++
++	static constexpr _Duration
++	_S_abs(_Duration __d)
++	{
++	  if constexpr (numeric_limits<typename _Duration::rep>::is_signed)
++	    return chrono::abs(__d);
++	  else
++	    return __d;
++	}
++
+       public:
+ 	static constexpr unsigned fractional_width = {_S_fractional_width()};
+ 
+@@ -1959,18 +1982,9 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
+ 	{ }
+ 
+ 	constexpr explicit
+-	hh_mm_ss(_Duration __d) noexcept
+-	: _M_is_neg (__d < _Duration::zero()),
+-	  _M_h (duration_cast<chrono::hours>(abs(__d))),
+-	  _M_m (duration_cast<chrono::minutes>(abs(__d) - hours())),
+-	  _M_s (duration_cast<chrono::seconds>(abs(__d) - hours() - minutes()))
+-	{
+-	  if constexpr (treat_as_floating_point_v<typename precision::rep>)
+-	    _M_ss = abs(__d) - hours() - minutes() - seconds();
+-	  else
+-	    _M_ss = duration_cast<precision>(abs(__d) - hours()
+-					     - minutes() - seconds());
+-	}
++	hh_mm_ss(_Duration __d)
++	: hh_mm_ss(_S_abs(__d), __d < _Duration::zero())
++	{ }
+ 
+ 	constexpr bool
+ 	is_negative() const noexcept
 diff --git a/libstdc++-v3/include/std/expected b/libstdc++-v3/include/std/expected
-index 3ee13aa95f6..e491ce41591 100644
+index 3ee13aa95f6..2fe25a90d2d 100644
 --- a/libstdc++-v3/include/std/expected
 +++ b/libstdc++-v3/include/std/expected
-@@ -359,7 +359,7 @@ namespace __expected
+@@ -217,8 +217,8 @@ namespace __expected
+ 
+       constexpr void
+       swap(unexpected& __other) noexcept(is_nothrow_swappable_v<_Er>)
++      requires is_swappable_v<_Er>
+       {
+-	static_assert( is_swappable_v<_Er> );
+ 	using std::swap;
+ 	swap(_M_unex, __other._M_unex);
+       }
+@@ -230,9 +230,8 @@ namespace __expected
+ 	{ return __x._M_unex == __y.error(); }
+ 
+       friend constexpr void
+-      swap(unexpected& __x, unexpected& __y)
+-      noexcept(noexcept(__x.swap(__y)))
+-      requires requires {__x.swap(__y);}
++      swap(unexpected& __x, unexpected& __y) noexcept(noexcept(__x.swap(__y)))
++      requires is_swappable_v<_Er>
+       { __x.swap(__y); }
+ 
+     private:
+@@ -359,7 +358,7 @@ namespace __expected
        requires is_copy_constructible_v<_Tp> && is_copy_constructible_v<_Er>
        && (!is_trivially_copy_constructible_v<_Tp>
  	  || !is_trivially_copy_constructible_v<_Er>)
@@ -16882,7 +20677,7 @@ index 3ee13aa95f6..e491ce41591 100644
        {
  	if (_M_has_value)
  	  std::construct_at(__builtin_addressof(_M_val), __x._M_val);
-@@ -376,7 +376,7 @@ namespace __expected
+@@ -376,7 +375,7 @@ namespace __expected
        requires is_move_constructible_v<_Tp> && is_move_constructible_v<_Er>
        && (!is_trivially_move_constructible_v<_Tp>
  	  || !is_trivially_move_constructible_v<_Er>)
@@ -16891,7 +20686,7 @@ index 3ee13aa95f6..e491ce41591 100644
        {
  	if (_M_has_value)
  	  std::construct_at(__builtin_addressof(_M_val),
-@@ -394,7 +394,7 @@ namespace __expected
+@@ -394,7 +393,7 @@ namespace __expected
  	expected(const expected<_Up, _Gr>& __x)
  	noexcept(__and_v<is_nothrow_constructible<_Tp, const _Up&>,
  			 is_nothrow_constructible<_Er, const _Gr&>>)
@@ -16900,7 +20695,7 @@ index 3ee13aa95f6..e491ce41591 100644
  	{
  	  if (_M_has_value)
  	    std::construct_at(__builtin_addressof(_M_val), __x._M_val);
-@@ -410,7 +410,7 @@ namespace __expected
+@@ -410,7 +409,7 @@ namespace __expected
  	expected(expected<_Up, _Gr>&& __x)
  	noexcept(__and_v<is_nothrow_constructible<_Tp, _Up>,
  			 is_nothrow_constructible<_Er, _Gr>>)
@@ -16909,7 +20704,43 @@ index 3ee13aa95f6..e491ce41591 100644
  	{
  	  if (_M_has_value)
  	    std::construct_at(__builtin_addressof(_M_val),
-@@ -890,7 +890,6 @@ namespace __expected
+@@ -798,8 +797,8 @@ namespace __expected
+ 	requires (!is_void_v<_Up>)
+ 	friend constexpr bool
+ 	operator==(const expected& __x, const expected<_Up, _Er2>& __y)
+-	noexcept(noexcept(bool(*__x == *__y))
+-		  && noexcept(bool(__x.error() == __y.error())))
++	// FIXME: noexcept(noexcept(bool(*__x == *__y))
++		  // && noexcept(bool(__x.error() == __y.error())))
+ 	{
+ 	  if (__x.has_value())
+ 	    return __y.has_value() && bool(*__x == *__y);
+@@ -810,13 +809,13 @@ namespace __expected
+       template<typename _Up>
+ 	friend constexpr bool
+ 	operator==(const expected& __x, const _Up& __v)
+-	noexcept(noexcept(bool(*__x == __v)))
++	// FIXME: noexcept(noexcept(bool(*__x == __v)))
+ 	{ return __x.has_value() && bool(*__x == __v); }
+ 
+       template<typename _Er2>
+ 	friend constexpr bool
+ 	operator==(const expected& __x, const unexpected<_Er2>& __e)
+-	noexcept(noexcept(bool(__x.error() == __e.error())))
++	// FIXME: noexcept(noexcept(bool(__x.error() == __e.error())))
+ 	{ return !__x.has_value() && bool(__x.error() == __e.error()); }
+ 
+       friend constexpr void
+@@ -878,7 +877,7 @@ namespace __expected
+ 	  }
+ 	else
+ 	  {
+-	    __expected::_Guard<_Tp> __guard(__rhs._M_val);
++	    __expected::_Guard<_Tp> __guard(_M_val);
+ 	    std::construct_at(__builtin_addressof(_M_unex),
+ 			      std::move(__rhs._M_unex)); // might throw
+ 	    _M_has_value = false;
+@@ -890,7 +889,6 @@ namespace __expected
        }
  
        union {
@@ -16917,6 +20748,24 @@ index 3ee13aa95f6..e491ce41591 100644
  	_Tp _M_val;
  	_Er _M_unex;
        };
+@@ -1188,7 +1186,7 @@ namespace __expected
+ 	requires is_void_v<_Up>
+ 	friend constexpr bool
+ 	operator==(const expected& __x, const expected<_Up, _Er2>& __y)
+-	noexcept(noexcept(bool(__x.error() == __y.error())))
++	// FIXME: noexcept(noexcept(bool(__x.error() == __y.error())))
+ 	{
+ 	  if (__x.has_value())
+ 	    return __y.has_value();
+@@ -1199,7 +1197,7 @@ namespace __expected
+       template<typename _Er2>
+ 	friend constexpr bool
+ 	operator==(const expected& __x, const unexpected<_Er2>& __e)
+-	noexcept(noexcept(bool(__x.error() == __e.error())))
++	// FIXME: noexcept(noexcept(bool(__x.error() == __e.error())))
+ 	{ return !__x.has_value() && bool(__x.error() == __e.error()); }
+ 
+       friend constexpr void
 diff --git a/libstdc++-v3/include/std/functional b/libstdc++-v3/include/std/functional
 index 685a3e167ee..0ed0578a24b 100644
 --- a/libstdc++-v3/include/std/functional
@@ -17211,6 +21060,46 @@ index 768425c0f40..0aadb692a96 100644
    }
  
    __eh_globals_init(const __eh_globals_init&) = delete;
+diff --git a/libstdc++-v3/src/c++11/compatibility-condvar.cc b/libstdc++-v3/src/c++11/compatibility-condvar.cc
+index ea3e11efeda..45339c58aef 100644
+--- a/libstdc++-v3/src/c++11/compatibility-condvar.cc
++++ b/libstdc++-v3/src/c++11/compatibility-condvar.cc
+@@ -63,6 +63,24 @@ _GLIBCXX_END_NAMESPACE_VERSION
+     && defined(_GLIBCXX_HAVE_SYMVER_SYMBOL_RENAMING_RUNTIME_SUPPORT)
+ namespace __gnu_cxx _GLIBCXX_VISIBILITY(default)
+ {
++namespace
++{
++  // Pointer-to-member for private std::condition_variable::_M_cond member.
++  std::__condvar std::condition_variable::* __base_member;
++
++  template<std::__condvar std::condition_variable::*X>
++    struct cracker
++    { static std::__condvar std::condition_variable::* value; };
++
++  // Initializer for this static member also initializes __base_member.
++  template<std::__condvar std::condition_variable::*X>
++    std::__condvar std::condition_variable::*
++      cracker<X>::value = __base_member = X;
++
++  // Explicit instantiation is allowed to access the private member.
++  template class cracker<&std::condition_variable::_M_cond>;
++}
++
+ struct __nothrow_wait_cv : std::condition_variable
+ {
+   void wait(std::unique_lock<std::mutex>&) noexcept;
+@@ -72,7 +90,9 @@ __attribute__((used))
+ void
+ __nothrow_wait_cv::wait(std::unique_lock<std::mutex>& lock) noexcept
+ {
+-  this->condition_variable::wait(lock);
++  // In theory this could be simply this->std::condition_variable::wait(lock)
++  // but with uclibc that binds to the @GLIBCXX_3.4.11 symbol, see PR 105730.
++  (this->*__base_member).wait(*lock.mutex());
+ }
+ } // namespace __gnu_cxx
+ 
 diff --git a/libstdc++-v3/src/c++17/memory_resource.cc b/libstdc++-v3/src/c++17/memory_resource.cc
 index bb6334c9694..d6555aa8823 100644
 --- a/libstdc++-v3/src/c++17/memory_resource.cc
@@ -17337,6 +21226,197 @@ index 7a85568c66a..d2ebad72fdf 100644
  }
  
  int main()
+diff --git a/libstdc++-v3/testsuite/20_util/expected/equality.cc b/libstdc++-v3/testsuite/20_util/expected/equality.cc
+new file mode 100644
+index 00000000000..1862719e73d
+--- /dev/null
++++ b/libstdc++-v3/testsuite/20_util/expected/equality.cc
+@@ -0,0 +1,49 @@
++// { dg-options "-std=gnu++23" }
++// { dg-do compile { target c++23 } }
++
++#include <expected>
++#include <testsuite_hooks.h>
++
++template<typename T, typename U>
++concept Eq = requires(T t, U u) { t == u; };
++
++static_assert(Eq<std::expected<int, long>, std::expected<short, unsigned>>);
++static_assert(Eq<std::expected<void, long>, std::expected<void, unsigned>>);
++// static_assert(!Eq<std::expected<void, long>, std::expected<short, unsigned>>);
++static_assert(Eq<std::expected<int, long>, short>);
++static_assert(!Eq<std::expected<void, long>, short>);
++static_assert(Eq<std::expected<int, long>, std::unexpected<short>>);
++static_assert(Eq<std::expected<void, long>, std::unexpected<short>>);
++
++struct NotEqCmp
++{
++  constexpr bool operator==(int) const { return true; }
++  bool operator==(NotEqCmp) const = delete;
++};
++
++constexpr bool
++test_eq()
++{
++  std::expected<NotEqCmp, int> e1;
++  VERIFY(e1 == 1);
++  std::expected<int, int> e2;
++  VERIFY(e2 == e2);
++  VERIFY(e1 == e2);
++  VERIFY(e1 != std::unexpected<int>(1));
++  e1 = std::unexpected<int>(1);
++  VERIFY(e1 == std::unexpected<int>(1));
++  VERIFY(e1 != std::unexpected<int>(2));
++  VERIFY(e1 != e2);
++
++  std::expected<void, int> e3;
++  VERIFY(e3 == e3);
++  VERIFY(e3 != std::unexpected<int>(1));
++  e3 = std::unexpected<int>(1);
++  VERIFY(e3 == e3);
++  VERIFY(e3 == std::unexpected<int>(1));
++  VERIFY(e3 != std::unexpected<int>(2));
++
++  return true;
++}
++
++static_assert( test_eq() );
+diff --git a/libstdc++-v3/testsuite/20_util/expected/swap.cc b/libstdc++-v3/testsuite/20_util/expected/swap.cc
+index 745db65fc6c..08a110da47c 100644
+--- a/libstdc++-v3/testsuite/20_util/expected/swap.cc
++++ b/libstdc++-v3/testsuite/20_util/expected/swap.cc
+@@ -4,8 +4,18 @@
+ #include <expected>
+ #include <testsuite_hooks.h>
+ 
++struct NonTrivial
++{
++  constexpr NonTrivial(int i) : i(i) { }
++  constexpr NonTrivial(const NonTrivial& x) noexcept(false): i(x.i) { }
++  constexpr ~NonTrivial() { }
++  int i;
++
++  constexpr bool operator==(const NonTrivial&) const = default;
++};
++
+ constexpr bool
+-test_swap()
++test_swap_obj()
+ {
+   std::expected<int, int> e1(1), e2(2);
+   std::expected<int, int> e3(std::unexpect, 3), e4(std::unexpect, 4);
+@@ -27,6 +37,52 @@ test_swap()
+   VERIFY( e3.error() == 4 );
+   VERIFY( e4.error() == 3 );
+ 
++  std::expected<int, NonTrivial> e5(1), e6(2);
++  std::expected<int, NonTrivial> e7(std::unexpect, 3), e8(std::unexpect, 4);
++
++  swap(e5, e6);
++  VERIFY( e5.value() == 2 );
++  VERIFY( e6.value() == 1 );
++  swap(e5, e7);
++  VERIFY( ! e5.has_value() );
++  VERIFY( e5.error() == 3 );
++  VERIFY( e7.value() == 2 );
++  swap(e5, e7);
++  VERIFY( ! e7.has_value() );
++  VERIFY( e5.value() == 2 );
++  VERIFY( e7.error() == 3 );
++  swap(e7, e8);
++  VERIFY( ! e7.has_value() );
++  VERIFY( ! e8.has_value() );
++  VERIFY( e7.error() == 4 );
++  VERIFY( e8.error() == 3 );
++
++  std::expected<NonTrivial, int> e9(1), e10(2);
++  std::expected<NonTrivial, int> e11(std::unexpect, 3), e12(std::unexpect, 4);
++
++  swap(e9, e10);
++  VERIFY( e9.value() == 2 );
++  VERIFY( e10.value() == 1 );
++  swap(e9, e11);
++  VERIFY( ! e9.has_value() );
++  VERIFY( e9.error() == 3 );
++  VERIFY( e11.value() == 2 );
++  swap(e9, e11);
++  VERIFY( ! e11.has_value() );
++  VERIFY( e9.value() == 2 );
++  VERIFY( e11.error() == 3 );
++  swap(e11, e12);
++  VERIFY( ! e11.has_value() );
++  VERIFY( ! e12.has_value() );
++  VERIFY( e11.error() == 4 );
++  VERIFY( e12.error() == 3 );
++
++  return true;
++}
++
++constexpr bool
++test_swap_void()
++{
+   std::expected<void, int> v1, v2;
+   std::expected<void, int> v3(std::unexpect, 3), v4(std::unexpect, 4);
+ 
+@@ -47,11 +103,41 @@ test_swap()
+   VERIFY( v3.error() == 4 );
+   VERIFY( v4.error() == 3 );
+ 
++  std::expected<void, NonTrivial> v5, v6;
++  std::expected<void, NonTrivial> v7(std::unexpect, 3), v8(std::unexpect, 4);
++
++  swap(v5, v6);
++  VERIFY( v5.has_value() );
++  VERIFY( v6.has_value() );
++  swap(v5, v7);
++  VERIFY( ! v5.has_value() );
++  VERIFY( v5.error() == 3 );
++  VERIFY( v7.has_value() );
++  swap(v5, v7);
++  VERIFY( ! v7.has_value() );
++  VERIFY( v5.has_value() );
++  VERIFY( v7.error() == 3 );
++  swap(v7, v8);
++  VERIFY( ! v7.has_value() );
++  VERIFY( ! v8.has_value() );
++  VERIFY( v7.error() == 4 );
++  VERIFY( v8.error() == 3 );
++
+   return true;
+ }
+ 
++static_assert( std::is_swappable_v<std::expected<int, int>> );
++static_assert( std::is_swappable_v<std::expected<void, int>> );
++
++struct A { A& operator=(A&&) = delete; };
++static_assert( ! std::is_swappable_v<std::expected<A, int>> );
++static_assert( ! std::is_swappable_v<std::expected<int, A>> );
++static_assert( ! std::is_swappable_v<std::expected<void, A>> );
++
+ int main()
+ {
+-  static_assert( test_swap() );
+-  test_swap();
++  static_assert( test_swap_obj() );
++  test_swap_obj();
++  static_assert( test_swap_void() );
++  test_swap_void();
+ }
+diff --git a/libstdc++-v3/testsuite/20_util/expected/unexpected.cc b/libstdc++-v3/testsuite/20_util/expected/unexpected.cc
+index d4cbeadf674..050f8e3e81f 100644
+--- a/libstdc++-v3/testsuite/20_util/expected/unexpected.cc
++++ b/libstdc++-v3/testsuite/20_util/expected/unexpected.cc
+@@ -73,6 +73,10 @@ test()
+   return true;
+ }
+ 
++static_assert( std::is_swappable_v<std::unexpected<int>> );
++struct A { A& operator=(A&&) = delete; };
++static_assert( ! std::is_swappable_v<std::unexpected<A>> );
++
+ int main()
+ {
+   static_assert( test() );
 diff --git a/libstdc++-v3/testsuite/20_util/is_nothrow_convertible/value.cc b/libstdc++-v3/testsuite/20_util/is_nothrow_convertible/value.cc
 index e9aded73624..a2686285052 100644
 --- a/libstdc++-v3/testsuite/20_util/is_nothrow_convertible/value.cc
@@ -17760,6 +21840,68 @@ index 00000000000..017b72ef5f6
 +static_assert( std::swappable<I> );
 +using R = std::counted_iterator<fs::recursive_directory_iterator>;
 +static_assert( std::swappable<R> );
+diff --git a/libstdc++-v3/testsuite/experimental/filesystem/iterators/error_reporting.cc b/libstdc++-v3/testsuite/experimental/filesystem/iterators/error_reporting.cc
+index f005b7d5293..aabed14679c 100644
+--- a/libstdc++-v3/testsuite/experimental/filesystem/iterators/error_reporting.cc
++++ b/libstdc++-v3/testsuite/experimental/filesystem/iterators/error_reporting.cc
+@@ -29,35 +29,44 @@
+ 
+ int choice;
+ 
+-struct dirent global_dirent;
+-
+ extern "C" struct dirent* readdir(DIR*)
+ {
++  // On some targets dirent::d_name is very small, but the OS allocates
++  // a trailing char array after the dirent struct. Emulate that here.
++  union State
++  {
++    struct dirent d;
++    char buf[sizeof(struct dirent) + 16] = {};
++  };
++
++  static State state;
++  char* d_name = state.buf + offsetof(struct dirent, d_name);
++
+   switch (choice)
+   {
+   case 1:
+-    global_dirent.d_ino = 999;
++    state.d.d_ino = 999;
+ #if defined _GLIBCXX_HAVE_STRUCT_DIRENT_D_TYPE && defined DT_REG
+-    global_dirent.d_type = DT_REG;
++    state.d.d_type = DT_REG;
+ #endif
+-    global_dirent.d_reclen = 0;
+-    std::char_traits<char>::copy(global_dirent.d_name, "file", 5);
++    state.d.d_reclen = 0;
++    std::char_traits<char>::copy(d_name, "file", 5);
+     choice = 0;
+-    return &global_dirent;
++    return &state.d;
+   case 2:
+-    global_dirent.d_ino = 111;
++    state.d.d_ino = 111;
+ #if defined _GLIBCXX_HAVE_STRUCT_DIRENT_D_TYPE && defined DT_DIR
+-    global_dirent.d_type = DT_DIR;
++    state.d.d_type = DT_DIR;
+ #endif
+-    global_dirent.d_reclen = 60;
+-    std::char_traits<char>::copy(global_dirent.d_name, "subdir", 7);
++    state.d.d_reclen = 60;
++    std::char_traits<char>::copy(d_name, "subdir", 7);
+     choice = 1;
+-    return &global_dirent;
++    return &state.d;
+   default:
+     errno = EIO;
+     return nullptr;
+   }
+-  return &global_dirent;
++  return &state.d;
+ }
+ 
+ void
 diff --git a/libstdc++-v3/testsuite/experimental/filesystem/path/construct/95048.cc b/libstdc++-v3/testsuite/experimental/filesystem/path/construct/95048.cc
 new file mode 100644
 index 00000000000..b7a93f3c985
@@ -17841,4 +21983,67 @@ index 8986f718229..530ab6663b5 100644
    test11();
    test12();
 +  test13();
+ }
+diff --git a/libstdc++-v3/testsuite/std/time/hh_mm_ss/1.cc b/libstdc++-v3/testsuite/std/time/hh_mm_ss/1.cc
+index 31dd1b2a8f3..24ac80d3c81 100644
+--- a/libstdc++-v3/testsuite/std/time/hh_mm_ss/1.cc
++++ b/libstdc++-v3/testsuite/std/time/hh_mm_ss/1.cc
+@@ -59,5 +59,57 @@ constexpr_hh_mm_ss()
+ 
+   static_assert(seconds{hh_mm_ss{100min}} == 100min);
+ 
+-  // TODO: treat_as_floating_point_v
++  // treat_as_floating_point_v
++  using fseconds = duration<double, ratio<1>>;
++  constexpr hh_mm_ss<fseconds> fsec{0x123.0004p5s};
++  static_assert(std::is_same_v<hh_mm_ss<fseconds>::precision, fseconds>);
++  static_assert(fsec.hours() == 2h);
++  static_assert(fsec.minutes() == 35min);
++  static_assert(fsec.seconds() == 12s);
++  static_assert(fsec.subseconds() == 0x.0004p5s);
++  static_assert(!fsec.is_negative());
++  static_assert(fsec.to_duration() == 0x123.0004p5s);
++
++  using fminutes = duration<double, ratio<60>>;
++  constexpr hh_mm_ss<fminutes> fmin{-0x1.23p4min};
++  static_assert(std::is_same_v<hh_mm_ss<fminutes>::precision, fseconds>);
++  static_assert(fmin.hours() == 0h);
++  static_assert(fmin.minutes() == 18min);
++  static_assert(fmin.seconds() == 11s);
++  static_assert(fmin.subseconds() == 0.25s);
++  static_assert(fmin.is_negative());
++  static_assert(fmin.to_duration() == -0x1.23p4min);
++}
++
++constexpr void
++default_construction()
++{
++  using namespace std::chrono;
++
++  constexpr hh_mm_ss<seconds> s1;
++  static_assert(s1.to_duration() == s1.to_duration().zero());
++  constexpr hh_mm_ss<duration<char>> s2;
++  static_assert(s2.to_duration() == s2.to_duration().zero());
++  constexpr hh_mm_ss<duration<int, std::centi>> s3;
++  static_assert(s3.to_duration() == s3.to_duration().zero());
++  constexpr hh_mm_ss<duration<long long, std::femto>> s4;
++  static_assert(s4.to_duration() == s4.to_duration().zero());
++  constexpr hh_mm_ss<duration<double>> s5;
++  static_assert(s5.to_duration() == s5.to_duration().zero());
++}
++
++constexpr void
++unsigned_rep()
++{
++  using namespace std::chrono;
++
++  constexpr duration<unsigned, std::milli> ms(3690001);
++
++  constexpr hh_mm_ss hms(ms); // PR libstdc++/108265
++  static_assert( ! hms.is_negative() );
++  static_assert( hms.to_duration() == milliseconds(ms.count()) );
++  static_assert( hms.hours() == 1h );
++  static_assert( hms.minutes() == 1min );
++  static_assert( hms.seconds() == 30s );
++  static_assert( hms.subseconds() == 1ms );
  }
