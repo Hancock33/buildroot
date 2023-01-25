@@ -3,8 +3,8 @@
 # wlroots
 #
 ################################################################################
-
-WLROOTS_VERSION = 0.15.1
+# batocera (update)
+WLROOTS_VERSION = 0.16.1
 WLROOTS_SITE = https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$(WLROOTS_VERSION)/downloads
 WLROOTS_LICENSE = MIT
 WLROOTS_LICENSE_FILES = LICENSE
@@ -20,6 +20,7 @@ WLROOTS_DEPENDENCIES = \
 	pixman \
 	seatd \
 	udev \
+    hwdata \
 	wayland \
 	wayland-protocols
 
@@ -27,6 +28,11 @@ WLROOTS_CONF_OPTS = -Dexamples=false -Dxcb-errors=disabled
 
 WLROOTS_RENDERERS = gles2
 WLROOTS_BACKENDS = libinput drm
+
+# batocera
+ifeq ($(BR2_PACKAGE_HAS_LIBGBM),y)
+WLROOTS_CONF_OPTS += -Dallocators=gbm
+endif
 
 # batocera - add xwayland
 ifeq ($(BR2_PACKAGE_WLROOTS_X11),y)
@@ -50,5 +56,11 @@ endif
 WLROOTS_CONF_OPTS += \
 	-Dbackends=$(subst $(space),$(comma),$(strip $(WLROOTS_BACKENDS))) \
 	-Drenderers=$(subst $(space),$(comma),$(strip $(WLROOTS_RENDERERS)))
+
+# batocera
+define WLROOTS_CROSS_FIXUP
+	$(SED) 's|/usr/share/hwdata/pnp.ids|$(TARGET_DIR)/usr/share/hwdata/pnp.ids|g' $(@D)/backend/drm/meson.build
+endef
+WLROOTS_PRE_CONFIGURE_HOOKS += WLROOTS_CROSS_FIXUP
 
 $(eval $(meson-package))
