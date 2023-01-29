@@ -1,5 +1,5 @@
 # Locally computed
-sha256  2dd93377c68f75a328585b3dc36b67a6603a698912b414f5e26a756d9132b136  libglvnd-1.5.0.tar.gz
+sha256  ecf095405c5be15ecaec5edc7df7d52cd283aec66cb3811b5df88ec3e563af1c  libglvnd-1.6.0.tar.gz
 
 # Locally computed hashes for license files
 sha256  f84a3eca98cc5bdf5318741124c38c5e877f856df8c7e229ee5065e5c61038c2  README.md

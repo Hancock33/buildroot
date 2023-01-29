@@ -37,7 +37,7 @@ if [ -z "${h_file}" ]; then
 fi
 # Does the hash-file exist?
 if [ ! -f "${h_file}" ]; then
-    printf "WARNING: no hash file for %s\n" "${base}" >&2
+#    printf "WARNING: no hash file for %s\n" "${base}" >&2
     exit 0
 fi
 
