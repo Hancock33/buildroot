@@ -13,6 +13,11 @@ GCC_VERSION = $(call qstrip,$(BR2_GCC_VERSION))
 ifeq ($(BR2_GCC_VERSION_ARC),y)
 GCC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,gcc,$(GCC_VERSION))
 GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
+else ifeq ($(BR2_GCC_VERSION_12_GIT),y)
+#git describe --abbrev=40 origin/releases/gcc-12 | cut -d '-' -f 2-
+GCC_VERSION =  12.2.0-400-gd31bd7138610a883310dce212bb0bdaaa8da7304
+GCC_SITE = $(call github,RTEMS,gnu-mirror-gcc,$(GCC_VERSION))
+GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else
 GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
 GCC_SOURCE = gcc-$(GCC_VERSION).tar.xz
