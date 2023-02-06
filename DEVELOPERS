@@ -395,6 +395,7 @@ F:	package/libsndfile/
 F:	package/libsoundtouch/
 F:	package/libsquish/
 F:	package/libudfread/
+F:	package/libunibreak/
 F:	package/liburiparser/
 F:	package/libutp/
 F:	package/libva/
@@ -1105,7 +1106,6 @@ F:	package/gstreamer1/gst1-imx/
 F:	package/libimxvpuapi/
 F:	package/mfgtools/
 F:	package/sshpass/
-F:	package/x11r7/xdriver_xf86-video-imx-viv/
 
 N:	Geoff Levand <geoff@infradead.org>
 F:	package/flannel/
@@ -1380,6 +1380,7 @@ F:	package/python-flatbuffers/
 F:	package/python-fonttools/
 F:	package/python-frozenlist/
 F:	package/python-greenlet/
+F:	package/python-h11/
 F:	package/python-hatchling/
 F:	package/python-hatch-fancy-pypi-readme/
 F:	package/python-hatch-vcs/
@@ -1486,7 +1487,6 @@ F:	package/lxc/
 F:	package/strongswan/
 F:	package/wmctrl/
 F:	package/x11r7/xdriver_xf86-video-imx/
-F:	package/x11r7/xdriver_xf86-video-imx-viv/
 
 N:	Jesse Van Gavere <jesseevg@gmail.com>
 F:	package/qt6/
@@ -2523,7 +2523,9 @@ F:	support/testing/run-tests
 F:	support/testing/tests/package/test_atop.py
 F:	support/testing/tests/utils/test_check_package.py
 F:	utils/check-package
+F:	utils/check-symbols
 F:	utils/checkpackagelib/
+F:	utils/checksymbolslib/
 F:	utils/docker-run
 
 N:	Richard Braun <rbraun@sceen.net>
