@@ -67,12 +67,12 @@ ifeq ($(BR2_PACKAGE_XLIB_LIBXDAMAGE),y)
 LIBGTK3_DEPENDENCIES += xlib_libXdamage
 endif
 
-ifeq ($(BR2_PACKAGE_CUPS),y)
-LIBGTK3_CONF_OPTS += -Dprint_backends=cups
-LIBGTK3_DEPENDENCIES += cups
-else
+#ifeq ($(BR2_PACKAGE_CUPS),y)
+#LIBGTK3_CONF_OPTS += -Dprint_backends=cups
+#LIBGTK3_DEPENDENCIES += cups
+#else
 LIBGTK3_CONF_OPTS += -Dprint_backends=auto
-endif
+#endif
 
 ifeq ($(BR2_PACKAGE_LIBGTK3_DEMO),y)
 LIBGTK3_CONF_OPTS += -Ddemos=true -Dexamples=true
