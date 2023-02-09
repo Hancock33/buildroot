@@ -14,7 +14,7 @@ LIBGTK3_CPE_ID_VENDOR = gnome
 LIBGTK3_CPE_ID_PRODUCT = gtk
 LIBGTK3_INSTALL_STAGING = YES
 
-LIBGTK3_DEPENDENCIES = host-pkgconf host-libgtk3 atk libglib2 cairo pango \
+LIBGTK3_DEPENDENCIES = host-pkgconf host-libgtk3 atk at-spi2-atk libglib2 cairo pango \
 	gdk-pixbuf libepoxy $(TARGET_NLS_DEPENDENCIES)
 
 ifeq ($(BR2_PACKAGE_LIBGTK3_X11),y)
@@ -67,12 +67,12 @@ ifeq ($(BR2_PACKAGE_XLIB_LIBXDAMAGE),y)
 LIBGTK3_DEPENDENCIES += xlib_libXdamage
 endif
 
-ifeq ($(BR2_PACKAGE_CUPS),y)
-LIBGTK3_CONF_OPTS += -Dprint_backends=cups
-LIBGTK3_DEPENDENCIES += cups
-else
+#ifeq ($(BR2_PACKAGE_CUPS),y)
+#LIBGTK3_CONF_OPTS += -Dprint_backends=cups
+#LIBGTK3_DEPENDENCIES += cups
+#else
 LIBGTK3_CONF_OPTS += -Dprint_backends=auto
-endif
+#endif
 
 ifeq ($(BR2_PACKAGE_LIBGTK3_DEMO),y)
 LIBGTK3_CONF_OPTS += -Ddemos=true -Dexamples=true
