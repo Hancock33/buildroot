@@ -3,8 +3,8 @@
 # sdl2_image
 #
 ################################################################################
-# Version: Commits on Oct 11, 2022 (release-2.6.x branch)
-SDL2_IMAGE_VERSION = 2c2b4870fe035ab33afecafb40df6ec6a85596e1
+# Version: Commits on Feb 07, 2023 (branch@release-2.6.x)
+SDL2_IMAGE_VERSION = release-2.6.3
 SDL2_IMAGE_SITE = $(call github,libsdl-org,SDL_image,$(SDL2_IMAGE_VERSION))
 SDL2_IMAGE_INSTALL_STAGING = YES
 SDL2_IMAGE_LICENSE = Zlib
