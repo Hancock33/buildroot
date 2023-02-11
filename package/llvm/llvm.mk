@@ -5,8 +5,8 @@
 ################################################################################
 
 # LLVM, Clang, libclc and lld should be version bumped together
-# batocera  bump to 14.0.6
-LLVM_VERSION = 15.0.7
+# batocera  bump to 16.0.0-rc2
+LLVM_VERSION = 16.0.0-rc2
 LLVM_SITE = https://github.com/llvm/llvm-project/releases/download/llvmorg-$(LLVM_VERSION)
 LLVM_SOURCE = llvm-project-$(LLVM_VERSION).src.tar.xz
 LLVM_LICENSE = Apache-2.0 with exceptions
