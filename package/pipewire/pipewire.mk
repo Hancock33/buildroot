@@ -218,6 +218,13 @@ endif
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
 #endif
 
+ifeq ($(BR2_PACKAGE_PIPEWIRE_COMPRESS_OFFLOAD),y)
+PIPEWIRE_CONF_OPTS += -Dcompress-offload=enabled
+PIPEWIRE_DEPENDENCIES += tinycompress
+else
+PIPEWIRE_CONF_OPTS += -Dcompress-offload=disabled
+endif
+
 ifeq ($(WEBRTC_AUDIO_PROCESSING),y)
 PIPEWIRE_CONF_OPTS += -Decho-cancel-webrtc=enabled
 PIPEWIRE_DEPENDENCIES += webrtc-audio-processing
