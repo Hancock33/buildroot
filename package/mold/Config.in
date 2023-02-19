@@ -1,0 +1,9 @@
+config BR2_PACKAGE_MOLD
+	bool "mold"
+	depends on BR2_USE_WCHAR
+	select BR2_PACKAGE_ZLIB
+
+	help
+	  Mold: A Modern Linker
+
+	  https://github.com/rui314/mold
