@@ -11,12 +11,13 @@ MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES)
 HOST_MOLD_DEPENDENCIES += host-flex host-bison host-openssl host-zstd
 
 MOLD_SUPPORTS_IN_SOURCE_BUILD = NO
-MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
-HOST_MOLD_CONF_OPTS += -DTOOLS_ONLY=ON -DSKIP_INSTALL_ALL=ON -DCMAKE_BUILD_TYPE=Release
+MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release -DMOLD_LTO=ON
+HOST_MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release -DMOLD_LTO=ON
 
 define MOLD_INSTALL
-	ln -sf $(HOST_DIR)/bin/mold $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold
-	ln -sf $(HOST_DIR)/bin/mold $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
+    rm -rf $(HOST_DIR)/bin/mold.ld
+ 	mv     $(HOST_DIR)/bin/mold                       $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold
+	ln -sf $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
 endef
 
 HOST_MOLD_POST_INSTALL_HOOKS += MOLD_INSTALL
