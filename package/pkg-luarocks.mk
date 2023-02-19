@@ -118,7 +118,7 @@ define $(2)_INSTALL_TARGET_CMDS
 			CC=$$(TARGET_CC) \
 			LD=$$(TARGET_CC) \
 			CFLAGS="$$(LUAROCKS_CFLAGS)" \
-			LIBFLAG="-shared $$(TARGET_LDFLAGS)" \
+			LIBFLAG="-shared" \
 			$$($(2)_BUILD_OPTS) $$($(2)_ROCKSPEC)
 endef
 endif
