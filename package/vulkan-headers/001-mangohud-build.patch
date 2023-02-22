@@ -1,0 +1,32 @@
+diff --git a/include/vulkan/vk_layer.h b/include/vulkan/vk_layer.h
+index 7954f71..6bd1c9a 100644
+--- a/include/vulkan/vk_layer.h
++++ b/include/vulkan/vk_layer.h
+@@ -28,6 +28,14 @@
+ 
+ #include "vulkan_core.h"
+ 
++#if defined(__GNUC__) && __GNUC__ >= 4
++#define VK_LAYER_EXPORT __attribute__((visibility("default")))
++#elif defined(__SUNPRO_C) && (__SUNPRO_C >= 0x590)
++#define VK_LAYER_EXPORT __attribute__((visibility("default")))
++#else
++#define VK_LAYER_EXPORT
++#endif
++
+ #define MAX_NUM_UNKNOWN_EXTS 250
+ 
+  // Loader-Layer version negotiation API.  Versions add the following features:
+diff --git a/tests/vk_layer.c b/tests/vk_layer.c
+index df2bc09..660d29b 100644
+--- a/tests/vk_layer.c
++++ b/tests/vk_layer.c
+@@ -1,6 +1,7 @@
+ #include "vulkan/vk_layer.h"
+ 
+-int foobar()
++// Use helper macro intended for vulkan layers to export functions
++VK_LAYER_EXPORT int foobar()
+ {
+     return 0;
+ }
