@@ -34,7 +34,6 @@ ifeq ($(BR2_PACKAGE_HAS_LIBGBM),y)
 WLROOTS_CONF_OPTS += -Dallocators=gbm
 endif
 
-# batocera - add xwayland
 ifeq ($(BR2_PACKAGE_WLROOTS_X11),y)
 WLROOTS_BACKENDS += x11
 WLROOTS_DEPENDENCIES += libxcb xcb-util-wm xcb-util-renderutil xlib_libX11
