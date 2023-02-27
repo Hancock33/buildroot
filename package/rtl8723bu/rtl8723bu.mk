@@ -3,8 +3,8 @@
 # rtl8723bu
 #
 ################################################################################
-# Version: Commits on Dec 28, 2022
-RTL8723BU_VERSION = f1dbe1c8ccc2c5b2cbeb84da6b9f0e547a84a255
+# Version: Commits on Feb 18, 2023
+RTL8723BU_VERSION = 92c19318cb54ef96c2cfb4a22b2c98eb512812d8
 RTL8723BU_SITE = $(call github,lwfinger,rtl8723bu,$(RTL8723BU_VERSION))
 RTL8723BU_LICENSE = GPL-2.0, proprietary (*.bin firmware blobs)
 
