@@ -3,7 +3,7 @@ comment "Kernel Header Options"
 choice
 	prompt "Kernel Headers"
 	default BR2_KERNEL_HEADERS_AS_KERNEL if BR2_LINUX_KERNEL
-	default BR2_KERNEL_HEADERS_6_1
+	default BR2_KERNEL_HEADERS_6_2
 	help
 	  Select the kernel version to get headers from.
 
@@ -48,7 +48,6 @@ config BR2_KERNEL_HEADERS_5_15
 config BR2_KERNEL_HEADERS_6_1
 	bool "Linux 6.1.x kernel headers"
 	select BR2_TOOLCHAIN_HEADERS_AT_LEAST_6_1
-	select BR2_KERNEL_HEADERS_LATEST
 
 config BR2_KERNEL_HEADERS_6_2
 	bool "Linux 6.2.x kernel headers"
