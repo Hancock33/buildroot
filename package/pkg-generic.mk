@@ -406,20 +406,14 @@ $(BUILD_DIR)/%/.stamp_installed:
 	@$(call check_bin_arch)
 	$(Q)touch $@
 	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),@$(call MESSAGE,"Removing package sources to save space"))
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)rm -Rf $(@D))
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)mkdir $(@D))
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_downloaded)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_actual_downloaded)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_extracted)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_rsynced)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_patched)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_configured)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_built)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_host_installed)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_staging_installed)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_images_installed)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_target_installed)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)touch $(@D)/.stamp_installed)
+	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -depth -type d -name ".deps" -exec rm -rf {} \;)
+	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -depth -type d -name "build" -exec rm -rf {} \;)
+	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -depth -type d -name "buildroot-build" -exec rm -rf {} \;)
+	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -depth -type d -name "obj" -exec rm -rf {} \;)
+	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -type f -name "*.a" -exec rm {} \;)
+	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -type f -name "*.d" -exec rm {} \;)
+	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -type f -name "*.o" -exec rm {} \;)
+	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -type f -name "*.lo" -exec rm {} \;)
 
 # Remove package sources
 $(BUILD_DIR)/%/.stamp_dircleaned:
