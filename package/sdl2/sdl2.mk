@@ -3,9 +3,10 @@
 # sdl2
 #
 ################################################################################
-# Version: Commits on Feb 24, 2023 (branch@release-2.26.x)
-SDL2_VERSION = fa9f7c70c5bf75ee841c97cae87cfae74f018a9c
-SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
+# batocera (update)
+SDL2_VERSION = 2.26.4
+SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
+SDL2_SITE = http://www.libsdl.org/release
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = LICENSE.txt
 SDL2_CPE_ID_VENDOR = libsdl
@@ -85,7 +86,6 @@ endif
 
 # batocera - use Pipewire audio
 ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
-SDL2_DEPENDENCIES += pipewire
 SDL2_CONF_OPTS += --enable-pipewire
 endif
 
