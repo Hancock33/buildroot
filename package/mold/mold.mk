@@ -3,8 +3,8 @@
 # mold
 #
 ################################################################################
-# Version: Commits on Feb 22, 2023
-MOLD_VERSION = 0870078ed256e3158b4ee57caa1e82f2f07ace25
+# Version: Commits on Mar 07, 2023
+MOLD_VERSION = 67eb3069b3e7c77632c3c015a3f1324b2bab87e9
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = GPLv3
 MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES)
@@ -21,7 +21,6 @@ define MOLD_INSTALL
 endef
 
 HOST_MOLD_POST_INSTALL_HOOKS += MOLD_INSTALL
-
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
