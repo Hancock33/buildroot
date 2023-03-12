@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Mar 09, 2023 (branch@release-2.26.x)
-SDL2_VERSION = 596a594714590c0b3bdbd878c553abb868de317c
+SDL2_VERSION = 20e17559e545c5d3cfe86c1c4772365e70090779
 SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = LICENSE.txt
