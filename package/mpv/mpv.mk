@@ -3,8 +3,8 @@
 # mpv
 #
 ################################################################################
-# batocera (update)
-MPV_VERSION = 0.34.1
+
+MPV_VERSION = 0.35.1
 MPV_SITE = $(call github,mpv-player,mpv,v$(MPV_VERSION))
 MPV_DEPENDENCIES = \
 	host-pkgconf ffmpeg libass zlib \
@@ -27,8 +27,7 @@ MPV_CONF_OPTS = \
 	--disable-opensles \
 	--disable-rubberband \
 	--disable-uchardet \
-	--disable-vapoursynth \
-	--disable-sdl2-gamepad
+	--disable-vapoursynth
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 MPV_CONF_OPTS += --disable-build-date
@@ -142,7 +141,10 @@ MPV_CONF_OPTS += --disable-lua
 endif
 
 # OpenGL support
-ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
+ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
+MPV_CONF_OPTS += --enable-gl
+MPV_DEPENDENCIES += libgl
+else ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
 MPV_CONF_OPTS += --enable-gl
 MPV_DEPENDENCIES += libgles
 else ifeq ($(BR2_PACKAGE_HAS_LIBEGL),y)
