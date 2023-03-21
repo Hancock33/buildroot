@@ -421,27 +421,25 @@ index 5b5e7a99ce..c1e45880c5 100644
  struct mp_ipc_ctx;
  struct mp_client_api;
 diff --git a/wscript b/wscript
-index b44adc2ad4..c663e90964 100644
+index e349d4103e..edbdc685ad 100644
 --- a/wscript
 +++ b/wscript
-@@ -391,7 +391,12 @@ iconv support use --disable-iconv.",
-         'desc': 'SDL2 gamepad input',
-         'deps': 'sdl2',
-         'func': check_true,
+@@ -405,6 +405,10 @@ iconv support use --disable-iconv.",
+         'name': 'rubberband-3',
+         'desc': 'new engine support for librubberband',
+         'func': check_pkg_config('rubberband >= 3.0.0'),
 +    }, {
 +        'name': '--evdev-gamepad',
 +        'desc': 'EVDEV gamepad input',
 +        'func': check_true,
      }
-+
  ]
  
- libav_dependencies = [
 diff --git a/wscript_build.py b/wscript_build.py
-index 384bb50d2e..bac1b4333a 100644
+index 16c8cf0895..4b83ac7d0b 100644
 --- a/wscript_build.py
 +++ b/wscript_build.py
-@@ -310,6 +310,7 @@ def build(ctx):
+@@ -325,6 +325,7 @@ def build(ctx):
          ( ipc_c ),
          ( "input/keycodes.c" ),
          ( "input/sdl_gamepad.c",                 "sdl2-gamepad" ),
