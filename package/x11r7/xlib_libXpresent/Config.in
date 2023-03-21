@@ -1,0 +1,8 @@
+config BR2_PACKAGE_XLIB_LIBXPRESENT
+	bool "libXpresent"
+	select BR2_PACKAGE_XLIB_LIBXEXT
+	select BR2_PACKAGE_XLIB_LIBXFIXES
+	select BR2_PACKAGE_XLIB_XTRANS
+	select BR2_PACKAGE_XORGPROTO
+	help
+	  X.Org Xpresent library
