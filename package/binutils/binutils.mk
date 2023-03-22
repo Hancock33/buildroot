@@ -94,7 +94,7 @@ endif
 HOST_BINUTILS_CONF_OPTS = \
 	--disable-multilib \
 	--disable-werror \
-	--disable-gold \
+	--enable-gold \
 	--target=$(GNU_TARGET_NAME) \
 	--disable-shared \
 	--enable-static \
