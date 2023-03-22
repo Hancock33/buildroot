@@ -29,6 +29,9 @@ config BR2_BINUTILS_VERSION_2_39_X
 	
 config BR2_BINUTILS_VERSION_2_40_X
 	bool "binutils 2.40"
+	
+config BR2_BINUTILS_VERSION_GIT
+	bool "binutils git"
 
 config BR2_BINUTILS_VERSION_ARC
 	bool "binutils arc (2.34.50)"
