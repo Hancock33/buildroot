@@ -5,7 +5,7 @@
 ################################################################################
 
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 032a428fac08f67828d2939f72073ed27b7bae46
+MESA3D_VERSION = 8797c8a2f6a61e3c3b1926044369bfbfcf1083b1
 MESA3D_SITE = https://gitlab.freedesktop.org/mesa/mesa.git
 MESA3D_SITE_METHOD = git
 MESA3D_LICENSE = MIT, SGI, Khronos
