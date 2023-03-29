@@ -14,7 +14,7 @@ GLIBC_VERSION = 2.37-8-g590d0e089b06f158ded713f5e5600eaa66dcea44
 # When updating the version, check it on the official repository;
 # *NEVER* decide on a version string by looking at the mirror.
 # Then check that the mirror has been synced already (happens once a day.)
-GLIBC_SITE = $(call github,bminor,glibc,$(GLIBC_VERSION))
+GLIBC_SITE = $(call github,sailfishos-mirror,glibc,$(GLIBC_VERSION))
 
 GLIBC_LICENSE = GPL-2.0+ (programs), LGPL-2.1+, BSD-3-Clause, MIT (library)
 GLIBC_LICENSE_FILES = COPYING COPYING.LIB LICENSES
