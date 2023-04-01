@@ -128,6 +128,8 @@ ifeq ($(BR2_OPTIMIZE_FAST),y)
 GLIBC_CFLAGS += -O2
 endif
 
+TARGET_CONFIGURE_OPTS += LD="$(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld"
+
 define GLIBC_CONFIGURE_CMDS
 	mkdir -p $(@D)/build
 	# Do the configuration
