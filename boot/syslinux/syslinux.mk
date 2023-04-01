@@ -61,7 +61,7 @@ define SYSLINUX_BUILD_CMDS
 		ASCIIDOC_OK=-1 \
 		A2X_XML_OK=-1 \
 		CC="$(TARGET_CC)" \
-		LD="$(TARGET_LD)" \
+		LD="$(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld" \
 		OBJCOPY="$(TARGET_OBJCOPY)" \
 		AS="$(TARGET_AS)" \
 		NASM="$(HOST_DIR)/bin/nasm" \
