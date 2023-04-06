@@ -3,7 +3,7 @@
 # sdl2_ttf
 #
 ################################################################################
-# batocera : 2.0.18 is breaking fonts on fsuae
+
 SDL2_TTF_VERSION = 2.20.2
 SDL2_TTF_SOURCE = SDL2_ttf-$(SDL2_TTF_VERSION).tar.gz
 SDL2_TTF_SITE = http://www.libsdl.org/projects/SDL_ttf/release
