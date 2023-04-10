@@ -1,7 +1,7 @@
 # Locally calculated after checking pgp signature
 # https://dbus.freedesktop.org/releases/dbus/dbus-1.12.26.tar.gz.asc
 # using key 36EC5A6448A4F5EF79BEFE98E05AE1478F814C4F
-sha256  bc42d196c1756ac520d61bf3ccd6f42013617def45dd1e591a6091abf51dca38  dbus-1.12.26.tar.gz
+sha256  8fb4917f5a253d7f9dd928419f5d85726616f92327c6ccc78ec07fb8a0a39f44  dbus-1.12.26.tar.gz
 
 # Locally calculated
 sha256  0e46f54efb12d04ab5c33713bacd0e140c9a35b57ae29e03c853203266e8f3a1  COPYING
