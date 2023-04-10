@@ -383,10 +383,10 @@ VLC_DEPENDENCIES += libupnp
 else
 VLC_CONF_OPTS += --disable-upnp
 endif
-
-# libva support depends on ffmpeg
+#batocera disable
+# libva support depends on ffmpeg 
 ifeq ($(BR2_PACKAGE_FFMPEG)$(BR2_PACKAGE_LIBVA),yy)
-VLC_CONF_OPTS += --enable-libva
+VLC_CONF_OPTS += --disable-libva
 VLC_DEPENDENCIES += libva
 else
 VLC_CONF_OPTS += --disable-libva
