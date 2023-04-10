@@ -22,7 +22,8 @@ MESA3D_DEPENDENCIES = \
 	host-python-mako \
 	expat \
 	libdrm \
-	zlib
+	zlib \
+	zstd
 
 MESA3D_CONF_OPTS = \
 	-Dgallium-omx=disabled \
