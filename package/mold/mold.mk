@@ -16,6 +16,8 @@ HOST_MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release -DMOLD_LTO=ON
 
 define MOLD_INSTALL
     rm -rf $(HOST_DIR)/bin/mold.ld
+    rm -rf $(HOST_DIR)/bin/ld.mold
+ 	cp -av $(HOST_DIR)/bin/mold                       $(HOST_DIR)/$(GNU_TARGET_NAME)/ld.mold  	
  	mv     $(HOST_DIR)/bin/mold                       $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold
 	ln -sf $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
 endef
