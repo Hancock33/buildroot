@@ -12,7 +12,7 @@ HOST_MOLD_DEPENDENCIES += host-flex host-bison host-openssl host-zstd
 
 MOLD_SUPPORTS_IN_SOURCE_BUILD = NO
 MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
-HOST_MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
+HOST_MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release -DMOLD_LTO=ON
 
 define MOLD_INSTALL
     rm -rf $(HOST_DIR)/bin/mold.ld
