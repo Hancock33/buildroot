@@ -8,7 +8,7 @@ MOLD_VERSION = 461001328bccf3b61709ee4531c6768c5280e289
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = GPLv3
 MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES)
-HOST_MOLD_DEPENDENCIES += host-flex host-bison host-openssl host-zstd
+HOST_MOLD_DEPENDENCIES += host-flex host-bison host-openssl host-zstd host-cmake
 
 MOLD_SUPPORTS_IN_SOURCE_BUILD = NO
 MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
