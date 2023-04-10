@@ -15,12 +15,12 @@ ifeq ($(BR2_GCC_VERSION_ARC),y)
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else ifeq ($(BR2_GCC_VERSION_12_GIT),y)
 # git describe --abbrev=40 origin/releases/gcc-12 | cut -d '-' -f 2-
-	GCC_VERSION = 12.2.0-692-gfbd2d0a68388ca00e0767df92f40b034f6e774c7
+	GCC_VERSION = 12.2.0-695-g8014dbf7efe55d76988d933427f9b851df48c161
 	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else ifeq ($(BR2_GCC_VERSION_11_GIT),y)
 # git describe --abbrev=40 origin/releases/gcc-11 | cut -d '-' -f 2-
-	GCC_VERSION = 11.3.0-720-g3b61cae04fdce5e94e01c323043c5a76bb62a76d
+	GCC_VERSION = 11.3.0-723-g61830fd17638ee2750bba8352f29f4cc67e042a2
 	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else
@@ -93,6 +93,10 @@ HOST_GCC_COMMON_CONF_OPTS = \
 	--with-pkgversion="Buildroot $(BR2_VERSION_FULL)" \
 	--with-bugurl="http://bugs.buildroot.net/" \
 	--without-zstd
+
+ifeq ($(BR2_x86_i686)$(BR2_x86_64),y)
+HOST_GCC_COMMON_CONF_OPTS += --enable-gold
+endif
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 HOST_GCC_COMMON_CONF_OPTS += --with-debug-prefix-map=$(BASE_DIR)=buildroot
