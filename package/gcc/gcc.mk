@@ -87,16 +87,13 @@ HOST_GCC_COMMON_CONF_OPTS = \
 	--disable-decimal-float \
 	--enable-plugins \
 	--enable-lto \
+	--enable-gold \
 	--with-gmp=$(HOST_DIR) \
 	--with-mpc=$(HOST_DIR) \
 	--with-mpfr=$(HOST_DIR) \
 	--with-pkgversion="Buildroot $(BR2_VERSION_FULL)" \
 	--with-bugurl="http://bugs.buildroot.net/" \
 	--without-zstd
-
-ifeq ($(BR2_x86_i686)$(BR2_x86_64),y)
-HOST_GCC_COMMON_CONF_OPTS += --enable-gold
-endif
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 HOST_GCC_COMMON_CONF_OPTS += --with-debug-prefix-map=$(BASE_DIR)=buildroot
