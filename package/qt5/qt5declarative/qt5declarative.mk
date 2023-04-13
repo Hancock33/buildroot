@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-QT5DECLARATIVE_VERSION = 51efb2ed2f071beda188270a23ac450fe4b318f7
-QT5DECLARATIVE_SITE = $(QT5_SITE)/qtdeclarative/-/archive/$(QT5DECLARATIVE_VERSION)
-QT5DECLARATIVE_SOURCE = qtdeclarative-$(QT5DECLARATIVE_VERSION).tar.bz2
+QT5DECLARATIVE_VERSION = $(QT5_VERSION)
+QT5DECLARATIVE_SITE = $(QT5_SITE)
+QT5DECLARATIVE_SOURCE = qtdeclarative-everywhere-opensource-src-$(QT5_VERSION).tar.xz
 QT5DECLARATIVE_INSTALL_STAGING = YES
 QT5DECLARATIVE_SYNC_QT_HEADERS = YES
 

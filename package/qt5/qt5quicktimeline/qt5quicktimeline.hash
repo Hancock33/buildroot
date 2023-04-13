@@ -1,5 +1,2 @@
-# Locally calculated
-sha256  ab113ead993206de4025c78fd2babea69824f52ff88fa78451b6bbcb932a6ab6  qtquicktimeline-2ce816fa5822bcc1c47678447405b2e5dc1312c1.tar.bz2
-
-# Hashes for license files:
-sha256  8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903  LICENSE.GPL3
+# From https://download.qt.io/archive/qt/5.15/5.15.9/submodules/md5sums.txt
+md5  77e23c0120d50ea7dba2f5cda8bff853  qtquicktimeline-everywhere-opensource-src-5.15.9.tar.xz

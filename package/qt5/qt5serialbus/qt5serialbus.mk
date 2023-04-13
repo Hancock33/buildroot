@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-QT5SERIALBUS_VERSION = e34053fbda8d687e3dc294fbd5e3a88bf94a7a66
-QT5SERIALBUS_SITE = $(QT5_SITE)/qtserialbus/-/archive/$(QT5SERIALBUS_VERSION)
-QT5SERIALBUS_SOURCE = qtserialbus-$(QT5SERIALBUS_VERSION).tar.bz2
+QT5SERIALBUS_VERSION = $(QT5_VERSION)
+QT5SERIALBUS_SITE = $(QT5_SITE)
+QT5SERIALBUS_SOURCE = qtserialbus-everywhere-opensource-src-$(QT5_VERSION).tar.xz
 QT5SERIALBUS_DEPENDENCIES = qt5serialport
 QT5SERIALBUS_INSTALL_STAGING = YES
 QT5SERIALBUS_SYNC_QT_HEADERS = YES

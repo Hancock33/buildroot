@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-QT5BASE_VERSION = 2ffb7ad8a1079a0444b9c72affe3d19b089b60de
-QT5BASE_SITE = $(QT5_SITE)/qtbase/-/archive/$(QT5BASE_VERSION)
-QT5BASE_SOURCE = qtbase-$(QT5BASE_VERSION).tar.bz2
+QT5BASE_VERSION = $(QT5_VERSION)
+QT5BASE_SITE = $(QT5_SITE)
+QT5BASE_SOURCE = qtbase-everywhere-opensource-src-$(QT5_VERSION).tar.xz
 
 QT5BASE_DEPENDENCIES = host-pkgconf pcre2 zlib
 QT5BASE_INSTALL_STAGING = YES

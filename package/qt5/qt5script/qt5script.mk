@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-QT5SCRIPT_VERSION = 5cec94b2c1503f106f4ef4778d016410ebb86211
-QT5SCRIPT_SITE = $(QT5_SITE)/qtscript/-/archive/$(QT5SCRIPT_VERSION)
-QT5SCRIPT_SOURCE = qtscript-$(QT5SCRIPT_VERSION).tar.bz2
+QT5SCRIPT_VERSION = $(QT5_VERSION)
+QT5SCRIPT_SITE = $(QT5_SITE)
+QT5SCRIPT_SOURCE = qtscript-everywhere-opensource-src-$(QT5_VERSION).tar.xz
 QT5SCRIPT_INSTALL_STAGING = YES
 QT5SCRIPT_SYNC_QT_HEADERS = YES
 

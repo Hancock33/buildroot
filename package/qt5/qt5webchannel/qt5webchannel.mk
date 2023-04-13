@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-QT5WEBCHANNEL_VERSION = 8c842152da613f941892481d62267c73c4a4f006
-QT5WEBCHANNEL_SITE = $(QT5_SITE)/qtwebchannel/-/archive/$(QT5WEBCHANNEL_VERSION)
-QT5WEBCHANNEL_SOURCE = qtwebchannel-$(QT5WEBCHANNEL_VERSION).tar.bz2
+QT5WEBCHANNEL_VERSION = $(QT5_VERSION)
+QT5WEBCHANNEL_SITE = $(QT5_SITE)
+QT5WEBCHANNEL_SOURCE = qtwebchannel-everywhere-opensource-src-$(QT5_VERSION).tar.xz
 QT5WEBCHANNEL_DEPENDENCIES = qt5websockets
 QT5WEBCHANNEL_INSTALL_STAGING = YES
 QT5WEBCHANNEL_LICENSE = GPL-2.0+ or LGPL-3.0, GPL-3.0 with exception(tools), GFDL-1.3 (docs)

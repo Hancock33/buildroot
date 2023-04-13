@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-QT5WEBVIEW_VERSION = 826d2a33929c69807917536d48b7861e7682001e
-QT5WEBVIEW_SITE = $(QT5_SITE)/qtwebview/-/archive/$(QT5WEBVIEW_VERSION)
-QT5WEBVIEW_SOURCE = qtwebview-$(QT5WEBVIEW_VERSION).tar.bz2
+QT5WEBVIEW_VERSION = $(QT5_VERSION)
+QT5WEBVIEW_SITE = $(QT5_SITE)
+QT5WEBVIEW_SOURCE = qtwebview-everywhere-opensource-src-$(QT5_VERSION).tar.xz
 QT5WEBVIEW_DEPENDENCIES = qt5webengine
 QT5WEBVIEW_INSTALL_STAGING = YES
 QT5WEBVIEW_LICENSE = GPL-2.0+ or LGPL-3.0, GPL-3.0, GFDL-1.3 (docs)
