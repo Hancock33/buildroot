@@ -1,6 +1,7 @@
 config BR2_PACKAGE_QT6SVG
 	bool "qt6svg"
 	select BR2_PACKAGE_QT6BASE_GUI
+	select BR2_PACKAGE_QT6TOOLS
 	help
 	  Qt is a cross-platform application and UI framework for
 	  developers using C++.

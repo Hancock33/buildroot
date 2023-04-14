@@ -34,7 +34,8 @@ QT6SVG_CONF_OPTS = \
 QT6SVG_DEPENDENCIES = \
 	host-pkgconf \
 	host-ninja \
-	qt6base
+	qt6base \
+	qt6tools
 
 define QT6SVG_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(BR2_CMAKE) --build $(QT6SVG_BUILDDIR)

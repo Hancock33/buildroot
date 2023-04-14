@@ -50,7 +50,7 @@ HOST_QT6TOOLS_CONF_OPTS = \
 	-DFEATURE_pixeltool=FALSE \
 	-DFEATURE_qdbus=FALSE \
 	-DFEATURE_qev=FALSE \
-	-DFEATURE_qtattributionsscanner=FALSE \
+	-DFEATURE_qtattributionsscanner=TRUE \
 	-DFEATURE_qtdiag=FALSE \
 	-DFEATURE_qtplugininfo=FALSE
 
