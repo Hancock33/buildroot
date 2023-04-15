@@ -96,7 +96,7 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-zlib
 HOST_QT6BASE_CONF_OPTS = \
 	-GNinja \
-	-DFEATURE_gui=OFF \
+	-DFEATURE_gui=ON \
 	-DFEATURE_concurrent=OFF \
 	-DFEATURE_xml=ON \
 	-DFEATURE_sql=OFF \
