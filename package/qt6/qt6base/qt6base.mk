@@ -171,6 +171,7 @@ QT6BASE_DEPENDENCIES += \
 	xcb-util-image \
 	xcb-util-keysyms \
 	xcb-util-renderutil \
+	xcb-util-cursor \
 	xlib_libX11
 else
 QT6BASE_CONF_OPTS += -DFEATURE_xcb=OFF
