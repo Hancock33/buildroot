@@ -39,6 +39,7 @@ QT6BASE_INSTALL_STAGING = YES
 
 QT6BASE_CONF_OPTS = \
 	-GNinja \
+	$(QT6_COMMON_CONF_OPTS) \
 	-DQT_HOST_PATH=$(HOST_DIR) \
 	-DFEATURE_concurrent=OFF \
 	-DFEATURE_xml=OFF \
@@ -158,6 +159,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_QT6BASE_XCB),y)
 QT6BASE_CONF_OPTS += \
+	-DFEATURE_system_xcb_xinput=ON \
 	-DFEATURE_xcb=ON \
 	-DFEATURE_xcb_xlib=ON \
 	-DFEATURE_xkbcommon=ON \
