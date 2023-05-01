@@ -3,7 +3,7 @@
 # sdl2
 #
 ################################################################################
-
+# batocera (update)
 SDL2_VERSION = 2.26.5
 SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
 SDL2_SITE = http://www.libsdl.org/release
@@ -14,6 +14,7 @@ SDL2_CPE_ID_PRODUCT = simple_directmedia_layer
 SDL2_INSTALL_STAGING = YES
 SDL2_CONFIG_SCRIPTS = sdl2-config
 
+# batocera - Removed --disable-video-wayland and --disable-video-vulkan
 SDL2_CONF_OPTS += \
 	--disable-rpath \
 	--disable-arts \
@@ -23,10 +24,8 @@ SDL2_CONF_OPTS += \
 	--disable-video-vivante \
 	--disable-video-cocoa \
 	--disable-video-metal \
-	--disable-video-wayland \
 	--disable-video-dummy \
 	--disable-video-offscreen \
-	--disable-video-vulkan \
 	--disable-ime \
 	--disable-ibus \
 	--disable-fcitx \
@@ -49,10 +48,46 @@ define SDL2_FIX_SDL2_CONFIG_CMAKE
 	$(SED) 's%"/usr"%$${PACKAGE_PREFIX_DIR}%' \
 		$(STAGING_DIR)/usr/lib/cmake/SDL2/sdl2-config.cmake
 endef
+
+# batocera
+define SDL2_FIX_WAYLAND_SCANNER_PATH
+	sed -i "s+/usr/bin/wayland-scanner+$(HOST_DIR)/usr/bin/wayland-scanner+g" $(@D)/Makefile
+endef
+
+define SDL2_FIX_CONFIGURE_PATHS
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/config.log
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/config.status
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/libtool
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/Makefile
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2-config
+	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2.pc
+endef
+
+SDL2_POST_CONFIGURE_HOOKS += SDL2_FIX_WAYLAND_SCANNER_PATH
+SDL2_POST_CONFIGURE_HOOKS += SDL2_FIX_CONFIGURE_PATHS
+
 SDL2_POST_INSTALL_STAGING_HOOKS += SDL2_FIX_SDL2_CONFIG_CMAKE
 
 # We must enable static build to get compilation successful.
 SDL2_CONF_OPTS += --enable-static
+
+# batocera - disable hidapi
+SDL2_CONF_OPTS += --disable-hidapi
+
+# batocera - sdl2 set the rpi video output from the host name
+ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
+SDL2_CONF_OPTS += --host=arm-raspberry-linux-gnueabihf
+endif
+
+# batocera - Used in screen rotation (SDL and Retroarch)
+ifeq ($(BR2_PACKAGE_ROCKCHIP_RGA),y)
+SDL2_DEPENDENCIES += rockchip-rga
+endif
+
+# batocera - use Pipewire audio
+ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
+SDL2_CONF_OPTS += --enable-pipewire
+endif
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 SDL2_DEPENDENCIES += udev
@@ -65,6 +100,11 @@ ifeq ($(BR2_X86_CPU_HAS_SSE),y)
 SDL2_CONF_OPTS += --enable-sse
 else
 SDL2_CONF_OPTS += --disable-sse
+endif
+
+# batocera / with patch sdl2_add_video_mali_gles2.patch / mrfixit
+ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
+SDL2_CONF_OPTS += --enable-video-mali
 endif
 
 ifeq ($(BR2_X86_CPU_HAS_3DNOW),y)
@@ -108,12 +148,13 @@ else
 SDL2_CONF_OPTS += --disable-video-x11-xcursor
 endif
 
-ifeq ($(BR2_PACKAGE_XLIB_LIBXINERAMA),y)
-SDL2_DEPENDENCIES += xlib_libXinerama
-SDL2_CONF_OPTS += --enable-video-x11-xinerama
-else
-SDL2_CONF_OPTS += --disable-video-x11-xinerama
-endif
+# batocera - needs removing, not a valid option
+#ifeq ($(BR2_PACKAGE_XLIB_LIBXINERAMA),y)
+#SDL2_DEPENDENCIES += xlib_libXinerama
+#SDL2_CONF_OPTS += --enable-video-x11-xinerama
+#else
+#SDL2_CONF_OPTS += --disable-video-x11-xinerama
+#endif
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBXI),y)
 SDL2_DEPENDENCIES += xlib_libXi
@@ -136,12 +177,13 @@ else
 SDL2_CONF_OPTS += --disable-video-x11-scrnsaver
 endif
 
-ifeq ($(BR2_PACKAGE_XLIB_LIBXXF86VM),y)
-SDL2_DEPENDENCIES += xlib_libXxf86vm
-SDL2_CONF_OPTS += --enable-video-x11-vm
-else
-SDL2_CONF_OPTS += --disable-video-x11-vm
-endif
+# batocera - needs removing, not a valid option
+#ifeq ($(BR2_PACKAGE_XLIB_LIBXXF86VM),y)
+#SDL2_DEPENDENCIES += xlib_libXxf86vm
+#SDL2_CONF_OPTS += --enable-video-x11-vm
+#else
+#SDL2_CONF_OPTS += --disable-video-x11-vm
+#endif
 
 else
 SDL2_CONF_OPTS += --disable-video-x11 --without-x
@@ -175,10 +217,26 @@ SDL2_CONF_OPTS += --disable-alsa
 endif
 
 ifeq ($(BR2_PACKAGE_SDL2_KMSDRM),y)
-SDL2_DEPENDENCIES += libdrm libgbm libegl
+SDL2_DEPENDENCIES += libdrm
 SDL2_CONF_OPTS += --enable-video-kmsdrm
 else
 SDL2_CONF_OPTS += --disable-video-kmsdrm
+endif
+
+# batocera - enable/disable Wayland video driver
+ifeq ($(BR2_PACKAGE_SDL2_WAYLAND),y)
+SDL2_DEPENDENCIES += wayland waylandpp wayland-protocols libxkbcommon
+SDL2_CONF_OPTS += --enable-video-wayland
+else
+SDL2_CONF_OPTS += --disable-video-wayland
+endif
+
+# batocera - enable/disable Vulkan support
+ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
+SDL2_DEPENDENCIES += vulkan-headers vulkan-loader
+SDL2_CONF_OPTS += --enable-video-vulkan
+else
+SDL2_CONF_OPTS += --disable-video-vulkan
 endif
 
 $(eval $(autotools-package))
