@@ -4,7 +4,7 @@
 #
 ################################################################################
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 23.1.0-rc3
+MESA3D_VERSION = 23.1.0-rc3-26-g7d70a8d820cf2eeb70e8d75475f36b18b896b3cd
 MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 MESA3D_SITE = https://archive.mesa3d.org
 # git describe --abbrev=40 origin/staging/23.1 | cut -d '-' -f 2-
