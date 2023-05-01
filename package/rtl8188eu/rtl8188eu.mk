@@ -3,8 +3,8 @@
 # rtl8188eu
 #
 ################################################################################
-# Version: Commits on Nov 29, 2022
-RTL8188EU_VERSION = f4af53305cb1e9a0d8d9957a042f7c01b7121bfc
+# Version: Commits on Apr 10, 2022
+RTL8188EU_VERSION = f435a106251969acc588e33143bd774c3a06bf7a
 RTL8188EU_SITE = $(call github,lwfinger,rtl8188eu,$(RTL8188EU_VERSION))
 RTL8188EU_LICENSE = GPL-2.0, proprietary (rtl8188eufw.bin firmware blob)
 RTL8188EU_LICENSE_FILES = COPYING
