@@ -39,14 +39,7 @@ define HOST_HEIMDAL_INSTALL_COMPILE_ET
 		$(HOST_DIR)/bin/compile_et
 endef
 
-# We need asn1_compile in the PATH for samba4
-define HOST_HEIMDAL_MAKE_SYMLINK
-	ln -sf $(HOST_DIR)/libexec/heimdal/asn1_compile \
-		$(HOST_DIR)/bin/asn1_compile
-endef
-
 HOST_HEIMDAL_POST_INSTALL_HOOKS += \
-	HOST_HEIMDAL_INSTALL_COMPILE_ET \
-	HOST_HEIMDAL_MAKE_SYMLINK
+	HOST_HEIMDAL_INSTALL_COMPILE_ET
 
 $(eval $(host-autotools-package))
