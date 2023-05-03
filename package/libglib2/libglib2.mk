@@ -5,7 +5,7 @@
 ################################################################################
 
 LIBGLIB2_VERSION_MAJOR = 2.76
-LIBGLIB2_VERSION = $(LIBGLIB2_VERSION_MAJOR).1
+LIBGLIB2_VERSION = $(LIBGLIB2_VERSION_MAJOR).2
 LIBGLIB2_SOURCE = glib-$(LIBGLIB2_VERSION).tar.xz
 LIBGLIB2_SITE = https://download.gnome.org/sources/glib/$(LIBGLIB2_VERSION_MAJOR)
 LIBGLIB2_LICENSE = LGPL-2.1+
@@ -22,19 +22,32 @@ ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
 LIBGLIB2_CFLAGS += -marm
 endif
 
-HOST_LIBGLIB2_CONF_OPTS = \
+LIBGLIB2_COMMON_CONF_OPTS = \
 	-Ddtrace=false \
 	-Dglib_debug=disabled \
+	-Dgtk_doc=false \
 	-Dlibelf=disabled \
-	-Dselinux=disabled \
+	-Dman=false \
+	-Dmultiarch=false \
+	-Doss_fuzz=disabled \
+	-Dsysprof=disabled \
 	-Dsystemtap=false \
-	-Dxattr=false \
-	-Dtests=false \
-	-Doss_fuzz=disabled
+	-Dtests=false
+
+HOST_LIBGLIB2_CONF_OPTS = \
+	$(LIBGLIB2_COMMON_CONF_OPTS) \
+	-Dnls=disabled \
+	-Dselinux=disabled \
+	-Dxattr=false
 
 LIBGLIB2_DEPENDENCIES = \
-	host-pkgconf host-libglib2 \
-	libffi pcre2 zlib $(TARGET_NLS_DEPENDENCIES)
+	host-pkgconf \
+	host-libglib2 \
+	libffi \
+	pcre2 \
+	zlib \
+	$(TARGET_NLS_DEPENDENCIES) \
+	$(if $(BR2_ENABLE_LOCALE),,libiconv)
 
 HOST_LIBGLIB2_DEPENDENCIES = \
 	host-gettext \
@@ -49,20 +62,14 @@ HOST_LIBGLIB2_DEPENDENCIES = \
 # ${libdir} would be prefixed by the sysroot by pkg-config, causing a
 # bogus installation path once combined with $(DESTDIR).
 LIBGLIB2_CONF_OPTS = \
-	-Dglib_debug=disabled \
-	-Dlibelf=disabled \
+	$(LIBGLIB2_COMMON_CONF_OPTS) \
 	-Dgio_module_dir=/usr/lib/gio/modules \
-	-Dtests=false \
-	-Doss_fuzz=disabled
+	-Dnls=$(if $(BR2_SYSTEM_ENABLE_NLS),enabled,disabled)
 
 LIBGLIB2_MESON_EXTRA_PROPERTIES = \
 	have_c99_vsnprintf=true \
 	have_c99_snprintf=true \
 	have_unix98_printf=true
-
-ifneq ($(BR2_ENABLE_LOCALE),y)
-LIBGLIB2_DEPENDENCIES += libiconv
-endif
 
 ifeq ($(BR2_PACKAGE_ELFUTILS),y)
 LIBGLIB2_DEPENDENCIES += elfutils
@@ -71,11 +78,6 @@ endif
 # Uses __atomic_compare_exchange_4
 ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 LIBGLIB2_LDFLAGS += -latomic
-endif
-
-ifeq ($(BR2_PACKAGE_LIBICONV),y)
-LIBGLIB2_CONF_OPTS += -Diconv=external
-LIBGLIB2_DEPENDENCIES += libiconv
 endif
 
 ifeq ($(BR2_PACKAGE_LIBSELINUX),y)
