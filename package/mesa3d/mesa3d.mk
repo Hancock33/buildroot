@@ -4,12 +4,9 @@
 #
 ################################################################################
 # When updating the version, please also update mesa3d-headers
-MESA3D_VERSION = 23.1.0-rc4
-MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
-MESA3D_SITE = https://archive.mesa3d.org
 # git describe --abbrev=40 origin/staging/23.1 | cut -d '-' -f 2-
-#MESA3D_VERSION = 23.1.0-rc3-40-ge57d3c372bbb47124680ea96e534ca4a6134ca15
-#MESA3D_SITE = $(call github,sailfishos-mirror,mesa,$(MESA3D_VERSION))
+MESA3D_VERSION = 23.1.0-rc4-40-g4f1de84cbd7841b79beea2984ee2aca5ad545a72
+MESA3D_SITE = $(call github,sailfishos-mirror,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
 MESA3D_CPE_ID_VENDOR = mesa3d
