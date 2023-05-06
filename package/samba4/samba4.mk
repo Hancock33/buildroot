@@ -5,9 +5,6 @@
 ################################################################################
 
 SAMBA4_VERSION = 4.15.13
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_X86_64_ANY),y)
-    SAMBA4_VERSION = 4.18.2
-endif
 SAMBA4_SITE = https://download.samba.org/pub/samba/stable
 SAMBA4_SOURCE = samba-$(SAMBA4_VERSION).tar.gz
 SAMBA4_INSTALL_STAGING = YES
