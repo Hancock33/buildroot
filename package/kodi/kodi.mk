@@ -103,7 +103,17 @@ endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM),y)
 KODI_CORE_PLATFORM_NAME += gbm
-KODI_DEPENDENCIES += libgbm libinput libxkbcommon
+KODI_DEPENDENCIES += libinput libxkbcommon # libgbm  removed, batocera
+
+#batocera
+ifeq ($(BR2_PACKAGE_HAS_LIBGBM),y)
+  KODI_DEPENDENCIES += libgbm
+endif
+
+# batocera - for mali boards
+ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
+KODI_DEPENDENCIES += libmali
+endif
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_WAYLAND),y)
@@ -209,6 +219,21 @@ ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 KODI_CONF_OPTS += -DCMAKE_EXE_LINKER_FLAGS=-latomic
 endif
 
+# batocera
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_RK3588),y)
+  KODI_CONF_OPTS += -DCMAKE_EXE_LINKER_FLAGS="$${CMAKE_EXE_LINKER_FLAGS} -lmali_hook -Wl,--whole-archive -lmali_hook_injector -Wl,--no-whole-archive -lmali"
+endif
+
+ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GLES),y)
+KODI_CONF_OPTS += \
+        -DCORE_PLATFORM_NAME=gbm \
+        -DGBM_RENDER_SYSTEM=gles
+KODI_DEPENDENCIES += libgles libinput libxkbcommon
+ifeq ($(BR2_PACKAGE_PROVIDES_LIBGLES),mesa3d)
+        KODI_DEPENDENCIES += mesa3d
+endif
+endif
+
 ifeq ($(BR2_TOOLCHAIN_GCC_AT_LEAST_5),)
 KODI_C_FLAGS += -std=gnu99
 endif
@@ -272,6 +297,16 @@ KODI_CONF_OPTS += -DENABLE_ALSA=ON
 KODI_DEPENDENCIES += alsa-lib
 else
 KODI_CONF_OPTS += -DENABLE_ALSA=OFF
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_KODI_GBM),y)
+  ifeq ($(BR2_PACKAGE_MESA3D),y)
+    KODI_DEPENDENCIES += mesa3d
+  endif
+KODI_CONF_OPTS += -DENABLE_GBM=ON
+else
+KODI_CONF_OPTS += -DENABLE_GBM=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_LIBMICROHTTPD),y)
@@ -360,7 +395,8 @@ else
 KODI_CONF_OPTS += -DENABLE_OPTICAL=OFF
 endif
 
-ifeq ($(BR2_PACKAGE_KODI_PULSEAUDIO),y)
+# batocera - fix dependency
+ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
 KODI_CONF_OPTS += -DENABLE_PULSEAUDIO=ON
 KODI_DEPENDENCIES += pulseaudio
 else
