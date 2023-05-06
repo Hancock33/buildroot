@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_XWININFO_VERSION = 1.1.5
+XAPP_XWININFO_VERSION = 1.1.6
 XAPP_XWININFO_SOURCE = xwininfo-$(XAPP_XWININFO_VERSION).tar.bz2
 XAPP_XWININFO_SITE = https://xorg.freedesktop.org/archive/individual/app
 XAPP_XWININFO_LICENSE = MIT
