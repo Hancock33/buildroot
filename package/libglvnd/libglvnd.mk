@@ -7,6 +7,9 @@
 LIBGLVND_VERSION = 1.6.0
 LIBGLVND_SITE = https://gitlab.freedesktop.org/glvnd/libglvnd/uploads/2ea903100818cb7703dbabc9a11bc025
 
+# batocera - host package
+LIBGLVND_DEPENDENCIES = host-libglvnd
+
 LIBGLVND_LICENSE = \
 	libglvnd license, \
 	Apache-2.0 (Khronos headers), \
@@ -50,3 +53,5 @@ LIBGLVND_CONF_OPTS += -Dgles1=false -Dgles2=false
 endif
 
 $(eval $(meson-package))
+# batocera - host package
+$(eval $(host-meson-package))
