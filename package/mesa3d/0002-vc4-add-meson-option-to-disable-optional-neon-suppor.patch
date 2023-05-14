@@ -7,10 +7,10 @@ Not all toolchains are able to compile the runtime
 optional vc4 neon support, so add an meson option
 to force disabling it at compile time.
 
-[Upstream: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/4114]
+Upstream: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/4114
 Signed-off-by: Peter Seiderer <ps.report@gmx.net>
 Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
-[rebased for 20.2.0, 20.3.0 & 21.1.0]
+[rebased for 20.2.0, 20.3.0, 21.1.0 & 23.1.0]
 ---
  meson_options.txt                    | 7 +++++++
  src/gallium/drivers/vc4/meson.build  | 4 ++--
@@ -18,26 +18,25 @@ Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
  3 files changed, 11 insertions(+), 4 deletions(-)
 
 diff --git a/meson_options.txt b/meson_options.txt
-index 8e0bf2a9555..4af7842ac04 100644
+index a39596a6f19..0f6b6c62b55 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -86,6 +86,14 @@ option(
-   description : 'enable gallium vdpau frontend.',
+@@ -117,6 +117,13 @@
  )
  
-+option(
+ option(
 +  'gallium-vc4-neon',
-+  type : 'combo',
-+  value : 'auto',
-+  choices : ['auto', 'disabled'],
++  type : 'feature',
++  deprecated: {'true': 'enabled', 'false': 'disabled'},
 +  description : 'enable gallium vc4 optional neon support.',
 +)
 +
- option(
-   'vdpau-libs-path',
++option(
+   'va-libs-path',
    type : 'string',
+   value : '',
 diff --git a/src/gallium/drivers/vc4/meson.build b/src/gallium/drivers/vc4/meson.build
-index 84da9511cdf..76bc90288d1 100644
+index 5ce5af5f6b4..e3f7d8d62ae 100644
 --- a/src/gallium/drivers/vc4/meson.build
 +++ b/src/gallium/drivers/vc4/meson.build
 @@ -84,7 +84,7 @@ files_libvc4 = files(
@@ -59,7 +58,7 @@ index 84da9511cdf..76bc90288d1 100644
  
  if dep_simpenrose.found()
 diff --git a/src/gallium/drivers/vc4/vc4_tiling.h b/src/gallium/drivers/vc4/vc4_tiling.h
-index 5afe32939a8..919b2990ab1 100644
+index 66767e7f1f8..7446f1c3d0c 100644
 --- a/src/gallium/drivers/vc4/vc4_tiling.h
 +++ b/src/gallium/drivers/vc4/vc4_tiling.h
 @@ -89,7 +89,7 @@ vc4_load_lt_image(void *dst, uint32_t dst_stride,
@@ -82,3 +81,4 @@ index 5afe32939a8..919b2990ab1 100644
                                          cpp, box);
 -- 
 2.25.1
+
