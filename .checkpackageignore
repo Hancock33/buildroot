@@ -994,6 +994,7 @@ package/mender-connect/S43mender-connect Shellcheck
 package/menu-cache/0001-Support-gcc10-compilation.patch Upstream
 package/mesa3d-demos/0001-demos-makes-opengl-an-optional-component.patch Upstream
 package/mesa3d/0001-meson-Set-proper-value-for-LIBCLC_INCLUDEDIR.patch Upstream
+package/mesa3d/0005-mesa-main-Exit-early-when-trying-to-create-an-unsupp.patch Upstream
 package/meson-tools/0001-amlbootenc-gxl-remove-non-std-C-convention-in-for.patch Upstream
 package/meson/0001-Prefer-ext-static-libs-when-default-library-static.patch Upstream
 package/meson/0002-mesonbuild-dependencies-base.py-add-pkg_config_stati.patch Upstream
