@@ -298,7 +298,7 @@ ifndef HOSTCPP
 HOSTCPP := cpp
 endif
 ifndef HOSTLD
-HOSTLD := ld.mold
+HOSTLD := ld
 endif
 ifndef HOSTLN
 HOSTLN := ln
