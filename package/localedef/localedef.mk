@@ -28,7 +28,7 @@ define HOST_LOCALEDEF_CONFIGURE_CMDS
 	# Do the configuration
 	(cd $(@D)/build; \
 		$(HOST_LOCALEDEF_CONF_ENV) \
-		$(HOST_CONFIGURE_OPTS) \
+		$(HOST_CONFIGURE_OPTS) LD=/usr/bin/ld.bfd \
 		$(SHELL) $(@D)/configure \
 		libc_cv_forced_unwind=yes \
 		libc_cv_ssp=no \
