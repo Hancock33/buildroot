@@ -1,0 +1,79 @@
+From ba717b8726e9bbf59b7fb4c851e886564b9888f7 Mon Sep 17 00:00:00 2001
+From: Bernd Kuhls <bernd.kuhls@t-online.de>
+Date: Tue, 30 May 2023 20:12:03 +0200
+Subject: [PATCH] Try pkg-config before icu-config
+
+In cross-compile setups the host version of the deprecated icu-config
+script can accidentally be picked up so try pkg-config first.
+
+Upstream: sent by mail to the author
+
+Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+---
+ setup.py | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
+
+diff --git a/setup.py b/setup.py
+index 164324e..f1229e1 100644
+--- a/setup.py
++++ b/setup.py
+@@ -89,12 +89,12 @@ try:
+     ICU_VERSION = os.environ['ICU_VERSION']
+ except:
+     try:
+-        ICU_VERSION = check_output(('icu-config', '--version')).strip()
+-        CONFIGURE_WITH_ICU_CONFIG[platform] = True
++        ICU_VERSION = check_output(('pkg-config', '--modversion', 'icu-i18n')).strip()
++        CONFIGURE_WITH_PKG_CONFIG[platform] = True
+     except:
+         try:
+-            ICU_VERSION = check_output(('pkg-config', '--modversion', 'icu-i18n')).strip()
+-            CONFIGURE_WITH_PKG_CONFIG[platform] = True
++            ICU_VERSION = check_output(('icu-config', '--version')).strip()
++            CONFIGURE_WITH_ICU_CONFIG[platform] = True
+         except:
+             raise RuntimeError('''
+ Please install pkg-config on your system or set the ICU_VERSION environment
+@@ -181,7 +181,9 @@ if 'PYICU_CFLAGS' in os.environ:
+ else:
+     _cflags = CFLAGS[platform]
+     try:
+-        if CONFIGURE_WITH_ICU_CONFIG[platform]:
++        if CONFIGURE_WITH_PKG_CONFIG[platform]:
++            configure_with_pkg_config(_cflags, ('--cflags',), 'CFLAGS')
++        elif CONFIGURE_WITH_ICU_CONFIG[platform]:
+             try:
+                 configure_with_icu_config(
+                     _cflags, ('--cxxflags', '--cppflags'), 'CFLAGS')
+@@ -190,8 +192,6 @@ else:
+                     configure_with_pkg_config(_cflags, ('--cflags',), 'CFLAGS')
+                 else:
+                     raise
+-        elif CONFIGURE_WITH_PKG_CONFIG[platform]:
+-            configure_with_pkg_config(_cflags, ('--cflags',), 'CFLAGS')
+     except:
+         if not _cflags:
+             raise RuntimeError('''
+@@ -218,7 +218,9 @@ if 'PYICU_LFLAGS' in os.environ:
+ else:
+     _lflags = LFLAGS[platform]
+     try:
+-        if CONFIGURE_WITH_ICU_CONFIG[platform]:
++        if CONFIGURE_WITH_PKG_CONFIG[platform]:
++            configure_with_pkg_config(_lflags, ('--libs',), 'LFLAGS')
++        elif CONFIGURE_WITH_ICU_CONFIG[platform]:
+             try:
+                 configure_with_icu_config(_lflags, ('--ldflags',), 'LFLAGS')
+             except:
+@@ -226,8 +228,6 @@ else:
+                     configure_with_pkg_config(_lflags, ('--libs',), 'LFLAGS')
+                 else:
+                     raise
+-        elif CONFIGURE_WITH_PKG_CONFIG[platform]:
+-            configure_with_pkg_config(_lflags, ('--libs',), 'LFLAGS')
+     except:
+         if not _lflags:
+             raise RuntimeError('''
+-- 
+2.39.2
+
