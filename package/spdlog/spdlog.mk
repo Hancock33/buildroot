@@ -3,9 +3,9 @@
 # spdlog
 #
 ################################################################################
-# Version: Commits on May 30, 2023
-SPDLOG_VERSION = 31cf79a70dfa61a4b2b7509eecca6a3b269bfc4a
-SPDLOG_SITE = $(call github,gabime,spdlog,$(SPDLOG_VERSION))
+
+SPDLOG_VERSION = 1.11.0
+SPDLOG_SITE = $(call github,gabime,spdlog,v$(SPDLOG_VERSION))
 SPDLOG_LICENSE = MIT
 SPDLOG_LICENSE_FILES = LICENSE
 SPDLOG_INSTALL_STAGING = YES
