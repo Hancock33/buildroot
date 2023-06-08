@@ -98,6 +98,12 @@ else
 MESA3D_CONF_OPTS += -Dgallium-vc4-neon=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS),y)
+MESA3D_CONF_OPTS += -Dintel-xe-kmd=enabled
+else
+MESA3D_CONF_OPTS += -Dintel-xe-kmd=disabled
+endif
+
 # Drivers
 
 #Gallium Drivers
