@@ -94,7 +94,9 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-double-conversion \
 	host-libb2 \
 	host-pcre2 \
-	host-zlib
+	host-zlib \
+	host-clang \
+	host-lld
 HOST_QT6BASE_CONF_OPTS = \
 	-GNinja \
 	-DFEATURE_gui=ON \
