@@ -144,6 +144,14 @@ endif
 
 ###############################################################################
 
+comment "Legacy options removed in 2023.08"
+
+config BR2_PACKAGE_LIBASPLIB
+	bool "libasplib removed"
+	select BR2_LEGACY
+	help
+	  libasplib is no longer needed.
+
 comment "Legacy options removed in 2023.05"
 
 config BR2_KERNEL_HEADERS_6_2
