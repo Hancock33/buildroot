@@ -214,13 +214,6 @@ package/berkeleydb/0001-cwd-db_config.patch Upstream
 package/berkeleydb/0002-atomic_compare_exchange.patch Upstream
 package/bind/0001-cross.patch Upstream
 package/bind/S81named Indent Shellcheck Variables
-package/binutils/2.37/0001-sh-conf.patch Upstream
-package/binutils/2.37/0002-poison-system-directories.patch Upstream
-package/binutils/2.37/0003-bfd-elf32-or1k-fix-building-with-gcc-version-5.patch Upstream
-package/binutils/2.37/0004-or1k-fix-pc-relative-relocation-against-dynamic-on-P.patch Upstream
-package/binutils/2.37/0005-or1k-Avoid-R_OR1K_GOT16-signed-overflow-by-using-spe.patch Upstream
-package/binutils/2.37/0006-bfd-Close-the-file-descriptor-if-there-is-no-archive.patch Upstream
-package/binutils/2.37/0007-i386-Allow-GOT32-relocations-against-ABS-symbols.patch Upstream
 package/binutils/2.38/0001-sh-conf.patch Upstream
 package/binutils/2.38/0002-poison-system-directories.patch Upstream
 package/binutils/2.38/0003-bfd-elf32-or1k-fix-building-with-gcc-version-5.patch Upstream
@@ -426,7 +419,6 @@ package/erlang/0002-erts-emulator-reorder-inclued-headers-paths.patch Upstream
 package/erlang/0003-crypto-Fixes-for-LibreSSL-3-5-0.patch Upstream
 package/espeak/0001-Fix-build-of-shared-library-on-architectures-needing.patch Upstream
 package/espeak/0002-tr_languages-cast-string_ordinal-init-values.patch Upstream
-package/eudev/0001-Only-use-pragma-for-ignoring-diagnostics-if-.patch Upstream
 package/eudev/S10udev ConsecutiveEmptyLines Indent Shellcheck Variables
 package/evemu/0001-Include-limits.h-for-PATH_MAX.patch Upstream
 package/evemu/0002-evemu-Update-struct-input_event.patch Upstream
@@ -687,7 +679,6 @@ package/lcdproc/0001-LCDd.conf.patch Upstream
 package/lcdproc/0002-Add-missing-ioctl-header.patch Upstream
 package/lcdproc/0003-Fixcompilation-with-GCC-10-x.patch Upstream
 package/leafnode2/0001-cross_makefile.patch Upstream
-package/less/0001-End-OSC8-hyperlink-on-invalid-embedded-escape-sequence.patch Upstream
 package/let-me-create/0001-fix-build-with-musl-C-library.patch Upstream
 package/leveldb/0001-Fix-compilation-with-g-4.8.2.patch Upstream
 package/leveldb/0002-CMake-install-libmemenv.a.patch Upstream
@@ -710,7 +701,6 @@ package/libcec/0001-cecloader-h-fix-null-return.patch Upstream
 package/libcgi/0001-CMakeLists.txt-honour-BUILD_TESTING.patch Upstream
 package/libcgicc/0001-disable-documentation-option.patch Sob Upstream
 package/libclc/0001-support-out-of-tree-build.patch Upstream
-package/libcodec2/0001-update-cmake.patch Upstream
 package/libconfuse/0001-Fix-163-unterminated-username-used-with-getpwnam.patch Upstream
 package/libcorrect/0002-CMakeLists.txt-conditionally-use-fsanitize-address.patch Upstream
 package/libcuefile/0001-fix-static-link.patch Upstream
@@ -1087,8 +1077,6 @@ package/norm/0003-Fix-mixed-tabs-spaces-in-protolib-wscript.patch Upstream
 package/nss-pam-ldapd/S45nslcd EmptyLastLine Indent Shellcheck Variables
 package/ntp/0001-nano.patch Upstream
 package/ntp/0002-ntp-syscalls-fallback.patch Upstream
-package/ntp/0003-override-shell.patch Upstream
-package/ntp/0004-libntp-Do-not-use-PTHREAD_STACK_MIN-on-glibc.patch Upstream
 package/ntp/S49ntp.in Variables
 package/ntpsec/0001-wscript-remove-checks-for-bsd-string.h-fixes-host-co.patch Upstream
 package/ntpsec/0002-wscript-fix-build-without-stack-protector.patch Upstream
@@ -1258,7 +1246,6 @@ package/pulseaudio/S50pulseaudio ConsecutiveEmptyLines EmptyLastLine Indent Vari
 package/pulseview/0001-Replace-obsolete-deprecated-Qt-methods.patch Upstream
 package/pulseview/0002-Fix-broken-build-due-to-C-template-behind-C-linkage.patch Upstream
 package/pulseview/0003-Support-glibmm-2.68.patch Upstream
-package/putty/0001-unix-uxutils.h-fix-build-on-uclibc.patch Upstream
 package/python-aiohttp-remotes/0001-Fix-flit_core-build-requires-backend.patch Upstream
 package/python-automat/0001-Remove-uneeded-dependency-to-wheel.patch Upstream
 package/python-crossbar/0001-Avoid-intentional-syntax-error.patch Upstream
@@ -1568,7 +1555,6 @@ package/ushare/0001-Don-t-build-po-files-if-NLS-is-disabled.patch Upstream
 package/ussp-push/0001-fix-build-against-bluez-4.patch Upstream
 package/ussp-push/0002-fix-build-again-obex-bluez.patch Upstream
 package/ussp-push/0003-add-OBEX_CharToUnicode.patch Upstream
-package/util-linux/0001-lsns-improve-dependence-on-NS_GET_-ioctls.patch Upstream
 package/vala/0001-dont-add-dirty-to-valac-version.patch Upstream
 package/vala/vala-wrapper Shellcheck
 package/valgrind/0001-workaround-SIGSEGV-on-PPC.patch Upstream

@@ -1,4 +1,4 @@
-# From https://lists.freedesktop.org/archives/xorg/2023-June/061360.html
+# From https://lists.x.org/archives/xorg-announce/2023-June/003398.html
 sha256  e362c6f03c793171becd1ce2078c64789504c7d7ff48ee40a76ff76b59f6b561  libX11-1.8.5.tar.xz
 sha512  5274f6073ead119c8f915d302f1e2bf9579f88d28a2a2d084a4be2050b14fb605efe91099c89ba55aeb7ad36ae0ecbd519b0808be0e29f56367d5dd8faa063d3  libX11-1.8.5.tar.xz
 # Locally computed

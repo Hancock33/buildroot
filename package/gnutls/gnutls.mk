@@ -16,7 +16,6 @@ GNUTLS_DEPENDENCIES = host-pkgconf libtasn1 libunistring nettle
 GNUTLS_CPE_ID_VENDOR = gnu
 GNUTLS_CONF_OPTS = \
 	--disable-doc \
-	--disable-guile \
 	--disable-libdane \
 	--disable-rpath \
 	--disable-tests \
@@ -44,7 +43,6 @@ GNUTLS_INSTALL_STAGING = YES
 HOST_GNUTLS_DEPENDENCIES = host-pkgconf host-libtasn1 host-libunistring host-nettle
 HOST_GNUTLS_CONF_OPTS = \
 	--disable-doc \
-	--disable-guile \
 	--disable-libdane \
 	--disable-rpath \
 	--disable-tests \
