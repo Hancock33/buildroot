@@ -366,6 +366,7 @@ F:	package/libdisplay-info/
 F:	package/libcodec2/
 F:	package/libcrossguid/
 F:	package/libdeflate/
+F:	package/libdisplay-info/
 F:	package/libdrm/
 F:	package/libdvbcsa/
 F:	package/libdvdcss/
