@@ -1,0 +1,9 @@
+config BR2_PACKAGE_KODI_IMAGEDECODER_RAW
+	bool "kodi-imagedecoder-raw"
+	select BR2_PACKAGE_JPEG
+	select BR2_PACKAGE_LCMS2
+	select BR2_PACKAGE_LIBRAW
+	help
+	  RAW image decoder add-on for Kodi
+
+	  https://github.com/xbmc/imagedecoder.raw
