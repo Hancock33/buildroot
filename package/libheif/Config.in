@@ -1,0 +1,14 @@
+config BR2_PACKAGE_LIBHEIF
+	bool "libheif"
+	# avoid build error
+	# Internal error in emit_expr_encoded at dw2gencfi.c:215
+	depends on !BR2_m68k_cf
+	depends on BR2_INSTALL_LIBSTDCPP
+	help
+	  libheif is an HEIF and AVIF file format decoder and encoder.
+
+	  https://github.com/strukturag/libheif
+
+comment "libheif needs a toolchain w/ C++"
+	depends on !BR2_m68k_cf
+	depends on !BR2_INSTALL_LIBSTDCPP

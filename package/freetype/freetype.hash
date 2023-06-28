@@ -1,4 +1,5 @@
-# From https://download.savannah.gnu.org/releases/freetype/freetype-2.13.1.tar.sig
+# From https://sourceforge.net/projects/freetype/files/freetype2/2.13.1/
+sha1  af9b6b754320a0526179f166e3f8cffce78526ca  freetype-2.13.1.tar.xz
 sha256  ea67e3b019b1104d1667aa274f5dc307d8cbd606b399bc32df308a77f1a564bf  freetype-2.13.1.tar.xz
 
 # Locally calculated

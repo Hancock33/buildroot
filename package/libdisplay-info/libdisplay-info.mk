@@ -15,10 +15,4 @@ LIBDISPLAY_INFO_DEPENDENCIES = hwdata
 # workaround for static_assert on uclibc-ng < 1.0.42
 LIBDISPLAY_INFO_CFLAGS += $(TARGET_CFLAGS) -Dstatic_assert=_Static_assert
 
-# m68k_cf can't use meson's default -fPIC, so we need to disable it to
-# avoid a build failure.
-ifeq ($(BR2_m68k_cf),y)
-LIBDISPLAY_INFO_CONF_OPTS += -Db_staticpic=false
-endif
-
 $(eval $(meson-package))

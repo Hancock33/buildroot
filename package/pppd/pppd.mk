@@ -21,12 +21,14 @@ ifeq ($(BR2_PACKAGE_OPENSSL),y)
 PPPD_CONF_OPTS += \
 	--enable-eaptls \
 	--enable-openssl-engine \
+	--enable-peap \
 	--with-openssl=$(STAGING_DIR)/usr
 PPPD_DEPENDENCIES += openssl
 else
 PPPD_CONF_OPTS += \
 	--disable-eaptls \
 	--disable-openssl-engine \
+	--disable-peap \
 	--without-openssl
 endif
 
