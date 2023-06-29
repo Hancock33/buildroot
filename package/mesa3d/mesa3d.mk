@@ -4,7 +4,7 @@
 #
 ################################################################################
 # When updating the version, please also update mesa3d-headers
-#MESA3D_VERSION = 23.1.1
+#MESA3D_VERSION = 23.1.3
 #MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 #MESA3D_SITE = https://archive.mesa3d.org
 # git describe --abbrev=40 origin/staging/23.1 | cut -d '-' -f 2-
@@ -307,8 +307,17 @@ define MESA3D_VULKANJSON_X86_64
 endef
 
 define MESA3D_VULKANJSON_X86
-        $(SED) s+"host_machine.cpu()"+"'i686'"+ $(@D)/src/intel/vulkan/meson.build $(@D)/src/amd/vulkan/meson.build
+        $(SED) s+"host_machine.cpu()"+"'i686'"+ $(@D)/src/intel/vulkan/meson.build \
+		    $(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
 endef
+
+ifeq ($(BR2_x86_64),y)
+    MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86_64
+endif
+ifeq ($(BR2_x86_i686),y)
+    MESA3D_PRE_CONFIGURE_HOOKS += MESA3D_VULKANJSON_X86
+endif
+# end batcoera
 
 MESA3D_CFLAGS = $(TARGET_CFLAGS)
 
