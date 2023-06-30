@@ -3,10 +3,9 @@
 # sdl2
 #
 ################################################################################
-
-SDL2_VERSION = 2.28.0
-SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
-SDL2_SITE = http://www.libsdl.org/release
+# git describe --tags --abbrev=40 origin/release-2.28.x | cut -d '-' -f 2-
+SDL2_VERSION = 2.28.0-11-g7207f5155bba3ab294d8e48c06d10017138ceb54
+SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = LICENSE.txt
 SDL2_CPE_ID_VENDOR = libsdl
