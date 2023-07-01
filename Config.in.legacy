@@ -152,12 +152,6 @@ config BR2_BINUTILS_VERSION_2_37_X
 	help
 	  binutils 2.37 has been removed, use a newer version.
 
-config BR2_PACKAGE_LIBASPLIB
-	bool "libasplib removed"
-	select BR2_LEGACY
-	help
-	  libasplib is no longer needed.
-
 comment "Legacy options removed in 2023.05"
 
 config BR2_KERNEL_HEADERS_6_2
@@ -532,14 +526,13 @@ config BR2_KERNEL_HEADERS_5_16
 	  Version 5.16.x of the Linux kernel headers are no longer
 	  maintained upstream and are now removed.
 
-# batocera
-#config BR2_KERNEL_HEADERS_4_4
-#	bool "kernel headers version 4.4.x are no longer supported"
-#	select BR2_LEGACY
-#	help
-#	  Version 4.4.x of the Linux kernel headers are no longer
-#	  maintained upstream and are now removed.
-#
+config BR2_KERNEL_HEADERS_4_4
+	bool "kernel headers version 4.4.x are no longer supported"
+	select BR2_LEGACY
+	help
+	  Version 4.4.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
+
 config BR2_BINUTILS_VERSION_2_32_X
 	bool "binutils 2.32.x has been removed"
 	select BR2_LEGACY
