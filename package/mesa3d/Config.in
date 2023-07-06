@@ -312,7 +312,7 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_D3D12
 	  This can be used to get full desktop OpenGL support on Windows devices through WSL.
 
 # batocera - add lavapipe
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_LAVAPIPE
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_LAVAPIPE
 	bool "Vulkan LLVM software-based driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_MESA3D_OPENGL_ES
