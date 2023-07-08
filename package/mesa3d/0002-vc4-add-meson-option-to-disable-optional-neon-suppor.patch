@@ -1,27 +1,8 @@
-From e3b47c1b84964c62b3e1fa782f1ffa4be0ae62f9 Mon Sep 17 00:00:00 2001
-From: Peter Seiderer <ps.report@gmx.net>
-Date: Mon, 9 Mar 2020 13:01:14 +0100
-Subject: [PATCH] vc4: add meson option to disable optional neon support
-
-Not all toolchains are able to compile the runtime
-optional vc4 neon support, so add an meson option
-to force disabling it at compile time.
-
-[Upstream: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/4114]
-Signed-off-by: Peter Seiderer <ps.report@gmx.net>
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
-[rebased for 20.2.0, 20.3.0 & 21.1.0]
----
- meson_options.txt                    | 7 +++++++
- src/gallium/drivers/vc4/meson.build  | 4 ++--
- src/gallium/drivers/vc4/vc4_tiling.h | 4 ++--
- 3 files changed, 11 insertions(+), 4 deletions(-)
-
 diff --git a/meson_options.txt b/meson_options.txt
-index 8e0bf2a9555..4af7842ac04 100644
+index 384f984ad57..a2c981a2cc0 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -86,6 +86,14 @@ option(
+@@ -94,6 +94,14 @@ option(
    description : 'enable gallium vdpau frontend.',
  )
  
@@ -80,5 +61,3 @@ index 5afe32939a8..919b2990ab1 100644
          if (util_get_cpu_caps()->has_neon) {
                  vc4_store_lt_image_neon(dst, dst_stride, src, src_stride,
                                          cpp, box);
--- 
-2.25.1
