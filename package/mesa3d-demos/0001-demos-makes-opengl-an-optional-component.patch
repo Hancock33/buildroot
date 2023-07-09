@@ -1,5 +1,25 @@
+From 9ec9f7b4d0ef5e799ca4cc5103163e4630d184d8 Mon Sep 17 00:00:00 2001
+From: Julien Olivain <ju.o@free.fr>
+Date: Fri, 16 Sep 2022 22:30:59 +0200
+Subject: [PATCH] demos: makes opengl an optional component
+
+This patch is a port of [1] for the new meson build system.
+
+[1].
+https://git.busybox.net/buildroot/tree/package/mesa3d-demos/0001-demos-makes-opengl-an-optional-component.patch?h=2022.08
+
+Signed-off-by: Julien Olivain <ju.o@free.fr>
+[Bernd: rebased for version 9.0.0]
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+---
+ meson.build         | 19 ++++++++++++-------
+ meson_options.txt   |  1 +
+ src/egl/meson.build |  5 ++++-
+ src/meson.build     |  4 +++-
+ 4 files changed, 20 insertions(+), 9 deletions(-)
+
 diff --git a/meson.build b/meson.build
-index c1853f94..94336ed5 100644
+index e1968fab..a15699d6 100644
 --- a/meson.build
 +++ b/meson.build
 @@ -39,7 +39,10 @@ add_project_arguments(
@@ -14,7 +34,7 @@ index c1853f94..94336ed5 100644
  
  dep_epoll = dependency('epoll-shim', required : false)
  dep_gles1 = dependency('glesv1_cm', required : get_option('gles1'))
-@@ -87,15 +90,15 @@ endif
+@@ -87,15 +87,17 @@
  
  dep_threads = dependency('threads')
  
@@ -25,13 +45,15 @@ index c1853f94..94336ed5 100644
 -  if host_machine.system() == 'windows'
 -    _glu_name = 'glu32'
 +if dep_gl.found()
-+  dep_glu = dependency('glu', required : dep_x11.found())
-+  if not dep_glu.found()
++  dep_glu = dependency('glu', required : false)
++  # GLU is part of OpenGL.Framework
++  if not dep_glu.found() and host_machine.system() != 'darwin'
 +    _glu_name = 'GLU'
 +    if host_machine.system() == 'windows'
 +      _glu_name = 'glu32'
 +    endif
-+    dep_glu = cc.find_library(_glu_name, has_headers: 'GL/glu.h')
++    dep_glu = cc.find_library(_glu_name, has_headers: 'GL/glu.h',
++      required : dep_x11.found())
    endif
 -  dep_glu = cc.find_library(_glu_name, has_headers: 'GL/glu.h',
 -    required : dep_x11.found())
@@ -39,7 +61,7 @@ index c1853f94..94336ed5 100644
  
  dep_glx = dependency('glx', required: false, disabler : true)
 diff --git a/meson_options.txt b/meson_options.txt
-index 832b916a..c954a710 100644
+index ddadd2e3..f5405698 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
 @@ -1,5 +1,6 @@
@@ -66,7 +88,7 @@ index d1846921..42bf8ecd 100644
  if dep_gles1.found()
    subdir('opengles1')
 diff --git a/src/meson.build b/src/meson.build
-index fd4a1673..1bfec868 100644
+index 39cac78d..7607c6de 100644
 --- a/src/meson.build
 +++ b/src/meson.build
 @@ -20,7 +20,9 @@
@@ -80,3 +102,6 @@ index fd4a1673..1bfec868 100644
  
  if dep_glut.found()
    subdir('demos')
+-- 
+2.37.3
+
