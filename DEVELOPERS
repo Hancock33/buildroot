@@ -362,10 +362,10 @@ F:	package/libbroadvoice/
 F:	package/libcap/
 F:	package/libcdio/
 F:	package/libcec/
+F:	package/libdisplay-info/
 F:	package/libcodec2/
 F:	package/libcrossguid/
 F:	package/libdeflate/
-F:	package/libdisplay-info/
 F:	package/libdrm/
 F:	package/libdvbcsa/
 F:	package/libdvdcss/
@@ -412,14 +412,10 @@ F:	package/mc/
 F:	package/mesa3d/
 F:	package/minidlna/
 F:	package/mjpg-streamer/
-F:	package/monero/
 F:	package/mpg123/
 F:	package/ntp/
 F:	package/nut/
-F:	package/onevpl/
-F:	package/onevpl-intel-gpu/
 F:	package/opus/
-F:	package/p2pool/
 F:	package/pciutils/
 F:	package/perl-crypt-openssl-guess/
 F:	package/perl-crypt-openssl-random/
@@ -479,7 +475,9 @@ F:	package/tvheadend/
 F:	package/unixodbc/
 F:	package/vlc/
 F:	package/vnstat/
-F:	package/waylandpp/
+F:	package/wget/
+F:	package/wireless-regdb/
+F:	package/wireless_tools/
 F:	package/x264/
 F:	package/x265/
 F:	package/xmrig/
@@ -1732,6 +1730,7 @@ F:	support/testing/tests/package/sample_python_pyalsa.py
 F:	support/testing/tests/package/sample_python_spake2.py
 F:	support/testing/tests/package/test_ddrescue.py
 F:	support/testing/tests/package/test_ddrescue/
+F:	support/testing/tests/package/test_dos2unix.py
 F:	support/testing/tests/package/test_gnupg2.py
 F:	support/testing/tests/package/test_highway.py
 F:	support/testing/tests/package/test_hwloc.py
