@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-QT5MULTIMEDIA_VERSION = $(QT5_VERSION)
-QT5MULTIMEDIA_SITE = $(QT5_SITE)
-QT5MULTIMEDIA_SOURCE = qtmultimedia-everywhere-opensource-src-$(QT5_VERSION).tar.xz
+QT5MULTIMEDIA_VERSION = 76f84c545429a1b988b79f971734ef4bc3e6643f
+QT5MULTIMEDIA_SITE = $(QT5_SITE)/qtmultimedia/-/archive/$(QT5MULTIMEDIA_VERSION)
+QT5MULTIMEDIA_SOURCE = qtmultimedia-$(QT5MULTIMEDIA_VERSION).tar.bz2
 QT5MULTIMEDIA_INSTALL_STAGING = YES
 QT5MULTIMEDIA_SYNC_QT_HEADERS = YES
 
