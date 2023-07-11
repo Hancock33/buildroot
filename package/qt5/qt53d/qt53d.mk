@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-QT53D_VERSION = $(QT5_VERSION)
-QT53D_SITE = $(QT5_SITE)
-QT53D_SOURCE = qt3d-everywhere-opensource-src-$(QT5_VERSION).tar.xz
+QT53D_VERSION = 5fd3906445ac95bf1cca6e7a7e0aeb6e3bcf5016
+QT53D_SITE = $(QT5_SITE)/qt3d/-/archive/$(QT53D_VERSION)
+QT53D_SOURCE = qt3d-$(QT53D_VERSION).tar.bz2
 QT53D_DEPENDENCIES = qt5declarative
 QT53D_INSTALL_STAGING = YES
 QT53D_SYNC_QT_HEADERS = YES
