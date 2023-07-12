@@ -3,8 +3,8 @@
 # rtl8189fs
 #
 ################################################################################
-# Version: Commits on Mar 27, 2023 (branch@rtl8189fs)
-RTL8189FS_VERSION = c223a25b1000d64432eca4201a8f012414dfc7ce
+# Version: Commits on Jul 08, 2023 (branch@rtl8189fs)
+RTL8189FS_VERSION = 75a566a830037c7d1309c5a9fe411562772a1cf2
 RTL8189FS_SITE = $(call github,jwrdegoede,rtl8189ES_linux,$(RTL8189FS_VERSION))
 RTL8189FS_LICENSE = GPL-2.0
 
