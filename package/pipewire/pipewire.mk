@@ -5,7 +5,7 @@
 ################################################################################
 
 # batocera - version update
-PIPEWIRE_VERSION = 0.3.73
+PIPEWIRE_VERSION = 0.3.74
 PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
 PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
