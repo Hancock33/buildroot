@@ -3,8 +3,8 @@
 # mold
 #
 ################################################################################
-# Version: Commits on Jun 29, 2023
-MOLD_VERSION = b04aba89d3a1931470983212925443e7aefca1e1
+# Version: Commits on Jul 07, 2023
+MOLD_VERSION = 29dc0cf53f7c72d3090adcfb46c4383960c7732a
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = GPLv3
 MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES)
