@@ -1,5 +1,4 @@
-# From https://lists.freedesktop.org/archives/mesa-announce/2023-September/000730.html
-sha256  45434ff91a709844130a3174d9c0ef39c6b50725b2bb0c13e736f36134db14ad  mesa-23.1.8.tar.xz
-sha512  02dc6f8b10dd3827a2b62fba3035726b1b60ec0c3188817deea2ad14f80f332a37272e9f15c5f653f20cecb14f8ff91697d73c89afc83674c19b686a674b677d  mesa-23.1.8.tar.xz
+# From https://lists.freedesktop.org/archives/mesa-announce/2023-September/000728.html
+sha256  e198ac6b959adc792712f7b1669f720bfcb41913dc2a91dc96cc8a717f4d427b  mesa-23.2.0-rc3.tar.xz
 # License
 sha256  a00275a53178e2645fb65be99a785c110513446a5071ff2c698ed260ad917d75  docs/license.rst
