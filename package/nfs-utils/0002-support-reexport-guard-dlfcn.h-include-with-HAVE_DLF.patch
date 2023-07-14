@@ -3,7 +3,7 @@ From: Bernd Kuhls <bernd.kuhls@t-online.de>
 Date: Sun, 11 Jun 2023 08:57:11 +0200
 Subject: [PATCH] support/reexport: guard dlfcn.h include with HAVE_DLFCN_H
 
-Upstream: https://marc.info/?l=linux-nfs&m=168650558019402&w=2
+Upstream: http://git.linux-nfs.org/?p=steved/nfs-utils.git;a=commitdiff;h=8125c6f4ad156a9bad0dc2cc42e0243380fc478d
 
 Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
 ---
