@@ -18,7 +18,7 @@ diff --git a/media_driver/linux/common/ddi/media_libva.cpp b/media_driver/linux/
 index 63f1659ed..efa0c08cc 100755
 --- a/media_driver/linux/common/ddi/media_libva.cpp
 +++ b/media_driver/linux/common/ddi/media_libva.cpp
-@@ -6525,6 +6525,23 @@ DdiMedia_QueryVideoProcPipelineCaps(
+@@ -6716,6 +6716,23 @@ DdiMedia_QueryVideoProcPipelineCaps(
          pipeline_caps->min_output_width           = VP_MIN_PIC_WIDTH;
          pipeline_caps->min_output_height          = VP_MIN_PIC_WIDTH;
      }
@@ -46,7 +46,7 @@ diff --git a/media_driver/linux/common/vp/ddi/media_libva_vp.c b/media_driver/li
 index 1f544749b..7d5b95b4e 100644
 --- a/media_driver/linux/common/vp/ddi/media_libva_vp.c
 +++ b/media_driver/linux/common/vp/ddi/media_libva_vp.c
-@@ -90,8 +90,8 @@ VAStatus     DdiVp_SetProcFilterTotalColorCorrectionParams(PDDI_VP_CONTEXT, uint
+@@ -91,8 +91,8 @@ VAStatus     DdiVp_SetProcFilterTotalColorCorrectionParams(PDDI_VP_CONTEXT, uint
  VAStatus     DdiVp_SetProcFilterHdrTmParams(PDDI_VP_CONTEXT, uint32_t, VAProcFilterParameterBufferHDRToneMapping*);
  VAStatus     DdiVp_SetProcPipelineBlendingParams(PDDI_VP_CONTEXT pVpCtx, uint32_t uiSurfIndex, VAProcPipelineParameterBuffer* pPipelineParam);
  VAStatus     DdiVp_ConvertSurface (VADriverContextP ctx, DDI_MEDIA_SURFACE  *srcSurface, int16_t srcx,  int16_t srcy, uint16_t srcw,  uint16_t srch,  DDI_MEDIA_SURFACE  *dstSurface,  int16_t destx,  int16_t desty, uint16_t destw, uint16_t desth );
@@ -56,8 +56,8 @@ index 1f544749b..7d5b95b4e 100644
 +VAStatus     DdiVp_UpdateProcPipelinePastReferenceFrames(PDDI_VP_CONTEXT pVpCtx, VADriverContextP pVaDrvCtx, PVPHAL_SURFACE pVpHalSrcSurf, VAProcPipelineParameterBuffer* pPipelineParam);
  VAStatus     DdiVp_UpdateVphalTargetSurfColorSpace(VADriverContextP, PDDI_VP_CONTEXT, VAProcPipelineParameterBuffer*, uint32_t targetIndex);
  VAStatus     DdiVp_BeginPictureInt(VADriverContextP pVaDrvCtx, PDDI_VP_CONTEXT pVpCtx, VASurfaceID vaSurfID);
- 
-@@ -1174,15 +1174,15 @@ DdiVp_SetProcPipelineParams(
+ #if VA_CHECK_VERSION(1, 12, 0)
+@@ -1184,15 +1184,15 @@ DdiVp_SetProcPipelineParams(
  
      // Update fwd and bkward ref frames: Required for Advanced processing - will be supported in the future
  
@@ -79,7 +79,7 @@ index 1f544749b..7d5b95b4e 100644
  
      // Check if filter values changed,if yes, then reset all filters for this surface
  
-@@ -3890,7 +3890,7 @@ DdiVp_SetProcPipelineBlendingParams(
+@@ -3937,7 +3937,7 @@ DdiVp_SetProcPipelineBlendingParams(
  }
  
  ////////////////////////////////////////////////////////////////////////////////
@@ -88,7 +88,7 @@ index 1f544749b..7d5b95b4e 100644
  //! \params
  //! [in]  pVpCtx : VP context
  //! [in]  pVaDrvCtx : VA Driver context
-@@ -3900,7 +3900,7 @@ DdiVp_SetProcPipelineBlendingParams(
+@@ -3947,7 +3947,7 @@ DdiVp_SetProcPipelineBlendingParams(
  //! \returns VA_STATUS_SUCCESS if call succeeds
  ////////////////////////////////////////////////////////////////////////////////
  VAStatus
@@ -97,7 +97,7 @@ index 1f544749b..7d5b95b4e 100644
      PDDI_VP_CONTEXT                 pVpCtx,
      VADriverContextP                pVaDrvCtx,
      PVPHAL_SURFACE                  pVpHalSrcSurf,
-@@ -3930,9 +3930,10 @@ DdiVp_UpdateProcPipelineForwardReferenceFrames(
+@@ -3977,9 +3977,10 @@ DdiVp_UpdateProcPipelineForwardReferenceFrames(
  
      pSurface = pVpHalSrcSurf;
  
@@ -110,7 +110,7 @@ index 1f544749b..7d5b95b4e 100644
          {
              PDDI_MEDIA_SURFACE pRefSurfBuffObj = nullptr;
              if(pSurface->pFwdRef == nullptr)
-@@ -3952,9 +3953,9 @@ DdiVp_UpdateProcPipelineForwardReferenceFrames(
+@@ -3999,9 +4000,9 @@ DdiVp_UpdateProcPipelineForwardReferenceFrames(
                  pSurface->pFwdRef->dwWidth       = pVpHalSrcSurf->dwWidth;
                  pSurface->pFwdRef->dwHeight      = pVpHalSrcSurf->dwHeight;
                  pSurface->pFwdRef->dwPitch       = pVpHalSrcSurf->dwPitch;
@@ -122,7 +122,7 @@ index 1f544749b..7d5b95b4e 100644
              DDI_CHK_NULL(pRefSurfBuffObj,
                              "Null pRefSurfBuffObj!",
                               VA_STATUS_ERROR_INVALID_SURFACE);
-@@ -3979,7 +3980,7 @@ DdiVp_UpdateProcPipelineForwardReferenceFrames(
+@@ -4026,7 +4027,7 @@ DdiVp_UpdateProcPipelineForwardReferenceFrames(
  }
  
  ////////////////////////////////////////////////////////////////////////////////
@@ -131,7 +131,7 @@ index 1f544749b..7d5b95b4e 100644
  //! \params
  //! [in]  pVpCtx : VP context
  //! [in]  pVaDrvCtx : VA Driver context
-@@ -3989,7 +3990,7 @@ DdiVp_UpdateProcPipelineForwardReferenceFrames(
+@@ -4036,7 +4037,7 @@ DdiVp_UpdateProcPipelineForwardReferenceFrames(
  //! \returns VA_STATUS_SUCCESS if call succeeds
  ////////////////////////////////////////////////////////////////////////////////
  VAStatus
@@ -140,7 +140,7 @@ index 1f544749b..7d5b95b4e 100644
      PDDI_VP_CONTEXT                 pVpCtx,
      VADriverContextP                pVaDrvCtx,
      PVPHAL_SURFACE                  pVpHalSrcSurf,
-@@ -4019,9 +4020,10 @@ DdiVp_UpdateProcPipelineBackwardReferenceFrames(
+@@ -4066,9 +4067,10 @@ DdiVp_UpdateProcPipelineBackwardReferenceFrames(
  
      pSurface = pVpHalSrcSurf;
  
@@ -153,7 +153,7 @@ index 1f544749b..7d5b95b4e 100644
          {
              PDDI_MEDIA_SURFACE pRefSurfBuffObj = nullptr;
              if(pSurface->pBwdRef == nullptr)
-@@ -4041,9 +4043,9 @@ DdiVp_UpdateProcPipelineBackwardReferenceFrames(
+@@ -4088,9 +4089,9 @@ DdiVp_UpdateProcPipelineBackwardReferenceFrames(
                  pSurface->pBwdRef->dwWidth       = pVpHalSrcSurf->dwWidth;
                  pSurface->pBwdRef->dwHeight      = pVpHalSrcSurf->dwHeight;
                  pSurface->pBwdRef->dwPitch       = pVpHalSrcSurf->dwPitch;
