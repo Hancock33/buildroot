@@ -23,7 +23,7 @@ diff --git a/meson_options.txt b/meson_options.txt
 index 8e0bf2a..1cf0e07 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -116,6 +116,13 @@ option(
+@@ -124,6 +124,13 @@ option(
    description : 'enable gallium va frontend.',
  )
  
