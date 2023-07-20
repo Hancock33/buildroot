@@ -8,7 +8,7 @@
 #MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 #MESA3D_SITE = https://archive.mesa3d.org
 # git describe --abbrev=40 origin/staging/23.1 | cut -d '-' -f 2-
-MESA3D_VERSION = 23.1.3-87-g2c12773b051f90456c7a3e269c2f61c543ba456d
+MESA3D_VERSION = 23.1.3-97-ge2406205504bb728aec1a50692846c73c87dfac8
 MESA3D_SITE = $(call github,sailfishos-mirror,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
