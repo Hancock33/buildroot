@@ -1,6 +1,9 @@
 config BR2_PACKAGE_OPENSSL_FORCE_LIBOPENSSL
 	bool
 
+config BR2_PACKAGE_OPENSSL_HAS_THREADS
+	bool
+
 config BR2_PACKAGE_OPENSSL
 	bool "openssl support"
 	select BR2_PACKAGE_HAS_OPENSSL
@@ -17,6 +20,8 @@ choice
 config BR2_PACKAGE_LIBOPENSSL
 	bool "openssl"
 	select BR2_PACKAGE_ZLIB
+	# https://github.com/openssl/openssl/issues/14574#issuecomment-1584122617
+	select BR2_PACKAGE_OPENSSL_HAS_THREADS if !BR2_STATIC_LIBS
 	help
 	  A collaborative effort to develop a robust, commercial-grade,
 	  fully featured, and Open Source toolkit implementing the
@@ -36,6 +41,7 @@ config BR2_PACKAGE_LIBRESSL
 	depends on BR2_TOOLCHAIN_HAS_THREADS
 	# uClibc doesn't provide __register_atfork() without NPTL
 	depends on !BR2_TOOLCHAIN_USES_UCLIBC || BR2_TOOLCHAIN_HAS_THREADS_NPTL
+	select BR2_PACKAGE_OPENSSL_HAS_THREADS
 	help
 	  LibreSSL is a version of the TLS/crypto stack forked from
 	  OpenSSL in 2014, with goals of modernizing the codebase,
