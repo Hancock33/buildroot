@@ -13,4 +13,8 @@ OPENSC_DEPENDENCIES = openssl pcsc-lite
 OPENSC_INSTALL_STAGING = YES
 OPENSC_CONF_OPTS = --disable-cmocka --disable-strict
 
+ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
+OPENSC_CONF_ENV += LIBS=-latomic
+endif
+
 $(eval $(autotools-package))
