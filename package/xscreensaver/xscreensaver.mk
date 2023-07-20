@@ -13,6 +13,16 @@ XSCREENSAVER_LICENSE_FILES = hacks/screenhack.h hacks/glx/chessmodels.h
 XSCREENSAVER_CPE_ID_VENDOR = xscreensaver_project
 XSCREENSAVER_SELINUX_MODULES = xdg xscreensaver xserver
 
+# 0001-disable-check-for-pam.patch
+# 0002-build-Do-not-build-po-files.patch
+XSCREENSAVER_AUTORECONF = YES
+
+# fix missing config.rpath (needed for autoreconf) in the codebase
+define XSCREENSAVER_TOUCH_CONFIG_RPATH
+	touch $(@D)/config.rpath
+endef
+XSCREENSAVER_PRE_CONFIGURE_HOOKS += XSCREENSAVER_TOUCH_CONFIG_RPATH
+
 XSCREENSAVER_DEPENDENCIES = \
 	gdk-pixbuf \
 	gdk-pixbuf-xlib \

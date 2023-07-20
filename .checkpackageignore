@@ -1638,6 +1638,8 @@ package/xinetd/0004-configure-rlim_t.patch Upstream
 package/xinetd/0005-CVE-2013-4342-xinetd-ignores-user-and-group-directiv.patch Upstream
 package/xl2tp/xl2tpd TrailingSpace
 package/xml-security-c/0001-fix-build-with-libressl-3.5.0.patch Upstream
+package/xscreensaver/0001-disable-check-for-pam.patch
+package/xscreensaver/0002-build-Do-not-build-po-files.patch
 package/xxhash/0001-fix-man-page-installation.patch Upstream
 package/xxhash/0002-Makefile-add-dedicated-install-targets.patch Upstream
 package/xxhash/0003-do-no-longer-depend-on-assert-h-for-XXH_STATIC_ASSERT.patch Upstream

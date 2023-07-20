@@ -1,0 +1,16 @@
+Fix cross-build
+
+Detecting features of the host does not make sense when cross-compiling.
+
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+
+--- a/configure.ac.orig	2022-02-20 22:05:40.029817049 +0100
++++ b/configure.ac	2023-07-16 14:32:57.562198378 +0200
+@@ -4802,7 +4802,6 @@
+   if test -d /etc/pam.d -o -f /etc/pam.conf ; then
+     warn  "Your system seems to have PAM, but PAM is not being used."
+     warn2 "That is probably not going to work out well."
+-    CONF_STATUS=1
+   fi
+ fi
+ 
