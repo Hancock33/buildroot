@@ -2,8 +2,8 @@ config BR2_PACKAGE_TOR
 	bool "tor"
 	depends on BR2_USE_MMU # fork()
 	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL
+	depends on BR2_PACKAGE_OPENSSL_HAS_THREADS
 	select BR2_PACKAGE_LIBEVENT
-	select BR2_PACKAGE_OPENSSL
 	select BR2_PACKAGE_ZLIB
 	help
 	  Tor is free software and an open network that helps you
@@ -17,3 +17,7 @@ config BR2_PACKAGE_TOR
 comment "tor needs a toolchain w/ NPTL"
 	depends on BR2_USE_MMU
 	depends on !BR2_TOOLCHAIN_HAS_THREADS_NPTL
+
+comment "tor needs a thread-enabled openssl library (libressl or dynamically-linked openssl)"
+	depends on BR2_USE_MMU
+	depends on !BR2_PACKAGE_OPENSSL_HAS_THREADS
