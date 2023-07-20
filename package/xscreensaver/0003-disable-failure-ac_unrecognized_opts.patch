@@ -1,0 +1,17 @@
+Do not return an error code when unrecognized configure options are used.
+
+Inspired by
+https://github.com/OpenMandrivaAssociation/xscreensaver/blob/master/xscreensaver.spec#L124
+
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+
+--- a/configure.ac.orig	2023-07-16 14:51:57.982072603 +0200
++++ b/configure.ac	2023-07-16 15:35:13.616281941 +0200
+@@ -22,7 +22,6 @@
+ 
+ if ! test -z "$ac_unrecognized_opts" ; then
+   echo "" >&2
+-  exit 2
+ fi
+ 
+ ###############################################################################
