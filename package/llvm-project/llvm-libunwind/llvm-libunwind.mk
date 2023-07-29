@@ -16,4 +16,14 @@ HOST_LLVM_LIBUNWIND_CONF_OPTS += \
 	-DCMAKE_MODULE_PATH="$(HOST_DIR)/lib/cmake/llvm" \
 	-DLIBUNWIND_INSTALL_HEADERS=ON
 
+define LLVM_LIBUNWIND_DL_CMAKE_MODULES
+    wget -O $(HOST_DIR)/lib/cmake/llvm/HandleFlags.cmake \
+        https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-17.0.0-rc1/runtimes/cmake/Modules/HandleFlags.cmake
+    wget -O $(HOST_DIR)/lib/cmake/llvm/WarningFlags.cmake \
+        https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-17.0.0-rc1/runtimes/cmake/Modules/WarningFlags.cmake
+endef
+
+HOST_LLVM_LIBUNWIND_POST_EXTRACT_HOOKS += LLVM_LIBUNWIND_DL_CMAKE_MODULES
+LLVM_LIBUNWIND_POST_EXTRACT_HOOKS += LLVM_LIBUNWIND_DL_CMAKE_MODULES
+
 $(eval $(host-cmake-package))
