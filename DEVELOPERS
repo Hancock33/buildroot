@@ -1187,6 +1187,7 @@ F:	package/mali-driver/
 F:	package/minicom/
 F:	package/mmc-utils/
 F:	package/nfs-utils/
+F:	package/python-libconf/
 F:	package/python-uvloop/
 F:	package/qt5/
 F:	package/rockchip-mali/
@@ -1201,6 +1202,7 @@ F:	package/rtl8821cu/
 F:	package/sunxi-mali-utgard/
 F:	package/sunxi-mali-utgard-driver/
 F:	package/sunxi-tools/
+F:	package/swugenerator/
 F:	package/trace-cmd/
 F:	package/udisks/
 F:	package/wilc-driver/
@@ -1720,6 +1722,7 @@ F:	package/libjxl/
 F:	package/octave/
 F:	package/ola/
 F:	package/openblas/
+F:	package/opencsd/
 F:	package/openmpi/
 F:	package/perftest/
 F:	package/ptm2human/
