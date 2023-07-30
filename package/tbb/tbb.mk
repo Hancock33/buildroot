@@ -17,4 +17,11 @@ TBB_CONF_OPTS = \
 	-DTBB_STRICT=OFF \
 	-DTBB_TEST=OFF
 
+HOST_TBB_CONF_OPTS = \
+	-DCMAKE_BUILD_TYPE=Release \
+	-DTBB_STRICT=OFF \
+	-DTBB_TEST=OFF
+
+
 $(eval $(cmake-package))
+$(eval $(host-cmake-package))

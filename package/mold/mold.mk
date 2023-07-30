@@ -3,16 +3,16 @@
 # mold
 #
 ################################################################################
-# Version: Commits on Jul 26, 2023
-MOLD_VERSION = v2.0.0
+# Version: Commits on Jul 30, 2023
+MOLD_VERSION = ec10452b678622d90646d8bbba4b10510dcedb94
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = MIT
-MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES)
-HOST_MOLD_DEPENDENCIES += host-flex host-bison host-openssl host-zstd host-cmake
+MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES) tbb
+HOST_MOLD_DEPENDENCIES += host-flex host-bison host-openssl host-zstd host-cmake host-tbb
 
 MOLD_SUPPORTS_IN_SOURCE_BUILD = NO
-MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
-HOST_MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release
+MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release -DMOLD_USE_SYSTEM_TBB=ON -DMOLD_LTO=ON
+HOST_MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release -DMOLD_USE_SYSTEM_TBB=ON -DMOLD_LTO=ON
 
 define MOLD_INSTALL
     rm -rf $(HOST_DIR)/bin/mold.ld

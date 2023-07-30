@@ -2,6 +2,7 @@ config BR2_PACKAGE_MOLD
 	bool "mold"
 	depends on BR2_USE_WCHAR
 	select BR2_PACKAGE_ZLIB
+	select BR2_PACKAGE_TBB
 
 	help
 	  Mold: A Modern Linker
