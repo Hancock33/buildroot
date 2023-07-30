@@ -12,7 +12,8 @@ implicitly anymore. As a result build fails without the change as:
           |   ^~~~~~~~
 
 Upstream: https://github.com/NilsBrause/waylandpp/pull/71
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 ---
  include/wayland-client.hpp | 1 +
  scanner/scanner.cpp        | 3 +++
