@@ -10,7 +10,7 @@ included [1]. Explicitly include it for uint{32,64}_t.
 
 Signed-off-by: Rudi Heitbaum <rudi@heitbaum.com>
 Upstream: https://github.com/xbmc/audiodecoder.timidity/commit/0d4d3fcf5c58dd16b3e9a7337189141b839e4ace
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 ---
  src/MidiScan.h | 1 +
  1 file changed, 1 insertion(+)
