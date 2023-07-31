@@ -1178,6 +1178,7 @@ F:	package/at/
 F:	package/binutils/
 F:	package/cryptsetup/
 F:	package/erlang-jiffy/
+F:	package/esp-hosted/
 F:	package/gcc/
 F:	package/harfbuzz/
 F:	package/libfuse3/
@@ -1469,6 +1470,7 @@ F:	package/gtkmm3/
 F:	package/libpqxx/
 F:	package/pangomm/
 F:	package/rpm/
+F:	package/swaybg/
 F:	package/yad/
 
 N:	Jan Heylen <jan.heylen@nokia.com>
