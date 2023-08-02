@@ -19,7 +19,7 @@ HOST_LLVM_DEPENDENCIES = host-python3 host-llvm-cmake
 LLVM_DEPENDENCIES = host-llvm host-lld host-ninja
 
 # Path to cmake modules from host-llvm-cmake
-HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -GNinja
+HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm
 LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -GNinja
 
 # Assembly files for x64 in lib/Support/BLAKE3 need to be compiled
