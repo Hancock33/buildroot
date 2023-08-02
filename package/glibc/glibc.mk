@@ -148,7 +148,7 @@ define GLIBC_CONFIGURE_CMDS
 		--with-pkgversion="Buildroot" \
 		--disable-profile \
 		--disable-werror \
-		--without-gd \ 
+		--without-gd \
 		--enable-crypt \
 		--with-headers=$(STAGING_DIR)/usr/include \
 		$(GLIBC_CONF_OPTS))
