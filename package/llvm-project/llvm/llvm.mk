@@ -16,7 +16,7 @@ LLVM_INSTALL_STAGING = YES
 LLVM_SUBDIR = llvm
 
 HOST_LLVM_DEPENDENCIES = host-python3 host-llvm-cmake
-LLVM_DEPENDENCIES = host-llvm host-ninja
+LLVM_DEPENDENCIES = host-llvm host-lld host-ninja
 
 # Path to cmake modules from host-llvm-cmake
 HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -GNinja
@@ -284,14 +284,6 @@ LLVM_CONF_OPTS += \
 	-DLLVM_INCLUDE_GO_TESTS=OFF \
 	-DLLVM_INCLUDE_TESTS=OFF \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF
-
-define HOST_LLVM_BUILD_CMDS
-	$(HOST_MAKE_ENV) $(BR2_CMAKE) --build $(HOST_LLVM_BUILDDIR)
-endef
-
-define HOST_LLVM_INSTALL_CMDS
-	$(HOST_MAKE_ENV) $(BR2_CMAKE) --install $(HOST_LLVM_BUILDDIR)
-endef
 
 define LLVM_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(BR2_CMAKE) --build $(LLVM_BUILDDIR)

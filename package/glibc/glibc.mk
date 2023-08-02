@@ -102,6 +102,11 @@ ifeq ($(BR2_PACKAGE_GLIBC_KERNEL_COMPAT),)
 GLIBC_CONF_OPTS += --enable-kernel=$(call qstrip,$(BR2_TOOLCHAIN_HEADERS_AT_LEAST))
 endif
 
+ifeq ($(BR2_aarch64),y)
+GLIBC_CONF_OPTS += --disable-mathvec
+endif
+
+
 # Even though we use the autotools-package infrastructure, we have to
 # override the default configure commands for several reasons:
 #
@@ -127,6 +132,7 @@ endif
 ifeq ($(BR2_OPTIMIZE_FAST),y)
 GLIBC_CFLAGS += -O2
 endif
+GLIBC_CFLAGS += -pipe
 
 TARGET_CONFIGURE_OPTS += LD="$(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld"
 
