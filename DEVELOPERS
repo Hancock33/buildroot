@@ -2669,6 +2669,10 @@ F:	package/rtl8189fs/
 F:	package/wpa_supplicant/
 F:	package/xr819-xradio/
 
+N:	Sergey Matyukevich <sergey.matyukevich@synopsys.com>
+F:	board/synopsys/nsim/
+F:	configs/snps_arc700_nsim_defconfig
+
 N:	Sergio Prado <sergio.prado@e-labworks.com>
 F:	board/toradex/apalis-imx6/
 F:	configs/toradex_apalis_imx6_defconfig
@@ -2733,6 +2737,10 @@ F:	package/glmark2/
 F:	package/libvpx/
 F:	package/mesa3d-demos/
 F:	package/ti-gfx/
+
+N:	Stefan Nickl <Stefan.Nickl@gmail.com>
+F:	board/freescale/imx8dxlevk/
+F:	configs/freescale_imx8dxlevk_defconfig
 
 N:	Stefan Ott <stefan@ott.net>
 F:	package/unbound/
