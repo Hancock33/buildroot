@@ -534,7 +534,6 @@ package/gli/0001-Optional-building-tests.patch Upstream
 package/glog/0001-added-emscripten-support.patch Upstream
 package/glorytun/0001-Add-support-for-Apple-silicon.patch Upstream
 package/glorytun/0002-aegis256.c-fix-aarch64-build-with-uclibc.patch Upstream
-package/gmp/0001-mpz-inp_raw.c-Avoid-bit-size-overflows.patch Upstream
 package/gnu-efi/0001-Make.defaults-don-t-override-ARCH-when-cross-compili.patch Upstream
 package/gnupg/0001-build-Always-use-EXTERN_UNLESS_MAIN_MODULE-pattern.patch Upstream
 package/gnuplot/0001-configure-add-without-demo-option.patch Upstream
@@ -658,7 +657,6 @@ package/leveldb/0003-CMakeLists.txt-check-for-atomic-library.patch Upstream
 package/lftp/0001-Fix-build-with-LibreSSL-following-commit-537f37898.patch Upstream
 package/lftp/0002-src-lftp_ssl.c-fix-build-with-libressl-2.7.0.patch Upstream
 package/libabseil-cpp/0001-force-position-independent-code.patch Upstream
-package/libarchive/0001-autotools-do-not-add-iconv-for-Requires.private.patch Upstream
 package/libargon2/0001-libargon2-dont-fail-on-existing-symlink.patch Upstream
 package/libart/0001-art-config-cross.patch Sob Upstream
 package/libatasmart/0001-strpool-cross-flags.patch Upstream

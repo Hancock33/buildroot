@@ -4,7 +4,6 @@
 #
 ################################################################################
 
-# batocera - version update
 PIPEWIRE_VERSION = 0.3.77
 PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
 PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
