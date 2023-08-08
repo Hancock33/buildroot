@@ -14,7 +14,6 @@ LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
 LLVM_INSTALL_STAGING = YES
 # Main CMakeLists.txt in llvm subfolder
 LLVM_SUBDIR = llvm
-LLVM_CMAKE_BACKEND = ninja
 
 HOST_LLVM_DEPENDENCIES = host-python3 host-llvm-cmake
 LLVM_DEPENDENCIES = host-llvm host-lld
