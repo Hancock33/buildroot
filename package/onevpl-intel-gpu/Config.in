@@ -4,9 +4,9 @@ config BR2_PACKAGE_ONEVPL_INTEL_GPU
 	depends on BR2_INSTALL_LIBSTDCPP # onevpl
 	depends on !BR2_STATIC_LIBS # onevpl
 	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_7 # onevpl
-	depends on BR2_TOOLCHAIN_HAS_SYNC_1 # intel-mediadriver -> mesa3d
+	depends on BR2_TOOLCHAIN_HAS_SYNC_1 # intel-mediadriver
 	depends on BR2_TOOLCHAIN_HAS_THREADS # onevpl
-	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # intel-mediadriver -> mesa3d
+	depends on BR2_TOOLCHAIN_HAS_THREADS_NPTL # intel-mediadriver
 	select BR2_PACKAGE_INTEL_MEDIADRIVER # runtime
 	select BR2_PACKAGE_LIBVA
 	select BR2_PACKAGE_ONEVPL
