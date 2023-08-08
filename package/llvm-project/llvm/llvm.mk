@@ -14,13 +14,14 @@ LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
 LLVM_INSTALL_STAGING = YES
 # Main CMakeLists.txt in llvm subfolder
 LLVM_SUBDIR = llvm
+LLVM_CMAKE_BACKEND = ninja
 
 HOST_LLVM_DEPENDENCIES = host-python3 host-llvm-cmake
-LLVM_DEPENDENCIES = host-llvm host-lld host-ninja
+LLVM_DEPENDENCIES = host-llvm host-lld
 
 # Path to cmake modules from host-llvm-cmake
 HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm
-LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -GNinja
+LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm
 
 # Assembly files for x64 in lib/Support/BLAKE3 need to be compiled
 # by a C compiler
@@ -284,18 +285,6 @@ LLVM_CONF_OPTS += \
 	-DLLVM_INCLUDE_GO_TESTS=OFF \
 	-DLLVM_INCLUDE_TESTS=OFF \
 	-DLLVM_INCLUDE_BENCHMARKS=OFF
-
-define LLVM_BUILD_CMDS
-	$(TARGET_MAKE_ENV) $(BR2_CMAKE) --build $(LLVM_BUILDDIR)
-endef
-
-define LLVM_INSTALL_TARGET_CMDS
-	$(TARGET_MAKE_ENV) DESTDIR=$(TARGET_DIR) $(BR2_CMAKE) --install $(LLVM_BUILDDIR)
-endef
-
-define LLVM_INSTALL_STAGING_CMDS
-	$(TARGET_MAKE_ENV) DESTDIR=$(STAGING_DIR) $(BR2_CMAKE) --install $(LLVM_BUILDDIR)
-endef
 
 # Copy llvm-config (host variant) to STAGING_DIR
 # llvm-config (host variant) returns include and lib directories
