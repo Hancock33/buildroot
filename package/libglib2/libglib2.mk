@@ -80,6 +80,10 @@ ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 LIBGLIB2_LDFLAGS += -latomic
 endif
 
+ifeq ($(BR2_PACKAGE_LIBICONV),y)
+LIBGLIB2_DEPENDENCIES += libiconv
+endif
+
 ifeq ($(BR2_PACKAGE_LIBSELINUX),y)
 LIBGLIB2_CONF_OPTS += -Dselinux=enabled -Dxattr=true
 LIBGLIB2_DEPENDENCIES += libselinux
