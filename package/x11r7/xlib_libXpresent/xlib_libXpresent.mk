@@ -12,6 +12,10 @@ XLIB_LIBXPRESENT_LICENSE_FILES = COPYING
 XLIB_LIBXPRESENT_INSTALL_STAGING = YES
 
 XLIB_LIBXPRESENT_DEPENDENCIES = \
-	xlib_libXext xlib_libXfixes xlib_xtrans xorgproto
+	xlib_libX11 \
+	xlib_libXext \
+	xlib_libXfixes \
+	xlib_libXrandr \
+	xorgproto
 
 $(eval $(autotools-package))
