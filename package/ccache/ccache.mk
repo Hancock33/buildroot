@@ -9,6 +9,7 @@ CCACHE_SITE = https://github.com/ccache/ccache/releases/download/v$(CCACHE_VERSI
 CCACHE_SOURCE = ccache-$(CCACHE_VERSION).tar.xz
 CCACHE_LICENSE = GPL-3.0+, others
 CCACHE_LICENSE_FILES = LICENSE.adoc GPL-3.0.txt
+CCACHE_CMAKE_BACKEND = make
 HOST_CCACHE_DEPENDENCIES = host-hiredis host-zstd
 
 # We are ccache, so we can't use ccache
