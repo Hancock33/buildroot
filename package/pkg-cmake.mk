@@ -54,7 +54,7 @@ define inner-cmake-package
 $(3)_SUPPORTS_IN_SOURCE_BUILD ?= YES
 
 # The default backend, unless specified by the package
-$(3)_CMAKE_BACKEND ?= make
+$(3)_CMAKE_BACKEND ?= ninja
 
 ifeq ($$($(3)_SUPPORTS_IN_SOURCE_BUILD),YES)
 $(2)_BUILDDIR			= $$($(2)_SRCDIR)
@@ -109,6 +109,7 @@ define $(2)_CONFIGURE_CMDS
 		-DCMAKE_INSTALL_PREFIX="/usr" \
 		-DCMAKE_INSTALL_RUNSTATEDIR="/run" \
 		-DCMAKE_COLOR_MAKEFILE=ON \
+		-DCMAKE_BUILD_TYPE=Release \
 		-DBUILD_DOC=OFF \
 		-DBUILD_DOCS=OFF \
 		-DBUILD_EXAMPLE=OFF \
@@ -160,6 +161,7 @@ define $(2)_CONFIGURE_CMDS
 			-DCMAKE_CXX_COMPILER_LAUNCHER="$$(CMAKE_HOST_CXX_COMPILER_LAUNCHER)" \
 		) \
 		-DCMAKE_COLOR_MAKEFILE=ON \
+		-DCMAKE_BUILD_TYPE=Release \
 		-DBUILD_DOC=OFF \
 		-DBUILD_DOCS=OFF \
 		-DBUILD_EXAMPLE=OFF \
