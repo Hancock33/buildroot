@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Aug 17, 2023
-MOLD_VERSION = b79bc35fd9d17df84cba3ab48dd69b898a0f1ff1
+MOLD_VERSION = 8a25c1bfc1903629de46c95b1229c8c7d9ba111c
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = MIT
 MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES) tbb
