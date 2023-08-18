@@ -20,6 +20,9 @@ CONNMAN_IGNORE_CVES += CVE-2022-32292
 # 0003-wispr-Update-portal-context-references.patch
 CONNMAN_IGNORE_CVES += CVE-2022-32293
 
+# 0004-gdhcp-Verify-and-sanitize-packet-length-first.patch
+CONNMAN_IGNORE_CVES += CVE-2023-28488
+
 CONNMAN_CONF_OPTS = --with-dbusconfdir=/etc
 
 ifeq ($(BR2_INIT_SYSTEMD),y)
