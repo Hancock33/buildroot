@@ -19,6 +19,8 @@ MPV_NEEDS_EXTERNAL_WAF = YES
 # Some of these options need testing and/or tweaks
 MPV_CONF_OPTS = \
 	--prefix=/usr \
+	--confdir=/etc/mpv \
+	--confloaddir=/etc/mpv \
 	--disable-android \
 	--disable-caca \
 	--disable-cocoa \
