@@ -8,7 +8,7 @@
 ################################################################################
 
 # Download method commands
-BR2_WGET = curl --ftp-pasv --connect-timeout 0
+BR2_WGET = curl --ftp-pasv --connect-timeout 3
 export WGET := $(call qstrip,$(BR2_WGET))
 export SVN := $(call qstrip,$(BR2_SVN))
 export CVS := $(call qstrip,$(BR2_CVS))
