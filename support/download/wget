@@ -47,4 +47,5 @@ _plain_wget() {
 # mirror
 [ -n "${encode}" ] && filename=${filename//\?/%3F}
 
-_wget ${quiet} "${@}" -O "'${output}'" "'${url}/${filename}'"
+#_wget ${quiet} "${@}" -O "'${output}'" "'${url}/${filename}'"
+_wget ${quiet} "${@}" -o "'${output}'" -L "'${url}/${filename}'"
