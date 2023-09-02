@@ -33,7 +33,7 @@ Upstream: https://mailman.alsa-project.org/pipermail/alsa-devel/2022-July/203846
  1 file changed, 10 insertions(+), 4 deletions(-)
 
 diff --git a/alsactl/info.c b/alsactl/info.c
-index 253539d..9bd72af 100644
+index 1d648d8..9b7eb0b 100644
 --- a/alsactl/info.c
 +++ b/alsactl/info.c
 @@ -22,9 +22,9 @@
@@ -81,7 +81,7 @@ index 253539d..9bd72af 100644
  
  static int hwdep_device_list(snd_ctl_t *ctl)
  {
-@@ -227,17 +229,21 @@ int general_card_info(int cardno)
+@@ -228,17 +230,21 @@ int general_card_info(int cardno)
  	}
  	err = card_info(ctl);
  
@@ -91,18 +91,17 @@ index 253539d..9bd72af 100644
  		err = pcm_device_list(ctl, SND_PCM_STREAM_PLAYBACK, &first);
  	if (err >= 0)
  		err = pcm_device_list(ctl, SND_PCM_STREAM_CAPTURE, &first);
+-
 +#endif
- 
++ 
 +#ifdef __ALSA_RAWMIDI_H
  	first = true;
  	if (err >= 0)
- 		err = rawmidi_device_list(ctl, SND_PCM_STREAM_PLAYBACK, &first);
+ 		err = rawmidi_device_list(ctl, SND_RAWMIDI_STREAM_INPUT, &first);
  	if (err >= 0)
- 		err = rawmidi_device_list(ctl, SND_PCM_STREAM_CAPTURE, &first);
+ 		err = rawmidi_device_list(ctl, SND_RAWMIDI_STREAM_OUTPUT, &first);
 +#endif
  
  	if (err >= 0)
  		err = hwdep_device_list(ctl);
--- 
-2.36.1
 
