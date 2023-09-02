@@ -26,6 +26,7 @@ QEMU_DEPENDENCIES = \
 	host-meson \
 	host-pkgconf \
 	host-python3 \
+	host-python-distlib \
 	libglib2 \
 	zlib
 
@@ -157,6 +158,12 @@ QEMU_OPTS += --enable-fdt
 QEMU_DEPENDENCIES += dtc
 else
 QEMU_OPTS += --disable-fdt
+endif
+
+ifeq ($(BR2_PACKAGE_QEMU_TRACING),y)
+QEMU_OPTS += --enable-trace-backends=log
+else
+QEMU_OPTS += --enable-trace-backends=nop
 endif
 
 ifeq ($(BR2_PACKAGE_QEMU_TOOLS),y)
@@ -339,6 +346,7 @@ HOST_QEMU_DEPENDENCIES = \
 	host-pixman \
 	host-pkgconf \
 	host-python3 \
+	host-python-distlib \
 	host-slirp \
 	host-zlib
 
