@@ -4,9 +4,10 @@
 #
 ################################################################################
 
-VLC_VERSION = 3.0.18
-VLC_SITE = https://get.videolan.org/vlc/$(VLC_VERSION)
-VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
+VLC_VERSION = 3.0.18-259-g56529098b08432fb506e29cde42d987c2b355e03
+VLC_SITE = https://code.videolan.org/videolan/vlc.git
+VLC_SITE_METHOD = git
+#VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
 VLC_LICENSE = GPL-2.0+, LGPL-2.1+
 VLC_LICENSE_FILES = COPYING COPYING.LIB
 VLC_CPE_ID_VENDOR = videolan
@@ -36,6 +37,7 @@ define VLC_OVERRIDE_PKG_M4
 	$(SED) 's/PKG_WITH_MODULES/VLC_PKG_WITH_MODULES/g' \
 		-e 's/PKG_HAVE_WITH_MODULES/VLC_PKG_HAVE_WITH_MODULES/g' \
 		$(@D)/configure.ac $(@D)/m4/with_pkg.m4
+		echo "$(shell echo $(VLC_VERSION) | cut -c 1-10)" > $(@D)/src/revision.txt
 endef
 VLC_POST_PATCH_HOOKS += VLC_OVERRIDE_PKG_M4
 
