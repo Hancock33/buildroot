@@ -7,14 +7,14 @@
 # Generate version string using:
 # git describe --match 'glibc-*' --abbrev=40 origin/release/MAJOR.MINOR/master | cut -d '-' -f 2-
 # When updating the version, please also update localedef
-GLIBC_VERSION = 2.38-13-g92201f16cbcfd9eafe314ef6654be2ea7ba25675
+GLIBC_VERSION = 2.38-18-g89da8bc588c2296252543b049bf6d9272321f90d
 # Upstream doesn't officially provide an https download link.
 # There is one (https://sourceware.org/git/glibc.git) but it's not reliable,
 # sometimes the connection times out. So use an unofficial github mirror.
 # When updating the version, check it on the official repository;
 # *NEVER* decide on a version string by looking at the mirror.
 # Then check that the mirror has been synced already (happens once a day.)
-GLIBC_SITE = $(call github,sailfishos-mirror,glibc,$(GLIBC_VERSION))
+GLIBC_SITE = $(call github,bminor,glibc,$(GLIBC_VERSION))
 
 GLIBC_LICENSE = GPL-2.0+ (programs), LGPL-2.1+, BSD-3-Clause, MIT (library)
 GLIBC_LICENSE_FILES = COPYING COPYING.LIB LICENSES
@@ -102,11 +102,6 @@ ifeq ($(BR2_PACKAGE_GLIBC_KERNEL_COMPAT),)
 GLIBC_CONF_OPTS += --enable-kernel=$(call qstrip,$(BR2_TOOLCHAIN_HEADERS_AT_LEAST))
 endif
 
-ifeq ($(BR2_aarch64),y)
-GLIBC_CONF_OPTS += --disable-mathvec
-endif
-
-
 # Even though we use the autotools-package infrastructure, we have to
 # override the default configure commands for several reasons:
 #
@@ -135,7 +130,6 @@ endif
 GLIBC_CFLAGS += -pipe
 
 TARGET_CONFIGURE_OPTS += LD="$(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld"
-
 define GLIBC_CONFIGURE_CMDS
 	mkdir -p $(@D)/build
 	# Do the configuration
@@ -155,8 +149,9 @@ define GLIBC_CONFIGURE_CMDS
 		--disable-profile \
 		--disable-werror \
 		--without-gd \
-		--enable-crypt \
 		--with-headers=$(STAGING_DIR)/usr/include \
+		$(if $(BR2_aarch64)$(BR2_aarch64_be),--disable-mathvec) \
+		--enable-crypt \
 		$(GLIBC_CONF_OPTS))
 	$(GLIBC_ADD_MISSING_STUB_H)
 endef
