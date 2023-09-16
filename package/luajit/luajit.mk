@@ -13,6 +13,8 @@ LUAJIT_CPE_ID_VENDOR = luajit
 
 LUAJIT_INSTALL_STAGING = YES
 
+LUAJIT_PROVIDES = luainterpreter
+
 ifeq ($(BR2_PACKAGE_LUAJIT_COMPAT52),y)
 LUAJIT_XCFLAGS += -DLUAJIT_ENABLE_LUA52COMPAT
 endif
@@ -31,6 +33,15 @@ else
 LUAJIT_HOST_CC = $(HOSTCC) -m32
 LUAJIT_XCFLAGS += -DLUAJIT_DISABLE_GC64
 endif
+
+# emulation of git archive with .gitattributes & export-subst
+# Timestamp of the $(LUAJIT_VERSION) commit, obtained in the LuaJit
+# repo, with:   git show -s --format=%ct $(LUAJIT_VERSION)
+define LUAJIT_GEN_RELVER_FILE
+	echo 1693350652 >$(@D)/.relver
+endef
+LUAJIT_POST_EXTRACT_HOOKS = LUAJIT_GEN_RELVER_FILE
+HOST_LUAJIT_POST_EXTRACT_HOOKS = LUAJIT_GEN_RELVER_FILE
 
 # We unfortunately can't use TARGET_CONFIGURE_OPTS, because the luajit
 # build system uses non conventional variable names.
@@ -58,6 +69,11 @@ endef
 define LUAJIT_INSTALL_TARGET_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE) PREFIX="/usr" DESTDIR="$(TARGET_DIR)" LDCONFIG=true -C $(@D) install
 endef
+
+define LUAJIT_INSTALL_SYMLINK
+	ln -fs luajit $(TARGET_DIR)/usr/bin/lua
+endef
+LUAJIT_POST_INSTALL_TARGET_HOOKS += LUAJIT_INSTALL_SYMLINK
 
 # host-efl package needs host-luajit to be linked dynamically.
 define HOST_LUAJIT_BUILD_CMDS

@@ -14,12 +14,16 @@ config BR2_PACKAGE_LUAJIT_ARCH_SUPPORTS
 config BR2_PACKAGE_LUAJIT
 	bool "luajit"
 	depends on !BR2_STATIC_LIBS # dlopen
+	# Luajit conflicts with the regular lua package
+	depends on !BR2_PACKAGE_LUA
 	# Luajit is only available for some target architectures, and
 	# has some complexity wrt 32/64. See luajit.mk for details.
 	depends on BR2_PACKAGE_LUAJIT_ARCH_SUPPORTS
 	# luajit.mk uses the "-m32" compiler option to build 32bit
 	# binaries, so check if that option is supported. See
 	# luajit.mk for details.
+	select BR2_PACKAGE_HAS_LUAINTERPRETER
+	select BR2_PACKAGE_LUAINTERPRETER_ABI_VERSION_5_1
 	select BR2_HOSTARCH_NEEDS_IA32_COMPILER if !BR2_ARCH_IS_64
 	help
 	  LuaJIT implements the full set of language features defined
@@ -30,6 +34,9 @@ config BR2_PACKAGE_LUAJIT
 	  https://luajit.org/luajit.html
 
 if BR2_PACKAGE_LUAJIT
+
+config BR2_PACKAGE_PROVIDES_LUAINTERPRETER
+	default "luajit"
 
 config BR2_PACKAGE_LUAJIT_COMPAT52
 	bool "Lua 5.2 compatibility"
