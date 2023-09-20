@@ -15,8 +15,7 @@ OPENSC_DEPENDENCIES = openssl pcsc-lite
 OPENSC_INSTALL_STAGING = YES
 OPENSC_CONF_OPTS = --disable-cmocka --disable-strict --disable-tests
 
-ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
-OPENSC_CONF_ENV += LIBS=-latomic
-endif
+# 0004-pkcs15init-correct-left-length-calculation-to-fix-buffer-overrun-bug.patch
+OPENSC_IGNORE_CVES += CVE-2023-2977
 
 $(eval $(autotools-package))
