@@ -3,8 +3,8 @@
 # rpi-firmware
 #
 ################################################################################
-# Version: Commits on Sept 14, 2023
-RPI_FIRMWARE_VERSION = de26b2d7f77404dbe0598d8c52b7ae14a78877b1
+# Version: Commits on Sept 21, 2023
+RPI_FIRMWARE_VERSION = 6b37a457122714aa14b2c7df0926455173fd04f1
 RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
 RPI_FIRMWARE_LICENSE = BSD-3-Clause
 RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom

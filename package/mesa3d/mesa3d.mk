@@ -8,7 +8,7 @@
 #MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
 #MESA3D_SITE = https://archive.mesa3d.org
 # git describe --abbrev=40 origin/staging/23.1 | cut -d '-' -f 2-
-MESA3D_VERSION = 23.2.0-rc3-58-g1a8ea1bfd4b0c88b2d997c38f7a9711646e54173
+MESA3D_VERSION = 23.2.0-rc3-65-g882608de2cbbea3c3ec4c8bc3c60dd7a51b51f03
 MESA3D_SITE = $(call github,chaotic-cx,mesa-mirror,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
