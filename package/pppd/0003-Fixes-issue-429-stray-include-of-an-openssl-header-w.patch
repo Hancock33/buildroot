@@ -11,7 +11,7 @@ Signed-off-by: Eivind Næss <eivnaes@yahoo.com>
 
 Upstream: https://github.com/ppp-project/ppp/pull/431
 
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 ---
  pppd/crypto_ms.c | 2 --
  1 file changed, 2 deletions(-)

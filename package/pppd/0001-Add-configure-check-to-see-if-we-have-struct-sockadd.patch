@@ -9,7 +9,7 @@ Signed-off-by: Eivind Naess <eivnaes@yahoo.com>
 
 Upstream: https://github.com/ppp-project/ppp/commit/9d6d326b2530cffb1414e4c401675117c42d43ce
 
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 ---
  configure.ac                   | 3 ++-
  pppd/plugins/pppoe/config.h.in | 2 ++
