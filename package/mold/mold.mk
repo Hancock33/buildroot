@@ -3,12 +3,12 @@
 # mold
 #
 ################################################################################
-# Version: Commits on Sept 20, 2023
-MOLD_VERSION = 9e09e74db3ceee3c6c821411170d86f70035c4b4
+# Version: Commits on Sept 24, 2023
+MOLD_VERSION = v2.2.0
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = MIT
 MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES) tbb
-HOST_MOLD_DEPENDENCIES += host-flex host-bison host-openssl host-zstd host-cmake host-tbb
+HOST_MOLD_DEPENDENCIES += host-flex host-bison host-zstd host-cmake host-tbb
 
 MOLD_SUPPORTS_IN_SOURCE_BUILD = NO
 MOLD_CONF_OPTS += -DCMAKE_BUILD_TYPE=Release -DMOLD_USE_SYSTEM_TBB=ON
