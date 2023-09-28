@@ -1,5 +1,5 @@
-# Hash from: https://download.qt.io/official_releases/qt/6.5/6.5.2/submodules/qtsvg-everywhere-src-6.5.2.tar.xz.sha256
-sha256  48b4cc1093af2e0ab3bea30f60651bddd877a2335d16e7207879a2e9e81963a3  qtsvg-everywhere-src-6.5.2.tar.xz
+# Hash from: https://download.qt.io/official_releases/qt/6.5/6.5.3/submodules/qtsvg-everywhere-src-6.5.3.tar.xz.sha256
+sha256  fc41c47b69ca1f80473cd4b11996394155781105345392961d064d04f95d5bef  qtsvg-everywhere-src-6.5.3.tar.xz
 
 # Hashes for license files:
 sha256  9f0490f18656c6f2435bd14f603ef0c96434d1825615363dce43abb42ed1dcce  LICENSES/BSD-3-Clause.txt
