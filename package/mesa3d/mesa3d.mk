@@ -3,12 +3,8 @@
 # mesa3d
 #
 ################################################################################
-# When updating the version, please also update mesa3d-headers
-#MESA3D_VERSION = 23.1.3
-#MESA3D_SOURCE = mesa-$(MESA3D_VERSION).tar.xz
-#MESA3D_SITE = https://archive.mesa3d.org
 # git describe --abbrev=40 origin/staging/23.1 | cut -d '-' -f 2-
-MESA3D_VERSION = 23.2.0-rc4-72-g3fd835f6fd72b2388893d562558eff92c335dbbd
+MESA3D_VERSION = 23.2.1-2-gf47f6d780a3a407d093ea1ab839ae57271bb564d
 MESA3D_SITE = $(call github,chaotic-cx,mesa-mirror,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
