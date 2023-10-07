@@ -1,6 +1,6 @@
-# From https://static.rust-lang.org/dist/rustc-1.72.1-src.tar.xz.sha256
-# Verified using https://static.rust-lang.org/dist/rustc-1.72.1-src.tar.xz.asc
-sha256  aea58d962ff1c19521b9f587aad88285f0fd35b6b6738b031a7a15bb1b70a7c3  rustc-1.72.1-src.tar.xz
+# From https://static.rust-lang.org/dist/rustc-1.73.0-src.tar.xz.sha256
+# Verified using https://static.rust-lang.org/dist/rustc-1.73.0-src.tar.xz.asc
+sha256  6eaf672dbea2e6596af8c999f5e6924b9af4bb8b02166bfe0b928e68aa75ae62  rustc-1.73.0-src.tar.xz
 # Locally generated
 sha256  62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a  LICENSE-APACHE
 sha256  23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3  LICENSE-MIT
