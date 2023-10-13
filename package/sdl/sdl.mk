@@ -3,8 +3,8 @@
 # sdl
 #
 ################################################################################
-# Version: Commits on Oct 22, 2022
-SDL_VERSION = a553b24e43b89bbb7659948a67041319e2b20c6c
+# Version: Commits on May 07, 2023
+SDL_VERSION = 52c714024e2d5a5383f64f9b119ea96cb46f9af2
 SDL_SITE = $(call github,libsdl-org,SDL-1.2,$(SDL_VERSION))
 SDL_LICENSE = LGPL-2.1+
 SDL_LICENSE_FILES = COPYING
