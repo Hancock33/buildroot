@@ -3,8 +3,8 @@
 # rpi-userland
 #
 ################################################################################
-# Version: Commits on Oct 18, 2023
-RPI_USERLAND_VERSION = 3c97f769ef256575354638a851ccaa1930cbf5f6
+# Version: Commits on Oct 20, 2023
+RPI_USERLAND_VERSION = 96a7334ae9d5fc9db7ac92e59852377df63f1848
 RPI_USERLAND_SITE = $(call github,raspberrypi,userland,$(RPI_USERLAND_VERSION))
 RPI_USERLAND_LICENSE = BSD-3-Clause
 RPI_USERLAND_LICENSE_FILES = LICENCE
