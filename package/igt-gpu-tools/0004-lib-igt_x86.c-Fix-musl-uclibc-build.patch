@@ -1,0 +1,43 @@
+From b47d645b3a1f476688201c23e9ef6fbccc891cec Mon Sep 17 00:00:00 2001
+From: Stefano Ragni <st3r4g@protonmail.com>
+Date: Sun, 22 Oct 2023 12:06:01 +0200
+Subject: [PATCH] lib/igt_x86.c: Fix musl/uclibc build
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Original patch was added to void-linux:
+https://github.com/void-linux/void-packages/commit/ddfc1f66a0c571b420303c33aed29fd38ace4fc7
+
+Fixes build error:
+../lib/igt_x86.c:295:6: error: ‘ifunc’ is not supported on this target
+  295 | void igt_memcpy_from_wc(void *dst, const void *src, unsigned long len)
+
+Bug report with request to split the original patch into some
+functional changes:
+Link: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/138
+
+Upstream: https://lists.freedesktop.org/archives/igt-dev/2023-October/063813.html
+
+Signed-off-by: Stefano Ragni <st3r4g@protonmail.com>
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+---
+ lib/igt_x86.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/igt_x86.c b/lib/igt_x86.c
+index 6ac700df0..8c102fd13 100644
+--- a/lib/igt_x86.c
++++ b/lib/igt_x86.c
+@@ -190,7 +190,7 @@ char *igt_x86_features_to_string(unsigned features, char *line)
+ }
+ #endif
+ 
+-#if defined(__x86_64__) && !defined(__clang__)
++#if defined(__x86_64__) && !defined(__clang__) && defined(__GLIBC__) && !defined(__UCLIBC__)
+ #pragma GCC push_options
+ #pragma GCC target("sse4.1")
+ #pragma GCC diagnostic ignored "-Wpointer-arith"
+-- 
+2.39.2
+

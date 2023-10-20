@@ -1,0 +1,57 @@
+From 6695ea970627499d6eb5d5db2edead50ebb2511d Mon Sep 17 00:00:00 2001
+From: Bernd Kuhls <bernd@kuhls.net>
+Date: Sun, 22 Oct 2023 11:57:32 +0200
+Subject: [PATCH] lib/igt_aux.h: Fix musl build
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Inspired by https://www.openwall.com/lists/musl/2020/10/28/11
+
+Define sigev_notify_thread_id only when needed, quoting
+https://sourceware.org/bugzilla/show_bug.cgi?id=27417
+Both freebsd and musl actually have this macro defined under <signal.h>
+
+Fixes build error:
+
+../lib/igt_aux.c:191:20: error: ‘struct sigevent’ has no member named ‘_sigev_un’
+  191 |                 sev.sigev_notify_thread_id = __igt_sigiter.tid;
+
+../lib/igt_aux.c:1994:12: error: ‘struct sigevent’ has no member named ‘_sigev_un’
+ 1994 |         sev.sigev_notify_thread_id = gettid();
+
+Link: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/138
+
+Upstream: https://lists.freedesktop.org/archives/igt-dev/2023-October/063814.html
+
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+---
+ lib/igt_aux.h | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/lib/igt_aux.h b/lib/igt_aux.h
+index fb76b0313..55f0aa3b5 100644
+--- a/lib/igt_aux.h
++++ b/lib/igt_aux.h
+@@ -29,6 +29,7 @@
+ #define IGT_AUX_H
+ 
+ #include <inttypes.h>
++#include <signal.h>
+ #include <stdbool.h>
+ #include <stddef.h>
+ #include <sys/time.h>
+@@ -48,7 +49,9 @@
+ # ifndef HAVE_GETTID
+ #  define gettid() (pid_t)(syscall(__NR_gettid))
+ # endif
+-# define sigev_notify_thread_id _sigev_un._tid
++# ifndef sigev_notify_thread_id
++#  define sigev_notify_thread_id _sigev_un._tid
++# endif
+ #endif
+ 
+ /* auxialiary igt helpers from igt_aux.c */
+-- 
+2.39.2
+
