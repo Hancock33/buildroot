@@ -1,0 +1,46 @@
+From b81a041f3e07a377db7fa1ea79f83ed2d0183b61 Mon Sep 17 00:00:00 2001
+From: Stefano Ragni <st3r4g@protonmail.com>
+Date: Sun, 22 Oct 2023 12:08:54 +0200
+Subject: [PATCH] lib/igt_halffloat.c: Fix musl/uclibc build
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Original patch was added to void-linux:
+https://github.com/void-linux/void-packages/commit/ddfc1f66a0c571b420303c33aed29fd38ace4fc7
+
+Fixes build error:
+../lib/igt_halffloat.c:205:6: error: ‘ifunc’ is not supported on this target
+  205 | void igt_float_to_half(const float *f, uint16_t *h, unsigned int num)
+
+../lib/igt_halffloat.c:216:6: error: ‘ifunc’ is not supported on this target
+  216 | void igt_half_to_float(const uint16_t *h, float *f, unsigned int num)
+
+Bug report with request to split the original patch into some
+functional changes:
+Link: https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/issues/138
+
+Upstream: https://lists.freedesktop.org/archives/igt-dev/2023-October/063816.html
+
+Signed-off-by: Stefano Ragni <st3r4g@protonmail.com>
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+---
+ lib/igt_halffloat.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/lib/igt_halffloat.c b/lib/igt_halffloat.c
+index 08ab05fce..5dbe08e01 100644
+--- a/lib/igt_halffloat.c
++++ b/lib/igt_halffloat.c
+@@ -162,7 +162,7 @@ static inline float _half_to_float(uint16_t val)
+ 	return fi.f;
+ }
+ 
+-#if defined(__x86_64__) && !defined(__clang__)
++#if defined(__x86_64__) && !defined(__clang__) && defined(__GLIBC__) && !defined(__UCLIBC__)
+ #pragma GCC push_options
+ #pragma GCC target("f16c")
+ 
+-- 
+2.39.2
+
