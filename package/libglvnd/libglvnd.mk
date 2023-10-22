@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBGLVND_VERSION = 1.6.0
+LIBGLVND_VERSION = 1.7.0
 LIBGLVND_SITE = https://gitlab.freedesktop.org/glvnd/libglvnd/uploads/2ea903100818cb7703dbabc9a11bc025
 
 # batocera - host package
