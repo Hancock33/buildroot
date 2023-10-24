@@ -18,7 +18,7 @@ EFIVAR_DEPENDENCIES = host-efivar
 # work properly for cross-compilation.
 EFIVAR_MAKE_OPTS = \
 	libdir=/usr/lib \
-	LDFLAGS="$(TARGET_LDFLAGS) -fPIC" \
+	LDFLAGS="--sysroot=$(STAGING_DIR) -fPIC" \
 	TOPDIR=$(@D) \
 	SUBDIRS=src \
 	LD_DASH_T=-T
