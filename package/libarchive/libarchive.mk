@@ -14,32 +14,32 @@ LIBARCHIVE_CPE_ID_VENDOR = libarchive
 
 ifeq ($(BR2_PACKAGE_LIBARCHIVE_BSDTAR),y)
 ifeq ($(BR2_STATIC_LIBS),y)
-LIBARCHIVE_CONF_OPTS += --enable-bsdtar=static
+LIBARCHIVE_CONF_OPTS += -DENABLE_TAR_SHARED=OFF
 else
-LIBARCHIVE_CONF_OPTS += --enable-bsdtar=shared
+LIBARCHIVE_CONF_OPTS += -DENABLE_TAR_SHARED=ON
 endif
 else
-LIBARCHIVE_CONF_OPTS += --disable-bsdtar
+LIBARCHIVE_CONF_OPTS += -DENABLE_TAR=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_LIBARCHIVE_BSDCPIO),y)
 ifeq ($(BR2_STATIC_LIBS),y)
-LIBARCHIVE_CONF_OPTS += --enable-bsdcpio=static
+LIBARCHIVE_CONF_OPTS += -DENABLE_CPIO_SHARED=OFF
 else
-LIBARCHIVE_CONF_OPTS += --enable-bsdcpio=shared
+LIBARCHIVE_CONF_OPTS += -DENABLE_CPIO_SHARED=ON
 endif
 else
-LIBARCHIVE_CONF_OPTS += --disable-bsdcpio
+LIBARCHIVE_CONF_OPTS += -DENABLE_CPIO=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_LIBARCHIVE_BSDCAT),y)
 ifeq ($(BR2_STATIC_LIBS),y)
-LIBARCHIVE_CONF_OPTS += --enable-bsdcat=static
+LIBARCHIVE_CONF_OPTS += -DENABLE_CAT_SHARED=OFF
 else
-LIBARCHIVE_CONF_OPTS += --enable-bsdcat=shared
+LIBARCHIVE_CONF_OPTS += -DENABLE_CAT_SHARED=ON
 endif
 else
-LIBARCHIVE_CONF_OPTS += --disable-bsdcat
+LIBARCHIVE_CONF_OPTS += -DENABLE_CAT=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_ACL),y)
@@ -51,87 +51,87 @@ endif
 ifeq ($(BR2_PACKAGE_ATTR),y)
 LIBARCHIVE_DEPENDENCIES += attr
 else
-LIBARCHIVE_CONF_OPTS += --disable-xattr
+LIBARCHIVE_CONF_OPTS += -DENABLE_ACL=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_BZIP2),y)
-LIBARCHIVE_CONF_OPTS += --with-bz2lib
+LIBARCHIVE_CONF_OPTS += -DENABLE_BZip2=ON
 LIBARCHIVE_DEPENDENCIES += bzip2
 else
-LIBARCHIVE_CONF_OPTS += --without-bz2lib
+LIBARCHIVE_CONF_OPTS += -DENABLE_BZip2=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_EXPAT),y)
 LIBARCHIVE_DEPENDENCIES += expat
 else
-LIBARCHIVE_CONF_OPTS += --without-expat
+LIBARCHIVE_CONF_OPTS += -DENABLE_EXPAT=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_LIBICONV),y)
 LIBARCHIVE_DEPENDENCIES += libiconv
 else
-LIBARCHIVE_CONF_OPTS += --without-libiconv-prefix
+LIBARCHIVE_CONF_OPTS += -DENABLE_ICONV=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_LIBXML2),y)
 LIBARCHIVE_DEPENDENCIES += libxml2
 LIBARCHIVE_CONF_ENV += XML2_CONFIG=$(STAGING_DIR)/usr/bin/xml2-config
 else
-LIBARCHIVE_CONF_OPTS += --without-xml2
+LIBARCHIVE_CONF_OPTS += -DENABLE_LIBXML2=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_LZ4),y)
-LIBARCHIVE_CONF_OPTS += --with-lz4
+LIBARCHIVE_CONF_OPTS += -DENABLE_LZ4=ON
 LIBARCHIVE_DEPENDENCIES += lz4
 else
-LIBARCHIVE_CONF_OPTS += --without-lz4
+LIBARCHIVE_CONF_OPTS += -DENABLE_LZ4=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_LZO),y)
 LIBARCHIVE_DEPENDENCIES += lzo
 else
-LIBARCHIVE_CONF_OPTS += --without-lzo2
+LIBARCHIVE_CONF_OPTS += -DENABLE_LZO=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_MBEDTLS),y)
 LIBARCHIVE_DEPENDENCIES += mbedtls
-LIBARCHIVE_CONF_OPTS += --with-mbedtls
+LIBARCHIVE_CONF_OPTS += -DENABLE_MBEDTLS=ON
 else
-LIBARCHIVE_CONF_OPTS += --without-mbedtls
+LIBARCHIVE_CONF_OPTS += -DENABLE_MBEDTLS=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_NETTLE),y)
 LIBARCHIVE_DEPENDENCIES += nettle
-LIBARCHIVE_CONF_OPTS += --with-nettle
+LIBARCHIVE_CONF_OPTS += -DENABLE_NETTLE=ON
 else
-LIBARCHIVE_CONF_OPTS += --without-nettle
+LIBARCHIVE_CONF_OPTS += -DENABLE_NETTLE=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_OPENSSL),y)
 LIBARCHIVE_DEPENDENCIES += openssl
 else
-LIBARCHIVE_CONF_OPTS += --without-openssl
+LIBARCHIVE_CONF_OPTS += -DENABLE_OPENSSL=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_ZLIB),y)
 LIBARCHIVE_DEPENDENCIES += zlib
 else
-LIBARCHIVE_CONF_OPTS += --without-zlib
+LIBARCHIVE_CONF_OPTS += -DENABLE_ZLIB=OFF
 endif
 
 # libarchive requires LZMA with thread support in the toolchain
 ifeq ($(BR2_TOOLCHAIN_HAS_THREADS)$(BR2_PACKAGE_XZ),yy)
 LIBARCHIVE_DEPENDENCIES += xz
-LIBARCHIVE_CONF_OPTS += --with-lzma
+LIBARCHIVE_CONF_OPTS += -DENABLE_LZMA=ON
 else
-LIBARCHIVE_CONF_OPTS += --without-lzma
+LIBARCHIVE_CONF_OPTS += -DENABLE_LZMA=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_ZSTD),y)
 LIBARCHIVE_DEPENDENCIES += zstd
-LIBARCHIVE_CONF_OPTS += --with-zstd
+LIBARCHIVE_CONF_OPTS += -DENABLE_ZSTD=ON
 else
-LIBARCHIVE_CONF_OPTS += --without-zstd
+LIBARCHIVE_CONF_OPTS += -DENABLE_ZSTD=OFF
 endif
 
 # The only user of host-libarchive needs zlib support
@@ -139,22 +139,23 @@ HOST_LIBARCHIVE_DEPENDENCIES = host-zlib
 # needed for autoreconf
 HOST_LIBARCHIVE_DEPENDENCIES += host-pkgconf
 HOST_LIBARCHIVE_CONF_OPTS = \
-	--disable-bsdtar \
-	--disable-bsdcpio \
-	--disable-bsdcat \
-	--disable-acl \
-	--disable-xattr \
-	--without-bz2lib \
-	--without-expat \
-	--without-libiconv-prefix \
-	--without-xml2 \
-	--without-lz4 \
-	--without-lzo2 \
-	--without-mbedtls \
-	--without-nettle \
-	--without-openssl \
-	--without-lzma \
-	--without-zstd
-
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+	-DENABLE_TAR=OFF
+	-DENABLE_CPIO=OFF
+	-DENABLE_CAT=OFF
+	-DENABLE_MBEDTLS=OFF
+	-DENABLE_NETTLE=OFF
+	-DENABLE_OPENSSL=OFF
+	-DENABLE_LIBB2=OFF
+	-DENABLE_LZ4=OFF
+	-DENABLE_LZO=OFF
+	-DENABLE_LZMA=OFF
+	-DENABLE_ZSTD=OFF
+	-DENABLE_BZip2=OFF
+	-DENABLE_LIBXML2=OFF
+	-DENABLE_EXPAT=OFF
+	-DENABLE_XATTR=OFF
+	-DENABLE_ACL=OFF
+	-DENABLE_ICONV=OFF
+	-DENABLE_TEST=OFF
+$(eval $(cmake-package))
+$(eval $(host-cmake-package))
