@@ -1,8 +1,8 @@
 diff --git a/src/vulkan/runtime/vk_queue.c b/src/vulkan/runtime/vk_queue.c
-index 9e38299ed05..ebe412a0024 100644
+index cacca2f9b2c..5cdfa36580a 100644
 --- a/src/vulkan/runtime/vk_queue.c
 +++ b/src/vulkan/runtime/vk_queue.c
-@@ -571,12 +571,6 @@ vk_queue_enable_submit_thread(struct vk_queue *queue)
+@@ -570,12 +570,6 @@ vk_queue_enable_submit_thread(struct vk_queue *queue)
  struct vulkan_submit_info {
     const void *pNext;
  
@@ -15,7 +15,7 @@ index 9e38299ed05..ebe412a0024 100644
     uint32_t signal_count;
     const VkSemaphoreSubmitInfo *signals;
  
-@@ -592,60 +586,17 @@ struct vulkan_submit_info {
+@@ -591,60 +585,17 @@ struct vulkan_submit_info {
     struct vk_fence *fence;
  };
  
@@ -84,7 +84,7 @@ index 9e38299ed05..ebe412a0024 100644
  
        /* From the Vulkan 1.2.194 spec:
         *
-@@ -668,7 +619,7 @@ vk_queue_submit(struct vk_queue *queue,
+@@ -667,7 +618,7 @@ vk_queue_submit(struct vk_queue *queue,
        struct vk_sync *sync;
        if (semaphore->temporary) {
           assert(semaphore->type == VK_SEMAPHORE_TYPE_BINARY);
@@ -93,7 +93,7 @@ index 9e38299ed05..ebe412a0024 100644
           semaphore->temporary = NULL;
        } else {
           if (semaphore->type == VK_SEMAPHORE_TYPE_BINARY) {
-@@ -681,20 +632,29 @@ vk_queue_submit(struct vk_queue *queue,
+@@ -680,20 +631,29 @@ vk_queue_submit(struct vk_queue *queue,
        }
  
        uint64_t wait_value = semaphore->type == VK_SEMAPHORE_TYPE_TIMELINE ?
@@ -130,7 +130,7 @@ index 9e38299ed05..ebe412a0024 100644
        assert(cmd_buffer->pool->queue_family_index == queue->queue_family_index);
  
        /* Some drivers don't call vk_command_buffer_begin/end() yet and, for
-@@ -706,11 +666,120 @@ vk_queue_submit(struct vk_queue *queue,
+@@ -705,11 +665,120 @@ vk_queue_submit(struct vk_queue *queue,
               cmd_buffer->state == MESA_VK_COMMAND_BUFFER_STATE_PENDING);
        cmd_buffer->state = MESA_VK_COMMAND_BUFFER_STATE_PENDING;
  
@@ -254,7 +254,7 @@ index 9e38299ed05..ebe412a0024 100644
  
     if (info->buffer_binds)
        typed_memcpy(submit->buffer_binds, info->buffer_binds, info->buffer_bind_count);
-@@ -798,14 +867,7 @@ vk_queue_submit(struct vk_queue *queue,
+@@ -797,14 +866,7 @@ vk_queue_submit(struct vk_queue *queue,
     }
  
     uint32_t signal_count = info->signal_count;
@@ -270,7 +270,7 @@ index 9e38299ed05..ebe412a0024 100644
        submit->_mem_signal_temp = mem_sync;
  
        assert(submit->signals[signal_count].sync == NULL);
-@@ -894,95 +956,9 @@ vk_queue_submit(struct vk_queue *queue,
+@@ -893,95 +955,9 @@ vk_queue_submit(struct vk_queue *queue,
        return vk_device_flush(queue->base.device);
  
     case VK_QUEUE_SUBMIT_MODE_THREADED:
@@ -367,7 +367,7 @@ index 9e38299ed05..ebe412a0024 100644
           /* If we're signaling a memory object, we have to ensure that
            * vkQueueSubmit does not return until the kernel submission has
            * happened.  Otherwise, we may get a race between this process
-@@ -1141,6 +1117,74 @@ vk_queue_finish(struct vk_queue *queue)
+@@ -1132,6 +1108,74 @@ vk_queue_finish(struct vk_queue *queue)
     vk_object_base_finish(&queue->base);
  }
  
@@ -442,7 +442,7 @@ index 9e38299ed05..ebe412a0024 100644
  VKAPI_ATTR VkResult VKAPI_CALL
  vk_common_QueueSubmit2KHR(VkQueue _queue,
                            uint32_t submitCount,
-@@ -1161,20 +1205,97 @@ vk_common_QueueSubmit2KHR(VkQueue _queue,
+@@ -1152,20 +1196,97 @@ vk_common_QueueSubmit2KHR(VkQueue _queue,
        }
     }
  
@@ -553,7 +553,7 @@ index 9e38299ed05..ebe412a0024 100644
     }
  
     return VK_SUCCESS;
-@@ -1201,6 +1322,7 @@ vk_common_QueueBindSparse(VkQueue _queue,
+@@ -1192,6 +1313,7 @@ vk_common_QueueBindSparse(VkQueue _queue,
     }
  
     for (uint32_t i = 0; i < bindInfoCount; i++) {
@@ -561,7 +561,7 @@ index 9e38299ed05..ebe412a0024 100644
        const VkTimelineSemaphoreSubmitInfo *timeline_info =
           vk_find_struct_const(pBindInfo[i].pNext, TIMELINE_SEMAPHORE_SUBMIT_INFO);
        const uint64_t *wait_values = NULL;
-@@ -1234,6 +1356,7 @@ vk_common_QueueBindSparse(VkQueue _queue,
+@@ -1225,6 +1347,7 @@ vk_common_QueueBindSparse(VkQueue _queue,
           signal_values = timeline_info->pSignalSemaphoreValues;
        }
  
@@ -569,7 +569,7 @@ index 9e38299ed05..ebe412a0024 100644
        STACK_ARRAY(VkSemaphoreSubmitInfo, wait_semaphore_infos,
                    pBindInfo[i].waitSemaphoreCount);
        STACK_ARRAY(VkSemaphoreSubmitInfo, signal_semaphore_infos,
-@@ -1262,8 +1385,6 @@ vk_common_QueueBindSparse(VkQueue _queue,
+@@ -1253,8 +1376,6 @@ vk_common_QueueBindSparse(VkQueue _queue,
        }
        struct vulkan_submit_info info = {
           .pNext = pBindInfo[i].pNext,
@@ -578,7 +578,7 @@ index 9e38299ed05..ebe412a0024 100644
           .signal_count = pBindInfo[i].signalSemaphoreCount,
           .signals = signal_semaphore_infos,
           .buffer_bind_count = pBindInfo[i].bufferBindCount,
-@@ -1274,8 +1395,51 @@ vk_common_QueueBindSparse(VkQueue _queue,
+@@ -1265,8 +1386,51 @@ vk_common_QueueBindSparse(VkQueue _queue,
           .image_binds = pBindInfo[i].pImageBinds,
           .fence = i == bindInfoCount - 1 ? fence : NULL
        };
