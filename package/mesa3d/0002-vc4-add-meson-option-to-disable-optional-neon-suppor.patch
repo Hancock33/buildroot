@@ -1,26 +1,5 @@
-From f719e942dde0a46a9ff0080001cb3466012ffcc0 Mon Sep 17 00:00:00 2001
-From: Peter Seiderer <ps.report@gmx.net>
-Date: Mon, 9 Mar 2020 13:01:14 +0100
-Subject: [PATCH] vc4: add meson option to disable optional neon support
-
-Not all toolchains are able to compile the runtime
-optional vc4 neon support, so add an meson option
-to force disabling it at compile time.
-
-Upstream: https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/4114
-Signed-off-by: Peter Seiderer <ps.report@gmx.net>
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
-[rebased for 20.2.0, 20.3.0, 21.1.0, 23.1.0 & 23.2.0]
-Signed-off-by: Peter Seiderer <ps.report@gmx.net>
-[fix syntax error after previous rebases]
----
- meson_options.txt                    | 7 +++++++
- src/gallium/drivers/vc4/meson.build  | 4 ++--
- src/gallium/drivers/vc4/vc4_tiling.h | 4 ++--
- 3 files changed, 11 insertions(+), 4 deletions(-)
-
 diff --git a/meson_options.txt b/meson_options.txt
-index 8e0bf2a..1cf0e07 100644
+index 8130c3e9321..14f11b94b1c 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
 @@ -124,6 +124,13 @@ option(
@@ -38,7 +17,7 @@ index 8e0bf2a..1cf0e07 100644
    'va-libs-path',
    type : 'string',
 diff --git a/src/gallium/drivers/vc4/meson.build b/src/gallium/drivers/vc4/meson.build
-index 84da951..7f950de 100644
+index 84da9511cdf..7f950dea923 100644
 --- a/src/gallium/drivers/vc4/meson.build
 +++ b/src/gallium/drivers/vc4/meson.build
 @@ -84,7 +84,7 @@ files_libvc4 = files(
@@ -60,7 +39,7 @@ index 84da951..7f950de 100644
  
  if dep_simpenrose.found()
 diff --git a/src/gallium/drivers/vc4/vc4_tiling.h b/src/gallium/drivers/vc4/vc4_tiling.h
-index 5afe329..919b299 100644
+index 5afe32939a8..919b2990ab1 100644
 --- a/src/gallium/drivers/vc4/vc4_tiling.h
 +++ b/src/gallium/drivers/vc4/vc4_tiling.h
 @@ -89,7 +89,7 @@ vc4_load_lt_image(void *dst, uint32_t dst_stride,
@@ -81,6 +60,3 @@ index 5afe329..919b299 100644
          if (util_get_cpu_caps()->has_neon) {
                  vc4_store_lt_image_neon(dst, dst_stride, src, src_stride,
                                          cpp, box);
--- 
-2.41.0
-
