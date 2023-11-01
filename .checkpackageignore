@@ -124,8 +124,6 @@ boot/syslinux/0017-Replace-builtin-strlen-that-appears-to-get-optimized.patch Up
 linux/5.10.162-cip24-rt10/0001-arch-microblaze-mm-init.c-fix-build.patch Upstream
 package/18xx-ti-utils/0001-plt.h-fix-build-with-gcc-10.patch Upstream
 package/4th/0001-avoid-regen-during-install.patch Upstream
-package/ace/0001-ACE-ace-SSL-SSL_Asynch_BIO.cpp-fix-build-with-libres.patch Upstream
-package/ace/0002-ACE-ace-SSL-SSL_Asynch_BIO.cpp-fix-build-with-libres.patch Upstream
 package/acl/0001-Build-with-old-GCC-versions.patch Upstream
 package/acpid/0001-dont-use-isfdtype.patch Upstream
 package/alchemy/0001-toolchains-remove-hash-style-management.patch Upstream
@@ -238,7 +236,6 @@ package/c-icap/0001-Required-fixes-to-compile-and-run-under-cygwin.patch Upstrea
 package/c-icap/S96cicap Indent Shellcheck Variables
 package/ca-certificates/0001-mozilla-certdata2pem.py-make-cryptography-module-opt.patch Upstream
 package/cache-calibrator/0001-Fix-conflicting-round-function.patch Upstream
-package/cage/0001-Upgrade-to-wlroots-0.15.patch Upstream
 package/cairo/0001-fix-nofork-build.patch Upstream
 package/cairo/0002-ft-Use-FT_Done_MM_Var-instead-of-free-when-available-in-cairo_ft_apply_variation.patch Upstream
 package/cairo/0003-_arc_max_angle_for_tolerance_normalized-fix-infinite.patch Upstream
@@ -1401,7 +1398,6 @@ package/uboot-tools/0003-tools-Makefile-fix-C-LD-FLAGS-with-CROSS_BUILD_TOOLS.pa
 package/ubus/0001-Install-server-and-client-examples.patch Upstream
 package/udpcast/0001-fix-musl-build.patch Upstream
 package/uemacs/01-clear-ixon-termios-flag.patch Upstream
-package/uftrace/0001-cmds-records-replace-ADDR_NO_RANDOMIZE-by-its-value.patch Upstream
 package/uhd/0001-host-CMakeLists-add-boost-unit_test_framework-requir.patch Upstream
 package/uhttpd/0001-Remove-Werror.patch Upstream
 package/uhttpd/0002-Fix-TCP_FASTOPEN-related-compile-error.patch Upstream
