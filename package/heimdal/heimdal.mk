@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-HEIMDAL_VERSION = f4faaeaba371fff3f8d1bc14389f5e6d70ca8e17
+HEIMDAL_VERSION = 487ba95669591aa41ba04cbdf6109c78b099e3dc
 HEIMDAL_SITE = $(call github,heimdal,heimdal,$(HEIMDAL_VERSION))
 HOST_HEIMDAL_DEPENDENCIES = host-e2fsprogs host-ncurses host-pkgconf
 HOST_HEIMDAL_AUTORECONF = YES
