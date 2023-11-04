@@ -528,6 +528,7 @@ F:	package/ncdu/
 N:	Brandon Maier <brandon.maier@collins.com>
 F:	board/freescale/ls1046a-frwy/
 F:	configs/ls1046a-frwy_defconfig
+F:	package/python-pysensors/
 F:	package/qoriq-fm-ucode/
 F:	package/unifdef/
 F:	package/vmtouch/
@@ -2638,6 +2639,7 @@ N:	Ryan Wilkins <ryan@deadfrog.net>
 F:	package/biosdevname/
 
 N:	Saeed Kazemi <kazemi.ms@gmail.com>
+F:	package/eza/
 F:	package/procs/
 
 N:	Sam Lancia <sam@gpsm.co.uk>
@@ -2836,6 +2838,10 @@ F:	package/open-isns/
 F:	package/reproc/
 F:	package/termcolor/
 F:	package/tl-expected/
+
+N:	Takumi Takahashi <takumiiinn@gmail.com>
+F:	package/gsettings-desktop-schemas/
+F:	package/libcanberra/
 
 N:	Tan En De <ende.tan@starfivetech.com>
 F:	package/libkcapi/
