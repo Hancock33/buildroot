@@ -1,0 +1,34 @@
+From d5373adea6248c0fe41870d50b24fc4ed36c6490 Mon Sep 17 00:00:00 2001
+From: Bernd Kuhls <bernd@kuhls.net>
+Date: Sat, 21 Oct 2023 16:47:07 +0200
+Subject: [PATCH] build: check that outb is present in io.h
+
+With glibc if io.h exists, inb/outb are always defined.
+However on musl, io.h always exists but it may not define inb/outb.
+
+Thus, igt-gpu-tools builds with musl on non-x86 platforms will fail to
+link. Fix this by checking for both io.h and that outb() is defined.
+
+Upstream: https://lists.freedesktop.org/archives/igt-dev/2023-October/063811.html
+
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index b35a00faa..cee8a7446 100644
+--- a/meson.build
++++ b/meson.build
+@@ -220,7 +220,7 @@ endif
+ if cc.has_header('libgen.h')
+ 	config.set('HAVE_LIBGEN_H', 1)
+ endif
+-if cc.has_header('sys/io.h')
++if cc.has_header('sys/io.h') and cc.has_function('outb', prefix: '#include <sys/io.h>')
+ 	config.set('HAVE_SYS_IO_H', 1)
+ endif
+ if cc.links('''
+-- 
+2.39.2
+
