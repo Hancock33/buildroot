@@ -4,7 +4,7 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/23.3 | cut -d '-' -f 2-
-MESA3D_VERSION = 23.3.0-rc2-30-gb328f0194214421cec62d4bfa79f20929bd28538
+MESA3D_VERSION = 23.3.0-rc2-37-gb419916e7f5a7b250004564ae1aaff340505f197
 MESA3D_SITE = $(call github,chaotic-cx,mesa-mirror,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
