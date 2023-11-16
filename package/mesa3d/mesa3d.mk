@@ -7,7 +7,7 @@
 ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
 MESA3D_VERSION = mesa-23.1.9
 else
-MESA3D_VERSION = 23.3.0-rc3-32-ge8d3f6cbff0a745c14db38d8f3cf04607ce4e315
+MESA3D_VERSION = mesa-23.3.0-rc4
 endif
 
 MESA3D_SITE = $(call github,chaotic-cx,mesa-mirror,$(MESA3D_VERSION))
