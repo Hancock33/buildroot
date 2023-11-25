@@ -28,16 +28,15 @@ diff --git a/mesonbuild/dependencies/pkgconfig.py b/mesonbuild/dependencies/pkgc
 index 1e8d9132e..d902ba215 100644
 --- a/mesonbuild/dependencies/pkgconfig.py
 +++ b/mesonbuild/dependencies/pkgconfig.py
-@@ -338,7 +338,8 @@ class PkgConfigDependency(ExternalDependency):
-         env = None
-         libcmd = ['--libs']
- 
--        if self.static:
-+        if self.static or \
+@@ -169,7 +169,8 @@
+             env['PKG_CONFIG_ALLOW_SYSTEM_LIBS'] = '1'
+         args: T.List[str] = []
+         args += self._define_variable_args(define_variable)
+-        if static:
++        if static or \
 +            (self.env.properties[self.for_machine].get('pkg_config_static', None) == 'true'):
-             libcmd.append('--static')
- 
-         libcmd.append(self.name)
+             args.append('--static')
+         args += ['--libs', name]
+         ret, out, err = self._call_pkgbin(args, env=env)
 -- 
 2.25.1
-
