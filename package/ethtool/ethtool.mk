@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ETHTOOL_VERSION = 6.5
+ETHTOOL_VERSION = 6.6
 ETHTOOL_SITE = https://git.kernel.org/pub/scm/network/ethtool/ethtool.git/snapshot
 # needed only for autoreconf
 ETHTOOL_DEPENDENCIES = host-pkgconf
