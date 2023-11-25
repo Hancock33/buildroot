@@ -10,18 +10,16 @@ Signed-off-by: Patrick Havelange <patrick.havelange@essensium.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/crypto/mem_sec.c b/crypto/mem_sec.c
-index 9e0f670..32c7282 100644
+index 557c697c9a..e1ecb696e0 100644
 --- a/crypto/mem_sec.c
 +++ b/crypto/mem_sec.c
-@@ -557,7 +557,7 @@ static int sh_init(size_t size, int minsize)
+@@ -579,7 +579,7 @@ static int sh_init(size_t size, size_t minsize)
      if (mlock(sh.arena, sh.arena_size) < 0)
          ret = 2;
  #endif
--#ifdef MADV_DONTDUMP
+-#ifndef NO_MADVISE
 +#if defined(MADV_DONTDUMP) && !defined(OPENSSL_NO_MADVISE)
      if (madvise(sh.arena, sh.arena_size, MADV_DONTDUMP) < 0)
          ret = 2;
  #endif
--- 
-2.17.1
 
