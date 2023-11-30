@@ -1,0 +1,36 @@
+From c50e5fd11744eb2cdfb90fb7e8180880160927c3 Mon Sep 17 00:00:00 2001
+From: Bernd Kuhls <bernd@kuhls.net>
+Date: Sat, 25 Nov 2023 13:44:49 +0100
+Subject: [PATCH] ESI: Fix build with libxml2-2.12
+
+libxml2 recently made it a const return.
+
+Fixes build error
+
+Libxml2Parser.cc:147:40: error: invalid conversion from 'const xmlError*'
+ {aka 'const _xmlError*'} to 'xmlErrorPtr' {aka '_xmlError*'}
+ [-fpermissive]
+
+Upstream: https://github.com/squid-cache/squid/pull/1600
+
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+---
+ src/esi/Libxml2Parser.cc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/esi/Libxml2Parser.cc b/src/esi/Libxml2Parser.cc
+index f03752885..73def2dbf 100644
+--- a/src/esi/Libxml2Parser.cc
++++ b/src/esi/Libxml2Parser.cc
+@@ -144,7 +144,7 @@ ESILibxml2Parser::lineNumber() const
+ char const *
+ ESILibxml2Parser::errorString() const
+ {
+-    xmlErrorPtr error = xmlGetLastError();
++    const xmlError *error = xmlGetLastError();
+ 
+     if (error == nullptr)
+         return nullptr;
+-- 
+2.39.2
+
