@@ -1,6 +1,6 @@
-# Hashes from: https://www.cpan.org/src/5.0/perl-5.38.1.tar.xz.{sha1,sha256}.txt
-sha1  e6e80a64eda14d1819e7f79c60a9e5a6e320bb55  perl-5.38.1.tar.xz
-sha256  6a82c7930563086e78cb84d9c265e6b212ee65d509d19eedcd23ab8c1ba3f046  perl-5.38.1.tar.xz
+# Hashes from: https://www.cpan.org/src/5.0/perl-5.38.2.tar.xz.{sha1,sha256}.txt
+sha1  af1d5f9e0499f3cfa4736433631aebf7624714da  perl-5.38.2.tar.xz
+sha256  d91115e90b896520e83d4de6b52f8254ef2b70a8d545ffab33200ea9f1cf29e8  perl-5.38.2.tar.xz
 
 # Hash from: https://github.com/arsv/perl-cross/releases/download/1.5/perl-cross-1.5.hash
 sha256  d744a390939e2ebb9a12f6725b4d9c19255a141d90031eff90ea183fdfcbf211  perl-cross-1.5.tar.gz
