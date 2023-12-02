@@ -4,9 +4,11 @@
 #
 ################################################################################
 
-XSERVER_XORG_SERVER_VERSION = 21.1.9
-XSERVER_XORG_SERVER_SOURCE = xorg-server-$(XSERVER_XORG_SERVER_VERSION).tar.xz
-XSERVER_XORG_SERVER_SITE = https://xorg.freedesktop.org/archive/individual/xserver
+XSERVER_XORG_SERVER_VERSION = xorg-server-21.0.99.1-574-gc170056111fe0b3c4956a34276b5683e24b8c63c
+XSERVER_XORG_SERVER_SITE = https://gitlab.freedesktop.org/xorg/xserver.git
+XSERVER_XORG_SERVER_SOURCE = xorg-server-$(XSERVER_XORG_SERVER_VERSION)-br1.tar.gz
+XSERVER_XORG_SERVER_SITE_METHOD=git
+XSERVER_XORG_SERVER-GIT_SUBMODULES=YES
 XSERVER_XORG_SERVER_LICENSE = MIT
 XSERVER_XORG_SERVER_LICENSE_FILES = COPYING
 XSERVER_XORG_SERVER_SELINUX_MODULES = xdg xserver
@@ -43,80 +45,64 @@ XSERVER_XORG_SERVER_DEPENDENCIES = \
 # user, as the X.org server is known to trigger some compiler bugs at
 # -Os on several architectures.
 XSERVER_XORG_SERVER_CONF_OPTS = \
-	--disable-config-hal \
-	--enable-record \
-	--disable-xnest \
-	--disable-unit-tests \
-	--with-builder-addr=buildroot@buildroot.org \
-	CFLAGS="$(TARGET_CFLAGS) -I$(STAGING_DIR)/usr/include/pixman-1 -O2" \
-	--with-fontrootdir=/usr/share/fonts/X11/ \
-	--$(if $(BR2_PACKAGE_XSERVER_XORG_SERVER_XEPHYR),en,dis)able-xephyr \
-	--$(if $(BR2_PACKAGE_XSERVER_XORG_SERVER_XVFB),en,dis)able-xvfb
+	-Ddocs=false \
+	-Dhal=false \
+	-Dxnest=false \
+	-Dbuilder_addr=buildroot@buildroot.org \
+	-Dfontrootdir=/usr/share/fonts/X11/
+
+ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER_XEPHYR),y)
+	-Dxephyr=true
+else
+	-Dxephyr=false
+endif
+
+ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER_XVFB),y)
+	-Dxvfb=true
+else
+	-Dxvfb=false
+endif
 
 ifeq ($(BR2_PACKAGE_SYSTEMD),y)
 XSERVER_XORG_SERVER_CONF_OPTS += \
-	--with-systemd-daemon \
-	--enable-systemd-logind
+	-Dsystemd_logind=true
 XSERVER_XORG_SERVER_DEPENDENCIES += \
 	systemd
 else
 XSERVER_XORG_SERVER_CONF_OPTS += \
-	--without-systemd-daemon \
-	--disable-systemd-logind
+	-Dsystemd_logind=false
 endif
 
 ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER_MODULAR),y)
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-xorg
+XSERVER_XORG_SERVER_CONF_OPTS += -Dxorg=true
 XSERVER_XORG_SERVER_DEPENDENCIES += libpciaccess
 ifeq ($(BR2_PACKAGE_LIBDRM),y)
 XSERVER_XORG_SERVER_DEPENDENCIES += libdrm
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-libdrm
+XSERVER_XORG_SERVER_CONF_OPTS += -Ddrm=true
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-libdrm
+XSERVER_XORG_SERVER_CONF_OPTS += -Ddrm=false
 endif
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-xorg
-endif
-
-ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER_KDRIVE),y)
-XSERVER_XORG_SERVER_CONF_OPTS += \
-	--enable-kdrive \
-	--disable-glx \
-	--disable-dri
-
-ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER_XEPHYR),y)
-XSERVER_XORG_SERVER_DEPENDENCIES += \
-	xcb-util-image \
-	xcb-util-keysyms \
-	xcb-util-renderutil \
-	xcb-util-wm
-endif
-else # modular
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-kdrive
+XSERVER_XORG_SERVER_CONF_OPTS += -Dxorg=false
 endif
 
 ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-dri --enable-glx
+XSERVER_XORG_SERVER_CONF_OPTS += -Dglx=true
 XSERVER_XORG_SERVER_DEPENDENCIES += libgl
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-dri --disable-glx
+XSERVER_XORG_SERVER_CONF_OPTS +=  -Dglx=false
 endif
 
 # Optional packages
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 XSERVER_XORG_SERVER_DEPENDENCIES += udev
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-config-udev
+XSERVER_XORG_SERVER_CONF_OPTS += -Dudev=true
 # udev kms support depends on libdrm and dri2
 ifeq ($(BR2_PACKAGE_LIBDRM),y)
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-config-udev-kms
+XSERVER_XORG_SERVER_CONF_OPTS += -Dudev_kms=true
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-config-udev-kms
+XSERVER_XORG_SERVER_CONF_OPTS += -Dudev_kms=false
 endif
-endif
-
-ifeq ($(BR2_PACKAGE_DBUS),y)
-XSERVER_XORG_SERVER_DEPENDENCIES += dbus
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-config-dbus
 endif
 
 ifeq ($(BR2_PACKAGE_FREETYPE),y)
@@ -125,68 +111,67 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBUNWIND),y)
 XSERVER_XORG_SERVER_DEPENDENCIES += libunwind
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-libunwind
+XSERVER_XORG_SERVER_CONF_OPTS += -Dlibunwind=true
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-libunwind
+XSERVER_XORG_SERVER_CONF_OPTS += -Dlibunwind=false
 endif
 
 ifneq ($(BR2_PACKAGE_XLIB_LIBXVMC),y)
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-xvmc
-endif
-
-ifeq ($(BR2_PACKAGE_XLIB_LIBXCOMPOSITE),y)
-XSERVER_XORG_SERVER_DEPENDENCIES += xlib_libXcomposite
-else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-composite
+XSERVER_XORG_SERVER_CONF_OPTS += -Dxvmc=false
 endif
 
 ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER_MODULAR),y)
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-dri2
+XSERVER_XORG_SERVER_CONF_OPTS += -Ddri2=true
 ifeq ($(BR2_PACKAGE_XLIB_LIBXSHMFENCE),y)
 XSERVER_XORG_SERVER_DEPENDENCIES += xlib_libxshmfence
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-dri3
+XSERVER_XORG_SERVER_CONF_OPTS += -Ddri3=true
 ifeq ($(BR2_PACKAGE_HAS_LIBEGL)$(BR2_PACKAGE_HAS_LIBGL)$(BR2_PACKAGE_LIBEPOXY),yyy)
 XSERVER_XORG_SERVER_DEPENDENCIES += libepoxy
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-glamor
+XSERVER_XORG_SERVER_CONF_OPTS += -Dglamor=true
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-glamor
+XSERVER_XORG_SERVER_CONF_OPTS += -Dglamor=false
 endif
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-dri3 --disable-glamor
+XSERVER_XORG_SERVER_CONF_OPTS += -Ddri3=false -Dglamor=false
 endif
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-dri2 --disable-dri3 --disable-glamor
+XSERVER_XORG_SERVER_CONF_OPTS += -Ddri2=false -Ddri3=false -Dglamor=false
 endif
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBXSCRNSAVER),y)
 XSERVER_XORG_SERVER_DEPENDENCIES += xlib_libXScrnSaver
-XSERVER_XORG_SERVER_CONF_OPTS += --enable-screensaver
+XSERVER_XORG_SERVER_CONF_OPTS += -Dscreensaver=true
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --disable-screensaver
+XSERVER_XORG_SERVER_CONF_OPTS += -Dscreensaver=false
 endif
 
 ifeq ($(BR2_PACKAGE_OPENSSL),y)
-XSERVER_XORG_SERVER_CONF_OPTS += --with-sha1=libcrypto
+XSERVER_XORG_SERVER_CONF_OPTS += -Dsha1=libcrypto
 XSERVER_XORG_SERVER_DEPENDENCIES += openssl
 else ifeq ($(BR2_PACKAGE_LIBGCRYPT),y)
-XSERVER_XORG_SERVER_CONF_OPTS += --with-sha1=libgcrypt
+XSERVER_XORG_SERVER_CONF_OPTS += -Dsha1=libgcrypt
 XSERVER_XORG_SERVER_DEPENDENCIES += libgcrypt
 else
-XSERVER_XORG_SERVER_CONF_OPTS += --with-sha1=libsha1
+XSERVER_XORG_SERVER_CONF_OPTS += -Dsha1=libsha1
 XSERVER_XORG_SERVER_DEPENDENCIES += libsha1
 endif
 
+# Install the systemd unit only when nodm nor xdm aren't enabled, as
+# they would be responsible for starting the server.
+ifeq ($(BR2_PACKAGE_NODM)$(BR2_PACKAGE_XAPP_XDM),)
 define XSERVER_XORG_SERVER_INSTALL_INIT_SYSTEMD
 	$(INSTALL) -D -m 0644 package/x11r7/xserver_xorg-server/xorg.service \
 		$(TARGET_DIR)/usr/lib/systemd/system/xorg.service
 endef
+endif
 
-# init script conflicts with S90nodm
-ifneq ($(BR2_PACKAGE_NODM),y)
+# Install the init script only when neither nodm nor xdm are enabled, as
+# they would be responsible for starting the server.
+ifeq ($(BR2_PACKAGE_NODM)$(BR2_PACKAGE_XAPP_XDM),)
 define XSERVER_XORG_SERVER_INSTALL_INIT_SYSV
 	$(INSTALL) -D -m 755 package/x11r7/xserver_xorg-server/S40xorg \
 		$(TARGET_DIR)/etc/init.d/S40xorg
 endef
 endif
 
-$(eval $(autotools-package))
+$(eval $(meson-package))
