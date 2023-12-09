@@ -4,9 +4,9 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/23.3 | cut -d '-' -f 2-
-#ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
-#MESA3D_VERSION = mesa-23.1.9
-#else
+ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
+MESA3D_VERSION = mesa-23.1.9
+else
 MESA3D_VERSION = 23.3.0-45-g583b2e031cdf19ca08e5da79652b82d47bc3729b
 #endif
 
