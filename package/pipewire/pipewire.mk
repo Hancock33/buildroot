@@ -12,6 +12,7 @@ PIPEWIRE_LICENSE_FILES = COPYING LICENSE
 PIPEWIRE_INSTALL_STAGING = YES
 PIPEWIRE_DEPENDENCIES = host-pkgconf $(TARGET_NLS_DEPENDENCIES)
 PIPEWIRE_LDFLAGS = $(TARGET_NLS_LIBS)
+PIPEWIRE_EXTRA_DOWNLOADS = https://ftp.osuosl.org/pub/blfs/conglomeration/lua/lua-5.4.4.tar.gz
 
 PIPEWIRE_CONF_OPTS += \
 	-Ddocs=disabled \
@@ -39,7 +40,7 @@ PIPEWIRE_CONF_OPTS += \
 # i don't know why meson uses bad ssl certificates and doesn't manage to download them
 define PIPEWIRE_DWD_DEPENDENCIES
 	mkdir -p $(@D)/subprojects/packagecache
-	$(HOST_DIR)/bin/curl -L https://www.lua.org/ftp/lua-5.4.4.tar.gz               -o $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
+	cp $(PIPEWIRE_DL_DIR)/lua-5.4.4.tar.gz                                             $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
 	$(HOST_DIR)/bin/curl -L https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch -o $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip
 endef
 PIPEWIRE_DEPENDENCIES += host-libcurl
