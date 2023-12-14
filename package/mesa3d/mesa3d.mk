@@ -4,11 +4,11 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/23.3 | cut -d '-' -f 2-
-ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
-MESA3D_VERSION = mesa-23.1.9
-else
-MESA3D_VERSION = 23.3.0-45-g583b2e031cdf19ca08e5da79652b82d47bc3729b
-endif
+#ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
+#MESA3D_VERSION = mesa-23.1.9
+#else
+MESA3D_VERSION = 23.3.1-15-g0a50920f2ea08d7daa77d3907e2f6dc14767cd76
+#endif
 
 MESA3D_SITE = $(call github,chaotic-cx,mesa-mirror,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
