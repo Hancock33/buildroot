@@ -1,4 +1,5 @@
-# Hashes from: https://www.cpan.org/src/5.0/perl-5.38.2.tar.xz.{sha1,sha256}.txt
+# Hashes from: https://www.cpan.org/src/5.0/perl-5.38.2.tar.xz.{md5,sha1,sha256}.txt
+md5  d3957d75042918a23ec0abac4a2b7e0a  perl-5.38.2.tar.xz
 sha1  af1d5f9e0499f3cfa4736433631aebf7624714da  perl-5.38.2.tar.xz
 sha256  d91115e90b896520e83d4de6b52f8254ef2b70a8d545ffab33200ea9f1cf29e8  perl-5.38.2.tar.xz
 
