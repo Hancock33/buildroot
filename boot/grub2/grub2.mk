@@ -138,12 +138,11 @@ GRUB2_CONF_ENV = \
 	TARGET_CFLAGS="$(TARGET_CFLAGS) -Os" \
 	CPPFLAGS="$(TARGET_CPPFLAGS) -Os -fno-stack-protector" \
 	TARGET_CPPFLAGS="$(TARGET_CPPFLAGS) -Os -fno-stack-protector" \
-	TARGET_LDFLAGS="$(TARGET_LDFLAGS) -Os" \
+	TARGET_LDFLAGS="-Os" \
 	TARGET_NM="$(TARGET_NM)" \
 	TARGET_OBJCOPY="$(TARGET_OBJCOPY)" \
 	TARGET_STRIP="$(TARGET_CROSS)strip" \
 	TARGET_LD=$(TARGET_CROSS)ld
-	TARGET_LDFLAGS=""
 
 HOST_GRUB2_CONF_OPTS = \
 	--with-platform=none \
@@ -159,7 +158,6 @@ define GRUB2_CONFIGURE_CMDS
 		@$(call MESSAGE,Configuring $(tuple))
 		mkdir -p $(@D)/build-$(tuple)
 		cd $(@D)/build-$(tuple) && \
-		$(TARGET_CONFIGURE_OPTS) \
 		$(TARGET_CONFIGURE_ARGS) \
 		$(GRUB2_CONF_ENV) \
 		../configure \
