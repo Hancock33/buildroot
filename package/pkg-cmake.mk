@@ -35,6 +35,10 @@ ifneq ($(QUIET),)
 CMAKE_QUIET = -DCMAKE_RULE_MESSAGES=OFF -DCMAKE_INSTALL_MESSAGE=NEVER
 endif
 
+ifeq ($(BR_CMAKE_USE_CLANG),y)
+CMAKE_CLANG = -DCMAKE_C_COMPILER=$(HOST_DIR)/bin/clang -DCMAKE_CXX_COMPILER=$(HOST_DIR)/bin/clang++
+endif
+
 ################################################################################
 # inner-cmake-package -- defines how the configuration, compilation and
 # installation of a CMake package should be done, implements a few hooks to
@@ -125,12 +129,9 @@ define $(2)_CONFIGURE_CMDS
 		-DCMAKE_MODULE_LINKER_FLAGS="$$(BR2_TARGET_LDFLAGS)" \
 		-DCMAKE_SHARED_LINKER_FLAGS="$$(BR2_TARGET_LDFLAGS)" \
 		-DOPTIMIZATION_FLAG="$$(TARGET_OPTIMIZATION)" \
+		$$(CMAKE_CLANG) \
 		$$(CMAKE_QUIET) \
 		$$($$(PKG)_CONF_OPTS) \
-		$(if $$(BR_CMAKE_USE_CLANG),\
-			-DCMAKE_C_COMPILER=$(HOST_DIR)/bin/clang \
-			-DCMAKE_CXX_COMPILER=$(HOST_DIR)/bin/clang++ \
-		) \
 	)
 endef
 else
