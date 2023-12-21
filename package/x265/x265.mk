@@ -17,6 +17,11 @@ ifeq ($(BR2_i386)$(BR2_x86_64),y)
 X265_DEPENDENCIES += host-nasm
 endif
 
+ifeq ($(BR2_ARCH_IS_64),y)
+X265_CONF_OPTS += -DCMAKE_C_COMPILER=$(HOST_DIR)/bin/$(GNU_TARGET_NAME)-gcc
+X265_CONF_OPTS += -DCMAKE_CXX_COMPILER=$(HOST_DIR)/bin/$(GNU_TARGET_NAME)-g++
+endif
+
 # disable altivec, it has build issues
 # https://bitbucket.org/multicoreware/x265/issues/320/
 ifeq ($(BR2_powerpc64)$(BR2_powerpc64le),y)
