@@ -1,0 +1,12 @@
+diff --git a/lib/libstalkerclient/xmltv.c b/lib/libstalkerclient/xmltv.c
+index afe8555..d50bd84 100644
+--- a/lib/libstalkerclient/xmltv.c
++++ b/lib/libstalkerclient/xmltv.c
+@@ -24,6 +24,7 @@
+ #include <errno.h>
+ #include <inttypes.h>
+ #include <string.h>
++#include <stdlib.h>
+ 
+ #include "util.h"
+ 
