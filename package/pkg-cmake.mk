@@ -127,6 +127,10 @@ define $(2)_CONFIGURE_CMDS
 		-DOPTIMIZATION_FLAG="$$(TARGET_OPTIMIZATION)" \
 		$$(CMAKE_QUIET) \
 		$$($$(PKG)_CONF_OPTS) \
+		$(if $$(BR_CMAKE_USE_CLANG),\
+			-DCMAKE_C_COMPILER=$(HOST_DIR)/bin/clang \
+			-DCMAKE_CXX_COMPILER=$(HOST_DIR)/bin/clang++ \
+		) \
 	)
 endef
 else
