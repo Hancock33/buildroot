@@ -16,12 +16,12 @@ LLVM_CMAKE_BACKEND = make
 # Main CMakeLists.txt in llvm subfolder
 LLVM_SUBDIR = llvm
 
-HOST_LLVM_DEPENDENCIES = host-python3 host-llvm-cmake
-LLVM_DEPENDENCIES = host-llvm host-lld
+HOST_LLVM_DEPENDENCIES =  host-binutils host-llvm-cmake host-python3 
+LLVM_DEPENDENCIES = host-binutils host-llvm host-lld
 
 # Path to cmake modules from host-llvm-cmake
-HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm
-LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm
+HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -DLLVM_BINUTILS_INCDIR=$(BUILD_DIR)/gcc-final-$(GCC_VERSION)/include
+LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -DLLVM_BINUTILS_INCDIR=$(BUILD_DIR)/gcc-final-$(GCC_VERSION)/include
 
 # Assembly files for x64 in lib/Support/BLAKE3 need to be compiled
 # by a C compiler
