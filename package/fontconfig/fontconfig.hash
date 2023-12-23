@@ -1,5 +1,5 @@
-# From https://lists.freedesktop.org/archives/fontconfig/2023-January/006950.html
-sha256  dba695b57bce15023d2ceedef82062c2b925e51f5d4cc4aef736cf13f60a468b  fontconfig-2.14.2.tar.xz
+# From https://lists.freedesktop.org/archives/fontconfig/2023-December/007064.html
+sha256  f5f359d6332861bd497570848fcb42520964a9e83d5e3abe397b6b6db9bcaaf4  fontconfig-2.15.0.tar.xz
 
 # Locally calculated
 sha256  51a51aa9823704fd90bccc616cdd17ebabb5b2b3e9cbde886ca02c7002288067  COPYING
