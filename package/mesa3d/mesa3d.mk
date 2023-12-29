@@ -5,9 +5,9 @@
 ################################################################################
 # git describe --abbrev=40 origin/staging/23.3 | cut -d '-' -f 2-
 #ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
-MESA3D_VERSION = mesa-23.1.9
+#MESA3D_VERSION = mesa-23.1.9
 #else
-#MESA3D_VERSION = mesa-23.3.2
+MESA3D_VERSION = 23.3.2-6-g0aa0ae31d3ea07471600353c2ae4325446f970ae
 #endif
 
 MESA3D_SITE = $(call github,chaotic-cx,mesa-mirror,$(MESA3D_VERSION))
