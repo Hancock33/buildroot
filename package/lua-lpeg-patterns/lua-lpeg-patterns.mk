@@ -4,11 +4,14 @@
 #
 ################################################################################
 
-LUA_LPEG_PATTERNS_VERSION = 0.5-0
-LUA_LPEG_PATTERNS_NAME_UPSTREAM = lpeg_patterns
-LUA_LPEG_PATTERNS_ROCKSPEC = $(LUA_LPEG_PATTERNS_NAME_UPSTREAM)-$(LUA_LPEG_PATTERNS_VERSION).rockspec
-LUA_LPEG_PATTERNS_SOURCE = $(LUA_LPEG_PATTERNS_NAME_UPSTREAM)-$(LUA_LPEG_PATTERNS_VERSION).src.rock
+LUA_LPEG_PATTERNS_VERSION = v0.5
+LUA_LPEG_PATTERNS_SITE = $(call github,daurnimator,lpeg_patterns,$(LUA_LPEG_PATTERNS_VERSION))
 LUA_LPEG_PATTERNS_LICENSE = MIT
-LUA_LPEG_PATTERNS_LICENSE_FILES = $(LUA_LPEG_PATTERNS_SUBDIR)/LICENSE.md
 
-$(eval $(luarocks-package))
+define LUA_LPEG_PATTERNS_TARGET_CMDS
+	mkdir -p                     $(TARGET_DIR)/usr/share/lua/$(BR2_PACKAGE_LUAINTERPRETER_ABI_VERSION)/lpeg_patterns
+	cp -av $(@D)/lpeg_patterns/* $(TARGET_DIR)/usr/share/lua/$(BR2_PACKAGE_LUAINTERPRETER_ABI_VERSION)/lpeg_patterns
+	chmod 644                    $(TARGET_DIR)/usr/share/lua/$(BR2_PACKAGE_LUAINTERPRETER_ABI_VERSION)/lpeg_patterns
+endef
+
+$(eval $(generic-package))
