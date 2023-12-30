@@ -17,6 +17,7 @@ HOST_LLVM_LIBUNWIND_CONF_OPTS += \
 	-DLIBUNWIND_INSTALL_HEADERS=ON
 
 define LLVM_LIBUNWIND_DL_CMAKE_MODULES
+	mkdir -p $(HOST_DIR)/lib/cmake/llvm
     wget -O $(HOST_DIR)/lib/cmake/llvm/HandleFlags.cmake \
         https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-$(subst rc,-rc,$(LLVM_PROJECT_VERSION))/runtimes/cmake/Modules/HandleFlags.cmake
     wget -O $(HOST_DIR)/lib/cmake/llvm/WarningFlags.cmake \
