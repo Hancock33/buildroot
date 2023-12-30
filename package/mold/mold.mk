@@ -18,6 +18,7 @@ HOST_MOLD_CONF_OPTS += -DCMAKE_ASM_COMPILER="gcc" -DMOLD_MOSTLY_STATIC=ON
 define MOLD_INSTALL
     rm -rf $(HOST_DIR)/bin/mold.ld
     rm -rf $(HOST_DIR)/bin/ld.mold
+    mkdir -p                                                         $(HOST_DIR)/$(GNU_TARGET_NAME)/bin
     cp -av $(HOST_DIR)/bin/mold                                      $(HOST_DIR)/$(GNU_TARGET_NAME)/bin/ld.mold
     mv     $(HOST_DIR)/bin/mold                                      $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold
     ln -sf $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold                $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
