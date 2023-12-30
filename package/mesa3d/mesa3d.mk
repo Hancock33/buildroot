@@ -332,7 +332,8 @@ ifeq ($(BR2_x86_i686),y)
 endif
 # end batcoera
 
-MESA3D_CFLAGS = $(TARGET_CFLAGS)
+MESA3D_CFLAGS = -O2 "$(BR2_TARGET_OPTIMIZATION)"
+MESA3D_CXXFLAGS = -O2 "$(BR2_TARGET_OPTIMIZATION)"
 
 # m68k needs 32-bit offsets in switch tables to build
 ifeq ($(BR2_m68k),y)
