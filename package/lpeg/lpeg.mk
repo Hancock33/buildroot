@@ -7,6 +7,7 @@
 LPEG_VERSION = 1.1.0
 LPEG_SITE = https://www.inf.puc-rio.br/~roberto/lpeg
 LPEG_LICENSE = MIT
+LPEG_DEPENDENCIES = lua
 LPEG_INSTALL_STAGING = YES
 
 define LPEG_BUILD_CMDS
