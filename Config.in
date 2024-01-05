@@ -474,7 +474,7 @@ config BR2_STRIP_EXCLUDE_DIRS
 
 choice
 	prompt "gcc optimization level"
-	default BR2_OPTIMIZE_S
+	default BR2_OPTIMIZE_2
 	help
 	  Set the optimization level for gcc
 
