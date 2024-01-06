@@ -3,10 +3,9 @@
 # pipewire
 #
 ################################################################################
-# batcoera - update
-PIPEWIRE_VERSION = 1.0.0
-PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
-PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
+# Version: Commits on Jan 05, 2024
+PIPEWIRE_VERSION = 1.0.0-31-g16964b323f08b14981c83c94190aabfc8989d566
+PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
 PIPEWIRE_INSTALL_STAGING = YES
