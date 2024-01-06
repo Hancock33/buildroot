@@ -3,15 +3,15 @@
 # pipewire
 #
 ################################################################################
-# Version: Commits on Dec 20, 2023
-PIPEWIRE_VERSION = 1.0.0-26-gc199611c8962bf20c825f1d7f5f91ce2ac7387f4
-PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
+# batcoera - update
+PIPEWIRE_VERSION = 1.0.0
+PIPEWIRE_SOURCE = pipewire-$(PIPEWIRE_VERSION).tar.bz2
+PIPEWIRE_SITE = https://gitlab.freedesktop.org/pipewire/pipewire/-/archive/$(PIPEWIRE_VERSION)
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
 PIPEWIRE_INSTALL_STAGING = YES
 PIPEWIRE_DEPENDENCIES = host-pkgconf $(TARGET_NLS_DEPENDENCIES)
 PIPEWIRE_LDFLAGS = $(TARGET_NLS_LIBS)
-PIPEWIRE_EXTRA_DOWNLOADS = https://ftp.osuosl.org/pub/blfs/conglomeration/lua/lua-5.4.4.tar.gz
 
 PIPEWIRE_CONF_OPTS += \
 	-Ddocs=disabled \
@@ -39,7 +39,7 @@ PIPEWIRE_CONF_OPTS += \
 # i don't know why meson uses bad ssl certificates and doesn't manage to download them
 define PIPEWIRE_DWD_DEPENDENCIES
 	mkdir -p $(@D)/subprojects/packagecache
-	cp $(PIPEWIRE_DL_DIR)/lua-5.4.4.tar.gz                                             $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
+	$(HOST_DIR)/bin/curl -L https://www.lua.org/ftp/lua-5.4.4.tar.gz               -o $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
 	$(HOST_DIR)/bin/curl -L https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch -o $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip
 endef
 PIPEWIRE_DEPENDENCIES += host-libcurl
@@ -124,6 +124,12 @@ endif
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_SBC),yy)
 PIPEWIRE_CONF_OPTS += -Dbluez5=enabled
 PIPEWIRE_DEPENDENCIES += bluez5_utils sbc
+ifeq ($(BR2_PACKAGE_MODEM_MANAGER),y)
+PIPEWIRE_CONF_OPTS += -Dbluez5-backend-native-mm=enabled
+PIPEWIRE_DEPENDENCIES += modem-manager
+else
+PIPEWIRE_CONF_OPTS += -Dbluez5-backend-native-mm=disabled
+endif
 ifeq ($(BR2_PACKAGE_OPUS),y)
 PIPEWIRE_CONF_OPTS += -Dbluez5-codec-opus=enabled
 PIPEWIRE_DEPENDENCIES += opus
@@ -134,13 +140,12 @@ else
 PIPEWIRE_CONF_OPTS += -Dbluez5=disabled -Dbluez5-codec-opus=disabled
 endif
 
-# batocera, circular dependancy
-#ifeq ($(BR2_PACKAGE_FFMPEG),y)
-#PIPEWIRE_CONF_OPTS += -Dffmpeg=enabled
-#PIPEWIRE_DEPENDENCIES += ffmpeg
-#else
-PIPEWIRE_CONF_OPTS += -Dffmpeg=disabled
-#endif
+ifeq ($(BR2_PACKAGE_FFMPEG),y)
+PIPEWIRE_CONF_OPTS += -Dffmpeg=enabled -Dpw-cat-ffmpeg=enabled
+PIPEWIRE_DEPENDENCIES += ffmpeg
+else
+PIPEWIRE_CONF_OPTS += -Dffmpeg=disabled -Dpw-cat-ffmpeg=disabled
+endif
 
 ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
 PIPEWIRE_DEPENDENCIES += ncurses
@@ -180,6 +185,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dx11-xfixes=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_LIBGLIB2),y)
+PIPEWIRE_CONF_OPTS += -Dgsettings=enabled
+PIPEWIRE_DEPENDENCIES += libglib2
+else
+PIPEWIRE_CONF_OPTS += -Dgsettings=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_LIBUSB),y)
 PIPEWIRE_CONF_OPTS += -Dlibusb=enabled
 PIPEWIRE_DEPENDENCIES += libusb
@@ -210,7 +222,10 @@ PIPEWIRE_CONF_OPTS += -Dlibpulse=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_READLINE),y)
+PIPEWIRE_CONF_OPTS += -Dreadline=enabled
 PIPEWIRE_DEPENDENCIES += readline
+else
+PIPEWIRE_CONF_OPTS += -Dreadline=disabled
 endif
 
 # batocera
