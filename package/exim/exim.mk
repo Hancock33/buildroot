@@ -103,8 +103,8 @@ define EXIM_CONFIGURE_TOOLCHAIN
 	$(call exim-config-add,RANLIB,$(TARGET_RANLIB))
 	$(call exim-config-add,HOSTCC,$(HOSTCC))
 	$(call exim-config-add,HOSTCFLAGS,$(HOSTCFLAGS))
+	$(call exim-config-add,EXTRALIBS,$(EXIM_EXTRALIBS))
 	$(EXIM_FIX_IP_OPTIONS_FOR_MUSL)
-	$(EXIM_EXTRALIBS)
 endef
 
 ifneq ($(call qstrip,$(BR2_PACKAGE_EXIM_CUSTOM_CONFIG_FILE)),)
@@ -129,11 +129,9 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBEXECINFO),y)
 EXIM_DEPENDENCIES += libexecinfo
-define EXIM_EXTRALIBS
-$(call exim-config-add,EXTRALIBS,-lexecinfo)
-endef
-else ifneq ($(BR2_TOOLCHAIN_USES_GLIBC),y)
-EXIM_C_FLAGS = -DNO_EXECINFO
+EXIM_EXTRALIBS += -lexecinfo
+else ifeq ($(BR2_TOOLCHAIN_USES_GLIBC),)
+EXIM_CFLAGS = -DNO_EXECINFO
 endif
 
 # We need the host version of macro_predef during the build, before
@@ -146,13 +144,15 @@ define EXIM_BUILD_CMDS
 		CFLAGS="-std=c99 $(HOST_CFLAGS)" \
 		LFLAGS="-fPIC $(HOST_LDFLAGS)"
 	$(TARGET_MAKE_ENV) build=br $(MAKE) -C $(@D) $(EXIM_STATIC_FLAGS) \
-		CFLAGS="-std=c99 $(TARGET_CFLAGS) $(EXIM_C_FLAGS)" exim
+		CFLAGS="-std=c99 $(TARGET_CFLAGS) $(EXIM_CFLAGS)" exim
 endef
 
+# Need to replicate the LFLAGS in install, as exim still wants to build
+# something when installing...
 define EXIM_INSTALL_TARGET_CMDS
 	cd $(@D)/build-br; \
-	DESTDIR=$(TARGET_DIR) build=br \
-	../scripts/exim_install -no_chown -no_symlink exim
+		DESTDIR=$(TARGET_DIR) build=br \
+		../scripts/exim_install -no_chown -no_symlink exim
 	chmod u+s $(TARGET_DIR)/usr/sbin/exim
 endef
 

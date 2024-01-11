@@ -6,9 +6,9 @@
 
 # When updating the version, please also update kodi-jsonschemabuilder
 # and kodi-texturepacker
-KODI_VERSION_MAJOR = 20.2
+KODI_VERSION_MAJOR = 20.3
 KODI_VERSION_NAME = Nexus
-KODI_VERSION = 20.2-Nexus-129-g0b5629e3ee5f79d175580b1b25fb27227e9f3c89
+KODI_VERSION = 20.3-Nexus
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
