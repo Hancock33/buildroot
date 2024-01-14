@@ -12,7 +12,6 @@ GLM_LICENSE_FILES = copying.txt
 # GLM is a header-only library, it only makes sense
 # to have it installed into the staging directory.
 GLM_INSTALL_STAGING = YES
-GLM_INSTALL_TARGET = NO
 
 # Don't build libraries as GLM is header-only
 # Batocera - enable shared libs for cemu
