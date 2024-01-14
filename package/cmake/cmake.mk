@@ -28,10 +28,6 @@ CMAKE_IGNORE_CVES = CVE-2016-10642
 
 CMAKE_DEPENDENCIES = zlib jsoncpp libcurl libarchive expat bzip2 xz libuv rhash
 
-ifeq ($(BR_CMAKE_USE_CLANG),y)
-	HOST_CMAKE_DEPENDENCIES = host-lld
-endif
-
 CMAKE_CONF_OPTS = \
 	-DKWSYS_LFS_WORKS=TRUE \
 	-DKWSYS_CHAR_IS_SIGNED=TRUE \

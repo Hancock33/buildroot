@@ -15,6 +15,7 @@ HIREDIS_CMAKE_BACKEND = make
 
 HIREDIS_CONF_OPTS = -DDISABLE_TESTS=ON
 HOST_HIREDIS_CONF_OPTS = -DDISABLE_TESTS=ON -DENABLE_SSL=OFF
+HOST_HIREDIS_DEPENDENCIES = host-cmake
 
 # Set CMAKE_BUILD_TYPE to Release or the libraries will be suffixed with "d"
 # resulting in build failures when linking.
