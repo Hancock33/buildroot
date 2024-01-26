@@ -6,7 +6,7 @@
 
 XZ_VERSION = 5.4.6
 XZ_SOURCE = xz-$(XZ_VERSION).tar.bz2
-XZ_SITE = https://tukaani.org/xz
+XZ_SITE = https://github.com/tukaani-project/xz/releases/download/v5.4.6/$(XZ_SOURCE)
 XZ_INSTALL_STAGING = YES
 XZ_CONF_ENV = ac_cv_prog_cc_c99='-std=gnu99'
 XZ_LICENSE = Public Domain, GPL-2.0+, GPL-3.0+, LGPL-2.1+
