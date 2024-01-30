@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XSERVER_XORG_SERVER_VERSION = xorg-server-21.0.99.1-664-g133e0d651c5d12bf01999d6289e84e224ba77adc
+XSERVER_XORG_SERVER_VERSION = xorg-server-21.0.99.1-669-g9c7c470b12563fb99c722d42d706b0391818880b
 XSERVER_XORG_SERVER_SITE = https://gitlab.freedesktop.org/xorg/xserver.git
 XSERVER_XORG_SERVER_SOURCE = xorg-server-$(XSERVER_XORG_SERVER_VERSION)-br1.tar.gz
 XSERVER_XORG_SERVER_SITE_METHOD=git
