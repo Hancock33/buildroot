@@ -20,46 +20,16 @@ GLIBC_LICENSE = GPL-2.0+ (programs), LGPL-2.1+, BSD-3-Clause, MIT (library)
 GLIBC_LICENSE_FILES = COPYING COPYING.LIB LICENSES
 GLIBC_CPE_ID_VENDOR = gnu
 
-# Extract the base version (e.g. 2.38) from GLIBC_VERSION in order to
-# allow proper matching with the CPE database.
-GLIBC_CPE_ID_VERSION = $(word 1, $(subst -,$(space),$(GLIBC_VERSION)))
-
-# Fixed by b25508dd774b617f99419bdc3cf2ace4560cd2d6, which is between
-# 2.38 and the version we're really using
-GLIBC_IGNORE_CVES += CVE-2023-4527
-
-# Fixed by 750a45a783906a19591fb8ff6b7841470f1f5710, which is between
-# 2.38 and the version we're really using.
-GLIBC_IGNORE_CVES += CVE-2023-4911
-
-# Fixed by 5ee59ca371b99984232d7584fe2b1a758b4421d3, which is between
-# 2.38 and the version we're really using.
-GLIBC_IGNORE_CVES += CVE-2023-5156
-
-# All these CVEs are considered as not being security issues by
-# upstream glibc:
-#  https://security-tracker.debian.org/tracker/CVE-2010-4756
-#  https://security-tracker.debian.org/tracker/CVE-2019-1010022
-#  https://security-tracker.debian.org/tracker/CVE-2019-1010023
-#  https://security-tracker.debian.org/tracker/CVE-2019-1010024
-#  https://security-tracker.debian.org/tracker/CVE-2019-1010025
-GLIBC_IGNORE_CVES += \
-	CVE-2010-4756 \
-	CVE-2019-1010022 \
-	CVE-2019-1010023 \
-	CVE-2019-1010024 \
-	CVE-2019-1010025
-
 # glibc is part of the toolchain so disable the toolchain dependency
 GLIBC_ADD_TOOLCHAIN_DEPENDENCY = NO
 
 # Before glibc is configured, we must have the first stage
 # cross-compiler and the kernel headers
 GLIBC_DEPENDENCIES = host-gcc-initial linux-headers host-bison host-gawk host-mold \
-	$(BR2_MAKE_HOST_DEPENDENCY) $(BR2_PYTHON3_HOST_DEPENDENCY)
+       $(BR2_MAKE_HOST_DEPENDENCY) $(BR2_PYTHON3_HOST_DEPENDENCY)
 
 ifeq ($(BR_CMAKE_USE_CLANG),y)
-	GLIBC_DEPENDENCIES += host-lld
+       GLIBC_DEPENDENCIES += host-lld
 endif
 
 GLIBC_SUBDIR = build
@@ -184,8 +154,7 @@ define GLIBC_CONFIGURE_CMDS
 		--disable-werror \
 		--without-gd \
 		--with-headers=$(STAGING_DIR)/usr/include \
-		$(if $(BR2_aarch64)$(BR2_aarch64_be),--disable-mathvec) \
-		--enable-crypt \
+		$(if $(BR2_aarch64)$(BR2_aarch64_be),--enable-mathvec) \
 		$(GLIBC_CONF_OPTS))
 	$(GLIBC_ADD_MISSING_STUB_H)
 endef
