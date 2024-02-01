@@ -206,7 +206,8 @@ HOST_LIBCURL_CONF_OPTS = \
 	--with-ssl \
 	--without-gnutls \
 	--without-mbedtls \
-	--without-nss
+	--without-nss \
+	--without-libpsl
 
 HOST_LIBCURL_POST_PATCH_HOOKS += LIBCURL_FIX_DOT_PC
 
