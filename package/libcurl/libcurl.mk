@@ -32,7 +32,8 @@ LIBCURL_CONF_OPTS = \
 	--disable-curldebug \
 	--disable-libcurl-option \
 	--disable-ldap \
-	--disable-ldaps
+	--disable-ldaps \
+	--without-libpsl
 
 ifeq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
 LIBCURL_CONF_OPTS += --enable-threaded-resolver
