@@ -30,7 +30,6 @@ define LIBXCRYPT_CONFIGURE_CMDS
 		--disable-werror \
 		--enable-hashes=strong,glibc \
 		--enable-obsolete-api=glibc  \
-		--disable-static             \
 		--disable-failure-tokens)
 endef
 
