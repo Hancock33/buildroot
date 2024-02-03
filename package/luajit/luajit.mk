@@ -4,7 +4,7 @@
 #
 ################################################################################
 # batocera, use OpenResty maintained LuaJIT2 fork
-LUAJIT_VERSION = v2.1-20231006
+LUAJIT_VERSION = v2.1-20231117
 LUAJIT_SITE = $(call github,openresty,luajit2,$(LUAJIT_VERSION))
 
 LUAJIT_LICENSE = MIT
