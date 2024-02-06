@@ -1,14 +1,12 @@
 import os
-import time
 
 import infra.basetest
 
 
-class TestNetCat(infra.basetest.BRTest):
+class TestLtrace(infra.basetest.BRTest):
     config = infra.basetest.BASIC_TOOLCHAIN_CONFIG + \
         """
-        BR2_PACKAGE_BUSYBOX_SHOW_OTHERS=y
-        BR2_PACKAGE_NETCAT=y
+        BR2_PACKAGE_LTRACE=y
         BR2_TARGET_ROOTFS_CPIO=y
         # BR2_TARGET_ROOTFS_TAR is not set
         """
@@ -20,21 +18,15 @@ class TestNetCat(infra.basetest.BRTest):
                            options=["-initrd", cpio_file])
         self.emulator.login()
 
-        self.assertRunOk("nc --version")
+        # Check the program can execute
+        self.assertRunOk("ltrace --version")
 
-        msg = "Hello Buildroot!"
-        out_file = "output.txt"
-        port = 12345
-
-        cmd = f"nc -n -l -p {port} > {out_file} 2> /dev/null &"
+        # Run ltrace on a ls
+        cmd = "ltrace -a 0 -o ltrace.log ls /"
         self.assertRunOk(cmd)
 
-        time.sleep(5)
-
-        cmd = f"echo '{msg}' | nc -n -c 127.0.0.1 {port}"
-        self.assertRunOk(cmd)
-
-        cmd = f"cat {out_file}"
+        # Check the ltrace log contains occurrences of libc malloc()
+        cmd = "grep -Ec 'malloc\\([0-9]+\\)' ltrace.log"
         out, ret = self.emulator.run(cmd)
         self.assertEqual(ret, 0)
-        self.assertEqual(out[0], msg)
+        self.assertGreater(int(out[0]), 0)
