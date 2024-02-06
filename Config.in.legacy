@@ -146,6 +146,41 @@ endif
 
 comment "Legacy options removed in 2024.02"
 
+config BR2_PACKAGE_CAIRO_SVG
+	bool "cairo svg support"
+	select BR2_LEGACY
+	select BR2_PACKAGE_CAIRO_PNG
+	help
+	  Cairo SVG is compiled together with PNG, so no need to have this config.
+
+config BR2_PACKAGE_CAIRO_SCRIPT
+	bool "cairo script support"
+	select BR2_LEGACY
+	select BR2_PACKAGE_CAIRO_ZLIB
+	help
+	  Cairo script got merged in to cairo zlib with the introduction of meson.
+
+config BR2_PACKAGE_CAIRO_PS
+	bool "cairo postscript support"
+	select BR2_LEGACY
+	select BR2_PACKAGE_CAIRO_ZLIB
+	help
+	  Cairo PS got merged in to cairo zlib with the introduction of meson.
+
+config BR2_PACKAGE_CAIRO_PDF
+	bool "cairo pdf support"
+	select BR2_LEGACY
+	select BR2_PACKAGE_CAIRO_ZLIB
+	help
+	  Cairo PDF got merged in to cairo zlib with the introduction of meson.
+
+config BR2_PACKAGE_CAIRO_XML
+	bool "cairo xml support"
+	select BR2_LEGACY
+	select BR2_PACKAGE_CAIRO_ZLIB
+	help
+	  Cairo XML got merged in to cairo zlib with the introduction of meson.
+
 config BR2_KERNEL_HEADERS_4_14
 	bool "kernel headers version 4.14.x are no longer supported"
 	select BR2_LEGACY

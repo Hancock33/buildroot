@@ -1,0 +1,41 @@
+From d628c24e757e35e53e6e19fea5f23c93611c9cda Mon Sep 17 00:00:00 2001
+From: Thomas Devoogdt <thomas@devoogdt.com>
+Date: Mon, 5 Feb 2024 17:47:07 +0100
+Subject: [PATCH] meson: always skip IPC_RMID_DEFERRED_RELEASE check when cross
+ compiling
+
+../../br-test-pkg/bootlin-armv5-uclibc/build/cairo-1.17.4/meson.build:279:13:
+ERROR: Can not run test applications in this cross environment.
+
+Commit 1bec56ea8a931e1ae1c74cc740134497ec365267 added support to define
+ipc_rmid_deferred_release in a cross-compile config, but still kept
+the default to auto, which anyhow results in an error when cross-compiling.
+
+Fix that by always assuming 'true', the compilation might fail if IPC_RMID,
+is not defined, but that is perhaps desirable.
+
+See https://www.man7.org/linux/man-pages/man2/shmctl.2.html for more info
+about the call defined in meson-cc-tests/ipc_rmid_deferred_release.c
+
+Upstream: https://gitlab.freedesktop.org/cairo/cairo/-/merge_requests/534
+Signed-off-by: Thomas Devoogdt <thomas@devoogdt.com>
+---
+ meson.build | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 9100152ee..1de0fac0d 100644
+--- a/meson.build
++++ b/meson.build
+@@ -369,7 +369,7 @@ if x11_dep.found() and xext_dep.found()
+ 
+   # Can skip the run check by providing the result in a cross file or
+   # native file as bool property value.
+-  prop = meson.get_external_property('ipc_rmid_deferred_release', 'auto')
++  prop = meson.get_external_property('ipc_rmid_deferred_release', meson.is_cross_build() ? 'true' : 'auto')
+   # We don't know the type of prop (bool, string) but need to differentiate
+   # between a set value (bool) or the fallback value (string), so convert to
+   # a string and check the string value.
+-- 
+2.34.1
+
