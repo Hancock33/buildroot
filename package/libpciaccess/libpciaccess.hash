@@ -1,5 +1,5 @@
 # From https://lists.x.org/archives/xorg-announce/2024-February/003453.html
-sha256: 5461b0257d495254346f52a9c329b44b346262663675d3fecdb204a7e7c262a9  libpciaccess-0.18.tar.xz
-sha512: 54dff9a493344586d072edf8c8eb8f7960c7dfd64aa5c51a8ec8d4e341f703fd39eb606ee41c4fdd9d5aad3372b7efe6e0fe96eadc575ea91de276320ebc3fbd  libpciaccess-0.18.tar.xz
+sha256 5461b0257d495254346f52a9c329b44b346262663675d3fecdb204a7e7c262a9  libpciaccess-0.18.tar.xz
+sha512 54dff9a493344586d072edf8c8eb8f7960c7dfd64aa5c51a8ec8d4e341f703fd39eb606ee41c4fdd9d5aad3372b7efe6e0fe96eadc575ea91de276320ebc3fbd  libpciaccess-0.18.tar.xz
 # Hash for license file:
 sha256  47012fd746980d1712ac4f3841ab6164bda1d2b84880760e45dbe1e1dc07f608  COPYING
