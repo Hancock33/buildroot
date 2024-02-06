@@ -13,7 +13,6 @@ PYTHON_ML_DTYPES_SETUP_TYPE = setuptools
 
 PYTHON_ML_DTYPES_DEPENDENCIES = \
 	host-python-numpy \
-	python-numpy \
-	python-pybind
+	python-numpy
 
 $(eval $(python-package))

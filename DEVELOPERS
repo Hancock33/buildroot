@@ -1389,6 +1389,12 @@ F:	package/mrp/
 N:	Ian Haylock <haylocki@yahoo.co.uk>
 F:	package/python-rpi-gpio/
 
+N:	Ibai Erkiaga <ibai.erkiaga-elorza@amd.com>
+F:	package/binutils-bare-metal/
+F:	package/gcc-bare-metal/
+F:	package/newlib-bare-metal/
+F:	toolchain/toolchain-bare-metal-buildroot/
+
 N:	Ignacy Gawędzki <ignacy.gawedzki@green-communications.fr>
 F:	package/angularjs/
 
@@ -1788,6 +1794,8 @@ F:	support/testing/tests/package/test_gzip.py
 F:	support/testing/tests/package/test_highway.py
 F:	support/testing/tests/package/test_hwloc.py
 F:	support/testing/tests/package/test_iperf3.py
+F:	support/testing/tests/package/test_jq.py
+F:	support/testing/tests/package/test_jq/
 F:	support/testing/tests/package/test_kexec.py
 F:	support/testing/tests/package/test_kexec/
 F:	support/testing/tests/package/test_kmscube.py
@@ -2068,6 +2076,10 @@ F:	package/selinux-python/
 F:	utils/config
 F:	utils/diffconfig
 
+N:	Marcus Hoffmann <bubu@bubu1.eu>
+F:	support/testing/tests/package/test_python_fastapi.py
+F:	support/testing/tests/package/sample_python_fastapi.py
+
 N:	Marek Belisko <marek.belisko@open-nandra.com>
 F:	package/libatasmart/
 F:	package/polkit/
@@ -2088,6 +2100,12 @@ F:	board/qemu/riscv32-virt/
 F:	board/qemu/riscv64-virt/
 F:	configs/qemu_riscv32_virt_defconfig
 F:	configs/qemu_riscv64_virt_defconfig
+
+N:	Marleen Vos <marleen.vos@mind.be>
+F:	board/stmicroelectronics/common/stm32mp157/
+F:	configs/avenger96_defconfig
+F:	configs/stm32mp157a_dk1_defconfig
+F:	configs/stm32mp157c_dk2_defconfig
 
 N:	Martin Bark <martin@barkynet.com>
 F:	board/raspberrypi/
@@ -2125,6 +2143,9 @@ N:	Mathieu Audat <mathieuaudat@gmail.com>
 F:	board/technologic/ts4900/
 F:	configs/ts4900_defconfig
 F:	package/ts4900-fpga/
+
+N:	Matt Silva <dev@matt-silva.com>
+F:	package/rlwrap/
 
 N:	Mauro Condarelli <mc5686@mclink.it>
 F:	package/mc/
@@ -2257,8 +2278,12 @@ F:	configs/zynqmp_kria_kv260_defconfig
 F:	configs/zynqmp_zcu102_defconfig
 F:	configs/zynqmp_zcu104_defconfig
 F:	configs/zynqmp_zcu106_defconfig
+F:	package/binutils-bare-metal/
 F:	package/bootgen/
+F:	package/gcc-bare-metal/
+F:	package/newlib-bare-metal/
 F:	package/versal-firmware/
+F:	toolchain/toolchain-bare-metal-buildroot/
 
 N:	Nicola Di Lieto <nicola.dilieto@gmail.com>
 F:	package/uacme/
