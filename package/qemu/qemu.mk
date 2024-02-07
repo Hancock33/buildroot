@@ -6,7 +6,7 @@
 
 # When updating the version, check whether the list of supported targets
 # needs to be updated.
-QEMU_VERSION = 8.1.2
+QEMU_VERSION = 8.1.5
 QEMU_SOURCE = qemu-$(QEMU_VERSION).tar.xz
 QEMU_SITE = https://download.qemu.org
 QEMU_SELINUX_MODULES = qemu virt
@@ -18,7 +18,7 @@ QEMU_LICENSE_FILES = COPYING COPYING.LIB
 QEMU_CPE_ID_VENDOR = qemu
 
 # Need to ignore the following CVEs because the CPE database does
-# not have an entry for the 8.1.2 version yet.
+# not have an entry for the 8.1.5 version yet.
 QEMU_IGNORE_CVES += CVE-2023-4135
 QEMU_IGNORE_CVES += CVE-2023-3354
 QEMU_IGNORE_CVES += CVE-2023-3180

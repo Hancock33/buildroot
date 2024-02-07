@@ -1,4 +1,4 @@
 # Locally computed, tarball verified with GPG signature
-sha256  541526a764576eb494d2ff5ec46aeb253e62ea29035d1c23c0a8af4e6cd4f087  qemu-8.1.2.tar.xz
+sha256  9763b1efec4fd49796b5080d0883512d70cb6389ead65c661cc3686a52232896  qemu-8.1.5.tar.xz
 sha256  6f04ae8364d0079a192b14635f4b1da294ce18724c034c39a6a41d1b09df6100  COPYING
 sha256  dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551  COPYING.LIB
