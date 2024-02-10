@@ -118,8 +118,9 @@ else
 AVAHI_CONF_OPTS += --disable-python
 endif
 
+#Temp disable with python3.12
 ifeq ($(BR2_PACKAGE_DBUS_PYTHON),y)
-AVAHI_CONF_OPTS += --enable-python-dbus
+AVAHI_CONF_OPTS += --disable-python-dbus
 AVAHI_CONF_ENV += py_cv_mod_dbus_=yes
 AVAHI_DEPENDENCIES += dbus-python
 else
