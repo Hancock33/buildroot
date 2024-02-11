@@ -33,7 +33,7 @@ ifeq ($(BR2_PACKAGE_SEATD_DAEMON),y)
 SEATD_CONF_OPTS += -Dlibseat-seatd=enabled -Dserver=enabled
 
 define SEATD_USERS
-	- - seat -1 - - - - -
+	- - video -1 - - - - -
 endef
 
 # batocera - Seatd needs to be active before Weston launches
