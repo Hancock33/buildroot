@@ -6,7 +6,7 @@
 
 # When updating the version, please also update kodi-jsonschemabuilder
 # and kodi-texturepacker
-KODI_VERSION_MAJOR = 20.3
+KODI_VERSION_MAJOR = 20.4
 KODI_VERSION_NAME = Nexus
 KODI_VERSION = 20.4-Nexus
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
