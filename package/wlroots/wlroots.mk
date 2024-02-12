@@ -3,8 +3,8 @@
 # wlroots
 #
 ################################################################################
-
-WLROOTS_VERSION = 0.16.2
+# batocera (update)
+WLROOTS_VERSION = 0.17.1
 WLROOTS_SITE = https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$(WLROOTS_VERSION)/downloads
 WLROOTS_LICENSE = MIT
 WLROOTS_LICENSE_FILES = LICENSE
@@ -13,7 +13,6 @@ WLROOTS_INSTALL_STAGING = YES
 WLROOTS_DEPENDENCIES = \
 	host-pkgconf \
 	host-wayland \
-	hwdata \
 	libinput \
 	libxkbcommon \
 	libegl \
@@ -22,6 +21,8 @@ WLROOTS_DEPENDENCIES = \
 	seatd \
 	udev \
     hwdata \
+    libdisplay-info \
+    libliftoff \
 	wayland \
 	wayland-protocols
 
@@ -47,19 +48,18 @@ else
 WLROOTS_CONF_OPTS += -Dxwayland=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER)$(BR2_PACKAGE_VULKAN_LOADER),yy)
+# batocera - add vulkan build dependency
+ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
+    WLROOTS_DEPENDENCIES +=  vulkan-headers vulkan-loader host-glslang
+endif
+
+ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
 WLROOTS_RENDERERS += vulkan
-WLROOTS_DEPENDENCIES += mesa3d vulkan-loader host-glslang
+WLROOTS_DEPENDENCIES += mesa3d
 endif
 
 WLROOTS_CONF_OPTS += \
 	-Dbackends=$(subst $(space),$(comma),$(strip $(WLROOTS_BACKENDS))) \
 	-Drenderers=$(subst $(space),$(comma),$(strip $(WLROOTS_RENDERERS)))
-
-# batocera
-define WLROOTS_CROSS_FIXUP
-	$(SED) 's|/usr/share/hwdata/pnp.ids|$(TARGET_DIR)/usr/share/hwdata/pnp.ids|g' $(@D)/backend/drm/meson.build
-endef
-WLROOTS_PRE_CONFIGURE_HOOKS += WLROOTS_CROSS_FIXUP
 
 $(eval $(meson-package))
