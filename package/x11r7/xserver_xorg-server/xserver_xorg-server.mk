@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-XSERVER_XORG_SERVER_VERSION = xorg-server-21.0.99.1-674-g442aec2219e0aba5482f96e1047748416237ffaa
-XSERVER_XORG_SERVER_SITE = https://gitlab.freedesktop.org/xorg/xserver.git
-XSERVER_XORG_SERVER_SOURCE = xorg-server-$(XSERVER_XORG_SERVER_VERSION)-br1.tar.gz
+XSERVER_XORG_SERVER_VERSION = 21.1.11
+XSERVER_XORG_SERVER_SOURCE = xorg-server-$(XSERVER_XORG_SERVER_VERSION).tar.gz
+XSERVER_XORG_SERVER_SITE = https://xorg.freedesktop.org/archive/individual/xserver
 XSERVER_XORG_SERVER_SITE_METHOD=git
 XSERVER_XORG_SERVER-GIT_SUBMODULES=YES
 XSERVER_XORG_SERVER_LICENSE = MIT
