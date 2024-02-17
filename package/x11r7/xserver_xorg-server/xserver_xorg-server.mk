@@ -51,7 +51,7 @@ XSERVER_XORG_SERVER_CONF_OPTS = \
 	-Dhal=false \
 	-Dxnest=false \
 	-Dbuilder_addr=buildroot@buildroot.org \
-	-Dfontrootdir=/usr/share/fonts/X11/
+	-Ddefault_font_path=/usr/share/fonts/X11/
 
 ifeq ($(BR2_PACKAGE_XSERVER_XORG_SERVER_XEPHYR),y)
 	-Dxephyr=true
