@@ -4,31 +4,15 @@
 #
 ################################################################################
 
-GIFLIB_VERSION = 5.2.1
+GIFLIB_VERSION = 5.2.2
 GIFLIB_SITE = http://downloads.sourceforge.net/project/giflib
 GIFLIB_INSTALL_STAGING = YES
 GIFLIB_LICENSE = MIT
 GIFLIB_LICENSE_FILES = COPYING
 GIFLIB_CPE_ID_VALID = YES
 
-# 0002-Fix-CVE-2022-28506.patch
-GIFLIB_IGNORE_CVES = CVE-2022-28506
-# 0003-Fix-CVE-2023-39742.patch
-GIFLIB_IGNORE_CVES += CVE-2023-39742
-
-ifeq ($(BR2_STATIC_LIBS),y)
-GIFLIB_BUILD_LIBS = static-lib
-GIFLIB_INSTALL_LIBS = install-static-lib
-else ifeq ($(BR2_SHARED_LIBS),y)
-GIFLIB_BUILD_LIBS = shared-lib
-GIFLIB_INSTALL_LIBS = install-shared-lib
-else
-GIFLIB_BUILD_LIBS = static-lib shared-lib
-GIFLIB_INSTALL_LIBS = install-lib
-endif
-
 define GIFLIB_BUILD_CMDS
-	$(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D) $(GIFLIB_BUILD_LIBS)
+	$(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D)
 endef
 
 define HOST_GIFLIB_BUILD_CMDS
@@ -37,12 +21,12 @@ endef
 
 define GIFLIB_INSTALL_STAGING_CMDS
 	$(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D) DESTDIR=$(STAGING_DIR) \
-		PREFIX=/usr install-include $(GIFLIB_INSTALL_LIBS)
+		PREFIX=/usr install-include install-lib
 endef
 
 define GIFLIB_INSTALL_TARGET_CMDS
 	$(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D) DESTDIR=$(TARGET_DIR) \
-		PREFIX=/usr install-include $(GIFLIB_INSTALL_LIBS)
+		PREFIX=/usr install-include install-lib
 endef
 
 define HOST_GIFLIB_INSTALL_CMDS
