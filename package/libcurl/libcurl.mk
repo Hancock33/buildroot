@@ -14,8 +14,9 @@ LIBCURL_LICENSE = curl
 LIBCURL_LICENSE_FILES = COPYING
 LIBCURL_CPE_ID_VENDOR = haxx
 LIBCURL_INSTALL_STAGING = YES
+# 0001-configure.ac-find-libpsl-with-pkg-config.patch
 LIBCURL_AUTORECONF = YES
-HOST_LIBCURL_AUTORECONF = YES
+
 # We disable NTLM delegation to winbinds ntlm_auth ('--disable-ntlm-wb')
 # support because it uses fork(), which doesn't work on non-MMU platforms.
 # Moreover, this authentication method is probably almost never used (see
@@ -203,19 +204,4 @@ endef
 LIBCURL_POST_INSTALL_TARGET_HOOKS += LIBCURL_TARGET_CLEANUP
 endif
 
-# batocera - removing host-libcurl causes dependency problem on pipewire
-HOST_LIBCURL_DEPENDENCIES = host-openssl
-HOST_LIBCURL_CONF_OPTS = \
-	--disable-manual \
-	--disable-ntlm-wb \
-	--disable-curldebug \
-	--with-ssl \
-	--without-gnutls \
-	--without-mbedtls \
-	--without-nss \
-	--without-libpsl
-
-HOST_LIBCURL_POST_PATCH_HOOKS += LIBCURL_FIX_DOT_PC
-
 $(eval $(autotools-package))
-$(eval $(host-autotools-package))
