@@ -4,9 +4,11 @@
 #
 ################################################################################
 
-MONO_VERSION = 6.12.0.199
-MONO_SITE = http://download.mono-project.com/sources/mono
-MONO_SOURCE = mono-$(MONO_VERSION).tar.xz
+MONO_VERSION = mono-6.12.0.206
+MONO_SOURCE = $(MONO_VERSION).tar.gz
+MONO_SITE = https://github.com/mono/mono.git
+MONO_SITE_METHOD=git
+MONO_GIT_SUBMODULES=YES
 MONO_SELINUX_MODULES = mono
 MONO_LICENSE = GPL-2.0 or MIT (compiler, tools), MIT (libs) or commercial
 MONO_LICENSE_FILES = LICENSE mcs/COPYING \
@@ -16,15 +18,13 @@ MONO_INSTALL_STAGING = YES
 
 ## Mono native
 
-# patching configure.ac
-MONO_AUTORECONF = YES
-
 MONO_COMMON_CONF_OPTS = --with-mcs-docs=no \
 	--with-ikvm-native=no \
 	--enable-minimal=profiler,debug \
 	--enable-static \
 	--disable-btls \
-	--disable-system-aot
+	--disable-system-aot \
+	--enable-ninja
 
 # Disable managed code (mcs folder) from building
 MONO_CONF_OPTS = $(MONO_COMMON_CONF_OPTS) --disable-mcs-build
@@ -62,6 +62,13 @@ define HOST_MONO_SETUP_MONOLITE
 endef
 
 HOST_MONO_POST_CONFIGURE_HOOKS += HOST_MONO_SETUP_MONOLITE
+
+define MONO_AUTOGEN
+	cd $(@D); NOCONFIGURE=1 ./autogen.sh
+endef
+
+MONO_PRE_CONFIGURE_HOOKS += MONO_AUTOGEN
+HOST_MONO_PRE_CONFIGURE_HOOKS += MONO_AUTOGEN
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
