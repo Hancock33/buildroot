@@ -66,6 +66,8 @@ github = https://github.com/$(1)/$(2)/archive/$(3)
 # gitlab(user,package,version): returns site of Gitlab-generated tarball
 gitlab = https://gitlab.com/$(1)/$(2)/-/archive/$(3)
 
+gitlabfreedesktop = https://gitlab.freedesktop.org/$(1)/$(2)/-/archive/$(3)
+
 # Expressly do not check hashes for those files
 BR_NO_CHECK_HASH_FOR =
 
