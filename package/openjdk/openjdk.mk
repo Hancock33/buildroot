@@ -27,7 +27,6 @@ OPENJDK_DEPENDENCIES = \
 	host-zip \
 	host-zlib \
 	alsa-lib \
-	cups \
 	fontconfig \
 	giflib \
 	jpeg \
