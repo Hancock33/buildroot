@@ -118,6 +118,7 @@ boot/syslinux/0013-Fix-build-with-gnu-efi-version-3.0.9.patch Upstream
 boot/syslinux/0014-Fix-build-with-binutils-note-gnu-property-section.patch Upstream
 boot/syslinux/0016-Workaround-multiple-definition-of-symbol-errors.patch Upstream
 boot/syslinux/0017-Replace-builtin-strlen-that-appears-to-get-optimized.patch Upstream
+boot/syslinux/0019-stddef.h-add-wchar_t-type-definition.patch
 linux/5.10.162-cip24-rt10/0001-arch-microblaze-mm-init.c-fix-build.patch Upstream
 package/18xx-ti-utils/0001-plt.h-fix-build-with-gcc-10.patch Upstream
 package/4th/0001-avoid-regen-during-install.patch Upstream
