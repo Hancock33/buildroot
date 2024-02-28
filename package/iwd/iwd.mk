@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-IWD_VERSION = 2.9
+IWD_VERSION = 2.15
 IWD_SOURCE = iwd-$(IWD_VERSION).tar.xz
 IWD_SITE = $(BR2_KERNEL_MIRROR)/linux/network/wireless
 IWD_LICENSE = LGPL-2.1+
