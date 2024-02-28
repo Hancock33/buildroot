@@ -4,21 +4,50 @@
 #
 ################################################################################
 
-WINE_VERSION = 8.0.2
-WINE_SOURCE = wine-$(WINE_VERSION).tar.xz
-WINE_SITE = https://dl.winehq.org/wine/source/8.0
+WINE_VERSION = 9.3
+WINE_SOURCE = wine-$(WINE_VERSION).tar.gz
+WINE_SITE = $(call github,wine-mirror,wine,$(WINE_VERSION))
 WINE_LICENSE = LGPL-2.1+
 WINE_LICENSE_FILES = COPYING.LIB LICENSE
-WINE_CPE_ID_VENDOR = winehq
 WINE_SELINUX_MODULES = wine
 WINE_DEPENDENCIES = host-bison host-flex host-wine
 HOST_WINE_DEPENDENCIES = host-bison host-flex
 
+ifeq ($(BR_CMAKE_USE_CLANG),y)
+	HOST_WINE_DEPENDENCIES += host-clang host-lld
+endif
+
+ifeq ($(BR_WINE_STAGING),y)
+	WINE_STAGING_VERSION = v9.3
+	HOST_WINE_EXTRA_DOWNLOADS = https://github.com/wine-staging/wine-staging/archive/$(WINE_STAGING_VERSION).tar.gz
+	WINE_POST_EXTRACT_HOOKS += WINE_STAGING
+	HOST_WINE_POST_EXTRACT_HOOKS += WINE_STAGING
+endif
+
+define WINE_STAGING
+	# Use Staging Patches
+	printf "%s\n" "$(TERM_BOLD)>>> $($(PKG)_NAME) $($(PKG)_VERSION) Patching wine-staging" >&2
+	tar -xf $(WINE_DL_DIR)/$(WINE_STAGING_VERSION).tar.gz -C $(@D)
+	cd $(@D); ./wine-staging-$(subst v,,$(WINE_STAGING_VERSION))/staging/patchinstall.py --all
+endef
+
+define WINE_AUTOGEN
+	# Create folder for install
+	mkdir -p $(TARGET_DIR)/usr/wine
+	# Autotools generation
+	cd $(@D); ./tools/make_requests
+	cd $(@D); ./tools/make_specfiles
+	cd $(@D); ./dlls/winevulkan/make_vulkan && rm dlls/winevulkan/vk-*.xml
+	cd $(@D); autoreconf -fiv
+endef
+
+WINE_PRE_CONFIGURE_HOOKS += WINE_AUTOGEN
+HOST_WINE_PRE_CONFIGURE_HOOKS += WINE_AUTOGEN
+
 # Wine needs its own directory structure and tools for cross compiling
-WINE_CONF_OPTS = \
-	--with-wine-tools=../host-wine-$(WINE_VERSION) \
+WINE_CONF_OPTS = LDFLAGS="-Wl,--no-as-needed -lm" CPPFLAGS="-DMPG123_NO_LARGENAME=1" \
+	--with-wine-tools=$(BUILD_DIR)/host-wine-$(WINE_VERSION) \
 	--disable-tests \
-	--disable-win64 \
 	--without-capi \
 	--without-coreaudio \
 	--without-gettext \
@@ -27,7 +56,14 @@ WINE_CONF_OPTS = \
 	--without-mingw \
 	--without-opencl \
 	--without-oss \
-	--without-vulkan
+    --prefix=/usr/wine \
+    --exec-prefix=/usr/wine
+
+ifeq ($(BR2_x86_64),y)
+	WINE_CONF_OPTS += --enable-win64
+else
+	WINE_CONF_OPTS += --disable-win64
+endif
 
 # Wine uses a wrapper around gcc, and uses the value of --host to
 # construct the filename of the gcc to call.  But for external
@@ -93,6 +129,13 @@ WINE_CONF_OPTS += --with-gstreamer
 WINE_DEPENDENCIES += gst1-plugins-base
 else
 WINE_CONF_OPTS += --without-gstreamer
+endif
+
+ifeq ($(BR2_PACKAGE_LIBGCRYPT),y)
+WINE_CONF_OPTS += --with-gcrypt
+WINE_DEPENDENCIES += libgcrypt
+else
+WINE_CONF_OPTS += --without-gcrypt
 endif
 
 ifeq ($(BR2_PACKAGE_HAS_LIBGL),y)
@@ -171,6 +214,13 @@ WINE_CONF_OPTS += --with-udev
 WINE_DEPENDENCIES += udev
 else
 WINE_CONF_OPTS += --without-udev
+endif
+
+ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
+    WINE_CONF_OPTS += --with-vulkan
+    WINE_DEPENDENCIES += vulkan-headers vulkan-loader
+else
+    WINE_CONF_OPTS += --without-vulkan
 endif
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBX11),y)
@@ -302,6 +352,13 @@ HOST_WINE_CONF_OPTS += \
 	--without-xshape \
 	--without-xshm \
 	--without-xxf86vm
+
+# Cleanup final directory
+define WINE_REMOVE_INCLUDES_HOOK
+        rm -Rf $(TARGET_DIR)/usr/wine/include
+endef
+
+WINE_POST_INSTALL_TARGET_HOOKS += WINE_REMOVE_INCLUDES_HOOK
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
