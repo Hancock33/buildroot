@@ -1,0 +1,49 @@
+diff --git a/Tools/build/check_extension_modules.py b/Tools/build/check_extension_modules.py
+index 59239c62e2..fe3423e4aa 100644
+--- a/Tools/build/check_extension_modules.py
++++ b/Tools/build/check_extension_modules.py
+@@ -140,9 +140,17 @@ class ModuleChecker:
+     def __init__(self, cross_compiling: bool = False, strict: bool = False):
+         self.cross_compiling = cross_compiling
+         self.strict_extensions_build = strict
++        self.builddir = self.get_builddir()
++
++        # Add path for cross modules prior to sysconfig parsing the makefile.
++        if self.cross_compiling:
++            if sysconfig._CONFIG_VARS_INITIALIZED:
++                sysconfig._CONFIG_VARS_INITIALIZED = False
++                sysconfig._CONFIG_VARS = None
++            sys.path.insert(1, os.path.join(sysconfig._PROJECT_BASE, self.builddir))
++
+         self.ext_suffix = sysconfig.get_config_var("EXT_SUFFIX")
+         self.platform = sysconfig.get_platform()
+-        self.builddir = self.get_builddir()
+         self.modules = self.get_modules()
+ 
+         self.builtin_ok = []
+diff --git a/configure b/configure
+index e962a6aed1..467962f75b 100755
+--- a/configure
++++ b/configure
+@@ -3686,7 +3686,7 @@ fi
+     fi
+         ac_cv_prog_PYTHON_FOR_REGEN=$with_build_python
+     PYTHON_FOR_FREEZE="$with_build_python"
+-    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$with_build_python
++    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$with_build_python
+     { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $with_build_python" >&5
+ printf "%s\n" "$with_build_python" >&6; }
+ 
+diff --git a/configure.ac b/configure.ac
+index 384718db1f..6b01083336 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -164,7 +164,7 @@ AC_ARG_WITH([build-python],
+     dnl Build Python interpreter is used for regeneration and freezing.
+     ac_cv_prog_PYTHON_FOR_REGEN=$with_build_python
+     PYTHON_FOR_FREEZE="$with_build_python"
+-    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(shell test -f pybuilddir.txt && echo $(abs_builddir)/`cat pybuilddir.txt`:)$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$with_build_python
++    PYTHON_FOR_BUILD='_PYTHON_PROJECT_BASE=$(abs_builddir) _PYTHON_HOST_PLATFORM=$(_PYTHON_HOST_PLATFORM) PYTHONPATH=$(srcdir)/Lib _PYTHON_SYSCONFIGDATA_NAME=_sysconfigdata_$(ABIFLAGS)_$(MACHDEP)_$(MULTIARCH) '$with_build_python
+     AC_MSG_RESULT([$with_build_python])
+   ], [
+     AS_VAR_IF([cross_compiling], [yes],
