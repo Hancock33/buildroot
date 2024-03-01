@@ -37,6 +37,7 @@ This issue was seen in Buildroot Linux, in [5].
 [4] https://repo.or.cz/syslinux.git/blob/refs/tags/syslinux-6.03:/mk/efi.mk#l27
 [5] https://lists.buildroot.org/pipermail/buildroot/2024-February/685971.html
 
+Upstream: Proposed: https://www.syslinux.org/archives/2024-February/026903.html
 Signed-off-by: Julien Olivain <ju.o@free.fr>
 ---
  com32/include/stddef.h | 2 ++
