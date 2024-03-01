@@ -61,7 +61,7 @@ endif
 else
 # Avoid automatic search of llvm-config
 MESA3D_CONF_OPTS += -Dllvm=disabled
-endif9999999
+endif
 
 # Disable opencl-icd: OpenCL lib will be named libOpenCL instead of
 # libMesaOpenCL and CL headers are installed
