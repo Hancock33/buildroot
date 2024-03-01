@@ -3,8 +3,8 @@
 # mesa3d
 #
 ################################################################################
-# git describe --abbrev=40 origin/staging/23.3 | cut -d '-' -f 2-
-MESA3D_VERSION = branchpoint-2597-g73d98848fa98ee5d1fbd69e55cf2fd226c747c48
+# git describe --abbrev=40 origin/staging/24.0 | cut -d '-' -f 2-
+MESA3D_VERSION = 24.0.2-1-g5131484a30b8b309234be5e6ccdd02dd67bb496f
 MESA3D_SITE = $(call gitlabfreedesktop,mesa,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
@@ -61,7 +61,7 @@ endif
 else
 # Avoid automatic search of llvm-config
 MESA3D_CONF_OPTS += -Dllvm=disabled
-endif
+endif9999999
 
 # Disable opencl-icd: OpenCL lib will be named libOpenCL instead of
 # libMesaOpenCL and CL headers are installed
