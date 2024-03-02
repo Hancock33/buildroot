@@ -12,7 +12,7 @@ NFS_UTILS_LICENSE_FILES = COPYING
 NFS_UTILS_DEPENDENCIES = host-nfs-utils host-pkgconf libevent libtirpc sqlite util-linux
 NFS_UTILS_CPE_ID_VENDOR = linux-nfs
 
-NFS_UTILS_CONF_ENV = knfsd_cv_bsd_signals=no
+NFS_UTILS_CONF_ENV = knfsd_cv_bsd_signals=no CFLAGS_FOR_BUILD="$(TARGET_CFLAGS)" CXXFLAGS_FOR_BUILD="$(TARGET_CFLAGS)"
 
 NFS_UTILS_CONF_OPTS = \
 	--enable-tirpc \
