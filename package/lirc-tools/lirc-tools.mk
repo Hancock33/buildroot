@@ -20,7 +20,7 @@ LIRC_TOOLS_CONF_OPTS = --without-x --enable-devinput --enable-uinput
 
 # batocera
 define LIRC_TOOLS_BUILD_CMDS
-	sed -i -e s+"dot_seen=no;"+"dot_seen=yes;"+ $(@D)/Makefile;
+	sed -i -e s+"$(HEADERS) config.h all-local"+"$(HEADERS) config.h"+ $(@D)/Makefile;
 	$(TARGET_CONFIGURE_OPTS) CXX="$(TARGET_CXX)" CC="$(TARGET_CC)" \
 		CC_FOR_BUILD="$(TARGET_CC)" GCC_FOR_BUILD="$(TARGET_CC)" \
 		CXX_FOR_BUILD="$(TARGET_CXX)" LD_FOR_BUILD="$(TARGET_LD)" \
