@@ -152,6 +152,12 @@ config BR2_BINUTILS_VERSION_2_39_X
 	help
 	  binutils 2.39 has been removed, use a newer version.
 
+config BR2_PACKAGE_SHADOW_UTMPX
+	bool "shadow utmpx removed"
+	select BR2_LEGACY
+	help
+	  UTMPX has been dropped by upstream.
+
 config BR2_PACKAGE_TINYMEMBENCH
 	bool "tinymembench removed"
 	select BR2_LEGACY
