@@ -167,6 +167,7 @@ SDL2_CONF_OPTS += --enable-video-x11-scrnsaver
 else
 SDL2_CONF_OPTS += --disable-video-x11-scrnsaver
 endif
+
 else
 SDL2_CONF_OPTS += --disable-video-x11 --without-x
 endif
