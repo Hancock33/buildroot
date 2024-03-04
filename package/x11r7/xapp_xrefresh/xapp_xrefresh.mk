@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_XREFRESH_VERSION = 1.0.7
+XAPP_XREFRESH_VERSION = 1.1.0
 XAPP_XREFRESH_SOURCE = xrefresh-$(XAPP_XREFRESH_VERSION).tar.xz
 XAPP_XREFRESH_SITE = https://xorg.freedesktop.org/releases/individual/app
 XAPP_XREFRESH_LICENSE = MIT

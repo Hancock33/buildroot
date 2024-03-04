@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_LISTRES_VERSION = 1.0.5
+XAPP_LISTRES_VERSION = 1.0.6
 XAPP_LISTRES_SOURCE = listres-$(XAPP_LISTRES_VERSION).tar.xz
 XAPP_LISTRES_SITE = http://xorg.freedesktop.org/releases/individual/app
 XAPP_LISTRES_LICENSE = MIT

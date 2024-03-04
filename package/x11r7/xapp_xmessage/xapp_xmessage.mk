@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_XMESSAGE_VERSION = 1.0.6
+XAPP_XMESSAGE_VERSION = 1.0.7
 XAPP_XMESSAGE_SOURCE = xmessage-$(XAPP_XMESSAGE_VERSION).tar.xz
 XAPP_XMESSAGE_SITE = https://xorg.freedesktop.org/releases/individual/app
 XAPP_XMESSAGE_LICENSE = MIT
