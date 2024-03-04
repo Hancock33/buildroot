@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MARIADB_VERSION = 10.11.6
+MARIADB_VERSION = 11.3.2
 MARIADB_SITE = https://downloads.mariadb.org/interstitial/mariadb-$(MARIADB_VERSION)/source
 MARIADB_LICENSE = GPL-2.0 (server), GPL-2.0 with FLOSS exception (GPL client library), LGPL-2.0 (LGPL client library)
 # Tarball no longer contains LGPL license text
@@ -166,6 +166,13 @@ define MARIADB_POST_STAGING_INSTALL
 		$(@D)/libmariadb/mariadb_config/mariadb_config.c
 endef
 MARIADB_POST_INSTALL_STAGING_HOOKS += MARIADB_POST_STAGING_INSTALL
+
+# batocera
+define MARIADB_DL_LIBS
+	mkdir -p $(@D)/extra/libfmt/src
+	curl -L https://github.com/fmtlib/fmt/archive/refs/tags/8.0.1.zip -o $(@D)/extra/libfmt/src/8.0.1.zip
+endef
+HOST_MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_DL_LIBS
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
