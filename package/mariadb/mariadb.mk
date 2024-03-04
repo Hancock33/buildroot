@@ -23,11 +23,13 @@ MARIADB_DEPENDENCIES = \
 	pcre2 \
 	zlib \
 	libaio \
-	libxml2
+	libxml2 \
+	openssl
 
 MARIADB_CONF_OPTS += \
-	-DWITH_FMT=system \
-	-DWITH_PCRE=system
+	-DWITH_PCRE=system \
+	-DWITH_SSL=system  \
+	-DWITH_LIBFMT=bundled
 
 # use bundled GPL-2.0+ licensed readline as package/readline is GPL-3.0+
 MARIADB_CONF_OPTS += -DWITH_READLINE=ON
@@ -172,6 +174,7 @@ define MARIADB_DL_LIBS
 	mkdir -p $(@D)/extra/libfmt/src
 	curl -L https://github.com/fmtlib/fmt/archive/refs/tags/8.0.1.zip -o $(@D)/extra/libfmt/src/8.0.1.zip
 endef
+MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_DL_LIBS
 HOST_MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_DL_LIBS
 
 $(eval $(cmake-package))
