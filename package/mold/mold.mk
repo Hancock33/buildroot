@@ -3,8 +3,8 @@
 # mold
 #
 ################################################################################
-# Version: Commits on Mar 03, 2024
-MOLD_VERSION = 89a472057513988cec4657c790e311f4882291da
+# Version: Commits on Mar 04, 2024
+MOLD_VERSION = 51f871f43b3f012a4367538f3bd831d701cb10ed
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = MIT
 MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES) tbb
