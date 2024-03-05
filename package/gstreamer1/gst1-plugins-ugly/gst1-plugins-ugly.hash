@@ -1,3 +1,3 @@
-# From https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.10.tar.xz.sha256sum
-sha256  cc80a81a22c0b3b31ab7f1b8bf18dda23c72d2791b86cc6264923a68336329ea  gst-plugins-ugly-1.22.10.tar.xz
+# From https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.24.0.tar.xz.sha256sum
+sha256  c5d1cbdf71ab0c675bca236f70edfa1feb3f813fd4bfff563308f466d8805ca5  gst-plugins-ugly-1.24.0.tar.xz
 sha256  6095e9ffa777dd22839f7801aa845b31c9ed07f3d6bf8a26dc5d2dec8ccc0ef3  COPYING

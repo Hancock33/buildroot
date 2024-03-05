@@ -1,3 +1,3 @@
-# From https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.22.10.tar.xz.sha256sum
-sha256  969aaef396f252ce925132a4be2aa004e0320f5c1baf0acaaae09c544a6759f4  gstreamer-1.22.10.tar.xz
+# From https://gstreamer.freedesktop.org/src/gstreamer/gstreamer-1.24.0.tar.xz.sha256sum
+sha256  81c38617798d331269e389d56fb1388073e1dc9d489fe9bf2113f86b48b59138  gstreamer-1.24.0.tar.xz
 sha256  ad2eec519ebd4b5df86ea84dff24ae3bfa2edea846a703b58902dd221ae375db  COPYING

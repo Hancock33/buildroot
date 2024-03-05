@@ -1,3 +1,3 @@
-# From https://gstreamer.freedesktop.org/src/gst-python/gst-python-1.22.10.tar.xz.sha256sum
-sha256  99e37ea9f7163099734f9b0fce361bc67a0e7a65ffba9bc497127506a3fdedb3  gst-python-1.22.10.tar.xz
+# From https://gstreamer.freedesktop.org/src/gst-python/gst-python-1.24.0.tar.xz.sha256sum
+sha256  041c2255c1ea9936c777dcb08a36ecaa6a24a69a12fc46ef53f1530d46c59f9d  gst-python-1.24.0.tar.xz
 sha256  ea3ad127610e5ded2210b3a86a46314f2b3b28e438eccffdae19a4d6fbcdb0c2  COPYING
