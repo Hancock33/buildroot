@@ -14,6 +14,7 @@ MARIADB_CPE_ID_VENDOR = mariadb
 MARIADB_SELINUX_MODULES = mysql
 MARIADB_INSTALL_STAGING = YES
 MARIADB_CONFIG_SCRIPTS = mysql_config
+HOST_MARIADB_EXTRA_DOWNLOADS = https://github.com/fmtlib/fmt/archive/refs/tags/8.0.1.zip
 
 MARIADB_DEPENDENCIES = \
 	host-mariadb \
@@ -172,10 +173,17 @@ MARIADB_POST_INSTALL_STAGING_HOOKS += MARIADB_POST_STAGING_INSTALL
 # batocera
 define MARIADB_DL_LIBS
 	mkdir -p $(@D)/extra/libfmt/src
-	curl -L https://github.com/fmtlib/fmt/archive/refs/tags/8.0.1.zip -o $(@D)/extra/libfmt/src/8.0.1.zip
+	cp  $(MARIADB_DL_DIR)/8.0.1.zip $(@D)/extra/libfmt/src/8.0.1.zip
 endef
+
+define MARIADB_HOST_GSSAPI
+	sed -i -e s+"SET(GSSAPI_SOURCES"+"#SET(GSSAPI_SOURCES"+ $(@D)/libmariadb/plugins/auth/CMakeLists.txt
+	rm -r $(@D)/plugin/auth_gssapi
+endef
+
 MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_DL_LIBS
 HOST_MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_DL_LIBS
+HOST_MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_HOST_GSSAPI
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
