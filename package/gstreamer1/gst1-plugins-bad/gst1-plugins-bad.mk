@@ -49,7 +49,6 @@ GST1_PLUGINS_BAD_CONF_OPTS += \
 	-Dflite=disabled \
 	-Dgs=disabled \
 	-Dgsm=disabled \
-	-Dkate=disabled \
 	-Dladspa=disabled \
 	-Dldac=disabled \
 	-Dlv2=disabled \
