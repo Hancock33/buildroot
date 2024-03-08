@@ -1,6 +1,6 @@
 # Locally calculated after checking pgp signature
-# https://tukaani.org/xz/xz-5.6.0.tar.xz.sig
-sha256  cdafe1632f139c82937cc1ed824f7a60b7b0a0619dfbbd681dcac02b1ac28f5b  xz-5.6.0.tar.xz
+# https://github.com/tukaani-project/xz/releases/download/v5.6.0/xz-5.6.0.tar.bz2.sig
+sha256  88c8631cefba91664fdc47b14bb753e1876f4964a07db650821d203992b1e1ea  xz-5.6.0.tar.bz2
 
 # Hash for license files
 sha256  72d7ef9c98be319fd34ce88b45203b36d5936f9c49e82bf3198ffee5e0c7d87e  COPYING
