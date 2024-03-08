@@ -5,7 +5,7 @@
 ################################################################################
 
 XZ_VERSION = 5.6.0
-XZ_SOURCE = xz-$(XZ_VERSION).tar.xz
+XZ_SOURCE = xz-$(XZ_VERSION).tar.bz2
 XZ_SITE = https://github.com/tukaani-project/xz/releases/download/v$(XZ_VERSION)
 XZ_INSTALL_STAGING = YES
 XZ_LICENSE = Public Domain, BSD-0-Clause, GPL-2.0+, GPL-3.0+, LGPL-2.1+
