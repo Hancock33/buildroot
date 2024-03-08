@@ -57,8 +57,9 @@ HOST_MONO_MAKE_OPTS += EXTERNAL_MCS=false
 HOST_MONO_DEPENDENCIES = host-monolite host-gettext host-python3
 
 define HOST_MONO_SETUP_MONOLITE
+	mkdir $(@D)/mcs/class/lib
 	rm -rf $(@D)/mcs/class/lib/monolite
-	(cd $(@D)/mcs/class/lib; ln -s $(HOST_DIR)/lib/monolite monolite)
+	(cd $(@D)/mcs/class/lib; ln -sf $(HOST_DIR)/lib/monolite monolite)
 endef
 
 HOST_MONO_POST_CONFIGURE_HOOKS += HOST_MONO_SETUP_MONOLITE
