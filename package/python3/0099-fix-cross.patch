@@ -1,20 +1,141 @@
+From 1ee82310c5438dee539bf6ce35a52c39f5d2c27d Mon Sep 17 00:00:00 2001
+From: Vincent Fazio <5265893+vfazio@users.noreply.github.com>
+Date: Wed, 28 Feb 2024 13:55:04 -0600
+Subject: [PATCH] gh-115382: Remove foreign import paths from cross compiles
+
+Previously, when a build was configured to use a host interpreter via
+--with-build-python, the PYTHON_FOR_BUILD config value included a path
+in PYTHONPATH that pointed to the target's built external modules.
+
+For "normal" foreign architecture cross compiles, when loading compiled
+external libraries, the target libraries were processed first due to
+their precedence in sys.path. These libraries are then ruled out because
+of a mismatch in the SOABI so the import mechanism continues searching
+in sys.path for modules until it finds the host's native modules.
+
+However, if the host interpreter and the target python are on the same
+version + SOABI combination, the host interpreter would attempt to load
+the target's external modules due precedence in sys.path.
+
+Despite the "match", the target build may be linked against a different
+libc or may include instructions that are not supported on the host, so
+loading/executing the target's external modules can lead to crashes.
+
+Now, the path to the target's external modules is no longer in PYTHONPATH
+to prevent accidentally loading these foreign modules.
+
+Some build scripts need to interrogate sysconfig via `get_config_var{s}`
+to determine what target modules were built as well as other target
+specific config values.
+
+This was previously done by specifying _PYTHON_SYSCONFIGDATA_NAME in the
+environment and leveraging the target's module path in PYTHONPATH so it
+could be imported in sysconfig._init_posix.
+
+These build scripts now check if the environment is configured to use a
+host interpreter and will now load the target's sysconfigdata module
+based on the information in the environment and query it as necessary.
+
+Signed-off-by: Vincent Fazio <vfazio@gmail.com>
+---
+ Lib/ensurepip/__init__.py              | 24 ++++++++++++++-
+ Tools/build/check_extension_modules.py | 42 +++++++++++++++++++++++++-
+ configure                              |  2 +-
+ configure.ac                           |  2 +-
+ 4 files changed, 66 insertions(+), 4 deletions(-)
+
+diff --git a/Lib/ensurepip/__init__.py b/Lib/ensurepip/__init__.py
+index 2ac872c25c897c..78655135175964 100644
+--- a/Lib/ensurepip/__init__.py
++++ b/Lib/ensurepip/__init__.py
+@@ -24,7 +24,29 @@
+ # policies recommend against bundling dependencies. For example, Fedora
+ # installs wheel packages in the /usr/share/python-wheels/ directory and don't
+ # install the ensurepip._bundled package.
+-_WHEEL_PKG_DIR = sysconfig.get_config_var('WHEEL_PKG_DIR')
++if '_PYTHON_HOST_PLATFORM' in os.environ:
++    # When invoked during a cross compile, use the sysconfigdata file from the build directory.
++    _WHEEL_PKG_DIR = None
++
++    from importlib.machinery import FileFinder, SourceFileLoader, SOURCE_SUFFIXES
++    from importlib.util import module_from_spec
++
++    build_dir = os.environ.get("_PYTHON_PROJECT_BASE")
++    pybuild = os.path.join(build_dir, "pybuilddir.txt")
++    if os.path.exists(pybuild):
++        with open(pybuild, encoding="utf-8") as f:
++            builddir = f.read()
++        target_lib_dir = os.path.join(build_dir, builddir)
++        spec = FileFinder(target_lib_dir ,(SourceFileLoader, SOURCE_SUFFIXES)).find_spec(
++            os.environ.get("_PYTHON_SYSCONFIGDATA_NAME")
++        )
++        if spec is not None:
++            target_module = module_from_spec(spec)
++            spec.loader.exec_module(target_module)
++
++            _WHEEL_PKG_DIR = target_module.build_time_vars.get('WHEEL_PKG_DIR')
++else:
++    _WHEEL_PKG_DIR = sysconfig.get_config_var('WHEEL_PKG_DIR')
+ 
+ 
+ def _find_packages(path):
 diff --git a/Tools/build/check_extension_modules.py b/Tools/build/check_extension_modules.py
-index 59239c62e2..fe3423e4aa 100644
+index 59239c62e2ef34..cbca506cf06125 100644
 --- a/Tools/build/check_extension_modules.py
 +++ b/Tools/build/check_extension_modules.py
-@@ -140,9 +140,17 @@ class ModuleChecker:
+@@ -125,6 +125,41 @@ def __bool__(self):
+ 
+ ModuleInfo = collections.namedtuple("ModuleInfo", "name state")
+ 
++class _SysConfigShim:
++    """
++    A class to shim the sysconfig data from the cross compile build directory.
++
++    It's not safe to include foreign import directories in sys.path as the host
++    compatible interpreter may attempt to load libraries it's incompatible with.
++
++    However, we need to interrogate the target build to check that modules were
++    compiled correctly so we need to load data from sysconfigdata that resides
++    in the build directory.
++    """
++    def __init__(self, lib_path: pathlib.Path):
++        from importlib.machinery import FileFinder, SourceFileLoader, SOURCE_SUFFIXES
++        from importlib.util import module_from_spec
++
++        configdata = os.environ.get("_PYTHON_SYSCONFIGDATA_NAME")
++        if configdata is None:
++            raise RuntimeError(f'_PYTHON_SYSCONFIGDATA_NAME is required for cross compilation')
++        spec = FileFinder(str(lib_path) ,(SourceFileLoader, SOURCE_SUFFIXES)).find_spec(configdata)
++        if spec is None:
++            raise RuntimeError(f'Could not find find sysconfig data for {configdata}')
++
++        self.target_module = module_from_spec(spec)
++        spec.loader.exec_module(self.target_module)
++
++    def get_config_var(self, name: str):
++        return self.get_config_vars().get(name)
++
++    def get_config_vars(self, *args):
++        if args:
++            vals = []
++            for name in args:
++                vals.append(self.target_module.build_time_vars.get(name))
++            return vals
++        return self.target_module.build_time_vars
+ 
+ class ModuleChecker:
+     pybuilddir_txt = "pybuilddir.txt"
+@@ -139,10 +174,15 @@ class ModuleChecker:
+ 
      def __init__(self, cross_compiling: bool = False, strict: bool = False):
          self.cross_compiling = cross_compiling
-         self.strict_extensions_build = strict
 +        self.builddir = self.get_builddir()
-+
-+        # Add path for cross modules prior to sysconfig parsing the makefile.
 +        if self.cross_compiling:
-+            if sysconfig._CONFIG_VARS_INITIALIZED:
-+                sysconfig._CONFIG_VARS_INITIALIZED = False
-+                sysconfig._CONFIG_VARS = None
-+            sys.path.insert(1, os.path.join(sysconfig._PROJECT_BASE, self.builddir))
++            shim = _SysConfigShim(self.builddir)
++            sysconfig.get_config_var = shim.get_config_var
++            sysconfig.get_config_vars = shim.get_config_vars
 +
+         self.strict_extensions_build = strict
          self.ext_suffix = sysconfig.get_config_var("EXT_SUFFIX")
          self.platform = sysconfig.get_platform()
 -        self.builddir = self.get_builddir()
@@ -22,7 +143,7 @@ index 59239c62e2..fe3423e4aa 100644
  
          self.builtin_ok = []
 diff --git a/configure b/configure
-index e962a6aed1..467962f75b 100755
+index e962a6aed12d27..467962f75bb3b0 100755
 --- a/configure
 +++ b/configure
 @@ -3686,7 +3686,7 @@ fi
@@ -35,7 +156,7 @@ index e962a6aed1..467962f75b 100755
  printf "%s\n" "$with_build_python" >&6; }
  
 diff --git a/configure.ac b/configure.ac
-index 384718db1f..6b01083336 100644
+index 384718db1f08d9..6b010833369149 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -164,7 +164,7 @@ AC_ARG_WITH([build-python],
