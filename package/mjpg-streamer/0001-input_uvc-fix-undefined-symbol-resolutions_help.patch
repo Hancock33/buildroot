@@ -1,0 +1,27 @@
+From 32bd867cc8a51568c031430a2886712438052945 Mon Sep 17 00:00:00 2001
+From: Bernd Kuhls <bernd@kuhls.net>
+Date: Sat, 9 Mar 2024 23:15:52 +0100
+Subject: [PATCH] input_uvc: fix 'undefined symbol: resolutions_help'
+
+Upstream: https://github.com/jacksonliam/mjpg-streamer/pull/401
+
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+---
+ mjpg-streamer-experimental/plugins/input_uvc/CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/mjpg-streamer-experimental/plugins/input_uvc/CMakeLists.txt b/mjpg-streamer-experimental/plugins/input_uvc/CMakeLists.txt
+index 72b24fa..90bbfa0 100644
+--- a/mjpg-streamer-experimental/plugins/input_uvc/CMakeLists.txt
++++ b/mjpg-streamer-experimental/plugins/input_uvc/CMakeLists.txt
+@@ -22,6 +22,7 @@ if (PLUGIN_INPUT_UVC)
+     MJPG_STREAMER_PLUGIN_COMPILE(input_uvc dynctrl.c
+                                            input_uvc.c
+                                            jpeg_utils.c
++                                           ../../utils.c
+                                            v4l2uvc.c)
+ 
+     if (V4L2_LIB)
+-- 
+2.39.2
+
