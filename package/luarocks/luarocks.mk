@@ -5,7 +5,7 @@
 ################################################################################
 
 LUAROCKS_VERSION = 3.11.0
-LUAROCKS_SITE = $(call github,luarocks,luarocks,$(LUAROCKS_VERSION))
+LUAROCKS_SITE = https://luarocks.org/releases
 LUAROCKS_LICENSE = MIT
 LUAROCKS_LICENSE_FILES = COPYING
 
