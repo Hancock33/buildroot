@@ -1231,7 +1231,7 @@ comment "Legacy options removed in 2021.11"
 
 config BR2_OPENJDK_VERSION_LTS
 	bool "OpenJDK LTS version was renamed to OpenJDK 11"
-	#select BR2_LEGACY
+	select BR2_LEGACY
 	help
 	  The LTS version option was renamed to OpenJDK 11 to make it
 	  clear what LTS version is.
