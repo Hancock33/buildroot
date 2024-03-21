@@ -66,7 +66,6 @@ KODI_EXTRA_DOWNLOADS += \
 	$(call github,xbmc,libdvdread,$(KODI_LIBDVDREAD_VERSION))/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
 
 KODI_CONF_OPTS += \
-    -DADDONS_CONFIGURE_AT_STARTUP=OFF \
 	-DCMAKE_C_FLAGS="$(TARGET_CFLAGS) $(KODI_C_FLAGS)" \
 	-DENABLE_APP_AUTONAME=OFF \
 	-DENABLE_CCACHE=OFF \
@@ -84,6 +83,7 @@ KODI_CONF_OPTS += \
 	-DNATIVEPREFIX=$(HOST_DIR) \
 	-DDEPENDS_PATH=$(STAGING_DIR)/usr \
 	-DENABLE_TESTING=OFF \
+	-DENABLE_DEBUGFISSION=OFF \
 	-DPYTHON_EXECUTABLE=$(HOST_DIR)/bin/python \
 	-DPYTHON_INCLUDE_DIRS=$(STAGING_DIR)/usr/include/python$(PYTHON3_VERSION_MAJOR) \
 	-DPYTHON_PATH=$(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR) \
@@ -93,6 +93,9 @@ KODI_CONF_OPTS += \
 	-DLIBDVDCSS_URL=$(KODI_DL_DIR)/kodi-libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.gz \
 	-DLIBDVDNAV_URL=$(KODI_DL_DIR)/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
 	-DLIBDVDREAD_URL=$(KODI_DL_DIR)/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
+
+# batocera
+KODI_CONF_OPTS += -DADDONS_CONFIGURE_AT_STARTUP=OFF 
 
 ifeq ($(BR2_PACKAGE_KODI_RENDER_SYSTEM_GL),y)
 KODI_CONF_OPTS += -DAPP_RENDER_SYSTEM=gl
@@ -104,17 +107,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM),y)
 KODI_CORE_PLATFORM_NAME += gbm
-KODI_DEPENDENCIES += libinput libxkbcommon # libgbm  removed, batocera
-
-#batocera
-ifeq ($(BR2_PACKAGE_HAS_LIBGBM),y)
-  KODI_DEPENDENCIES += libgbm
-endif
-
-# batocera - for mali boards
-ifeq ($(BR2_PACKAGE_HAS_LIBMALI),y)
-KODI_DEPENDENCIES += libmali
-endif
+KODI_DEPENDENCIES += libgbm libinput libxkbcommon
 endif
 
 ifeq ($(BR2_ARCH_IS_64),y)
@@ -225,16 +218,6 @@ ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 KODI_CONF_OPTS += -DCMAKE_EXE_LINKER_FLAGS=-latomic
 endif
 
-ifeq ($(BR2_PACKAGE_KODI_PLATFORM_GBM_GLES),y)
-KODI_CONF_OPTS += \
-        -DCORE_PLATFORM_NAME=gbm \
-        -DGBM_RENDER_SYSTEM=gles
-KODI_DEPENDENCIES += libgles libinput libxkbcommon
-ifeq ($(BR2_PACKAGE_PROVIDES_LIBGLES),mesa3d)
-        KODI_DEPENDENCIES += mesa3d
-endif
-endif
-
 ifeq ($(BR2_TOOLCHAIN_GCC_AT_LEAST_5),)
 KODI_C_FLAGS += -std=gnu99
 endif
@@ -293,21 +276,9 @@ else
 KODI_CONF_OPTS += -DENABLE_EVENTCLIENTS=OFF
 endif
 
-# batocera
-ifeq ($(BR2_PACKAGE_KODI_GBM),y)
-  ifeq ($(BR2_PACKAGE_MESA3D),y)
-    KODI_DEPENDENCIES += mesa3d
-  endif
-KODI_CONF_OPTS += -DENABLE_GBM=ON
-else
-KODI_CONF_OPTS += -DENABLE_GBM=OFF
-endif
-
 ifeq ($(BR2_PACKAGE_KODI_ALSA_LIB),y)
 KODI_CONF_OPTS += -DENABLE_ALSA=ON
 KODI_DEPENDENCIES += alsa-lib
-# disable pipewire too
-KODI_CONF_OPTS += -DENABLE_PIPEWIRE=OFF
 else
 KODI_CONF_OPTS += -DENABLE_ALSA=OFF
 endif
@@ -398,13 +369,12 @@ else
 KODI_CONF_OPTS += -DENABLE_OPTICAL=OFF
 endif
 
-# best audio support is with alsa, so disabling others for now
-#ifeq ($(BR2_PACKAGE_KODI_PULSEAUDIO),y)
-#KODI_CONF_OPTS += -DENABLE_PULSEAUDIO=ON
-#KODI_DEPENDENCIES += pulseaudio
-#else
+ifeq ($(BR2_PACKAGE_KODI_PULSEAUDIO),y)
+KODI_CONF_OPTS += -DENABLE_PULSEAUDIO=ON
+KODI_DEPENDENCIES += pulseaudio
+else
 KODI_CONF_OPTS += -DENABLE_PULSEAUDIO=OFF
-#endif
+endif
 
 ifeq ($(BR2_PACKAGE_LIBUDFREAD),y)
 KODI_DEPENDENCIES += libudfread
@@ -423,6 +393,12 @@ define KODI_CLEAN_UNUSED_ADDONS
 endef
 KODI_POST_INSTALL_TARGET_HOOKS += KODI_CLEAN_UNUSED_ADDONS
 
+define KODI_INSTALL_BR_WRAPPER
+	$(INSTALL) -D -m 0755 package/kodi/br-kodi \
+		$(TARGET_DIR)/usr/bin/br-kodi
+endef
+KODI_POST_INSTALL_TARGET_HOOKS += KODI_INSTALL_BR_WRAPPER
+
 # When run from a startup script, Kodi has no $HOME where to store its
 # configuration, so ends up storing it in /.kodi  (yes, at the root of
 # the rootfs). This is a problem for read-only filesystems. But we can't
@@ -435,5 +411,15 @@ define KODI_INSTALL_CONFIG_DIR
 	ln -sf /var/kodi $(TARGET_DIR)/.xbmc
 endef
 KODI_POST_INSTALL_TARGET_HOOKS += KODI_INSTALL_CONFIG_DIR
+
+define KODI_INSTALL_INIT_SYSV
+	$(INSTALL) -D -m 755 package/kodi/S50kodi \
+		$(TARGET_DIR)/etc/init.d/S50kodi
+endef
+
+define KODI_INSTALL_INIT_SYSTEMD
+	$(INSTALL) -D -m 644 package/kodi/kodi.service \
+		$(TARGET_DIR)/usr/lib/systemd/system/kodi.service
+endef
 
 $(eval $(cmake-package))
