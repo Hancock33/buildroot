@@ -60,6 +60,7 @@ define SDL2_FIX_CONFIGURE_PATHS
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/Makefile
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2-config
 	sed -i "s+/host/bin/\.\.+/host+g" $(@D)/sdl2.pc
+	sed -i "s+-I/.* ++g"              $(@D)/sdl2.pc
 endef
 
 SDL2_POST_CONFIGURE_HOOKS += SDL2_FIX_WAYLAND_SCANNER_PATH
@@ -115,7 +116,7 @@ endif
 ifeq ($(BR2_PACKAGE_SDL2_DIRECTFB),y)
 SDL2_DEPENDENCIES += directfb
 SDL2_CONF_OPTS += --enable-video-directfb
-SDL2_CONF_ENV = ac_cv_path_DIRECTFBCONFIG=$(STAGING_DIR)/usr/bin/directfb-config
+SDL2_CONF_ENV += ac_cv_path_DIRECTFBCONFIG=$(STAGING_DIR)/usr/bin/directfb-config
 else
 SDL2_CONF_OPTS += --disable-video-directfb
 endif
@@ -212,6 +213,11 @@ SDL2_DEPENDENCIES += wayland waylandpp wayland-protocols libxkbcommon
 SDL2_CONF_OPTS += --enable-video-wayland
 else
 SDL2_CONF_OPTS += --disable-video-wayland
+endif
+
+# batocera - libdecor
+ifeq ($(BR2_PACKAGE_LIBDECOR),y)
+SDL2_DEPENDENCIES += libdecor
 endif
 
 # batocera - enable/disable Vulkan support
