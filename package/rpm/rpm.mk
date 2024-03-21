@@ -23,7 +23,6 @@ RPM_LICENSE_FILES = COPYING
 RPM_CPE_ID_VENDOR = rpm
 RPM_SELINUX_MODULES = rpm
 
-#batocera
 RPM_INSTALL_STAGING = YES
 
 # Don't set --{dis,en}-openmp as upstream wants to abort the build if
