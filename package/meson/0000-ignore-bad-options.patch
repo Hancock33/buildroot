@@ -1,0 +1,14 @@
+diff --git a/mesonbuild/coredata.py b/mesonbuild/coredata.py
+index b12ec8203..a0260e85d 100644
+--- a/mesonbuild/coredata.py
++++ b/mesonbuild/coredata.py
+@@ -973,7 +973,8 @@ class CoreData:
+         if unknown_options:
+             unknown_options_str = ', '.join(sorted(str(s) for s in unknown_options))
+             sub = f'In subproject {subproject}: ' if subproject else ''
+-            raise MesonException(f'{sub}Unknown options: "{unknown_options_str}"')
++            #raise MesonException(f'{sub}Unknown options: "{unknown_options_str}"')
++            mlog.warning(f'{sub}Unknown options: "{unknown_options_str}"')
+ 
+         if not self.is_cross_build():
+             dirty |= self.copy_build_options_from_regular_ones()
