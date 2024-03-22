@@ -11,5 +11,6 @@ GST1_LIBAV_LICENSE = LGPL-2.1+
 GST1_LIBAV_LICENSE_FILES = COPYING
 GST1_LIBAV_DEPENDENCIES =  host-pkgconf ffmpeg gstreamer1 gst1-plugins-base
 GST1_LIBAV_CONF_OPTS = -Ddoc=disabled
+GST1_LIBAV_CONF_OPTS = -Dtests=disabled
 
 $(eval $(meson-package))
