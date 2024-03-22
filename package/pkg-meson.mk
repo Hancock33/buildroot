@@ -158,6 +158,7 @@ define $(2)_CONFIGURE_CMDS
 		-Db_pie=false \
 		-Db_staticpic=$(if $(BR2_m68k_cf),false,true) \
 		-Dstrip=false \
+		-Dtests=false \
 		-Dbuild.pkg_config_path=$$(HOST_DIR)/lib/pkgconfig \
 		-Dbuild.cmake_prefix_path=$$(HOST_DIR)/lib/cmake \
 		$$($$(PKG)_CONF_OPTS) \
@@ -179,6 +180,7 @@ define $(2)_CONFIGURE_CMDS
 		--buildtype=release \
 		--wrap-mode=nodownload \
 		-Dstrip=true \
+		-Dtests=false \
 		$$($$(PKG)_CONF_OPTS) \
 		$$($$(PKG)_SRCDIR) $$($$(PKG)_SRCDIR)/build
 endef
