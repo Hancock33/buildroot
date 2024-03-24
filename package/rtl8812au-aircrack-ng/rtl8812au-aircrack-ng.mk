@@ -3,8 +3,8 @@
 # rtl8812au-aircrack-ng
 #
 ################################################################################
-# Version: Commits on Mar 15, 2024
-RTL8812AU_AIRCRACK_NG_VERSION = f23979f0d20aafb563ac71b56fcbc74268c798c2
+# Version: Commits on Mar 23, 2024
+RTL8812AU_AIRCRACK_NG_VERSION = 4f645eec1718433fbf7f47665266dc302e88d46c
 RTL8812AU_AIRCRACK_NG_SITE = $(call github,aircrack-ng,rtl8812au,$(RTL8812AU_AIRCRACK_NG_VERSION))
 RTL8812AU_AIRCRACK_NG_LICENSE = GPL-2.0
 RTL8812AU_AIRCRACK_NG_LICENSE_FILES = LICENSE
