@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-IGT_GPU_TOOLS_VERSION = e590379e8875cfefdd41e33acf3d1533044d2bcd
+IGT_GPU_TOOLS_VERSION = 0ee4074685c1e184f2d3612ea6eb4d126f9a2e23
 IGT_GPU_TOOLS_SOURCE = igt-gpu-tools-$(IGT_GPU_TOOLS_VERSION).tar.bz2
 IGT_GPU_TOOLS_SITE = https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/archive/$(IGT_GPU_TOOLS_VERSION)
 IGT_GPU_TOOLS_LICENSE = MIT
