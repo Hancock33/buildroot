@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-COREUTILS_VERSION = 9.3
+COREUTILS_VERSION = 9.4
 COREUTILS_SITE = $(BR2_GNU_MIRROR)/coreutils
 COREUTILS_SOURCE = coreutils-$(COREUTILS_VERSION).tar.xz
 COREUTILS_LICENSE = GPL-3.0+
@@ -13,6 +13,10 @@ COREUTILS_CPE_ID_VENDOR = gnu
 
 COREUTILS_CONF_OPTS = --disable-rpath \
 	$(if $(BR2_TOOLCHAIN_USES_MUSL),--with-included-regex)
+
+ifneq ($(BR2_TIME_BITS_64),y)
+COREUTILS_CONF_OPTS += --disable-year2038
+endif
 
 ifeq ($(BR2_PACKAGE_COREUTILS_INDIVIDUAL_BINARIES),y)
 COREUTILS_CONF_OPTS += --disable-single-binary
