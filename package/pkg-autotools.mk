@@ -187,7 +187,7 @@ define $(2)_CONFIGURE_CMDS
 		--disable-tests \
 		$$(if $$($$(PKG)_OVERRIDE_SRCDIR),,--disable-dependency-tracking) \
 		--enable-ipv6 \
-		$$(NLS_OPTS) \
+		--disable-nls \
 		$$(SHARED_STATIC_LIBS_OPTS) \
 		$$(QUIET) $$($$(PKG)_CONF_OPTS) \
 	)
