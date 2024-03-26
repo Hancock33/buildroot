@@ -14,6 +14,10 @@ COREUTILS_CPE_ID_VENDOR = gnu
 COREUTILS_CONF_OPTS = --disable-rpath \
 	$(if $(BR2_TOOLCHAIN_USES_MUSL),--with-included-regex)
 
+ifneq ($(BR2_TIME_BITS_64),y)
+COREUTILS_CONF_OPTS += --disable-year2038
+endif
+
 ifeq ($(BR2_PACKAGE_COREUTILS_INDIVIDUAL_BINARIES),y)
 COREUTILS_CONF_OPTS += --disable-single-binary
 else

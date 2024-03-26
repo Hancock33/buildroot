@@ -3,6 +3,8 @@ From: Bernd Kuhls <bernd@kuhls.net>
 Date: Sat, 9 Mar 2024 23:15:52 +0100
 Subject: [PATCH] input_uvc: fix 'undefined symbol: resolutions_help'
 
+Upstream: https://github.com/jacksonliam/mjpg-streamer/pull/401
+
 Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 ---
  mjpg-streamer-experimental/plugins/input_uvc/CMakeLists.txt | 1 +
