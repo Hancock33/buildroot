@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_XLOAD_VERSION = 1.1.4
+XAPP_XLOAD_VERSION = 1.2.0
 XAPP_XLOAD_SOURCE = xload-$(XAPP_XLOAD_VERSION).tar.xz
 XAPP_XLOAD_SITE = http://xorg.freedesktop.org/releases/individual/app
 XAPP_XLOAD_LICENSE = MIT
