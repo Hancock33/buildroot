@@ -3,8 +3,8 @@
 # rtl8822cs
 #
 ################################################################################
-# Version: Commits on Jan 30, 2024
-RTL8822CS_VERSION = fda6cd263e89567272060e6182a39aee20b894c4
+# Version: Commits on Mar 27, 2024
+RTL8822CS_VERSION = 40450f759c8a930d271b5f0a663685f412debc72
 RTL8822CS_SITE = $(call github,jethome-ru,rtl88x2cs,$(RTL8822CS_VERSION))
 RTL8822CS_LICENSE = GPL-2.0
 
