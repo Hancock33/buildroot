@@ -90,7 +90,8 @@ HOST_GCC_COMMON_CONF_OPTS = \
 	--disable-libssp \
 	--disable-multilib \
 	--disable-decimal-float \
-	--enable-plugins \
+	--with-linker-hash-style=gnu \
+	--enable-plugin \
 	--enable-lto \
 	--enable-gold \
 	--with-gmp=$(HOST_DIR) \
