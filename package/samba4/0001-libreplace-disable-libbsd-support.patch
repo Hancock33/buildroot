@@ -16,10 +16,10 @@ Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
  1 file changed, 15 deletions(-)
 
 diff --git a/lib/replace/wscript b/lib/replace/wscript
-index 240d730cbee..c6d8df43c74 100644
+index 77e655bb68b..6483fe28643 100644
 --- a/lib/replace/wscript
 +++ b/lib/replace/wscript
-@@ -436,21 +436,6 @@ def configure(conf):
+@@ -443,32 +443,6 @@ def configure(conf):
  
      strlcpy_in_bsd = False
  
@@ -28,6 +28,17 @@ index 240d730cbee..c6d8df43c74 100644
 -        if conf.CHECK_FUNCS_IN('strlcpy strlcat', 'bsd', headers='bsd/string.h',
 -                               checklibc=True):
 -            strlcpy_in_bsd = True
+-    elif conf.env.enable_fuzzing:
+-        # Just to complicate it more, some versions of Honggfuzz have
+-        # got strlcpy and strlcat in libc, but not in <string.h>
+-        # (unless it is there coincidentally, on a BSD). Therefore we
+-        # can't use CHECK_FUNCS alone to decide whether to add the
+-        # headers to replace.h.
+-        #
+-        # As this is only known to happen on a fuzzing compiler, we'll
+-        # skip the check when not in fuzzing mode.
+-        conf.CHECK_HEADERS('bsd/string.h')
+-
 -    if not conf.CHECK_FUNCS('getpeereid'):
 -        conf.CHECK_FUNCS_IN('getpeereid', 'bsd', headers='sys/types.h bsd/unistd.h')
 -    if not conf.CHECK_FUNCS_IN('setproctitle', 'setproctitle', headers='setproctitle.h'):
@@ -41,6 +52,3 @@ index 240d730cbee..c6d8df43c74 100644
      conf.CHECK_CODE('''
                  struct ucred cred;
                  socklen_t cred_len;
--- 
-2.20.1
-
