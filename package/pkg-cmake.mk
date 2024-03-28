@@ -36,7 +36,9 @@ CMAKE_QUIET = -DCMAKE_RULE_MESSAGES=OFF -DCMAKE_INSTALL_MESSAGE=NEVER
 endif
 
 ifeq ($(BR_CMAKE_USE_CLANG),y)
-CMAKE_CLANG = -DCMAKE_C_COMPILER=$(HOST_DIR)/bin/clang -DCMAKE_CXX_COMPILER=$(HOST_DIR)/bin/clang++
+CMAKE_CLANG = -DCMAKE_C_COMPILER=$(HOST_DIR)/bin/clang -DCMAKE_CXX_COMPILER=$(HOST_DIR)/bin/clang++ \
+              -DCMAKE_C_COMPILER_LAUNCHER=$(HOST_DIR)/bin/ccache \
+              -DCMAKE_CXX_COMPILER_LAUNCHER=$(HOST_DIR)/bin/ccache
 endif
 
 ################################################################################
