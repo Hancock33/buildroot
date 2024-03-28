@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Mar 27, 2024
-RPI_FIRMWARE_VERSION = 56cbe64afde9e5c034084ee423c18f56abd191db
+RPI_FIRMWARE_VERSION = a43358b730465f0b53287b890ee73ec2d3c1819a
 RPI_FIRMWARE_SITE = $(call github,raspberrypi,firmware,$(RPI_FIRMWARE_VERSION))
 RPI_FIRMWARE_LICENSE = BSD-3-Clause
 RPI_FIRMWARE_LICENSE_FILES = boot/LICENCE.broadcom
