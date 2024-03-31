@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-JASPER_VERSION = 4.2.2
+JASPER_VERSION = 4.2.3
 JASPER_SITE = https://github.com/jasper-software/jasper/releases/download/version-$(JASPER_VERSION)
 JASPER_INSTALL_STAGING = YES
 JASPER_LICENSE = JasPer-2.0
