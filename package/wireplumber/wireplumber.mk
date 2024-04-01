@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-WIREPLUMBER_VERSION = 0.4.17
+WIREPLUMBER_VERSION = 0.4.17-4-g3a40a8795b41950cd759e8d84b8df5f6a8e1d4b5
 WIREPLUMBER_SOURCE = wireplumber-$(WIREPLUMBER_VERSION).tar.bz2
 WIREPLUMBER_SITE = https://gitlab.freedesktop.org/pipewire/wireplumber/-/archive/$(WIREPLUMBER_VERSION)
 WIREPLUMBER_LICENSE = MIT
@@ -52,6 +52,5 @@ define WIREPLUMBER_DWD_DEPENDENCIES
 endef
 WIREPLUMBER_DEPENDENCIES += host-libcurl
 WIREPLUMBER_PRE_CONFIGURE_HOOKS += WIREPLUMBER_DWD_DEPENDENCIES
-
 
 $(eval $(meson-package))

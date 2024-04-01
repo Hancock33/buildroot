@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PIPEWIRE_VERSION = 1.0.0-591-gaf310523db41893503d4cf1799783e7d2bd86625
+PIPEWIRE_VERSION = 1.0.0-598-gd02cec53c6f6b791bdaaef4179839d8b2bdce8a0
 PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
@@ -12,6 +12,8 @@ PIPEWIRE_INSTALL_STAGING = YES
 PIPEWIRE_DEPENDENCIES = host-pkgconf $(TARGET_NLS_DEPENDENCIES)
 PIPEWIRE_LDFLAGS = $(TARGET_NLS_LIBS)
 
+# batocera - no session manager
+# we use the wireplumber package
 PIPEWIRE_CONF_OPTS += \
 	-Ddocs=disabled \
 	-Dman=disabled \
@@ -28,21 +30,10 @@ PIPEWIRE_CONF_OPTS += \
 	-Dvideoconvert=enabled \
 	-Dvideotestsrc=enabled \
 	-Dvolume=enabled \
-	-Dsession-managers=wireplumber \
+	-Dsession-managers= \
 	-Dlegacy-rtkit=false \
 	-Davb=disabled \
 	-Dlibcanberra=disabled
-
-# batocera
-# this is a not nice workaround
-# i don't know why meson uses bad ssl certificates and doesn't manage to download them
-define PIPEWIRE_DWD_DEPENDENCIES
-	mkdir -p $(@D)/subprojects/packagecache
-	$(HOST_DIR)/bin/curl -L https://www.lua.org/ftp/lua-5.4.4.tar.gz               -o $(@D)/subprojects/packagecache/lua-5.4.4.tar.gz
-	$(HOST_DIR)/bin/curl -L https://wrapdb.mesonbuild.com/v2/lua_5.4.4-1/get_patch -o $(@D)/subprojects/packagecache/lua_5.4.4-1_patch.zip
-endef
-PIPEWIRE_DEPENDENCIES += host-libcurl
-PIPEWIRE_PRE_CONFIGURE_HOOKS += PIPEWIRE_DWD_DEPENDENCIES
 
 # batocera
 PIPEWIRE_CONF_OPTS += --wrap-mode=default
@@ -213,6 +204,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dpw-cat=disabled -Dsndfile=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_OPUS),y)
+PIPEWIRE_CONF_OPTS += -Dopus=enabled
+PIPEWIRE_DEPENDENCIES += opus
+else
+PIPEWIRE_CONF_OPTS += -Dopus=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
 PIPEWIRE_CONF_OPTS += -Dlibpulse=enabled
 PIPEWIRE_DEPENDENCIES += pulseaudio
@@ -227,13 +225,12 @@ else
 PIPEWIRE_CONF_OPTS += -Dreadline=disabled
 endif
 
-# batocera
-#ifeq ($(BR2_PACKAGE_SDL2),y)
-#PIPEWIRE_DEPENDENCIES += sdl2
-#PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
-#else
+ifeq ($(BR2_PACKAGE_SDL2),y)
+PIPEWIRE_DEPENDENCIES += sdl2
+PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
+else
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
-#endif
+endif
 
 ifeq ($(BR2_PACKAGE_PIPEWIRE_COMPRESS_OFFLOAD),y)
 PIPEWIRE_CONF_OPTS += -Dcompress-offload=enabled
