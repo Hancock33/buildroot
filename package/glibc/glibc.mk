@@ -165,7 +165,7 @@ endef
 #
 
 GLIBC_LIBS_LIB = \
-	ld*.so.* libanl.so.* libc.so.* libcrypt.so.* libdl.so.* libgcc_s.so.* \
+	ld*.so.* libanl.so.* libc.so.* libdl.so.* libgcc_s.so.* \
 	libm.so.* libpthread.so.* libresolv.so.* librt.so.* \
 	libutil.so.* libnss_files.so.* libnss_dns.so.* libmvec.so.*
 
