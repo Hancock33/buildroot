@@ -12,15 +12,8 @@ PYTHON_PYMUPDF_SETUP_TYPE = pep517
 PYTHON_PYMUPDF_LICENSE = AGPL-3.0+
 PYTHON_PYMUPDF_LICENSE_FILES = COPYING
 # No license file included in pip, but it's present on github
-PYTHON_PYMUPDF_DEPENDENCIES = \
-	host-python-libclang \
-	host-python-psutil \
-	host-python-setuptools \
-	host-python-swig \
-	host-swig \
-	freetype \
-	mupdf \
-	zlib
+PYTHON_PYMUPDF_DEPENDENCIES = freetype host-swig mupdf zlib
+PYTHON_PYMUPDF_BUILD_OPTS = --skip-dependency-check
 
 PYTHON_PYMUPDF_ENV = \
 	PYMUPDF_INCLUDES="$(STAGING_DIR)/usr/include/freetype2:$(STAGING_DIR)/usr/include" \
