@@ -39,7 +39,7 @@ GST1_PLUGINS_BASE_DEPENDENCIES = gstreamer1 $(TARGET_NLS_DEPENDENCIES)
 GST1_PLUGINS_BASE_LDFLAGS = $(TARGET_LDFLAGS) $(TARGET_NLS_LIBS)
 
 # batocera
-GST1_PLUGINS_BASE_DEPENDENCIES += libgraphene
+GST1_PLUGINS_BASE_DEPENDENCIES += graphene
 
 # These plugins are listed in the order from ./configure --help
 
