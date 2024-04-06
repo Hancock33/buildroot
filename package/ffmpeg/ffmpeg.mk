@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 5.1.4
+FFMPEG_VERSION = 6.1.1
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
-FFMPEG_SITE = http://ffmpeg.org/releases
+FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
 
 FFMPEG_LICENSE = LGPL-2.1+, libjpeg license
@@ -32,10 +32,6 @@ FFMPEG_CONF_OPTS = \
 	--disable-gray \
 	--enable-swscale-alpha \
 	--disable-small \
-	--enable-dct \
-	--enable-fft \
-	--enable-mdct \
-	--enable-rdft \
 	--disable-crystalhd \
 	--disable-dxva2 \
 	--enable-runtime-cpudetect \
@@ -325,11 +321,17 @@ else
 FFMPEG_CONF_OPTS += --disable-libbluray
 endif
 
+ifeq ($(BR2_PACKAGE_LIBVPL),y)
+FFMPEG_CONF_OPTS += --enable-libvpl --disable-libmfx
+FFMPEG_DEPENDENCIES += libvpl
+else
 ifeq ($(BR2_PACKAGE_INTEL_MEDIASDK),y)
 FFMPEG_CONF_OPTS += --enable-libmfx
 FFMPEG_DEPENDENCIES += intel-mediasdk
 else
 FFMPEG_CONF_OPTS += --disable-libmfx
+endif
+FFMPEG_CONF_OPTS += --disable-libvpl
 endif
 
 ifeq ($(BR2_PACKAGE_RTMPDUMP),y)
@@ -554,13 +556,6 @@ endif
 
 FFMPEG_CONF_ENV += CFLAGS="$(FFMPEG_CFLAGS)"
 FFMPEG_CONF_OPTS += $(call qstrip,$(BR2_PACKAGE_FFMPEG_EXTRACONF))
-
-define FFMPEG_APPLY_LOCAL_PATCHES
-	if [ -d $(@D)/$(FFMPEG_VERSION) ]; then \
-		$(APPLY_PATCHES) $(@D) $(@D)/$(FFMPEG_VERSION) *.patch; \
-	fi
-endef
-FFMPEG_POST_PATCH_HOOKS += FFMPEG_APPLY_LOCAL_PATCHES
 
 # Override FFMPEG_CONFIGURE_CMDS: FFmpeg does not support --target and others
 define FFMPEG_CONFIGURE_CMDS
