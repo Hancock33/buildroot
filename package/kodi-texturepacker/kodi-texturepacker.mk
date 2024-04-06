@@ -21,7 +21,7 @@ HOST_KODI_TEXTUREPACKER_DEPENDENCIES = \
 
 HOST_KODI_TEXTUREPACKER_CXXFLAGS = \
 	$(HOST_CXXFLAGS) \
-	-std=c++0x \
+	-std=c++17 \
 	-DTARGET_POSIX \
 	-DTARGET_LINUX \
 	-D_LINUX \
@@ -30,11 +30,12 @@ HOST_KODI_TEXTUREPACKER_CXXFLAGS = \
 HOST_KODI_TEXTUREPACKER_CONF_OPTS += \
 	-DCMAKE_CXX_FLAGS="$(HOST_KODI_TEXTUREPACKER_CXXFLAGS)" \
 	-DCMAKE_MODULE_PATH=$(@D)/cmake/modules \
+	-DKODI_SOURCE_DIR=$(@D) \
 	-Wno-dev
 
 define HOST_KODI_TEXTUREPACKER_INSTALL_CMDS
 	$(INSTALL) -m 755 -D \
-		$(@D)/tools/depends/native/TexturePacker/TexturePacker \
+		$(@D)/tools/depends/native/TexturePacker/src/TexturePacker \
 		$(HOST_DIR)/bin/kodi-TexturePacker
 endef
 
