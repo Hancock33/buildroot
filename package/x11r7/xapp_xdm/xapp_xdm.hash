@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2024-March/003482.html
-sha256  4bb028de68fa3ca918d46109123095c8ba89bea97c965ccc79c6387bfd84b172  xdm-1.1.15.tar.xz
-sha512  b36c978b6a54e3db43f929c52cbf47ea226dc0fe018f8284d8c495c73f269af33a7441d5a5072d8e9b2a34e9c71767de9d8762bc3ed196b1bebc78b016f7d8bb  xdm-1.1.15.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2024-April/003500.html
+sha256  bcf2209881e95708363777b282fedb1c1055790f38046fa46beff2f1d087679c  xdm-1.1.16.tar.xz
+sha512  a7e0aca67b770b3939aee2c12feac3c0f5efa531ec4a6045ab8b53d9c35b701ab5533447feb39b7cbe0df74ff8483ee1637314b847b37a6c3f7e9c8fdf5e172d  xdm-1.1.16.tar.xz
 # Locally computed
 sha256  b33b4bebbd6511b3e15315e8e29d67f25334ee45da8b7da6e6e97c53a70c6923  COPYING
