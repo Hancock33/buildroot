@@ -1,16 +1,16 @@
 config BR2_PACKAGE_PERL_MAIL_SPAMASSASSIN
 	bool "perl-mail-spamassassin"
 	depends on !BR2_STATIC_LIBS
-	select BR2_PACKAGE_PERL_DIGEST_SHA1
-	select BR2_PACKAGE_PERL_HTML_PARSER
-	select BR2_PACKAGE_PERL_MAIL_DKIM
-	select BR2_PACKAGE_PERL_NET_DNS
-	select BR2_PACKAGE_PERL_NETADDR_IP
+	select BR2_PACKAGE_PERL_DIGEST_SHA1 # runtime
+	select BR2_PACKAGE_PERL_HTML_PARSER # runtime
+	select BR2_PACKAGE_PERL_MAIL_DKIM # runtime
+	select BR2_PACKAGE_PERL_NET_DNS # runtime
+	select BR2_PACKAGE_PERL_NETADDR_IP # runtime
 	help
 	  SpamAssassin is an extensible email filter which is used to
 	  identify spam
 
-	  http://spamassassin.apache.com/
+	  https://spamassassin.apache.org
 
 comment "perl-mail-spamassassin needs a toolchain w/ dynamic library"
 	depends on BR2_STATIC_LIBS

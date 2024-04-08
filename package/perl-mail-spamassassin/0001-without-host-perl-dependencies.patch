@@ -11,11 +11,20 @@ The cross-compilation case is not supported, a host executable gets built.
 For this reason, this step is disabled.
 (note: the option BUILD_SPAMC=yes/no is handled only on Windows)
 
+Upstream: Not applicable
+
 Signed-off-by: Francois Perrad <francois.perrad@gadz.org>
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+[- added Upstream: tag
+ - rebased for 4.0.1
+ - removed "check optional module versions" portion of the patch due to
+   upstream commit
+   https://github.com/apache/spamassassin/commit/cf16b312343633c70f52d372c6b3635be9cbeb14
+   which only prints a warning during configure instead of exit 0]
 
 --- a/Makefile.PL
 +++ b/Makefile.PL
-@@ -133,10 +133,8 @@
+@@ -134,10 +134,8 @@
        'spamassassin.raw' => 'spamassassin',
        'sa-learn.raw'     => 'sa-learn',
        'sa-update.raw'    => 'sa-update',
@@ -26,24 +35,7 @@ Signed-off-by: Francois Perrad <francois.perrad@gadz.org>
        'spamd/spamd.raw'  => 'spamd/spamd',
      },
  
-@@ -304,16 +302,6 @@
- 
- ';
- 
--# check optional module versions
--use lib 'lib';
--use Mail::SpamAssassin::Util::DependencyInfo;
--if (Mail::SpamAssassin::Util::DependencyInfo::long_diagnostics() != 0) {
--  # missing required module?  die!
--  # bug 5908: http://cpantest.grango.org/wiki/CPANAuthorNotes says
--  # we should exit with a status of 0, but without creating Makefile
--  exit 0;
--}
--
- foreach my $file (@FILES_THAT_MUST_EXIST) {
-   open (TOUCH, ">>$file") or die "cannot touch '$file'";
-   close TOUCH;
-@@ -1013,7 +1001,7 @@
+@@ -1071,7 +1055,7 @@
  
  FIXBANG		= -Msharpbang \
                    -Mconditional \
@@ -52,7 +44,7 @@ Signed-off-by: Francois Perrad <francois.perrad@gadz.org>
  		  -DPERL_WARN="$(PERL_WARN)" \
  		  -DPERL_TAINT="$(PERL_TAINT)"
  
-@@ -1023,7 +1011,7 @@
+@@ -1081,7 +1065,7 @@
  sa-learn: sa-learn.raw
  	$(PREPROCESS) $(FIXBYTES) $(FIXVARS) $(FIXBANG) -m$(PERM_RWX) -i$? -o$@
  

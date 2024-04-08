@@ -323,12 +323,11 @@ endif
 ifeq ($(BR2_PACKAGE_LIBVPL),y)
 FFMPEG_CONF_OPTS += --enable-libvpl --disable-libmfx
 FFMPEG_DEPENDENCIES += libvpl
-else
-ifeq ($(BR2_PACKAGE_INTEL_MEDIASDK),y)
-FFMPEG_CONF_OPTS += --enable-libmfx
+else ifeq ($(BR2_PACKAGE_INTEL_MEDIASDK),y)
+FFMPEG_CONF_OPTS += --disable-libvpl --enable-libmfx
 FFMPEG_DEPENDENCIES += intel-mediasdk
 else
-FFMPEG_CONF_OPTS += --disable-libmfx
+FFMPEG_CONF_OPTS += --disable-libvpl --disable-libmfx
 endif
 FFMPEG_CONF_OPTS += --disable-libvpl
 endif
