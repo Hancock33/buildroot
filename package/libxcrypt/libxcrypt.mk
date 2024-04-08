@@ -5,12 +5,11 @@
 ################################################################################
 
 LIBXCRYPT_VERSION = 4.4.36
-LIBXCRYPT_SITE = $(call github,besser82,libxcrypt,v$(LIBXCRYPT_VERSION))
+LIBXCRYPT_SITE = https://github.com/besser82/libxcrypt/releases/download/v$(LIBXCRYPT_VERSION)
+LIBXCRYPT_SOURCE = libxcrypt-$(LIBXCRYPT_VERSION).tar.xz
 LIBXCRYPT_LICENSE = LGPL-2.1+
 LIBXCRYPT_LICENSE_FILES = LICENSING COPYING.LIB
 LIBXCRYPT_INSTALL_STAGING = YES
-LIBXCRYPT_AUTORECONF = YES
-LIBXCRYPT_DEPENDENCIES = glibc
 
 # libxcrypt is part of the toolchain so disable the toolchain dependency
 LIBXCRYPT_ADD_TOOLCHAIN_DEPENDENCY = NO
