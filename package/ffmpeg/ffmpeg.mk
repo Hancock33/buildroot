@@ -329,8 +329,6 @@ FFMPEG_DEPENDENCIES += intel-mediasdk
 else
 FFMPEG_CONF_OPTS += --disable-libvpl --disable-libmfx
 endif
-FFMPEG_CONF_OPTS += --disable-libvpl
-endif
 
 ifeq ($(BR2_PACKAGE_RTMPDUMP),y)
 FFMPEG_CONF_OPTS += --enable-librtmp
