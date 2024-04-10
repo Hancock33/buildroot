@@ -3,8 +3,8 @@
 # rtl8821au
 #
 ################################################################################
-# Version: Commits on Oct 30, 2022
-RTL8821AU_VERSION = 455e6e4c8a288767b399296da1eeb13eafa70f2b
+# Version: Commits on Apr 08, 2024 (branch@v5.2.6)
+RTL8821AU_VERSION = 8ea0ed9da764448c7310a27744ab5814289f35a8
 RTL8821AU_SITE = $(call github,lwfinger,rtl8812au,$(RTL8821AU_VERSION))
 RTL8821AU_LICENSE = GPL-2.0
 RTL8821AU_LICENSE_FILES = LICENSE
