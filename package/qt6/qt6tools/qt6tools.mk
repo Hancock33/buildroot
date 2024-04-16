@@ -34,9 +34,7 @@ QT6TOOLS_CONF_OPTS = \
 QT6TOOLS_DEPENDENCIES = \
 	host-pkgconf \
 	host-qt6tools \
-	qt6base \
-	host-clang \
-	host-lld
+	qt6base
 
 HOST_QT6TOOLS_CONF_OPTS = \
 	-DFEATURE_assistant=FALSE \
