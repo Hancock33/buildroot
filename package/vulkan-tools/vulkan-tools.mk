@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-VULKAN_TOOLS_VERSION = d14404b26e17086a707ea6ff5f7342ed5b9938ca
-VULKAN_TOOLS_SITE = $(call github,KhronosGroup,Vulkan-Tools,$(VULKAN_TOOLS_VERSION))
+VULKAN_TOOLS_VERSION = $(VULKAN_HEADERS_VERSION)
+VULKAN_TOOLS_SITE = $(call github,KhronosGroup,Vulkan-Tools,v$(VULKAN_TOOLS_VERSION))
 VULKAN_TOOLS_LICENSE = Apache-2.0
 VULKAN_TOOLS_LICENSE_FILES = LICENSE.txt
 VULKAN_TOOLS_INSTALL_STAGING = YES
