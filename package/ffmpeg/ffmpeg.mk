@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = n6.1.1-34-g5e45c27ba9baf576e548e226162be7e104328cc0
+FFMPEG_VERSION = n6.1.1-93-g9593b727e2751e5a79be86a7327a98f3422fa505
 FFMPEG_SITE = $(call github,FFmpeg,FFmpeg,$(FFMPEG_VERSION))
 FFMPEG_INSTALL_STAGING = YES
 
