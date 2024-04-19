@@ -23,7 +23,7 @@ endif
 
 ifeq ($(BR2_BINUTILS_VERSION_GIT),y)
 #git describe --abbrev=40 origin/binutils-2_42-branch | cut -d '-' -f 2-
-	BINUTILS_VERSION = 2_42-101-g68c4e2a27af70f69b600b304e52b3496586c9232
+	BINUTILS_VERSION = 2_42-102-gb6c7d514717fbe437dcf53754cb88a388423adec
 	BINUTILS_SITE = $(call github,sailfishos-mirror,gdb,$(BINUTILS_VERSION))
 	BINUTILS_SOURCE = binutils-$(BINUTILS_VERSION).tar.gz
 	BINUTILS_FROM_GIT = y
