@@ -52,9 +52,9 @@ QT6BASE_CONF_OPTS = \
 	-DFEATURE_icu=OFF \
 	-DFEATURE_glib=OFF \
 	-DFEATURE_system_doubleconversion=ON \
-	-DFEATURE_system_pcre2=ON \
 	-DFEATURE_system_zlib=ON \
 	-DFEATURE_system_libb2=ON
+#	-DFEATURE_system_pcre2=ON \
 
 # x86 optimization options. While we have a BR2_X86_CPU_HAS_AVX512, it
 # is not clear yet how it maps to all the avx512* options of Qt, so we
@@ -83,9 +83,7 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-double-conversion \
 	host-libb2 \
 	host-pcre2 \
-	host-zlib \
-	host-clang \
-	host-lld
+	host-zlib
 HOST_QT6BASE_CONF_OPTS = \
 	-DFEATURE_gui=ON \
 	-DFEATURE_concurrent=OFF \
