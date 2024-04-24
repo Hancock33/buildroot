@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FWTS_VERSION = 23.07.00
+FWTS_VERSION = 24.03.00
 FWTS_SOURCE = fwts-V$(FWTS_VERSION).tar.gz
 FWTS_SITE = http://fwts.ubuntu.com/release
 FWTS_STRIP_COMPONENTS = 0
