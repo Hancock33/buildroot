@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-OPENLDAP_VERSION = 2.5.16
+OPENLDAP_VERSION = 2.6.7
 OPENLDAP_SOURCE = openldap-$(OPENLDAP_VERSION).tgz
 OPENLDAP_SITE = https://www.openldap.org/software/download/OpenLDAP/openldap-release
 OPENLDAP_LICENSE = OpenLDAP Public License
@@ -52,7 +52,8 @@ OPENLDAP_CONF_OPTS += \
 	--enable-dynamic=$(if $(BR2_STATIC_LIBS),no,yes) \
 	--with-tls=$(OPENLDAP_TLS) \
 	--with-mp=$(OPENLDAP_MP) \
-	CPPFLAGS="$(TARGET_CPPFLAGS) $(OPENLDAP_CPPFLAGS)"
+	CPPFLAGS="$(TARGET_CPPFLAGS) $(OPENLDAP_CPPFLAGS)" \
+	CFLAGS="$(TARGET_CFLAGS) -Wno-incompatible-pointer-types" \
 
 # Somehow, ${STRIP} does not percolates through to the shtool script
 # used to install the executables; thus, that script tries to run the
