@@ -1,3 +1,3 @@
-# From https://gstreamer.freedesktop.org/src/gstreamer-vaapi/gstreamer-vaapi-1.24.2.tar.xz.sha256sum
-sha256  cc5ab8c88443e0f5bf23d6110b4aac33df59e4ae626f536d968b1605cc7b962f  gstreamer-vaapi-1.24.2.tar.xz
+# From https://gstreamer.freedesktop.org/src/gstreamer-vaapi/gstreamer-vaapi-1.24.3.tar.xz.sha256sum
+sha256  845f2efe0dca8dab234dde8fb091da2cd06a9d2a683422b56dcb688954f9070e  gstreamer-vaapi-1.24.3.tar.xz
 sha256  dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551  COPYING.LIB
