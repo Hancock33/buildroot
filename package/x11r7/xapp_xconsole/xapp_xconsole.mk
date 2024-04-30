@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_XCONSOLE_VERSION = 1.0.8
+XAPP_XCONSOLE_VERSION = 1.1.0
 XAPP_XCONSOLE_SOURCE = xconsole-$(XAPP_XCONSOLE_VERSION).tar.xz
 XAPP_XCONSOLE_SITE = https://xorg.freedesktop.org/releases/individual/app
 XAPP_XCONSOLE_LICENSE = MIT
