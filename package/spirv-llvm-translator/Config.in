@@ -1,0 +1,11 @@
+config BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
+	bool "spirv-llvm-translator"
+	depends on BR2_INSTALL_LIBSTDCPP
+	help
+	  A tool and a library for bi-directional translation 
+	  between SPIR-V and LLVM IR
+
+	  https://www.khronos.org/registry/spir-v
+
+comment "spirv-llvm-translator needs a toolchain w/ C++"
+	depends on !BR2_INSTALL_LIBSTDCPP

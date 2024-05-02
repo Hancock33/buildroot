@@ -60,6 +60,7 @@ config BR2_PACKAGE_MESA3D_OPENCL
 	select BR2_PACKAGE_CLANG
 	select BR2_PACKAGE_LIBCLC
 	select BR2_PACKAGE_HAS_LIBOPENCL
+	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
 
 # inform the .mk file of gallium, dri, dri3 or vulkan driver selection
 config BR2_PACKAGE_MESA3D_DRI3

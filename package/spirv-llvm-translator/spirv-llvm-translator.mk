@@ -4,10 +4,8 @@
 #
 ################################################################################
 
-# Generate version string using:
-#   git describe --tags --match 'v17*' --abbrev=40 origin/llvm_release_170
-SPIRV_LLVM_TRANSLATOR_VERSION = v17.0.0-6-g7088351420a8f0c3e5f9be678fd1d16ae826e37f
-SPIRV_LLVM_TRANSLATOR_SITE = $(call github,KhronosGroup,SPIRV-LLVM-Translator,$(SPIRV_LLVM_TRANSLATOR_VERSION))
+SPIRV_LLVM_TRANSLATOR_VERSION = 18.1.0
+SPIRV_LLVM_TRANSLATOR_SITE = $(call github,KhronosGroup,SPIRV-LLVM-Translator,v$(SPIRV_LLVM_TRANSLATOR_VERSION))
 SPIRV_LLVM_TRANSLATOR_LICENSE = NCSA
 SPIRV_LLVM_TRANSLATOR_LICENSE_FILES = LICENSE.TXT
 SPIRV_LLVM_TRANSLATOR_INSTALL_STAGING = YES
