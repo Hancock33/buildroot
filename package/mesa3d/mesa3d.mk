@@ -354,7 +354,6 @@ HOST_MESA3D_DEPENDENCIES += host-python-mako \
 	host-spirv-llvm-translator
 
 HOST_MESA3D_CONF_OPTS += -Dllvm=enabled
-HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=false
 HOST_MESA3D_CONF_OPTS += -Dintel-clc=enabled
 HOST_MESA3D_CONF_OPTS += -Dgallium-drivers=''
 HOST_MESA3D_CONF_OPTS += -Dvulkan-drivers=''
@@ -362,6 +361,12 @@ HOST_MESA3D_CONF_OPTS += -Dplatforms=''
 HOST_MESA3D_CONF_OPTS += -Dglx=disabled
 HOST_MESA3D_CONF_OPTS += -Dlibunwind=disabled
 HOST_MESA3D_CONF_OPTS += -Dzstd=disabled
+
+ifeq ($(BR2_PACKAGE_LLVM_RTTI),y)
+	HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=true
+else
+	HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=false
+endif
 
 define HOST_MESA3D_INSTALL_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/build/src/intel/compiler/intel_clc $(HOST_DIR)/bin/intel_clc
