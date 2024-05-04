@@ -62,10 +62,7 @@ endif
 # libMesaOpenCL and CL headers are installed
 ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
 	MESA3D_PROVIDES += libopencl
-	MESA3D_DEPENDENCIES += clang libclc spirv-llvm-translator
 	MESA3D_CONF_OPTS += -Dgallium-opencl=standalone
-	MESA3D_CONF_OPTS += -Dmicrosoft-clc=disabled
-	MESA3D_CONF_OPTS += -Dintel-clc=system
 else
 	MESA3D_CONF_OPTS += -Dgallium-opencl=disabled
 endif
@@ -344,18 +341,20 @@ else
 MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
-	HOST_MESA3D_DEPENDENCIES += host-python-mako \
+ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL),y)
+	MESA3D_DEPENDENCIES += host-mesa3d
+	MESA3D_CONF_OPTS += -Dintel-clc=system
+endif
+
+HOST_MESA3D_DEPENDENCIES += host-python-mako \
 	host-python-ply \
 	host-libclc \
 	host-spirv-headers \
 	host-spirv-tools \
 	host-spirv-llvm-translator
-	MESA3D_DEPENDENCIES += host-mesa3d
-endif
 
 HOST_MESA3D_CONF_OPTS += -Dllvm=enabled
-HOST_MESA3D_CONF_OPTS += -Dshared-llvm=enabled
+HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=false
 HOST_MESA3D_CONF_OPTS += -Dintel-clc=enabled
 HOST_MESA3D_CONF_OPTS += -Dgallium-drivers=''
 HOST_MESA3D_CONF_OPTS += -Dvulkan-drivers=''
