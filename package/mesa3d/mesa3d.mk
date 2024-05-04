@@ -65,6 +65,7 @@ MESA3D_DEPENDENCIES += clang libclc spirv-llvm-translator
 MESA3D_CONF_OPTS += -Dgallium-opencl=standalone
 MESA3D_CONF_OPTS += -Dmicrosoft-clc=disabled
 MESA3D_CONF_OPTS += -Dintel-clc=system
+
 else
 MESA3D_CONF_OPTS += -Dgallium-opencl=disabled
 endif
@@ -343,7 +344,8 @@ else
 MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
-ifeq ($(BR2_x86_64),y)
+ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
+	HOST_MESA3D_DEPENDENCIES += host-libclc host-spirv-tools
 	MESA3D_DEPENDENCIES += host-mesa3d
 endif
 

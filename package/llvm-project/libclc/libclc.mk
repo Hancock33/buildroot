@@ -40,3 +40,4 @@ LIBCLC_CONF_OPTS = \
 	-DLLVM_CONFIG="$(HOST_DIR)/bin/llvm-config"
 
 $(eval $(cmake-package))
+$(eval $(host-cmake-package))
