@@ -345,7 +345,7 @@ MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
-	HOST_MESA3D_DEPENDENCIES += host-libclc host-spirv-tools
+	HOST_MESA3D_DEPENDENCIES += host-libclc host-spirv-tools host-python-mako
 	MESA3D_DEPENDENCIES += host-mesa3d
 endif
 
