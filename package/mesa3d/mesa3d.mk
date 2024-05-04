@@ -19,6 +19,7 @@ MESA3D_DEPENDENCIES = \
 	host-bison \
 	host-flex \
 	host-python-mako \
+	host-python-ply \
 	expat \
 	libdrm \
 	zlib \
@@ -344,7 +345,12 @@ MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
-	HOST_MESA3D_DEPENDENCIES += host-libclc host-spirv-tools host-python-mako host-spirv-llvm-translator
+	HOST_MESA3D_DEPENDENCIES += host-python-mako \
+	host-python-ply \
+	host-libclc \
+	host-spirv-headers \
+	host-spirv-tools \
+	host-spirv-llvm-translator
 	MESA3D_DEPENDENCIES += host-mesa3d
 endif
 
