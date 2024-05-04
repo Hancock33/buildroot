@@ -63,6 +63,8 @@ ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
 MESA3D_PROVIDES += libopencl
 MESA3D_DEPENDENCIES += clang libclc spirv-llvm-translator
 MESA3D_CONF_OPTS += -Dgallium-opencl=standalone
+MESA3D_CONF_OPTS += -Dmicrosoft-clc=disabled
+MESA3D_CONF_OPTS += -Dintel-clc=system
 else
 MESA3D_CONF_OPTS += -Dgallium-opencl=disabled
 endif
@@ -341,4 +343,23 @@ else
 MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
+ifeq ($(BR2_x86_64),y)
+	MESA3D_DEPENDENCIES += host-mesa3d
+endif
+
+HOST_MESA3D_CONF_OPTS += -Dllvm=enabled
+HOST_MESA3D_CONF_OPTS += -Dshared-llvm=enabled
+HOST_MESA3D_CONF_OPTS += -Dintel-clc=enabled
+HOST_MESA3D_CONF_OPTS += -Dgallium-drivers=''
+HOST_MESA3D_CONF_OPTS += -Dvulkan-drivers=''
+HOST_MESA3D_CONF_OPTS += -Dplatforms=''
+HOST_MESA3D_CONF_OPTS += -Dglx=disabled
+HOST_MESA3D_CONF_OPTS += -Dlibunwind=disabled
+HOST_MESA3D_CONF_OPTS += -Dzstd=disabled
+
+define HOST_MESA3D_INSTALL_CMDS
+	$(INSTALL) -D -m 0755 $(@D)/build/src/intel/compiler/intel_clc $(HOST_DIR)/bin/intel_clc
+endef
+
 $(eval $(meson-package))
+$(eval $(host-meson-package))
