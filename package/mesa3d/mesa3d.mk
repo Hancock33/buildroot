@@ -60,14 +60,13 @@ endif
 # Disable opencl-icd: OpenCL lib will be named libOpenCL instead of
 # libMesaOpenCL and CL headers are installed
 ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
-MESA3D_PROVIDES += libopencl
-MESA3D_DEPENDENCIES += clang libclc spirv-llvm-translator
-MESA3D_CONF_OPTS += -Dgallium-opencl=standalone
-MESA3D_CONF_OPTS += -Dmicrosoft-clc=disabled
-MESA3D_CONF_OPTS += -Dintel-clc=system
-
+	MESA3D_PROVIDES += libopencl
+	MESA3D_DEPENDENCIES += clang libclc spirv-llvm-translator
+	MESA3D_CONF_OPTS += -Dgallium-opencl=standalone
+	MESA3D_CONF_OPTS += -Dmicrosoft-clc=disabled
+	MESA3D_CONF_OPTS += -Dintel-clc=system
 else
-MESA3D_CONF_OPTS += -Dgallium-opencl=disabled
+	MESA3D_CONF_OPTS += -Dgallium-opencl=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_NEEDS_ELFUTILS),y)
@@ -345,7 +344,7 @@ MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
-	HOST_MESA3D_DEPENDENCIES += host-libclc host-spirv-tools host-python-mako
+	HOST_MESA3D_DEPENDENCIES += host-libclc host-spirv-tools host-python-mako host-spirv-llvm-translator
 	MESA3D_DEPENDENCIES += host-mesa3d
 endif
 
