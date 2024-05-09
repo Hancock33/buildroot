@@ -1804,6 +1804,8 @@ F:	support/testing/tests/package/test_ddrescue.py
 F:	support/testing/tests/package/test_ddrescue/
 F:	support/testing/tests/package/test_dos2unix.py
 F:	support/testing/tests/package/test_ed.py
+F:	support/testing/tests/package/test_ethtool.py
+F:	support/testing/tests/package/test_ethtool/
 F:	support/testing/tests/package/test_file.py
 F:	support/testing/tests/package/test_file/
 F:	support/testing/tests/package/test_fluidsynth.py
@@ -1837,10 +1839,12 @@ F:	support/testing/tests/package/test_libcamera.py
 F:	support/testing/tests/package/test_libcamera/
 F:	support/testing/tests/package/test_libgpgme.py
 F:	support/testing/tests/package/test_libjxl.py
+F:	support/testing/tests/package/test_links.py
+F:	support/testing/tests/package/test_links/
 F:	support/testing/tests/package/test_lrzip.py
+F:	support/testing/tests/package/test_lrzsz.py
 F:	support/testing/tests/package/test_ltrace.py
 F:	support/testing/tests/package/test_lvm2.py
-F:	support/testing/tests/package/test_lvm2/
 F:	support/testing/tests/package/test_lzip.py
 F:	support/testing/tests/package/test_lsof.py
 F:	support/testing/tests/package/test_lz4.py
@@ -1853,6 +1857,8 @@ F:	support/testing/tests/package/test_mtools.py
 F:	support/testing/tests/package/test_mtr.py
 F:	support/testing/tests/package/test_ncdu.py
 F:	support/testing/tests/package/test_netcat.py
+F:	support/testing/tests/package/test_netsnmp.py
+F:	support/testing/tests/package/test_netsnmp/
 F:	support/testing/tests/package/test_nftables.py
 F:	support/testing/tests/package/test_nftables/
 F:	support/testing/tests/package/test_ngrep.py
@@ -1879,6 +1885,7 @@ F:	support/testing/tests/package/test_rdma_core.py
 F:	support/testing/tests/package/test_rdma_core/
 F:	support/testing/tests/package/test_screen.py
 F:	support/testing/tests/package/test_sed.py
+F:	support/testing/tests/package/test_socat.py
 F:	support/testing/tests/package/test_sox.py
 F:	support/testing/tests/package/test_sqlite.py
 F:	support/testing/tests/package/test_strace.py
@@ -3253,7 +3260,6 @@ F:	package/mesa3d-headers/
 F:	package/nbd/
 F:	package/nut/
 F:	package/nvidia-driver/
-F:	package/omxplayer/
 F:	package/python-pyparsing/
 F:	package/pkg-download.mk
 F:	package/pkg-waf.mk
