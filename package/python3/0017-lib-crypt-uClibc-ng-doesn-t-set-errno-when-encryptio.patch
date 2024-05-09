@@ -1,8 +1,4 @@
-<<<<<<<< HEAD:package/python3/0017-lib-crypt-uClibc-ng-doesn-t-set-errno-when-encryptio.patch
 From f478c8d19d259272294f8502239dfe3fee9fb7e7 Mon Sep 17 00:00:00 2001
-========
-From d6706e827f703c63ab519d104c53833fa5cebe03 Mon Sep 17 00:00:00 2001
->>>>>>>> upstream/master:package/python3/0026-lib-crypt-uClibc-ng-doesn-t-set-errno-when-encryptio.patch
 From: Romain Naour <romain.naour@gmail.com>
 Date: Thu, 12 Nov 2020 00:16:18 +0100
 Subject: [PATCH] lib/crypt: uClibc-ng doesn't set errno when encryption method
@@ -42,9 +38,5 @@ index de4a14a3884..ba482487a7a 100644
          raise
      if result and len(result) == method.total_size:
 -- 
-<<<<<<<< HEAD:package/python3/0017-lib-crypt-uClibc-ng-doesn-t-set-errno-when-encryptio.patch
 2.43.0
-========
-2.44.0
->>>>>>>> upstream/master:package/python3/0026-lib-crypt-uClibc-ng-doesn-t-set-errno-when-encryptio.patch
 

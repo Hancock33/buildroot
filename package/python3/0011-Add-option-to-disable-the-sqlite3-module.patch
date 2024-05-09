@@ -1,12 +1,6 @@
-<<<<<<<< HEAD:package/python3/0011-Add-option-to-disable-the-sqlite3-module.patch
 From 39c39b93110f702f7fd8cefb0f456b40d6ace98a Mon Sep 17 00:00:00 2001
 From: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
 Date: Tue, 6 Feb 2024 22:12:20 +0100
-========
-From aba9392bf6bf68cfd63b1cecfdd3e96d5de2a0b7 Mon Sep 17 00:00:00 2001
-From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
-Date: Wed, 22 Feb 2017 17:20:45 -0800
->>>>>>>> upstream/master:package/python3/0010-Add-option-to-disable-the-sqlite3-module.patch
 Subject: [PATCH] Add option to disable the sqlite3 module
 
 Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
@@ -22,17 +16,10 @@ Signed-off-by: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
  2 files changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-<<<<<<<< HEAD:package/python3/0011-Add-option-to-disable-the-sqlite3-module.patch
 index 28ba723fe83..9bbe16d4cb8 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
 @@ -2106,7 +2106,6 @@ LIBSUBDIRS=	asyncio \
-========
-index 1a0ab0de426..1c7b38ce4f6 100644
---- a/Makefile.pre.in
-+++ b/Makefile.pre.in
-@@ -1933,7 +1933,6 @@ LIBSUBDIRS=	asyncio \
->>>>>>>> upstream/master:package/python3/0010-Add-option-to-disable-the-sqlite3-module.patch
  		multiprocessing multiprocessing/dummy \
  		re \
  		site-packages \
@@ -40,13 +27,8 @@ index 1a0ab0de426..1c7b38ce4f6 100644
  		tkinter \
  		tomllib \
  		turtledemo \
-<<<<<<<< HEAD:package/python3/0011-Add-option-to-disable-the-sqlite3-module.patch
 @@ -2263,6 +2262,10 @@ ifeq (@IDLE@,yes)
  LIBSUBDIRS += idlelib idlelib/Icons
-========
-@@ -2079,6 +2078,10 @@ TESTSUBDIRS += lib2to3/tests			\
- 	lib2to3/tests/data/fixers/myfixes
->>>>>>>> upstream/master:package/python3/0010-Add-option-to-disable-the-sqlite3-module.patch
  endif
  
 +ifeq (@SQLITE3@,yes)
@@ -57,17 +39,10 @@ index 1a0ab0de426..1c7b38ce4f6 100644
  
  .PHONY: libinstall
 diff --git a/configure.ac b/configure.ac
-<<<<<<<< HEAD:package/python3/0011-Add-option-to-disable-the-sqlite3-module.patch
 index 1bb63cbd5b2..c8ae60aa6b5 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -4490,6 +4490,13 @@ AS_VAR_IF([posix_threads], [stub], [
-========
-index bf91fb2f824..0013afc9aad 100644
---- a/configure.ac
-+++ b/configure.ac
-@@ -4222,6 +4222,15 @@ AS_VAR_IF([posix_threads], [stub], [
->>>>>>>> upstream/master:package/python3/0010-Add-option-to-disable-the-sqlite3-module.patch
    AC_DEFINE([HAVE_PTHREAD_STUBS], [1], [Define if platform requires stubbed pthreads support])
  ])
  
@@ -82,9 +57,5 @@ index bf91fb2f824..0013afc9aad 100644
  
  AC_ARG_ENABLE(pydoc,
 -- 
-<<<<<<<< HEAD:package/python3/0011-Add-option-to-disable-the-sqlite3-module.patch
 2.43.0
-========
-2.44.0
->>>>>>>> upstream/master:package/python3/0010-Add-option-to-disable-the-sqlite3-module.patch
 
