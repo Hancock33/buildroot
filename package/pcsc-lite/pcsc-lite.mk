@@ -45,7 +45,10 @@ ifeq ($(BR2_PACKAGE_PCSC_LITE_EMBEDDED),y)
 PCSC_LITE_CONF_OPTS += --enable-embedded
 endif
 
-ifneq ($(BR2_PACKAGE_POLKIT),y)
+ifeq ($(BR2_PACKAGE_POLKIT),y)
+PCSC_LITE_CONF_OPTS += --enable-polkit
+PCSC_LITE_DEPENDENCIES += polkit
+else
 PCSC_LITE_CONF_OPTS += --disable-polkit
 endif
 
