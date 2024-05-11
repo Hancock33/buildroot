@@ -1925,6 +1925,9 @@ F:	package/easy-rsa/
 N:	Justin Maggard <jmaggard@netgear.com>
 F:	package/dtach/
 
+N:	Kadambini Nema <kadambini.nema@gmail.com>
+F:	package/ustreamer/
+
 N:	Kamel Bouhara <kamel.bouhara@gmail.com>
 F:	package/libodb-boost/
 F:	package/libodb-mysql/
@@ -2301,6 +2304,9 @@ F:	package/skeleton-init-openrc/
 N:	Michel Stempin <michel.stempin@wanadoo.fr>
 F:	board/sipeed/licheepi_zero/
 F:	configs/sipeed_licheepi_zero_defconfig
+
+N:	Mika Westerberg <mika.westerberg@linux.intel.com>
+F:	package/tbtools/
 
 N:	Mike Frampton <mikeframpo@gmail.com>
 F:	package/qcom-db410c-firmware/
