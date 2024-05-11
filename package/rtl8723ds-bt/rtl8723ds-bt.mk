@@ -3,7 +3,7 @@
 # rtl8723ds-bt
 #
 ################################################################################
-
+# Version: Commits on Dec 08, 2017
 RTL8723DS_BT_VERSION = 14cedf3a9fec1aa8c500fa52f3e3acc433cbcf08
 RTL8723DS_BT_SITE = $(call github,wsyco,RTL8723DS_BT_Linux,$(RTL8723DS_BT_VERSION))
 RTL8723DS_BT_LICENSE = PROPRIETARY
