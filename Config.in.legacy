@@ -161,6 +161,14 @@ config BR2_KERNEL_HEADERS_6_8
 	  Version 6.8.x of the Linux kernel headers are no longer
 	  maintained upstream and are now removed.
 
+config BR2_PACKAGE_ONEVPL_INTEL_GPU
+	bool "onevpl-intel-gpu has been renamed"
+	select BR2_LEGACY
+	select BR2_PACKAGE_INTEL_VPL_GPU_RT
+	help
+	  The onevpl-intel-gpu package has been renamed to
+	  intel-vpl-gpu-rt.
+
 config BR2_TARGET_AT91BOOTSTRAP
 	bool "at91bootstrap removed"
 	select BR2_LEGACY
