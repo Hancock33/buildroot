@@ -383,6 +383,7 @@ F:	package/intel-gmmlib/
 F:	package/intel-mediadriver/
 F:	package/intel-mediasdk/
 F:	package/intel-microcode/
+F:	package/intel-vpl-gpu-rt/
 F:	package/jsoncpp/
 F:	package/kissfft/
 F:	package/kodi*
@@ -455,7 +456,6 @@ F:	package/monero/
 F:	package/mpg123/
 F:	package/ntp/
 F:	package/nut/
-F:	package/onevpl-intel-gpu/
 F:	package/opus/
 F:	package/p2pool/
 F:	package/pciutils/
