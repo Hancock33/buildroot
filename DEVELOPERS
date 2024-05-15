@@ -83,6 +83,7 @@ N:	Alessandro Partesotti <a.partesotti@gmail.com>
 F:	package/oatpp/
 
 N:	Alex Michel <alex.michel@wiedemann-group.com>
+F:	package/libzenoh-c/
 F:	package/libzenoh-pico/
 F:	package/network-manager-openvpn/
 
@@ -1655,6 +1656,9 @@ F:	package/sdbusplus/
 N:	Jon Ringle <jringle@gridpoint.com>
 F:	package/mbpoll/
 
+N:	Jon Henrik Bjørnstad <jonhenrik@qbee.io>
+F:	package/qbee-agent/
+
 N:	Jonathan Ben Avraham <yba@tkos.co.il>
 F:	arch/Config.in.xtensa
 F:	package/autofs/
@@ -2837,6 +2841,7 @@ F:	package/systemd
 F:	support/scripts/pkg-stats
 
 N:	Sergey Bobrenok <bobrofon@gmail.com>
+F:	package/basu/
 F:	package/sdbus-cpp/
 
 N:	Sergey Matyukevich <geomatsi@gmail.com>
@@ -3203,6 +3208,8 @@ N:	Wade Berrier <wberrier@gmail.com>
 F:	package/ngrep/
 
 N:	Waldemar Brodkorb <wbx@openadk.org>
+F:	board/qemu/riscv32-virt/
+F:	configs/qemu_riscv32_nommu_virt_defconfig
 F:	package/asterisk/
 F:	package/libjwt/
 F:	package/mksh/
