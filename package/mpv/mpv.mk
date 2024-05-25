@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MPV_VERSION = 0.35.1
+MPV_VERSION = 0.36.0
 MPV_SITE = $(call github,mpv-player,mpv,v$(MPV_VERSION))
 MPV_DEPENDENCIES = \
 	host-pkgconf ffmpeg libass zlib \
@@ -30,7 +30,8 @@ MPV_CONF_OPTS = \
 	--disable-rubberband \
 	--disable-uchardet \
 	--disable-vapoursynth \
-	--disable-sdl2-gamepad
+	--disable-sdl2-gamepad \
+	--disable-shaderc
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 MPV_CONF_OPTS += --disable-build-date
