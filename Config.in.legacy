@@ -146,13 +146,18 @@ endif
 
 comment "Legacy options removed in 2024.05"
 
-config BR2_PACKAGE_ONEVPL_INTEL_GPU
-	bool "onevpl-intel-gpu has been renamed"
+config BR2_PACKAGE_ON2_8170_MODULES
+	bool "on2-8170-modules removed"
 	select BR2_LEGACY
-	select BR2_PACKAGE_INTEL_VPL_GPU_RT
 	help
-	  The onevpl-intel-gpu package has been renamed to
-	  intel-vpl-gpu-rt.
+	  The corresponding library and gstreamer 0.10 plugin are no
+	  longer available.
+
+config BR2_PACKAGE_ON2_8170_LIBS
+	bool "on2-8170-libs removed"
+	select BR2_LEGACY
+	help
+	  Upstream for this binary only library is no longer available.
 
 config BR2_GCC_VERSION_11_X
 	bool "gcc 11.x support removed"
