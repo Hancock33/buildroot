@@ -5,9 +5,7 @@
 ################################################################################
 
 NCFTP_VERSION = 3.2.7
-# use .gz as upstream .xz tarball has changed after the hash was added for
-# 2017.02. Can be changed back to .xz when version is bumped
-NCFTP_SOURCE = ncftp-$(NCFTP_VERSION)-src.tar.gz
+NCFTP_SOURCE = ncftp-$(NCFTP_VERSION)-src.tar.xz
 NCFTP_SITE = https://www.ncftp.com/public_ftp/ncftp
 NCFTP_TARGET_BINS = ncftp
 NCFTP_LICENSE = Clarified Artistic License
