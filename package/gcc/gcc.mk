@@ -13,17 +13,17 @@ ifeq ($(BR2_GCC_VERSION_ARC),y)
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else ifeq ($(BR2_GCC_VERSION_14_GIT),y)
 # git describe --abbrev=40 origin/releases/gcc-14 | cut -d '-' -f 2-
-	GCC_VERSION = 14.1.0-91-gec92744de552303a1424085203e1311bd9146f21
+	GCC_VERSION = 14.1.0-116-gca1924947b5bed8105ae020bef6950bddda448f3
 	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else ifeq ($(BR2_GCC_VERSION_13_GIT),y)
 # git describe --abbrev=40 origin/releases/gcc-13 | cut -d '-' -f 2-
-	GCC_VERSION = 13.3.0-32-g2602b71103d5ef2ef86000cac832b31dad3dfe2b
+	GCC_VERSION = 13.3.0-44-ge4f85ea6271a10e13c6874709a05e04ab0508fbf
 	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else ifeq ($(BR2_GCC_VERSION_12_GIT),y)
 # git describe --abbrev=40 origin/releases/gcc-12 | cut -d '-' -f 2-
-	GCC_VERSION = 12.3.rel1-751-gb5291b7034513ac6ac78289405f40853b7d51393
+	GCC_VERSION = 12.3.rel1-767-g5d52558a531130675329d72ca5c4713abf5bf885
 	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else
