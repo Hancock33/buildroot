@@ -21,29 +21,26 @@ Upstream: Never submitted
  2 files changed, 2 insertions(+)
 
 diff --git a/gio/meson.build b/gio/meson.build
-index 29473d26b..112d4ada9 100644
+index 59c2b0fc0..512053792 100644
 --- a/gio/meson.build
 +++ b/gio/meson.build
-@@ -883,6 +883,7 @@ pkg.generate(libgio,
+@@ -885,6 +885,7 @@ pkg.generate(libgio,
+   variables : [
      'schemasdir=' + '${datadir}' / schemas_subdir,
      'dtdsdir=' + '${datadir}' / dtds_subdir,
-     'bindir=' + '${prefix}' / get_option('bindir'),
 +    'girdir=' + join_paths('${libdir}', '../share/gir-1.0'),
      'giomoduledir=' + pkgconfig_giomodulesdir,
      'gio=' + '${bindir}' / 'gio',
      'gio_querymodules=' + pkgconfig_multiarch_bindir / 'gio-querymodules',
 diff --git a/glib/meson.build b/glib/meson.build
-index f78f32969..6c5486699 100644
+index d2efebadc..a69532b15 100644
 --- a/glib/meson.build
 +++ b/glib/meson.build
 @@ -447,6 +447,7 @@ pkg.generate(libglib,
+   subdirs : ['glib-2.0'],
+   extra_cflags : ['-I${libdir}/glib-2.0/include'] + win32_cflags,
    variables : [
-     'bindir=' + '${prefix}' / get_option('bindir'),
-     'datadir=' + '${prefix}' / get_option('datadir'),
 +    'girdir=' + join_paths('${libdir}', '../share/gir-1.0'),
      'glib_genmarshal=' + '${bindir}' / 'glib-genmarshal',
      'gobject_query=' + '${bindir}' / 'gobject-query',
      'glib_mkenums=' + '${bindir}' / 'glib-mkenums',
--- 
-2.33.0
-
