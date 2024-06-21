@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
-import os
+import pathlib
 import requests
 import sys
 
@@ -71,7 +71,7 @@ def update_mk_file(mk_file, new_version):
     with open(mk_file, "r") as fd:
         lines = fd.readlines()
 
-    version_var = os.path.basename(mk_file)[:-3].upper().replace("-", "_") + "_VERSION"
+    version_var = pathlib.Path(mk_file).stem.upper().replace("-", "_") + "_VERSION"
     with open(mk_file, "w") as fd:
         for line in lines:
             words = line.split()
@@ -131,10 +131,14 @@ def main():
     parser.add_argument("version", help="Rust version to update to", type=str)
 
     args = parser.parse_args()
-    update_mk_file("package/rust/rust.mk", args.version)
-    update_mk_file("package/rust-bin/rust-bin.mk", args.version)
-    gen_hash_file_src("package/rust/rust.hash", args.version)
-    gen_hash_file_bin("package/rust-bin/rust-bin.hash", args.version)
+
+    try:
+        update_mk_file("package/rust/rust.mk", args.version)
+        update_mk_file("package/rust-bin/rust-bin.mk", args.version)
+        gen_hash_file_src("package/rust/rust.hash", args.version)
+        gen_hash_file_bin("package/rust-bin/rust-bin.hash", args.version)
+    except FileNotFoundError as e:
+        print(f"{e.filename}: {e.strerror} ({sys.argv[0]} must be run at the root of the Buildroot tree)")
 
     print("\r\033[K", end="")
 
