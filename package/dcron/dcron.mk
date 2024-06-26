@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-DCRON_VERSION = 1ba33c3325df48de46263276a43ed76cf9d81518
-DCRON_SITE = $(call github,dubiousjim,dcron,$(DCRON_VERSION))
+DCRON_VERSION = 1f53001f2e8d1064287c97ec41498b614acab67b
+DCRON_SITE = $(call github,ptchinster,dcron,$(DCRON_VERSION))
 DCRON_LICENSE = GPL-2.0+
 DCRON_LICENSE_FILES = COPYING
 

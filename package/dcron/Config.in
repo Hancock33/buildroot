@@ -20,4 +20,4 @@ config BR2_PACKAGE_DCRON
 	  group, while crontab executable is owned by root:crontab
 	  with sgid bit enabled.
 
-	  http://www.jimpryor.net/linux/dcron.html
+	  https://github.com/ptchinster/dcron
