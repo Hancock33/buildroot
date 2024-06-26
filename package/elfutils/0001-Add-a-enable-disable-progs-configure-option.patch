@@ -1,34 +1,5 @@
-From 73e4da5ca780196d23db8029dcd28f87a0402711 Mon Sep 17 00:00:00 2001
-From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
-Date: Mon, 29 May 2017 23:03:48 +0300
-Subject: [PATCH] Add a --{enable,disable}-progs configure option
-
-Add a --{enable,disable}-progs configuration option to elfutils. This
-allows to selectively disable the compilation of the elfutils programs
-(in which case only the libraries are built and installed). This is
-useful because the programs are often not needed, and also because
-building the programs against uClibc causes several issues (lack of
-obstack_printf() in uClibc for example).
-
-Based on the former patch by Thomas Petazzoni.
-
-[Vincent: tweak patch for 0.166]
-[Bernd: rebased patch for 0.177]
-
-Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
-Signed-off-by: Vicente Olivert Riera <Vincent.Riera@imgtec.com>
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
-[Rebased on 0.183]
-Signed-off-by: Peter Seiderer <ps.report@gmx.net>
-[Fabrice: don't error out if obstack is not found]
-Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
----
- Makefile.am  | 6 +++++-
- configure.ac | 6 ++++++
- 2 files changed, 11 insertions(+), 1 deletion(-)
-
 diff --git a/Makefile.am b/Makefile.am
-index 9c47afa..edf8dfc 100644
+index c9d59d4a..4c6dedd5 100644
 --- a/Makefile.am
 +++ b/Makefile.am
 @@ -26,8 +26,12 @@ AM_MAKEFLAGS = --no-print-directory
@@ -43,13 +14,13 @@ index 9c47afa..edf8dfc 100644
 -	  libasm debuginfod src po doc tests
 +	  libasm debuginfod $(PROGS_SUBDIR) po doc tests
  
- EXTRA_DIST = elfutils.spec GPG-KEY NOTES CONTRIBUTING \
+ EXTRA_DIST = elfutils.spec GPG-KEY NOTES CONTRIBUTING SECURITY \
  	     COPYING COPYING-GPLV2 COPYING-LGPLV3
 diff --git a/configure.ac b/configure.ac
-index d345495..0dd4b1e 100644
+index bbe8673e..6b307ccf 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -393,6 +393,12 @@ AS_HELP_STRING([--enable-tests-rpath],[build $ORIGIN-using rpath into tests]),
+@@ -422,6 +422,12 @@ AS_HELP_STRING([--enable-tests-rpath],[build $ORIGIN-using rpath into tests]),
  	       [tests_use_rpath=$enableval], [tests_use_rpath=no])
  AM_CONDITIONAL(TESTS_RPATH, test "$tests_use_rpath" = yes)
  
@@ -62,7 +33,7 @@ index d345495..0dd4b1e 100644
  dnl zlib is mandatory.
  save_LIBS="$LIBS"
  LIBS=
-@@ -579,7 +585,7 @@ saved_LIBS="$LIBS"
+@@ -659,7 +665,7 @@ saved_LIBS="$LIBS"
  AC_SEARCH_LIBS([_obstack_free], [obstack])
  LIBS="$saved_LIBS"
  case "$ac_cv_search__obstack_free" in
@@ -71,6 +42,3 @@ index d345495..0dd4b1e 100644
          -l*) obstack_LIBS="$ac_cv_search__obstack_free" ;;
          *) obstack_LIBS= ;;
  esac
--- 
-2.30.1
-
