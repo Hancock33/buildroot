@@ -16,6 +16,7 @@ PYTHON_NUMPY_LICENSE_FILES = \
 	tools/npy_tempita/license.txt
 PYTHON_NUMPY_CPE_ID_VENDOR = numpy
 PYTHON_NUMPY_CPE_ID_PRODUCT = numpy
+PYTHON_NUMPY_SETUP_TYPE = setuptools
 
 PYTHON_NUMPY_DEPENDENCIES = host-python-cython python3
 HOST_PYTHON_NUMPY_DEPENDENCIES = host-python-cython
