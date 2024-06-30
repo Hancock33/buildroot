@@ -5,8 +5,9 @@
 ################################################################################
 
 VLC_VERSION = 3.0.21
-VLC_SITE = https://get.videolan.org/vlc/$(VLC_VERSION)
-VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
+VLC_SITE = https://code.videolan.org/videolan/vlc.git
+VLC_SITE_METHOD = git
+#VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
 VLC_LICENSE = GPL-2.0+, LGPL-2.1+
 VLC_LICENSE_FILES = COPYING COPYING.LIB
 VLC_CPE_ID_VENDOR = videolan
@@ -36,6 +37,7 @@ define VLC_OVERRIDE_PKG_M4
 	$(SED) 's/PKG_WITH_MODULES/VLC_PKG_WITH_MODULES/g' \
 		-e 's/PKG_HAVE_WITH_MODULES/VLC_PKG_HAVE_WITH_MODULES/g' \
 		$(@D)/configure.ac $(@D)/m4/with_pkg.m4
+		echo "$(shell echo $(VLC_VERSION) | cut -c 1-10)" > $(@D)/src/revision.txt
 endef
 VLC_POST_PATCH_HOOKS += VLC_OVERRIDE_PKG_M4
 
@@ -383,10 +385,10 @@ VLC_DEPENDENCIES += libupnp
 else
 VLC_CONF_OPTS += --disable-upnp
 endif
-
-# libva support depends on ffmpeg
+#batocera disable
+# libva support depends on ffmpeg 
 ifeq ($(BR2_PACKAGE_FFMPEG)$(BR2_PACKAGE_LIBVA),yy)
-VLC_CONF_OPTS += --enable-libva
+VLC_CONF_OPTS += --disable-libva
 VLC_DEPENDENCIES += libva
 else
 VLC_CONF_OPTS += --disable-libva
@@ -549,7 +551,9 @@ ifeq ($(BR2_PACKAGE_X264),y)
 VLC_CONF_OPTS += --enable-x264
 VLC_DEPENDENCIES += x264
 else
-VLC_CONF_OPTS += --disable-x264
+# batocera
+# disable x26410b if no x264 (linking fails if x26410b enabled)
+VLC_CONF_OPTS += --disable-x264 --disable-x26410b
 endif
 
 ifeq ($(BR2_PACKAGE_X265),y)
@@ -580,5 +584,15 @@ VLC_DEPENDENCIES += gnutls
 else
 VLC_CONF_OPTS += --disable-gnutls
 endif
+
+# batocera - enable vdpau when available
+# provides lower cpu overhead for ES themes that use videos
+ifeq ($(BR2_PACKAGE_LIBVDPAU)$(BR2_PACKAGE_MESA3D_VDPAU),yy)
+VLC_CONF_OPTS += --enable-vdpau
+endif
+
+# batocera - disable pulse for ES themes
+# this causes audio to bleed through when it shouldn't
+VLC_CONF_OPTS += --disable-pulse
 
 $(eval $(autotools-package))
