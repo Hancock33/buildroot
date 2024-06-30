@@ -146,13 +146,11 @@ endif
 
 comment "Legacy options removed in 2024.08"
 
-config BR2_PACKAGE_ONEVPL_INTEL_GPU
-	bool "onevpl-intel-gpu has been renamed"
+config BR2_PACKAGE_CGIC
+	bool "cgic has been removed"
 	select BR2_LEGACY
-	select BR2_PACKAGE_INTEL_VPL_GPU_RT
 	help
-	  The onevpl-intel-gpu package has been renamed to
-	  intel-vpl-gpu-rt.
+	  the cgic upstream no longer exists.
 
 config BR2_PACKAGE_VERSAL_FIRMWARE
 	bool "versal-firmware has been replaced by xilinx-prebuilt"
@@ -168,14 +166,6 @@ config BR2_KERNEL_HEADERS_6_8
 	help
 	  Version 6.8.x of the Linux kernel headers are no longer
 	  maintained upstream and are now removed.
-
-config BR2_PACKAGE_ONEVPL_INTEL_GPU
-	bool "onevpl-intel-gpu has been renamed"
-	select BR2_LEGACY
-	select BR2_PACKAGE_INTEL_VPL_GPU_RT
-	help
-	  The onevpl-intel-gpu package has been renamed to
-	  intel-vpl-gpu-rt.
 
 config BR2_TARGET_AT91BOOTSTRAP
 	bool "at91bootstrap removed"
