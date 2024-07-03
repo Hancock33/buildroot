@@ -15,8 +15,6 @@ LIBMAD_LICENSE_FILES = COPYING
 
 define LIBMAD_APPLY_DEBIAN_PATCHES
 	if [ -d $(@D)/debian/patches ]; then \
-		rm $(@D)/debian/patches/mips-gcc4.4.diff; \
-		$(SED) '/mips-/d' $(@D)/debian/patches/series; \
 		$(APPLY_PATCHES) $(@D) $(@D)/debian/patches *.patch; \
 	fi
 endef
