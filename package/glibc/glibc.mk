@@ -7,7 +7,7 @@
 # Generate version string using:
 # git describe --match 'glibc-*' --abbrev=40 origin/release/MAJOR.MINOR/master | cut -d '-' -f 2-
 # When updating the version, please also update localedef
-GLIBC_VERSION = 2.39-76-g74630b1bb717fb98f4692261f2be8d5c84851fa3
+GLIBC_VERSION = 2.39-80-gd2cbfcf1d9a4b539007fe04d33e0bdb82d02a2f2
 # Upstream doesn't officially provide an https download link.
 # There is one (https://sourceware.org/git/glibc.git) but it's not reliable,
 # sometimes the connection times out. So use an unofficial github mirror.
