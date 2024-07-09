@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PIPEWIRE_VERSION = 1.2.0-39-g9b33cea0f7a50e4c484a9acb3ada0c1218cd3fcb
+PIPEWIRE_VERSION = 1.2.0-43-g4baa94fce2fc948eb6cc5797fd29ccbba6b4a41a
 PIPEWIRE_SITE = $(call github,PipeWire,pipewire,$(PIPEWIRE_VERSION))
 PIPEWIRE_LICENSE = MIT, LGPL-2.1+ (libspa-alsa), GPL-2.0 (libjackserver)
 PIPEWIRE_LICENSE_FILES = COPYING LICENSE
