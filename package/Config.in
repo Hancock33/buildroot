@@ -1618,6 +1618,7 @@ endif
 	source "package/rocksdb/Config.in"
 	source "package/sqlcipher/Config.in"
 	source "package/sqlite/Config.in"
+	source "package/sqlitecpp/Config.in"
 	source "package/timescaledb/Config.in"
 	source "package/unixodbc/Config.in"
 endmenu
@@ -2394,6 +2395,7 @@ endif
 	source "package/cfm/Config.in"
 	source "package/chrony/Config.in"
 	source "package/civetweb/Config.in"
+	source "package/cloudflared/Config.in"
 	source "package/connman/Config.in"
 	source "package/connman-gtk/Config.in"
 	source "package/conntrack-tools/Config.in"
