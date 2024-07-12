@@ -192,7 +192,6 @@ configs/imx6ullevk_defconfig lib_defconfig.ForceCheckHash
 configs/imx6ulpico_defconfig lib_defconfig.ForceCheckHash
 configs/imx7d-sdb_defconfig lib_defconfig.ForceCheckHash
 configs/imx7dpico_defconfig lib_defconfig.ForceCheckHash
-configs/imx8mpico_defconfig lib_defconfig.ForceCheckHash
 configs/imx8mqevk_defconfig lib_defconfig.ForceCheckHash
 configs/imxrt1050-evk_defconfig lib_defconfig.ForceCheckHash
 configs/khadas_vim3_defconfig lib_defconfig.ForceCheckHash
@@ -763,7 +762,6 @@ package/libfuse/0001-fix-aarch64-build.patch lib_patch.Upstream
 package/libfuse/0002-util-ulockmgr_server-c-conditionally-define-closefrom-fix-glibc-2-34.patch lib_patch.Upstream
 package/libgcrypt/0001-configure.ac-add-an-option-to-disable-tests.patch lib_patch.Upstream
 package/libglfw/0001-Wayland-Remove-extra-cmake-modules-dependency.patch lib_patch.Upstream
-package/libglfw/0002-src-CMakeLists.txt-allow-override-of-wayland-pkgdata.patch lib_patch.Upstream
 package/libgpiod/0001-build-add-a-configure-switch-for-building-examples.patch lib_patch.Upstream
 package/libgsm/0001-Misc-fixes-from-Archlinux.patch lib_patch.Upstream
 package/libgtk2/0001-reduce-dependencies.patch lib_patch.Upstream
@@ -1228,7 +1226,6 @@ package/quotatool/0001-fix-missing-__P-definition-for-musl-compile.patch lib_pat
 package/racehound/0001-Fix-module-install-path-lib-instead-of-usr-lib-prefi.patch lib_patch.Upstream
 package/rapidxml/0001-ensure-internal-print-operations-are-declared-before.patch lib_patch.Upstream
 package/raspberrypi-usbboot/0001-Makefile-allow-passing-CFLAGS-LDFLAGS.patch lib_patch.Upstream
-package/rdesktop/0001-8bit-colors.patch lib_patch.Sob lib_patch.Upstream
 package/read-edid/0001-Fix-install-file-list.patch lib_patch.Upstream
 package/read-edid/0002-Fix-compiler-check.patch lib_patch.Upstream
 package/read-edid/0003-fix-build-with-gcc-10.patch lib_patch.Upstream
@@ -1385,7 +1382,6 @@ package/uboot-tools/0001-drop-configh-from-tools.patch lib_patch.Upstream
 package/uboot-tools/0002-tools-only-in-no-dot-config-targets.patch lib_patch.Upstream
 package/uboot-tools/0003-tools-Makefile-fix-C-LD-FLAGS-with-CROSS_BUILD_TOOLS.patch lib_patch.Upstream
 package/ubus/0001-Install-server-and-client-examples.patch lib_patch.Upstream
-package/udpcast/0001-fix-musl-build.patch lib_patch.Upstream
 package/uemacs/01-clear-ixon-termios-flag.patch lib_patch.Upstream
 package/uhd/0001-host-CMakeLists-add-boost-unit_test_framework-requir.patch lib_patch.Upstream
 package/uhttpd/0001-Remove-Werror.patch lib_patch.Upstream
@@ -1487,9 +1483,9 @@ package/x11r7/xdriver_xf86-video-imx/0003-support-glibc-2.20.patch lib_patch.Ups
 package/x11r7/xdriver_xf86-video-imx/0004-Make-video-API-forward-and-backward-compatible.patch lib_patch.Upstream
 package/x11r7/xdriver_xf86-video-imx/0005-xf86-video-imxfb-fix-m4-hardcodded-paths.patch lib_patch.Upstream
 package/x11r7/xdriver_xf86-video-imx/0006-xserver-1.14-compat.patch lib_patch.Upstream
-package/x11r7/xdriver_xf86-video-mach64/0001-cross-compile.patch lib_patch.Sob lib_patch.Upstream
+package/x11r7/xdriver_xf86-video-mach64/0001-cross-compile.patch lib_patch.Upstream
 package/x11r7/xdriver_xf86-video-nouveau/0001-nouveau-fixup-driver-for-new-X-server-ABI.patch lib_patch.Upstream
-package/x11r7/xdriver_xf86-video-tdfx/0001-cross.patch lib_patch.Sob lib_patch.Upstream
+package/x11r7/xdriver_xf86-video-tdfx/0001-cross.patch lib_patch.Upstream
 package/x11r7/xserver_xorg-server/0001-include-misc.h-fix-uClibc-build.patch lib_patch.Upstream
 package/x11r7/xserver_xorg-server/S40xorg Shellcheck lib_sysv.Variables
 package/x11vnc/0001-Fix-build-on-32bit-arches-with-64bit-time_t.patch lib_patch.Upstream
