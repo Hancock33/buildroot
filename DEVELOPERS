@@ -55,6 +55,7 @@ F:	package/brotli/
 F:	package/bubblewrap/
 F:	package/cage/
 F:	package/cog/
+F:	package/libdex/
 F:	package/libepoxy/
 F:	package/libmanette/
 F:	package/libpsl/
@@ -562,8 +563,10 @@ F:	package/pdmenu/
 
 N:	Bryan Brattlof <bb@ti.com>
 F:	board/ti/
+F:	board/beagleboard/beagleplay/
 F:	boot/ti-k3-boot-firmware/
 F:	boot/ti-k3-r5-loader/
+F:	configs/beagleplay_defconfig
 F:	configs/ti_am62x_sk_defconfig
 F:	configs/ti_am64x_sk_defconfig
 
@@ -854,6 +857,7 @@ F:	package/wireless-regdb/
 N:	Dmitry Chestnykh <dm.chestnykh@gmail.com>
 F:	board/qemu/sparc-ss10/
 F:	configs/qemu_sparc_ss10_defconfig
+F:	package/uclibc-ng-test/
 
 N:	Dominik Faessler <faessler@was.ch>
 F:	package/logsurfer/
@@ -1761,6 +1765,7 @@ F:	board/technexion/imx8mpico/
 F:	configs/imx8mmpico_defconfig
 F:	configs/imx8mpico_defconfig
 F:	configs/qemu_riscv64_virt_efi_defconfig
+F:	configs/spike_riscv32_defconfig
 F:	configs/spike_riscv64_defconfig
 F:	package/fluid-soundfont/
 F:	package/fluidsynth/
@@ -1809,6 +1814,8 @@ F:	support/testing/tests/package/test_acpica.py
 F:	support/testing/tests/package/test_acpica/
 F:	support/testing/tests/package/test_apache.py
 F:	support/testing/tests/package/test_bc.py
+F:	support/testing/tests/package/test_bcc.py
+F:	support/testing/tests/package/test_bcc/
 F:	support/testing/tests/package/test_bitcoin.py
 F:	support/testing/tests/package/test_brotli.py
 F:	support/testing/tests/package/test_bzip2.py
@@ -1873,6 +1880,7 @@ F:	support/testing/tests/package/test_mdadm.py
 F:	support/testing/tests/package/test_mdadm/
 F:	support/testing/tests/package/test_micropython.py
 F:	support/testing/tests/package/test_micropython/
+F:	support/testing/tests/package/test_mosquitto.py
 F:	support/testing/tests/package/test_mtools.py
 F:	support/testing/tests/package/test_mtr.py
 F:	support/testing/tests/package/test_ncdu.py
@@ -2160,8 +2168,11 @@ F:	utils/diffconfig
 
 N:	Marcus Hoffmann <bubu@bubu1.eu>
 F:	package/python-jc/
+F:	package/python-ruamel-yaml-clib/
 F:	support/testing/tests/package/test_python_fastapi.py
+F:	support/testing/tests/package/test_python_ruamel_yaml.py
 F:	support/testing/tests/package/sample_python_fastapi.py
+F:	support/testing/tests/package/sample_python_ruamel_yaml.py
 
 N:	Marek Belisko <marek.belisko@open-nandra.com>
 F:	package/libatasmart/
@@ -2801,6 +2812,16 @@ F:	support/testing/tests/package/test_openssh.py
 F:	support/testing/tests/package/test_python_mako.py
 F:	toolchain/
 
+N:	Roy Kollen Svendsen <roykollensvendsen@gmail.com>
+F:	package/qt6/qt6declarative/
+F:	package/qt6/qt6languageserver/
+F:	package/qt6/qt6mqtt/
+F:	package/qt6/qt6shadertools/
+F:	package/qt6/qt6tools/
+F:	package/qt6/qt6virtualkeyboard/
+F:	package/qt6/qt6wayland/
+F:	package/qt6/qt6websockets/
+
 N:	Rufus Segar <rhs@riseup.net>
 F:	package/agent-proxy/
 
@@ -2810,6 +2831,7 @@ F:	package/biosdevname/
 N:	Saeed Kazemi <kazemi.ms@gmail.com>
 F:	package/eza/
 F:	package/procs/
+F:	package/zoxide/
 
 N:	Sam Lancia <sam@gpsm.co.uk>
 F:	package/lrzip/

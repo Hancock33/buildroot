@@ -36,3 +36,4 @@ QT6SVG_DEPENDENCIES = \
 	qt6tools
 
 $(eval $(cmake-package))
+$(eval $(host-cmake-package))
