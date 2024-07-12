@@ -1,13 +1,7 @@
-comment "qt6wayland needs an OpenGL-capable backend"
-	depends on !BR2_PACKAGE_QT6_GL_SUPPORTS
-
 config BR2_PACKAGE_QT6WAYLAND
 	bool "qt6wayland"
-	depends on BR2_PACKAGE_QT6_GL_SUPPORTS
-	select BR2_PACKAGE_WAYLAND
-	select BR2_PACKAGE_QT6BASE_GUI
-	# needed because we build host-qt6wayland
-	select BR2_PACKAGE_HOST_QT6BASE_GUI
+	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_6 # CAN FD
+	select BR2_PACKAGE_QT6BASE
 	help
 	  Qt is a cross-platform application and UI framework for
 	  developers using C++.
@@ -16,13 +10,5 @@ config BR2_PACKAGE_QT6WAYLAND
 
 	  https://doc.qt.io/qt-6/qtwayland-index.html
 
-if BR2_PACKAGE_QT6WAYLAND
-
-config BR2_PACKAGE_QT6WAYLAND_COMPOSITOR
-	bool "Enable compositor (experimental)"
-	select BR2_PACKAGE_LIBXKBCOMMON
-	help
-	  The compositor API is still experimental, and not built by
-	  default.
-
-endif
+comment "qt6wayland needs headers >= 3.6"
+	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_6
