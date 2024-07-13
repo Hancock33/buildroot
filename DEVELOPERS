@@ -1505,7 +1505,9 @@ F:	package/swaybg/
 F:	package/yad/
 
 N:	Jamie Gibbons <jamie.gibbons@microchip.com>
+F:	board/beagleboard/beaglev_fire/
 F:	board/microchip/mpfs_icicle/
+F:	configs/beaglev_fire_defconfig
 F:	configs/microchip_mpfs_icicle_defconfig
 F:	package/microchip-hss-payload-generator/
 
@@ -3032,8 +3034,6 @@ N:	Tan En De <ende.tan@starfivetech.com>
 F:	package/libkcapi/
 
 N:	Theo Debrouwere <t.debrouwere@televic.com>
-F:	board/beagleboardx15/
-F:	configs/beagleboardx15_defconfig
 F:	package/pugixml/
 
 N:	Thierry Bultel <tbultel@free.fr>
