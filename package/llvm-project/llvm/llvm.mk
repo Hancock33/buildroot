@@ -22,10 +22,6 @@ LLVM_DEPENDENCIES = host-binutils host-llvm host-lld
 HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -DLLVM_BINUTILS_INCDIR=$(BUILD_DIR)/host-binutils-$(BINUTILS_VERSION)/include
 LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -DLLVM_BINUTILS_INCDIR=$(BUILD_DIR)/host-binutils-$(BINUTILS_VERSION)/include
 
-# Assembly files for x64 in lib/Support/BLAKE3 need to be compiled
-# by a C compiler
-HOST_LLVM_CONF_OPTS += -DCMAKE_ASM_COMPILER="$(CMAKE_HOST_C_COMPILER)"
-
 # Don't build clang libcxx libcxxabi lldb compiler-rt lld polly as llvm subprojects
 # This flag assumes that projects are checked out side-by-side and not nested
 HOST_LLVM_CONF_OPTS += -DLLVM_ENABLE_PROJECTS=""
