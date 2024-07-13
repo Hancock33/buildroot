@@ -29,19 +29,16 @@ Signed-off-by: Peter Seiderer <ps.report@gmx.net>
  1 file changed, 3 insertions(+)
 
 diff --git a/mesonbuild/compilers/mixins/clike.py b/mesonbuild/compilers/mixins/clike.py
-index 09ad837b1..b7f6b9f22 100644
+index 70e81a4b8..447a75d37 100644
 --- a/mesonbuild/compilers/mixins/clike.py
 +++ b/mesonbuild/compilers/mixins/clike.py
-@@ -978,6 +978,9 @@ class CLikeCompiler(Compiler):
-         elif env.machines[self.for_machine].is_cygwin():
-             shlibext = ['dll', 'dll.a']
-             prefixes = ['cyg'] + prefixes
+@@ -1037,6 +1037,9 @@ class CLikeCompiler(Compiler):
+             # TI C6000 compiler can use both extensions for static or dynamic libs.
+             stlibext = ['a', 'lib']
+             shlibext = ['dll', 'so']
 +        elif env.coredata.get_option(OptionKey('default_library')) == 'static':
 +            # Linux/BSDs
 +            shlibext = ['a']
          else:
              # Linux/BSDs
              shlibext = ['so']
--- 
-2.25.1
-
