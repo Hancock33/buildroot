@@ -9,6 +9,7 @@ BLAKE3_SITE = $(call github,BLAKE3-team,BLAKE3,$(BLAKE3_VERSION))
 BLAKE3_SUBDIR = c
 BLAKE3_LICENSE = Apache-2.0, CC0-1.0
 BLAKE3_LICENSE_FILES = LICENSE
+BLAKE3_CMAKE_BACKEND = make
 
 # The package is a dependency to ccache so ccache cannot be a dependency
 HOST_BLAKE3_ADD_CCACHE_DEPENDENCY = NO

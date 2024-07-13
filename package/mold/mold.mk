@@ -8,7 +8,7 @@ MOLD_VERSION = v2.32.1
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = MIT
 MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES) tbb
-HOST_MOLD_DEPENDENCIES += host-flex host-bison host-zstd host-cmake host-tbb
+HOST_MOLD_DEPENDENCIES += host-flex host-bison host-zstd host-cmake host-tbb host-xxhash host-blake3
 
 MOLD_SUPPORTS_IN_SOURCE_BUILD = NO
 MOLD_CONF_OPTS += -DMOLD_USE_SYSTEM_TBB=ON

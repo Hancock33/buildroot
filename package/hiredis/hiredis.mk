@@ -11,6 +11,7 @@ HIREDIS_LICENSE = BSD-3-Clause
 HIREDIS_LICENSE_FILES = COPYING
 HIREDIS_CPE_ID_VENDOR = redislabs
 HIREDIS_INSTALL_STAGING = YES
+HIREDIS_CMAKE_BACKEND = make
 
 # The package is a dependency to ccache so ccache cannot be a dependency
 HOST_HIREDIS_ADD_CCACHE_DEPENDENCY = NO
