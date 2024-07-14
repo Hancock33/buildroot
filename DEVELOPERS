@@ -1827,6 +1827,8 @@ F:	support/testing/tests/package/test_bcc.py
 F:	support/testing/tests/package/test_bcc/
 F:	support/testing/tests/package/test_bitcoin.py
 F:	support/testing/tests/package/test_brotli.py
+F:	support/testing/tests/package/test_btrfs_progs.py
+F:	support/testing/tests/package/test_btrfs_progs/
 F:	support/testing/tests/package/test_bzip2.py
 F:	support/testing/tests/package/test_compressor_base.py
 F:	support/testing/tests/package/test_coremark.py
@@ -2458,6 +2460,7 @@ F:	package/tcf-agent/
 N:	Yu Chien Peter Lin <peterlin@andestech.com>
 F:	board/andes
 F:	configs/andes_ae350_45_defconfig
+F:	package/kmon/
 
 N:	Olaf Rempel <razzor@kopf-tisch.de>
 F:	package/ctorrent/
@@ -2827,14 +2830,7 @@ F:	support/testing/tests/package/test_python_mako.py
 F:	toolchain/
 
 N:	Roy Kollen Svendsen <roykollensvendsen@gmail.com>
-F:	package/qt6/qt6declarative/
-F:	package/qt6/qt6languageserver/
-F:	package/qt6/qt6mqtt/
-F:	package/qt6/qt6shadertools/
-F:	package/qt6/qt6tools/
-F:	package/qt6/qt6virtualkeyboard/
-F:	package/qt6/qt6wayland/
-F:	package/qt6/qt6websockets/
+F:	package/qt6/
 
 N:	Rufus Segar <rhs@riseup.net>
 F:	package/agent-proxy/
@@ -3217,8 +3213,10 @@ F:	package/nss-myhostname/
 F:	package/utp_com/
 
 N:	Vincent Stehlé <vincent.stehle@arm.com>
+F:	board/arm/fvp-ebbr/
 F:	board/qemu/aarch64-ebbr/
 F:	board/qemu/arm-ebbr/
+F:	configs/arm_fvp_ebbr_defconfig
 F:	configs/qemu_aarch64_ebbr_defconfig
 F:	configs/qemu_arm_ebbr_defconfig
 F:	package/edk2-non-osi/
@@ -3285,6 +3283,7 @@ N:	Wojciech Niziński <niziak@spox.org>
 F:	package/fwup/
 
 N:	Woodrow Douglass <wdouglass@carnegierobotics.com>
+F:	package/libchicken
 F:	package/opencv4
 F:	package/opencv4-contrib
 
