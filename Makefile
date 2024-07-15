@@ -63,6 +63,9 @@ ifneq ($(findstring @,$(CANONICAL_O)),)
 $(error The build directory can not contain a '@')
 endif
 
+# Create a default .gitignore file that ignores everything
+$(shell echo "*" > "$(CANONICAL_O)/.gitignore")
+
 CANONICAL_CURDIR = $(realpath $(CURDIR))
 
 REQ_UMASK = 0022
@@ -1175,7 +1178,7 @@ help:
 	@echo '  <pkg>-graph-rdepends   - Generate a graph of <pkg>'\''s reverse dependencies'
 	@echo '  <pkg>-graph-both-depends'
 	@echo '                         - Generate a graph of both <pkg>'\''s forward and'
-	@echo '                           reverse dependencies.
+	@echo '                           reverse dependencies.'
 	@echo '  <pkg>-dirclean         - Remove <pkg> build directory'
 	@echo '  <pkg>-reconfigure      - Restart the build from the configure step'
 	@echo '  <pkg>-rebuild          - Restart the build from the build step'
