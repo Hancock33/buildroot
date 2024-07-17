@@ -14,11 +14,29 @@ LIBGTK4_CPE_ID_VENDOR = gnome
 LIBGTK4_CPE_ID_PRODUCT = gtk
 LIBGTK4_INSTALL_STAGING = YES
 
-LIBGTK4_DEPENDENCIES = host-pkgconf host-libgtk4 \
-	gdk-pixbuf graphene libepoxy libglib2 pango \
+LIBGTK4_DEPENDENCIES = \
+	host-pkgconf \
+	host-libgtk4 \
+	gdk-pixbuf \
+	graphene \
+	libepoxy \
+	libglib2 \
+	pango \
 	$(TARGET_NLS_DEPENDENCIES)
 
-LIBGTK4_CONF_OPTS = -Dbuild-tests=false
+LIBGTK4_CONF_OPTS = \
+	-Dbuild-tests=false \
+	-Dmedia-ffmpeg=disabled \
+	-Dprint-cpdb=disabled \
+	-Dvulkan=disabled \
+	-Dcloudproviders=disabled \
+	-Dsysprof=disabled \
+	-Dtracker=disabled \
+	-Dcolord=disabled \
+	-Dintrospection=disabled \
+	-Ddocumentation=false \
+	-Dscreenshots=false \
+	-Dman-pages=false
 
 ifeq ($(BR2_PACKAGE_LIBGTK4_X11),y)
 LIBGTK4_DEPENDENCIES += xlib_libXcursor xlib_libXi xlib_libXinerama
@@ -28,7 +46,7 @@ LIBGTK4_CONF_OPTS += -Dx11-backend=false
 endif
 
 ifeq ($(BR2_PACKAGE_LIBGTK4_WAYLAND),y)
-LIBGTK4_DEPENDENCIES += wayland libxkbcommon
+LIBGTK4_DEPENDENCIES += wayland wayland-protocols libxkbcommon
 LIBGTK4_CONF_OPTS += -Dwayland-backend=true
 else
 LIBGTK4_CONF_OPTS += -Dwayland-backend=false
@@ -55,10 +73,10 @@ LIBGTK4_CONF_OPTS += -Dprint-cups=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_LIBGTK4_DEMO),y)
-LIBGTK4_CONF_OPTS += -Ddemos=true -Dbuild-examples=true
+LIBGTK4_CONF_OPTS += -Dbuild-demos=true -Dbuild-examples=true
 LIBGTK4_DEPENDENCIES += hicolor-icon-theme shared-mime-info
 else
-LIBGTK4_CONF_OPTS += -Ddemos=false -Dbuild-examples=false
+LIBGTK4_CONF_OPTS += -Dbuild-demos=false -Dbuild-examples=false
 endif
 
 define LIBGTK4_COMPILE_GLIB_SCHEMAS
