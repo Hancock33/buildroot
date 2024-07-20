@@ -4,7 +4,7 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/24.0 | cut -d '-' -f 2-
-MESA3D_VERSION = 24.1.4-14-g46c64c8ec5efb762e96b755d120b544e6c903352
+MESA3D_VERSION = mesa-24.2.0-rc1
 MESA3D_SITE = $(call gitlabfreedesktop,mesa,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
@@ -20,6 +20,7 @@ MESA3D_DEPENDENCIES = \
 	host-flex \
 	host-python-mako \
 	host-python-ply \
+	host-python-pyyaml \
 	expat \
 	libdrm \
 	zlib \
@@ -347,6 +348,7 @@ endif
 
 HOST_MESA3D_DEPENDENCIES += host-python-mako \
 	host-python-ply \
+	host-python-pyyaml \
 	host-libclc \
 	host-spirv-headers \
 	host-spirv-tools \
