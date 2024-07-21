@@ -2865,6 +2865,7 @@ F:	package/biosdevname/
 
 N:	Saeed Kazemi <kazemi.ms@gmail.com>
 F:	package/eza/
+F:	package/parsec-tool/
 F:	package/procs/
 F:	package/mxt-app/
 F:	package/zoxide/
