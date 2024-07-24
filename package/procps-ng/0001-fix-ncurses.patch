@@ -1,0 +1,15 @@
+diff -uNr procps-ng-4.0.4.orig/src/watch.c procps-ng-4.0.4/src/watch.c
+--- procps-ng-4.0.4.orig/src/watch.c	2023-08-15 13:17:05.485773546 +0200
++++ procps-ng-4.0.4/src/watch.c	2024-06-18 17:06:08.019422402 +0200
+@@ -53,10 +53,9 @@
+ # define _XOPEN_SOURCE_EXTENDED 1
+ # include <wchar.h>
+ # include <wctype.h>
+-# include <ncursesw/ncurses.h>
+ #else
+-# include <ncurses.h>
+ #endif	/* WITH_WATCH8BIT */
++#include <ncurses.h>
+ 
+ #ifdef FORCE_8BIT
+ # undef isprint
