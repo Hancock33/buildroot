@@ -81,7 +81,7 @@ OPENJDK_CONF_ENV = \
 	BUILD_SYSROOT_CFLAGS="$(HOST_CFLAGS)" \
 	BUILD_SYSROOT_LDFLAGS="$(HOST_LDFLAGS)"
 
-# Batocera remove --enable-headless-only for X11 build 
+# Batocera remove --enable-headless-only for X11 build
 OPENJDK_CONF_OPTS = \
 	--disable-full-docs \
 	--disable-manpages \
