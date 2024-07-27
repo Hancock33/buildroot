@@ -19,7 +19,6 @@ MESA3D_DEPENDENCIES = \
 	host-bison \
 	host-flex \
 	host-python-mako \
-	host-python-ply \
 	host-python-pyyaml \
 	expat \
 	libdrm \
@@ -33,6 +32,9 @@ endif
 
 MESA3D_CONF_OPTS = \
 	-Dgallium-omx=disabled \
+	-Dgallium-rusticl=false \
+	-Dmicrosoft-clc=disabled \
+	-Dopencl-spirv=false \
 	-Dpower8=disabled
 
 ifeq ($(BR2_PACKAGE_MESA3D_DRI3),y)
@@ -161,6 +163,19 @@ MESA3D_CONF_OPTS += \
 	-Dshared-glapi=enabled \
 	-Dgallium-drivers=$(subst $(space),$(comma),$(MESA3D_GALLIUM_DRIVERS-y)) \
 	-Dgallium-extra-hud=true
+endif
+
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ETNAVIV),y)
+MESA3D_DEPENDENCIES += host-python-pycparser
+endif
+
+ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL),y)
+MESA3D_DEPENDENCIES += host-python-ply
+endif
+
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS),y)
+MESA3D_CONF_OPTS += -Dintel-clc=system
+MESA3D_DEPENDENCIES += host-mesa3d spirv-llvm-translator spirv-tools
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),)
@@ -341,33 +356,20 @@ else
 MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL),y)
-	MESA3D_DEPENDENCIES += host-mesa3d
-	MESA3D_CONF_OPTS += -Dintel-clc=system
-endif
+HOST_MESA3D_CONF_OPTS = \
+	-Dglvnd=disabled \
+	-Dgallium-drivers=iris \
+	-Dgallium-vdpau=disabled \
+	-Dplatforms= \
+	-Ddri3=disabled \
+	-Dglx=disabled \
+	-Dvulkan-drivers=""
 
-HOST_MESA3D_DEPENDENCIES += host-python-mako \
-	host-python-ply \
-	host-python-pyyaml \
+HOST_MESA3D_DEPENDENCIES = \
 	host-libclc \
-	host-spirv-headers \
-	host-spirv-tools \
-	host-spirv-llvm-translator
-
-HOST_MESA3D_CONF_OPTS += -Dllvm=enabled
-HOST_MESA3D_CONF_OPTS += -Dintel-clc=enabled
-HOST_MESA3D_CONF_OPTS += -Dgallium-drivers=''
-HOST_MESA3D_CONF_OPTS += -Dvulkan-drivers=''
-HOST_MESA3D_CONF_OPTS += -Dplatforms=''
-HOST_MESA3D_CONF_OPTS += -Dglx=disabled
-HOST_MESA3D_CONF_OPTS += -Dlibunwind=disabled
-HOST_MESA3D_CONF_OPTS += -Dzstd=disabled
-
-ifeq ($(BR2_PACKAGE_LLVM_RTTI),y)
-	HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=true
-else
-	HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=false
-endif
+	host-libdrm \
+	host-python-mako \
+	host-spirv-tools
 
 define HOST_MESA3D_INSTALL_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/build/src/intel/compiler/intel_clc $(HOST_DIR)/bin/intel_clc
