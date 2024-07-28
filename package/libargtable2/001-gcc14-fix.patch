@@ -1,0 +1,16 @@
+ src/arg_int.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/arg_int.c b/src/arg_int.c
+index 29c20e5..bc5ab06 100644
+--- a/src/arg_int.c
++++ b/src/arg_int.c
+@@ -27,6 +27,7 @@ USA.
+ /* #ifdef HAVE_STDLIB_H */
+ #include <stdlib.h>
+ /* #endif */
++#include <ctype.h>
+ 
+ #include "argtable2.h"
+ #include <limits.h>
+
