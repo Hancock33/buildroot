@@ -1,10 +1,8 @@
-[PATCH] fbv: support bgr555 format
-
-Signed-off-by: Josh.Wu <josh.wu@atmel.com>
-diff -Naur fbv-1.0b-ori/fb_display.c fbv-1.0b/fb_display.c
---- fbv-1.0b-ori/fb_display.c	2010-04-02 09:38:15.000000000 +0800
-+++ fbv-1.0b/fb_display.c	2010-04-01 18:54:15.000000000 +0800
-@@ -297,6 +297,14 @@
+diff --git a/fb_display.c b/fb_display.c
+index 6515632..614bbc9 100644
+--- a/fb_display.c
++++ b/fb_display.c
+@@ -300,6 +300,14 @@ inline static unsigned short make15color(unsigned char r, unsigned char g, unsig
  	 ((b >> 3) & 31)        );
  }
  
@@ -19,7 +17,7 @@ diff -Naur fbv-1.0b-ori/fb_display.c fbv-1.0b/fb_display.c
  inline static unsigned short make16color(unsigned char r, unsigned char g, unsigned char b)
  {
      return (
-@@ -313,6 +321,14 @@
+@@ -316,6 +324,14 @@ void* convertRGB2FB(int fh, unsigned char *rgbbuff, unsigned long count, int bpp
      u_int16_t *s_fbbuff;
      u_int32_t *i_fbbuff;
  
@@ -34,7 +32,7 @@ diff -Naur fbv-1.0b-ori/fb_display.c fbv-1.0b/fb_display.c
      switch(bpp)
      {
  	case 8:
-@@ -325,15 +341,23 @@
+@@ -328,15 +344,23 @@ void* convertRGB2FB(int fh, unsigned char *rgbbuff, unsigned long count, int bpp
  	case 15:
  	    *cpp = 2;
  	    s_fbbuff = (unsigned short *) malloc(count * sizeof(unsigned short));
