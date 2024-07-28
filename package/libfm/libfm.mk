@@ -14,6 +14,9 @@ LIBFM_INSTALL_STAGING = YES
 # We're patching src/modules/Makefile.am
 LIBFM_AUTORECONF = YES
 
+# gcc-14 compile
+LIBFM_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -Wno-incompatible-pointer-types"
+
 ifeq ($(BR2_PACKAGE_LIBEXIF),y)
 LIBFM_CONF_OPTS += --enable-exif
 LIBFM_DEPENDENCIES += libexif
