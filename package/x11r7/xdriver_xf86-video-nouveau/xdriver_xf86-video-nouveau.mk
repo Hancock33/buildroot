@@ -16,6 +16,6 @@ XDRIVER_XF86_VIDEO_NOUVEAU_DEPENDENCIES = \
 	xserver_xorg-server
 
 # xdriver_xf86-video-nouveau requires O_CLOEXEC
-XDRIVER_XF86_VIDEO_NOUVEAU_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -D_GNU_SOURCE"
+XDRIVER_XF86_VIDEO_NOUVEAU_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -D_GNU_SOURCE -Wno-implicit-function-declaration"
 
 $(eval $(autotools-package))
