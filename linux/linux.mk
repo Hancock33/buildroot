@@ -162,6 +162,7 @@ LINUX_MAKE_FLAGS = \
 	INSTALL_MOD_PATH=$(TARGET_DIR) \
 	CROSS_COMPILE="$(TARGET_CROSS)" \
 	WERROR=0 \
+	LLVM=$(LLVM_BUILD) \
 	REGENERATE_PARSERS=1 \
 	DEPMOD=$(HOST_DIR)/sbin/depmod
 
@@ -179,8 +180,14 @@ endif
 # abusing those aliases for system call entry points, in order to
 # sanitize the arguments passed from user space in registers.
 # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=82435
-ifeq ($(BR2_TOOLCHAIN_GCC_AT_LEAST_8),y)
-LINUX_MAKE_ENV += KCFLAGS=-Wno-attribute-alias
+ifeq ($(BR2_LINUX_BUILD_WITH_LLVM),y)
+	LINUX_DEPENDENCIES += host-clang host-lld
+	LLVM_BUILD=1
+else
+	ifeq ($(BR2_TOOLCHAIN_GCC_AT_LEAST_8),y)
+	LINUX_MAKE_ENV += KCFLAGS=-Wno-attribute-alias
+	LLVM_BUILD=0
+	endif
 endif
 
 ifeq ($(BR2_LINUX_KERNEL_DTB_OVERLAY_SUPPORT),y)
