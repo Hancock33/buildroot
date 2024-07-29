@@ -467,6 +467,7 @@ F:	package/monero/
 F:	package/mpg123/
 F:	package/ntp/
 F:	package/nut/
+F:	package/openconnect/
 F:	package/openvpn/
 F:	package/opus/
 F:	package/p2pool/
