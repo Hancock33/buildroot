@@ -3,8 +3,8 @@
 # ffmpeg
 #
 ################################################################################
-# Version: Commits on Jul 24, 2024
-FFMPEG_VERSION = n6.1.1-326-g0e3bdf68b2de8c88929113e25a34e7ac4894b744
+# Version: Commits on Aug 01, 2024
+FFMPEG_VERSION = n6.1.2
 FFMPEG_SITE = $(call github,FFmpeg,FFmpeg,$(FFMPEG_VERSION))
 FFMPEG_INSTALL_STAGING = YES
 
