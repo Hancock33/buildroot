@@ -4,7 +4,7 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/24.0 | cut -d '-' -f 2-
-MESA3D_VERSION = mesa-24.1.5
+MESA3D_VERSION = 24.1.5-1-g09ebf2dbf798abbbd63f4504639b536b2f9b9f02
 MESA3D_SITE = $(call gitlabfreedesktop,mesa,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
@@ -19,12 +19,9 @@ MESA3D_DEPENDENCIES = \
 	host-bison \
 	host-flex \
 	host-python-mako \
-	host-python-ply \
-	host-python-pyyaml \
 	expat \
 	libdrm \
-	zlib \
-	zstd
+	zlib
 
 # batocera
 ifeq ($(BR2_PACKAGE_DIRECTX_HEADERS),y)
@@ -33,18 +30,18 @@ endif
 
 MESA3D_CONF_OPTS = \
 	-Dgallium-omx=disabled \
+	-Dgallium-rusticl=false \
+	-Dmicrosoft-clc=disabled \
+	-Dopencl-spirv=false \
 	-Dpower8=disabled
 
-ifeq ($(BR2_PACKAGE_MESA3D_DRI3),y)
+ifeq ($(BR2_PACKAGE_MESA3D_DRIVER)$(BR2_PACKAGE_XORG7),yy)
 MESA3D_CONF_OPTS += -Ddri3=enabled
-ifeq ($(BR2_PACKAGE_XLIB_LIBXSHMFENCE),y)
 MESA3D_DEPENDENCIES += xlib_libxshmfence
-endif
 else
 MESA3D_CONF_OPTS += -Ddri3=disabled
 endif
 
-# batocera - adjust the llvm dependencies
 ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
 MESA3D_DEPENDENCIES += host-llvm llvm
 MESA3D_MESON_EXTRA_BINARIES += llvm-config='$(STAGING_DIR)/usr/bin/llvm-config'
@@ -62,10 +59,10 @@ endif
 # Disable opencl-icd: OpenCL lib will be named libOpenCL instead of
 # libMesaOpenCL and CL headers are installed
 ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
-	MESA3D_PROVIDES += libopencl
-	MESA3D_CONF_OPTS += -Dgallium-opencl=standalone
+MESA3D_PROVIDES += libopencl
+MESA3D_CONF_OPTS += -Dgallium-opencl=standalone
 else
-	MESA3D_CONF_OPTS += -Dgallium-opencl=disabled
+MESA3D_CONF_OPTS += -Dgallium-opencl=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_NEEDS_ELFUTILS),y)
@@ -100,13 +97,12 @@ endif
 
 # Drivers
 
-# Intel Gallium Drivers
-MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_CROCUS)   += crocus
-MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_I915)     += i915
-MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS)     += iris
 # Gallium Drivers
+MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_CROCUS)   += crocus
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ETNAVIV)  += etnaviv
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_FREEDRENO) += freedreno
+MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_I915)     += i915
+MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS)     += iris
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_LIMA)     += lima
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_NOUVEAU)  += nouveau
 MESA3D_GALLIUM_DRIVERS-$(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_PANFROST) += panfrost
@@ -161,6 +157,20 @@ MESA3D_CONF_OPTS += \
 	-Dshared-glapi=enabled \
 	-Dgallium-drivers=$(subst $(space),$(comma),$(MESA3D_GALLIUM_DRIVERS-y)) \
 	-Dgallium-extra-hud=true
+endif
+
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ETNAVIV),y)
+MESA3D_DEPENDENCIES += host-python-pycparser
+endif
+
+ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL),y)
+MESA3D_DEPENDENCIES += host-python-ply
+MESA3D_DEPENDENCIES += host-python-pyyaml
+endif
+
+ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS),y)
+MESA3D_CONF_OPTS += -Dintel-clc=system
+MESA3D_DEPENDENCIES += host-mesa3d spirv-llvm-translator spirv-tools
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),)
@@ -306,6 +316,8 @@ else
 MESA3D_CONF_OPTS += -Dzstd=disabled
 endif
 
+MESA3D_CFLAGS = $(TARGET_CFLAGS)
+
 # batocera icd.@0@.json vulkan files
 define MESA3D_VULKANJSON_X86_64
         $(SED) s+"host_machine.cpu()"+"'x86_64'"+ $(@D)/src/intel/vulkan/meson.build \
@@ -341,33 +353,22 @@ else
 MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL),y)
-	MESA3D_DEPENDENCIES += host-mesa3d
-	MESA3D_CONF_OPTS += -Dintel-clc=system
-endif
+HOST_MESA3D_CONF_OPTS = \
+	-Dglvnd=disabled \
+	-Dintel-clc=enabled \
+	-Dgallium-drivers="" \
+	-Dgallium-vdpau=disabled \
+	-Dplatforms= \
+	-Ddri3=disabled \
+	-Dglx=disabled \
+	-Dvulkan-drivers=""
 
-HOST_MESA3D_DEPENDENCIES += host-python-mako \
+HOST_MESA3D_DEPENDENCIES = \
+	host-libclc \
+	host-python-mako \
 	host-python-ply \
 	host-python-pyyaml \
-	host-libclc \
-	host-spirv-headers \
-	host-spirv-tools \
-	host-spirv-llvm-translator
-
-HOST_MESA3D_CONF_OPTS += -Dllvm=enabled
-HOST_MESA3D_CONF_OPTS += -Dintel-clc=enabled
-HOST_MESA3D_CONF_OPTS += -Dgallium-drivers=''
-HOST_MESA3D_CONF_OPTS += -Dvulkan-drivers=''
-HOST_MESA3D_CONF_OPTS += -Dplatforms=''
-HOST_MESA3D_CONF_OPTS += -Dglx=disabled
-HOST_MESA3D_CONF_OPTS += -Dlibunwind=disabled
-HOST_MESA3D_CONF_OPTS += -Dzstd=disabled
-
-ifeq ($(BR2_PACKAGE_LLVM_RTTI),y)
-	HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=true
-else
-	HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=false
-endif
+	host-spirv-tools
 
 define HOST_MESA3D_INSTALL_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/build/src/intel/compiler/intel_clc $(HOST_DIR)/bin/intel_clc
