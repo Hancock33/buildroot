@@ -170,7 +170,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS),y)
 MESA3D_CONF_OPTS += -Dintel-clc=system
-MESA3D_DEPENDENCIES += host-mesa3d spirv-llvm-translator spirv-tools
+MESA3D_DEPENDENCIES += host-mesa3d
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),)
@@ -368,7 +368,8 @@ HOST_MESA3D_DEPENDENCIES = \
 	host-python-mako \
 	host-python-ply \
 	host-python-pyyaml \
-	host-spirv-tools
+	host-spirv-tools \
+	host-spirv-llvm-translator
 
 define HOST_MESA3D_INSTALL_CMDS
 	$(INSTALL) -D -m 0755 $(@D)/build/src/intel/compiler/intel_clc $(HOST_DIR)/bin/intel_clc
