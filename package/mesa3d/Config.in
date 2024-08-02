@@ -24,7 +24,6 @@ if BR2_PACKAGE_MESA3D
 config BR2_PACKAGE_MESA3D_NEEDS_ELFUTILS
 	bool
 
-# batocera - change LLVM source to batocra llvm
 config BR2_PACKAGE_MESA3D_LLVM
 	bool "llvm support"
 	depends on BR2_PACKAGE_LLVM_ARCH_SUPPORTS
@@ -34,7 +33,7 @@ config BR2_PACKAGE_MESA3D_LLVM
 	depends on !BR2_TOOLCHAIN_HAS_GCC_BUG_64735 # std::shared_future
 	depends on !BR2_STATIC_LIBS
 	depends on BR2_USE_WCHAR # std::wstring
-	depends on BR2_HOST_GCC_AT_LEAST_7 # host-batocera-llvm
+	depends on BR2_HOST_GCC_AT_LEAST_7 # host-llvm
 	select BR2_PACKAGE_LLVM
 
 comment "llvm support needs a toolchain w/ wchar, threads, C++, gcc >= 7, dynamic library, host gcc >= 7"
@@ -48,7 +47,6 @@ comment "llvm support needs a toolchain not affected by GCC bug 64735"
 	depends on BR2_PACKAGE_LLVM_ARCH_SUPPORTS
 	depends on BR2_TOOLCHAIN_HAS_GCC_BUG_64735
 
-# batocera - use batocera llvm
 # clang and libclc dependencies are satisfied by
 # BR2_PACKAGE_MESA3D_LLVM
 config BR2_PACKAGE_MESA3D_OPENCL
@@ -63,11 +61,7 @@ config BR2_PACKAGE_MESA3D_OPENCL
 	select BR2_PACKAGE_HAS_LIBOPENCL
 	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
 
-# inform the .mk file of gallium, dri, dri3 or vulkan driver selection
-config BR2_PACKAGE_MESA3D_DRI3
-	bool
-	select BR2_PACKAGE_XLIB_LIBXSHMFENCE
-
+# inform the .mk file of gallium or vulkan driver selection
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	bool
 	select BR2_PACKAGE_MESA3D_DRIVER
@@ -75,7 +69,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	bool
 	select BR2_PACKAGE_MESA3D_DRIVER
-	select BR2_PACKAGE_MESA3D_DRI3              if BR2_PACKAGE_XORG7
 
 config BR2_PACKAGE_MESA3D_VIDEO_CODEC
 	bool
@@ -83,6 +76,7 @@ config BR2_PACKAGE_MESA3D_VIDEO_CODEC
 
 config BR2_PACKAGE_MESA3D_DRIVER
 	bool
+	select BR2_PACKAGE_XLIB_LIBXSHMFENCE if BR2_PACKAGE_XORG7
 
 # Gallium xa state tracker.
 # Quote from mesa3d meson.build: "XA state tracker requires at least
@@ -128,7 +122,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_FREEDRENO
 	# can't see is just spurious. However, that dependency is about
 	# the toolchain having sync4 primitives, which is always a given
 	# for arm/aarch64.
-	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_LIBDRM_FREEDRENO
 	help
@@ -165,7 +158,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_LIMA
 	help
 	  Mesa driver for ARM Mali Utgard GPUs.
 
-# batocera - use batocera llvm
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_NOUVEAU
 	bool "Gallium nouveau driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
@@ -196,7 +188,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_R300
 	help
 	  Driver for ATI/AMD Radeon R300/R400/R500 GPUs.
 
-# batocera - select batocera llvm
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_R600
 	bool "Gallium Radeon R600 driver"
 	depends on BR2_i386 || BR2_x86_64
@@ -217,7 +208,6 @@ comment "R600 driver needs a uClibc or glibc toolchain when llvm is enabled"
 	depends on BR2_PACKAGE_MESA3D_LLVM
 	depends on !(BR2_TOOLCHAIN_USES_UCLIBC || BR2_TOOLCHAIN_USES_GLIBC)
 
-# batocera - select batocera llvm
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_RADEONSI
 	bool "Gallium Radeon SI driver"
 	depends on BR2_USE_MMU # libdrm
@@ -259,9 +249,8 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_TEGRA
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_V3D
 	bool "Gallium v3d driver"
-	depends on BR2_arm || BR2_aarch64 # batocera
+	depends on (BR2_arm && BR2_ARM_CPU_HAS_NEON) || BR2_aarch64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
-	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VC4 # runtime
 	select BR2_PACKAGE_MESA3D_OPENGL_EGL
@@ -275,9 +264,8 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_V3D
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VC4
 	bool "Gallium vc4 driver"
-	depends on BR2_arm || BR2_aarch64 # batocera
+	depends on (BR2_arm && BR2_ARM_CPU_HAS_NEON) || BR2_aarch64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
-	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_LIBDRM_VC4
 	select BR2_PACKAGE_MESA3D_OPENGL_EGL
@@ -363,7 +351,7 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL
 	depends on BR2_TOOLCHAIN_USES_GLIBC # ifunc, static_assert
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
-	  Vulkan driver for Intel hardware from Skylake (Gen9) onward.
+	  Vulkan driver for Intel hardware from Ivy Bridge onward.
 
 comment "intel vulkan needs a glibc toolchain w/ headers >= 3.17"
 	depends on BR2_i386 || BR2_x86_64
@@ -388,7 +376,6 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_HASWELL
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
 	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 # memfd.h
 	depends on BR2_TOOLCHAIN_USES_GLIBC # ifunc, static_assert
-	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
 	  Vulkan driver for Ivy Bridge / Haswell / Broadwell support.
