@@ -353,6 +353,7 @@ else
 MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
+
 HOST_MESA3D_CONF_OPTS = \
 	-Dglvnd=disabled \
 	-Dintel-clc=enabled \
@@ -361,7 +362,8 @@ HOST_MESA3D_CONF_OPTS = \
 	-Dplatforms= \
 	-Ddri3=disabled \
 	-Dglx=disabled \
-	-Dvulkan-drivers=""
+	-Dvulkan-drivers="" \
+	-Dcpp_rtti=false
 
 HOST_MESA3D_DEPENDENCIES = \
 	host-libclc \
