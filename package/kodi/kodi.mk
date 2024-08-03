@@ -6,14 +6,13 @@
 
 # When updating the version, please also update kodi-jsonschemabuilder
 # and kodi-texturepacker
-KODI_VERSION_MAJOR = 21.0
+KODI_VERSION = 21.0
 KODI_VERSION_NAME = Omega
-KODI_VERSION = $(KODI_VERSION_MAJOR)-$(KODI_VERSION_NAME)
-KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
+KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION)-$(KODI_VERSION_NAME))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
 KODI_CPE_ID_VENDOR = kodi
-KODI_CPE_ID_VERSION = $(KODI_VERSION_MAJOR)
+KODI_CPE_ID_VERSION = $(KODI_VERSION)
 # needed for binary addons
 KODI_INSTALL_STAGING = YES
 # kodi recommends building out-of-source
