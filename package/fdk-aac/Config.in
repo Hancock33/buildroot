@@ -8,6 +8,7 @@ config BR2_PACKAGE_FDK_AAC_ARCH_SUPPORTS
 	default y if BR2_powerpc
 	default y if BR2_sh
 	default y if BR2_s390x
+	default y if BR2_riscv #batocera
 
 config BR2_PACKAGE_FDK_AAC
 	bool "fdk-aac"
