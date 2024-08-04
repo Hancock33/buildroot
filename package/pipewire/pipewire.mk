@@ -111,6 +111,12 @@ else
 PIPEWIRE_CONF_OPTS += -Dpipewire-jack=disabled -Djack=disabled
 endif
 
+# batocera
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_LIBFREEAPTX),yy)
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-aptx=enabled
+PIPEWIRE_DEPENDENCIES += bluez5_utils libfreeaptx
+endif
+
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_SBC),yy)
 PIPEWIRE_CONF_OPTS += -Dbluez5=enabled
 PIPEWIRE_DEPENDENCIES += bluez5_utils sbc
@@ -225,12 +231,13 @@ else
 PIPEWIRE_CONF_OPTS += -Dreadline=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_SDL2),y)
-PIPEWIRE_DEPENDENCIES += sdl2
-PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
-else
+# batocera
+#ifeq ($(BR2_PACKAGE_SDL2),y)
+#PIPEWIRE_DEPENDENCIES += sdl2
+#PIPEWIRE_CONF_OPTS += -Dsdl2=enabled
+#else
 PIPEWIRE_CONF_OPTS += -Dsdl2=disabled
-endif
+#endif
 
 ifeq ($(BR2_PACKAGE_PIPEWIRE_COMPRESS_OFFLOAD),y)
 PIPEWIRE_CONF_OPTS += -Dcompress-offload=enabled
