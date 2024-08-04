@@ -20,7 +20,7 @@ ifeq ($(BR2_m68k_cf),y)
 LIBXML2_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -mxgot"
 endif
 
-LIBXML2_CONF_OPTS = --with-gnu-ld --without-debug --with-legacy
+LIBXML2_CONF_OPTS = --with-http --with-gnu-ld --without-debug
 
 HOST_LIBXML2_DEPENDENCIES = host-pkgconf
 LIBXML2_DEPENDENCIES = host-pkgconf

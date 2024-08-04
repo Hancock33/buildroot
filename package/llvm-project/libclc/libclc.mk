@@ -10,8 +10,8 @@ LIBCLC_SOURCE = libclc-$(LIBCLC_VERSION).src.tar.xz
 LIBCLC_LICENSE = Apache-2.0 with exceptions or MIT
 LIBCLC_LICENSE_FILES = LICENSE.TXT
 
-LIBCLC_DEPENDENCIES = host-clang host-llvm
-HOST_LIBCLC_DEPENDENCIES = host-spirv-llvm-translator
+LIBCLC_DEPENDENCIES = host-clang host-llvm host-spirv-llvm-translator
+HOST_LIBCLC_DEPENDENCIES = host-clang host-llvm host-spirv-llvm-translator
 LIBCLC_INSTALL_STAGING = YES
 
 # CMAKE_*_COMPILER_FORCED=ON skips testing the tools and assumes
@@ -39,6 +39,9 @@ LIBCLC_CONF_OPTS = \
 	-DCMAKE_C_COMPILER="$(CMAKE_HOST_C_COMPILER)" \
 	-DCMAKE_CXX_COMPILER="$(CMAKE_HOST_CXX_COMPILER)" \
 	-DLLVM_CONFIG="$(HOST_DIR)/bin/llvm-config"
+
+HOST_LIBCLC_CONF_OPTS = \
+	-DLIBCLC_TARGETS_TO_BUILD=spirv64-mesa3d-
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
