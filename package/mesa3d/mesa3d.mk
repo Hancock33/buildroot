@@ -46,14 +46,17 @@ ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
 MESA3D_DEPENDENCIES += host-llvm llvm
 MESA3D_MESON_EXTRA_BINARIES += llvm-config='$(STAGING_DIR)/usr/bin/llvm-config'
 MESA3D_CONF_OPTS += -Dllvm=enabled
-ifeq ($(BR2_PACKAGE_LLVM_RTTI),y)
-MESA3D_CONF_OPTS += -Dcpp_rtti=true
-else
-MESA3D_CONF_OPTS += -Dcpp_rtti=false
-endif
 else
 # Avoid automatic search of llvm-config
 MESA3D_CONF_OPTS += -Dllvm=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_LLVM_RTTI),y)
+MESA3D_CONF_OPTS += -Dcpp_rtti=true
+HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=true
+else
+MESA3D_CONF_OPTS += -Dcpp_rtti=false
+HOST_MESA3D_CONF_OPTS += -Dcpp_rtti=false
 endif
 
 # Disable opencl-icd: OpenCL lib will be named libOpenCL instead of
@@ -354,7 +357,7 @@ MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
 
-HOST_MESA3D_CONF_OPTS = \
+HOST_MESA3D_CONF_OPTS += \
 	-Dglvnd=disabled \
 	-Dintel-clc=enabled \
 	-Dgallium-drivers="" \
@@ -362,8 +365,7 @@ HOST_MESA3D_CONF_OPTS = \
 	-Dplatforms= \
 	-Ddri3=disabled \
 	-Dglx=disabled \
-	-Dvulkan-drivers="" \
-	-Dcpp_rtti=false
+	-Dvulkan-drivers=""
 
 HOST_MESA3D_DEPENDENCIES = \
 	host-libclc \
