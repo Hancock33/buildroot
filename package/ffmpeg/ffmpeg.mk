@@ -3,9 +3,10 @@
 # ffmpeg
 #
 ################################################################################
-# Version: Commits on Aug 01, 2024
-FFMPEG_VERSION = n6.1.2
-FFMPEG_SITE = $(call github,FFmpeg,FFmpeg,$(FFMPEG_VERSION))
+
+FFMPEG_VERSION = 6.1.2
+FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
+FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
 
 FFMPEG_LICENSE = LGPL-2.1+, libjpeg license
@@ -39,6 +40,7 @@ FFMPEG_CONF_OPTS = \
 	--disable-mipsdspr2 \
 	--disable-msa \
 	--enable-hwaccels \
+	--disable-cuda \
 	--disable-cuvid \
 	--disable-nvenc \
 	--disable-avisynth \
@@ -51,12 +53,6 @@ FFMPEG_CONF_OPTS = \
 	--disable-libvo-amrwbenc \
 	--disable-symver \
 	--disable-doc
-
-# batocera - add pulse audio support for batocera-record
-ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
-FFMPEG_CONF_OPTS += --enable-libpulse
-FFMPEG_DEPENDENCIES += pulseaudio
-endif
 
 FFMPEG_DEPENDENCIES += host-pkgconf
 
@@ -385,14 +381,6 @@ FFMPEG_CONF_OPTS += --enable-iconv
 FFMPEG_DEPENDENCIES += libiconv
 else
 FFMPEG_CONF_OPTS += --disable-iconv
-endif
-
-# batocera - add cuda
-ifeq ($(BR2_PACKAGE_BATOCERA_NVIDIA_DRIVER_CUDA),y)
-FFMPEG_CONF_OPTS += --enable-cuda
-FFMPEG_DEPENDENCIES += nv-codec-headers
-else
-FFMPEG_CONF_OPTS += --disable-cuda
 endif
 
 # ffmpeg freetype support require fenv.h which is only
