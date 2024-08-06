@@ -40,7 +40,6 @@ FFMPEG_CONF_OPTS = \
 	--disable-mipsdspr2 \
 	--disable-msa \
 	--enable-hwaccels \
-	--disable-cuda \
 	--disable-cuvid \
 	--disable-nvenc \
 	--disable-avisynth \
@@ -53,6 +52,12 @@ FFMPEG_CONF_OPTS = \
 	--disable-libvo-amrwbenc \
 	--disable-symver \
 	--disable-doc
+
+# batocera - add pulse audio support for batocera-record
+ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+FFMPEG_CONF_OPTS += --enable-libpulse
+FFMPEG_DEPENDENCIES += pulseaudio
+endif
 
 FFMPEG_DEPENDENCIES += host-pkgconf
 
@@ -381,6 +386,14 @@ FFMPEG_CONF_OPTS += --enable-iconv
 FFMPEG_DEPENDENCIES += libiconv
 else
 FFMPEG_CONF_OPTS += --disable-iconv
+endif
+
+# batocera - add cuda
+ifeq ($(BR2_PACKAGE_BATOCERA_NVIDIA_DRIVER_CUDA),y)
+FFMPEG_CONF_OPTS += --enable-cuda
+FFMPEG_DEPENDENCIES += nv-codec-headers
+else
+FFMPEG_CONF_OPTS += --disable-cuda
 endif
 
 # ffmpeg freetype support require fenv.h which is only

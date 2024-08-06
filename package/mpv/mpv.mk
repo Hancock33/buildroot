@@ -233,6 +233,7 @@ endif
 
 # batocera - add cuda
 ifeq ($(BR2_PACKAGE_BATOCERA_NVIDIA_DRIVER_CUDA),y)
+MPV_DEPENDENCIES += nv-codec-headers
 MPV_CONF_OPTS += --enable-cuda-hwaccel
 endif
 
