@@ -1,5 +1,5 @@
-# From https://lists.freedesktop.org/archives/mesa-announce/2024-July/000771.html
-sha256  02761ffd965dd64b95421ebfca1191d73724aba00f30034009237564f34cf976  mesa-24.1.5.tar.xz
-sha512  5916cc38c4a17161b012310c473077177887c5fff1bc5cb1f6efdf5da44878c18c99fe0c62318d897798cd4edb0f7206a989198ba085c2d402d49cdd0ee25288  mesa-24.1.5.tar.xz
+# From https://lists.freedesktop.org/archives/mesa-announce/2024-August/000774.html
+sha256  c02bb72cea290f78b11895a0c95c7c92394f180d7ff66d4a762ec6950a58addf  mesa-24.2.0.tar.xz
+sha512  a585c788801b5a341d356e44d958b148e6e14f6b3d7224e99a92faa2f004bf0cfc90103c5fdc651afb22f805c6f9dc594f9f3f5ecebcea36f6305b3a6ccb9294  mesa-24.2.0.tar.xz
 # License
 sha256  a00275a53178e2645fb65be99a785c110513446a5071ff2c698ed260ad917d75  docs/license.rst
