@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-LIBRSVG_VERSION_MAJOR = 2.58
-LIBRSVG_VERSION = $(LIBRSVG_VERSION_MAJOR).93
+LIBRSVG_VERSION_MAJOR = 2.50
+LIBRSVG_VERSION = $(LIBRSVG_VERSION_MAJOR).9
 LIBRSVG_SITE = https://download.gnome.org/sources/librsvg/$(LIBRSVG_VERSION_MAJOR)
 LIBRSVG_SOURCE = librsvg-$(LIBRSVG_VERSION).tar.xz
 LIBRSVG_INSTALL_STAGING = YES
@@ -20,16 +20,15 @@ HOST_LIBRSVG_DEPENDENCIES = host-cairo host-gdk-pixbuf host-libglib2 host-libxml
 LIBRSVG_LICENSE = LGPL-2.1+
 LIBRSVG_LICENSE_FILES = COPYING.LIB
 LIBRSVG_CPE_ID_VENDOR = gnome
+# We're patching gdk-pixbuf-loader/Makefile.am
+LIBRSVG_AUTORECONF = YES
 
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
-LIBRSVG_CONF_OPTS += -Dintrospection=true
+LIBRSVG_CONF_OPTS += --enable-introspection
 LIBRSVG_DEPENDENCIES += gobject-introspection
 else
-LIBRSVG_CONF_OPTS += -Dintrospection=false
+LIBRSVG_CONF_OPTS += --disable-introspection
 endif
 
-LIBRSVG_CONF_OPTS += -Dtests=false \
--Ddocs=false
-
-$(eval $(meson-package))
-$(eval $(host-meson-package))
+$(eval $(autotools-package))
+$(eval $(host-autotools-package))
