@@ -319,7 +319,7 @@ else
 MESA3D_CONF_OPTS += -Dzstd=disabled
 endif
 
-MESA3D_CFLAGS = $(TARGET_CFLAGS)
+MESA3D_CFLAGS = -O2 "$(BR2_TARGET_OPTIMIZATION)"
 
 # batocera icd.@0@.json vulkan files
 define MESA3D_VULKANJSON_X86_64
