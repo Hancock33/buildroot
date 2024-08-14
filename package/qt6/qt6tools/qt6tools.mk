@@ -51,5 +51,7 @@ HOST_QT6TOOLS_CONF_OPTS = \
 	-DFEATURE_qtdiag=FALSE \
 	-DFEATURE_qtplugininfo=FALSE
 
+HOST_QT6TOOLS_DEPENDENCIES = host-qt6base
+
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
