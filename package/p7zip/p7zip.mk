@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-P7ZIP_VERSION = 2407
+P7ZIP_VERSION = 2408
 P7ZIP_SOURCE = 7z$(P7ZIP_VERSION)-src.tar.xz
 P7ZIP_SITE = https://www.7-zip.org/a
 P7ZIP_LICENSE = LGPL-2.1+ with unRAR restriction
