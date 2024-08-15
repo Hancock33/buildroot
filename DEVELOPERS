@@ -871,6 +871,10 @@ F:	package/logsurfer/
 N:	Dominik Michael Rauh <dmrauh@posteo.de>
 F:	package/gdal/
 
+N:	Dong Wang <wangdong115@foxmail.com>
+F:	board/friendlyarm/nanopi-neo/
+F:	configs/friendlyarm_nanopi_neo_defconfig
+
 N:	Doug Kehn <rdkehn@gmail.com>
 F:	package/nss-pam-ldapd/
 F:	package/sp-oops-extract/
@@ -1454,7 +1458,16 @@ F:	package/axel/
 F:	package/mawk/
 
 N:	J. Neuschäfer <j.neuschaefer@gmx.net>
-F:	package/tipidee
+F:	package/execline/
+F:	package/mdevd/
+F:	package/s6/
+F:	package/s6-linux-init/
+F:	package/s6-linux-utils/
+F:	package/s6-networking/
+F:	package/s6-portable-utils/
+F:	package/s6-rc/
+F:	package/skalibs/
+F:	package/tipidee/
 
 N:	Jagan Teki <jagan@amarulasolutions.com>
 F:	board/amarula/
@@ -2212,6 +2225,7 @@ N:	Marcus Hoffmann <bubu@bubu1.eu>
 F:	package/nethogs/
 F:	package/pico-sdk/
 F:	package/picotool/
+F:	package/python-immutabledict/
 F:	package/python-jc/
 F:	package/python-ruamel-yaml-clib/
 F:	support/testing/tests/package/test_python_fastapi.py
@@ -2241,7 +2255,7 @@ F:	configs/qemu_riscv32_virt_defconfig
 F:	configs/qemu_riscv64_virt_defconfig
 
 N:	Marleen Vos <marleen.vos@mind.be>
-F:	board/stmicroelectronics/common/stm32mp157/
+F:	board/stmicroelectronics/common/stm32mp1xx/
 F:	configs/avenger96_defconfig
 F:	configs/stm32mp157a_dk1_defconfig
 F:	configs/stm32mp157c_dk2_defconfig
