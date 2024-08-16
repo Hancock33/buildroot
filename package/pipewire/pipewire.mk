@@ -30,10 +30,14 @@ PIPEWIRE_CONF_OPTS += \
 	-Dvideoconvert=enabled \
 	-Dvideotestsrc=enabled \
 	-Dvolume=enabled \
-	-Dsession-managers= \
+	-Dsession-managers=[] \
 	-Dlegacy-rtkit=false \
 	-Davb=disabled \
-	-Dlibcanberra=disabled
+	-Droc=disabled \
+	-Dlibcanberra=disabled \
+	-Dlibmysofa=disabled \
+	-Dlibffado=disabled \
+	-Dsnap=disabled
 
 # batocera
 PIPEWIRE_CONF_OPTS += --wrap-mode=default
@@ -129,9 +133,9 @@ PIPEWIRE_CONF_OPTS += -Dbluez5-codec-lc3=enabled
 PIPEWIRE_DEPENDENCIES += bluez5_utils liblc3
 endif
 
-ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_SBC),yy)
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_SBC)$(BR2_PACKAGE_LIBGLIB2),yyy)
 PIPEWIRE_CONF_OPTS += -Dbluez5=enabled
-PIPEWIRE_DEPENDENCIES += bluez5_utils sbc
+PIPEWIRE_DEPENDENCIES += bluez5_utils sbc libglib2
 ifeq ($(BR2_PACKAGE_MODEM_MANAGER),y)
 PIPEWIRE_CONF_OPTS += -Dbluez5-backend-native-mm=enabled
 PIPEWIRE_DEPENDENCIES += modem-manager
@@ -144,8 +148,14 @@ PIPEWIRE_DEPENDENCIES += opus
 else
 PIPEWIRE_CONF_OPTS += -Dbluez5-codec-opus=disabled
 endif
+ifeq ($(BR2_PACKAGE_FDK_AAC),y)
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-aac=enabled
+PIPEWIRE_DEPENDENCIES += fdk-aac
 else
-PIPEWIRE_CONF_OPTS += -Dbluez5=disabled -Dbluez5-codec-opus=disabled
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-aac=disabled
+endif
+else
+PIPEWIRE_CONF_OPTS += -Dbluez5=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_FFMPEG),y)
@@ -270,6 +280,13 @@ PIPEWIRE_CONF_OPTS += -Draop=enabled
 PIPEWIRE_DEPENDENCIES += openssl
 else
 PIPEWIRE_CONF_OPTS += -Draop=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_LIBSELINUX),y)
+PIPEWIRE_CONF_OPTS += -Dselinux=enabled
+PIPEWIRE_DEPENDENCIES += libselinux
+else
+PIPEWIRE_CONF_OPTS += -Dselinux=disabled
 endif
 
 define PIPEWIRE_USERS
