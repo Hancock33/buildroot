@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FLASHROM_VERSION = 1.4.0-rc2
+FLASHROM_VERSION = 1.4.0
 FLASHROM_SITE = $(call github,flashrom,flashrom,v$(FLASHROM_VERSION))
 FLASHROM_LICENSE = GPL-2.0+
 FLASHROM_LICENSE_FILES = COPYING
@@ -15,7 +15,9 @@ FLASHROM_CONF_OPTS = \
 	-Dich_descriptors_tool=enabled \
 	-Dtests=disabled \
 	-Duse_internal_dmi=true \
-	-Dwerror=false
+	-Dwerror=false \
+	-Dman-pages=disabled \
+	-Ddocumentation=disabled
 
 FLASHROM_PROGRAMMERS = \
 	buspirate_spi \
