@@ -37,7 +37,6 @@ define VLC_OVERRIDE_PKG_M4
 	$(SED) 's/PKG_WITH_MODULES/VLC_PKG_WITH_MODULES/g' \
 		-e 's/PKG_HAVE_WITH_MODULES/VLC_PKG_HAVE_WITH_MODULES/g' \
 		$(@D)/configure.ac $(@D)/m4/with_pkg.m4
-		echo "$(shell echo $(VLC_VERSION) | cut -c 1-10)" > $(@D)/src/revision.txt
 endef
 VLC_POST_PATCH_HOOKS += VLC_OVERRIDE_PKG_M4
 
@@ -149,7 +148,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_FFMPEG),y)
 VLC_CONF_OPTS += --enable-avcodec
-VLC_DEPENDENCIES += ffmpeg
+VLC_DEPENDENCIES += ffmpeg4 #batocera - use our ffmpeg4 package
 else
 VLC_CONF_OPTS += --disable-avcodec
 endif
@@ -385,10 +384,10 @@ VLC_DEPENDENCIES += libupnp
 else
 VLC_CONF_OPTS += --disable-upnp
 endif
-#batocera disable
+
 # libva support depends on ffmpeg
 ifeq ($(BR2_PACKAGE_FFMPEG)$(BR2_PACKAGE_LIBVA),yy)
-VLC_CONF_OPTS += --disable-libva
+VLC_CONF_OPTS += --enable-libva
 VLC_DEPENDENCIES += libva
 else
 VLC_CONF_OPTS += --disable-libva
@@ -594,5 +593,10 @@ endif
 # batocera - disable pulse for ES themes
 # this causes audio to bleed through when it shouldn't
 VLC_CONF_OPTS += --disable-pulse
+
+# batocera - add ffmpeg4 config path
+VLC_CONF_ENV += PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/ffmpeg4.4/pkgconfig"
+VLC_CONF_ENV += CFLAGS="-I$(STAGING_DIR)/usr/include/ffmpeg4.4:$(TARGET_CFLAGS) -O0"
+VLC_CONF_ENV += LDFLAGS="-L$(STAGING_DIR)/usr/lib/ffmpeg4.4"
 
 $(eval $(autotools-package))
