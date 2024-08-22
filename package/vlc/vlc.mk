@@ -37,6 +37,7 @@ define VLC_OVERRIDE_PKG_M4
 	$(SED) 's/PKG_WITH_MODULES/VLC_PKG_WITH_MODULES/g' \
 		-e 's/PKG_HAVE_WITH_MODULES/VLC_PKG_HAVE_WITH_MODULES/g' \
 		$(@D)/configure.ac $(@D)/m4/with_pkg.m4
+		echo "$(shell echo $(VLC_VERSION) | cut -c 1-10)" > $(@D)/src/revision.txt
 endef
 VLC_POST_PATCH_HOOKS += VLC_OVERRIDE_PKG_M4
 
