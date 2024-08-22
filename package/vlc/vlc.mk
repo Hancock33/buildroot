@@ -4,9 +4,10 @@
 #
 ################################################################################
 
-VLC_VERSION = 4.0.0-dev-30540-ga9343f68bb19a1c20e45e1029848326020b0c69e
+VLC_VERSION = 3.0.21
 VLC_SITE = https://code.videolan.org/videolan/vlc.git
 VLC_SITE_METHOD = git
+#VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
 VLC_LICENSE = GPL-2.0+, LGPL-2.1+
 VLC_LICENSE_FILES = COPYING COPYING.LIB
 VLC_CPE_ID_VENDOR = videolan
