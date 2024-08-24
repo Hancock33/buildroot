@@ -380,19 +380,20 @@ index 0000000000..73dc5ce4b9
 +    mp_input_add_thread_src(ictx, NULL, read_gamepad_thread);
 +}
 diff --git a/input/input.c b/input/input.c
-index 9fd2a16f0c..3426fa4796 100644
+index 9fd2a16f0c..fe89710916 100644
 --- a/input/input.c
 +++ b/input/input.c
-@@ -198,7 +198,7 @@ const struct m_sub_options input_config = {
+@@ -198,9 +198,7 @@ const struct m_sub_options input_config = {
          {"input-vo-keyboard", OPT_BOOL(vo_key_input)},
          {"input-media-keys", OPT_BOOL(use_media_keys)},
          {"input-preprocess-wheel", OPT_BOOL(preprocess_wheel)},
 -#if HAVE_SDL2_GAMEPAD
-+#if HAVE_SDL2_GAMEPAD || HAVE_EVDEV_GAMEPAD
          {"input-gamepad", OPT_BOOL(use_gamepad)},
- #endif
+-#endif
          {"window-dragging", OPT_BOOL(allow_win_drag)},
-@@ -1388,11 +1388,13 @@ void mp_input_load_config(struct input_ctx *ictx)
+         {0}
+     },
+@@ -1388,11 +1386,13 @@ void mp_input_load_config(struct input_ctx *ictx)
          talloc_free(tmp);
      }
  
@@ -401,7 +402,7 @@ index 9fd2a16f0c..3426fa4796 100644
 +#if HAVE_SDL2_GAMEPAD
          mp_input_sdl_gamepad_add(ictx);
 -    }
-+#elif HAVE_EVDEV_GAMEPAD
++#else
 +        mp_input_evdev_gamepad_add(ictx);
  #endif
 +    }
