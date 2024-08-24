@@ -1,2 +1,10 @@
 config BR2_PACKAGE_LINUX_HEADERS
 	bool
+
+config BR2_KERNEL_HEADERS_PATCHES
+	string "Custom kernel patches"
+	help
+	  A space-separated list of patches to apply to the
+	  kernel. Each patch can be described as an URL, a local file
+	  path, or a directory. In the case of a directory, all files
+	  matching *.patch in the directory will be applied.

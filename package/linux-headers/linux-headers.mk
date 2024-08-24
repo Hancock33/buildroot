@@ -172,4 +172,24 @@ endef
 LINUX_HEADERS_POST_INSTALL_STAGING_HOOKS += LINUX_HEADERS_CHECK_VERSION
 endif
 
+ifeq ($(BR2_KERNEL_HEADERS_AS_KERNEL),y)
+else
+LINUX_HEADERS_PATCHES = $(call qstrip,$(BR2_KERNEL_HEADERS_PATCHES)) \
+	$(wildcard $(addsuffix /linux,$(call qstrip,$(BR2_GLOBAL_PATCH_DIR))))
+
+LINUX_HEADERS_PATCH = $(filter ftp://% http://% https://%,$(LINUX_HEADERS_PATCHES))
+
+define LINUX_HEADERS_APPLY_LOCAL_PATCHES
+	for p in $(filter-out ftp://% http://% https://%,$(LINUX_HEADERS_PATCHES)) ; do \
+		if test -d $$p ; then \
+			$(APPLY_PATCHES) $(@D) $$p \*.patch || exit 1 ; \
+		else \
+			$(APPLY_PATCHES) $(@D) `dirname $$p` `basename $$p` || exit 1; \
+		fi \
+	done
+endef
+
+LINUX_HEADERS_POST_PATCH_HOOKS += LINUX_HEADERS_APPLY_LOCAL_PATCHES
+endif # BR2_KERNEL_HEADERS_AS_KERNEL
+
 $(eval $(generic-package))
