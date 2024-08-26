@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-LIBGLIB2_VERSION_MAJOR = 2.80
-LIBGLIB2_VERSION = $(LIBGLIB2_VERSION_MAJOR).4
+LIBGLIB2_VERSION_MAJOR = 2.78
+LIBGLIB2_VERSION = $(LIBGLIB2_VERSION_MAJOR).6
 LIBGLIB2_SOURCE = glib-$(LIBGLIB2_VERSION).tar.xz
 LIBGLIB2_SITE = https://download.gnome.org/sources/glib/$(LIBGLIB2_VERSION_MAJOR)
 LIBGLIB2_LICENSE = LGPL-2.1+
@@ -65,9 +65,6 @@ LIBGLIB2_MESON_EXTRA_PROPERTIES = \
 	have_c99_vsnprintf=true \
 	have_c99_snprintf=true \
 	have_unix98_printf=true
-
-LIBGLIB2_MESON_EXTRA_BINARIES = \
-	exe_wrapper='$(QEMU_USER)'
 
 ifeq ($(BR2_PACKAGE_ELFUTILS),y)
 LIBGLIB2_DEPENDENCIES += elfutils

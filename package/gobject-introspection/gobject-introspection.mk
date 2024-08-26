@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-GOBJECT_INTROSPECTION_VERSION_MAJOR = 1.80
+GOBJECT_INTROSPECTION_VERSION_MAJOR = 1.78
 GOBJECT_INTROSPECTION_VERSION = $(GOBJECT_INTROSPECTION_VERSION_MAJOR).1
 GOBJECT_INTROSPECTION_SITE = https://download.gnome.org/sources/gobject-introspection/$(GOBJECT_INTROSPECTION_VERSION_MAJOR)
 GOBJECT_INTROSPECTION_SOURCE = gobject-introspection-$(GOBJECT_INTROSPECTION_VERSION).tar.xz
@@ -12,18 +12,12 @@ GOBJECT_INTROSPECTION_INSTALL_STAGING = YES
 GOBJECT_INTROSPECTION_LICENSE = LGPL-2.0+, GPL-2.0+, BSD-2-Clause
 GOBJECT_INTROSPECTION_LICENSE_FILES = COPYING.LGPL COPYING.GPL giscanner/scannerlexer.l
 
-# gobject-introspection depends on the bootstrap version of libglib2
-# during the build because the full version depends on
-# gobject-introspection (applies to target and host packages
-# alike). "select BR2_PACKAGE_LIBGLIB2" in Config.in ensures the full
-# libglib2 gets installed together with gobject-introspection.
 GOBJECT_INTROSPECTION_DEPENDENCIES = \
 	host-autoconf-archive \
 	host-gobject-introspection \
-	host-prelink-cross \
 	host-qemu \
 	libffi \
-	host-libglib2 \
+	libglib2 \
 	pcre2 \
 	python3 \
 	zlib
@@ -31,7 +25,7 @@ GOBJECT_INTROSPECTION_DEPENDENCIES = \
 HOST_GOBJECT_INTROSPECTION_DEPENDENCIES = \
 	host-bison \
 	host-flex \
-	host-libglib2-bootstrap \
+	host-libglib2 \
 	host-python3
 
 # g-ir-scanner will default to /usr/bin/ld for linking if this is not set.
@@ -83,6 +77,8 @@ define GOBJECT_INTROSPECTION_INSTALL_PRE_WRAPPERS
 	$(SED) '1s%#!.*%#!$(HOST_DIR)/bin/python3%' $(@D)/tools/g-ir-tool-template.in
 
 	$(INSTALL) -D -m 755 $(GOBJECT_INTROSPECTION_PKGDIR)/g-ir-scanner-lddwrapper.in \
+		$(STAGING_DIR)/usr/bin/g-ir-scanner-lddwrapper
+	$(SED) "s%@TARGET_OBJDUMP@%$(TARGET_OBJDUMP)%" \
 		$(STAGING_DIR)/usr/bin/g-ir-scanner-lddwrapper
 
 	$(INSTALL) -D -m 755 $(GOBJECT_INTROSPECTION_PKGDIR)/g-ir-scanner-qemuwrapper.in \
