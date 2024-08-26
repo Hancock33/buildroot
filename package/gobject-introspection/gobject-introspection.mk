@@ -22,14 +22,14 @@ GOBJECT_INTROSPECTION_DEPENDENCIES = \
 	host-gobject-introspection \
 	host-qemu \
 	libffi \
-	libglib2-bootstrap \
+	libglib2 \
 	python3 \
 	zlib
 
 HOST_GOBJECT_INTROSPECTION_DEPENDENCIES = \
 	host-bison \
 	host-flex \
-	host-libglib2-bootstrap \
+	host-libglib2 \
 	host-python3
 
 # g-ir-scanner will default to /usr/bin/ld for linking if this is not set.
