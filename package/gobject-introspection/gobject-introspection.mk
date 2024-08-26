@@ -29,7 +29,7 @@ GOBJECT_INTROSPECTION_DEPENDENCIES = \
 HOST_GOBJECT_INTROSPECTION_DEPENDENCIES = \
 	host-bison \
 	host-flex \
-	host-libglib2 \
+	host-libglib2-bootstrap \
 	host-python3
 
 # g-ir-scanner will default to /usr/bin/ld for linking if this is not set.

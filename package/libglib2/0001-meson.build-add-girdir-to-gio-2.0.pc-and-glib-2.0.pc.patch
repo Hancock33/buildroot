@@ -25,28 +25,28 @@ Upstream: Never submitted
  2 files changed, 2 insertions(+)
 
 diff --git a/gio/meson.build b/gio/meson.build
-index 462606f3b56c..e6b736167b8d 100644
+index 59c2b0fc0..02c95312f 100644
 --- a/gio/meson.build
 +++ b/gio/meson.build
-@@ -880,6 +880,7 @@ pkg.generate(libgio,
-   variables : ['datadir=' + join_paths('${prefix}', get_option('datadir')),
-                'schemasdir=' + join_paths('${datadir}', schemas_subdir),
-                'bindir=' + join_paths('${prefix}', get_option('bindir')),
-+               'girdir=' + join_paths('${libdir}', '../share/gir-1.0'),
-                'giomoduledir=' + pkgconfig_giomodulesdir,
-                'gio=' + join_paths('${bindir}', 'gio'),
-                'gio_querymodules=@0@'.format(pkgconfig_multiarch_bindir / 'gio-querymodules'),
+@@ -885,6 +885,7 @@ pkg.generate(libgio,
+   variables : [
+     'schemasdir=' + '${datadir}' / schemas_subdir,
+     'dtdsdir=' + '${datadir}' / dtds_subdir,
++    'girdir=' + join_paths('${libdir}', '../share/gir-1.0'),
+     'giomoduledir=' + pkgconfig_giomodulesdir,
+     'gio=' + '${bindir}' / 'gio',
+     'gio_querymodules=' + pkgconfig_multiarch_bindir / 'gio-querymodules',
 diff --git a/glib/meson.build b/glib/meson.build
-index da76fc005e46..cde2edb197c7 100644
+index d2efebadc..a69532b15 100644
 --- a/glib/meson.build
 +++ b/glib/meson.build
-@@ -441,6 +441,7 @@ pkg.generate(libglib,
+@@ -447,6 +447,7 @@ pkg.generate(libglib,
    subdirs : ['glib-2.0'],
    extra_cflags : ['-I${libdir}/glib-2.0/include'] + win32_cflags,
-   variables : ['bindir=' + join_paths('${prefix}', get_option('bindir')),
-+               'girdir=' + join_paths('${libdir}', '../share/gir-1.0'),
-                'glib_genmarshal=' + join_paths('${bindir}', 'glib-genmarshal'),
-                'gobject_query=' + join_paths('${bindir}', 'gobject-query'),
-                'glib_mkenums=' + join_paths('${bindir}', 'glib-mkenums')],
+   variables : [
++    'girdir=' + join_paths('${libdir}', '../share/gir-1.0'),
+     'glib_genmarshal=' + '${bindir}' / 'glib-genmarshal',
+     'gobject_query=' + '${bindir}' / 'gobject-query',
+     'glib_mkenums=' + '${bindir}' / 'glib-mkenums',
 -- 
 2.43.0

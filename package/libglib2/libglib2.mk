@@ -34,6 +34,7 @@ HOST_LIBGLIB2_CONF_OPTS = \
 	-Doss_fuzz=disabled
 
 LIBGLIB2_DEPENDENCIES = \
+	gobject-introspection \
 	host-pkgconf \
 	host-libglib2 \
 	host-qemu \
@@ -41,16 +42,12 @@ LIBGLIB2_DEPENDENCIES = \
 
 HOST_LIBGLIB2_DEPENDENCIES = \
 	host-gettext \
+	host-gobject-introspection \
 	host-libffi \
 	host-pcre2 \
 	host-pkgconf \
 	host-util-linux \
 	host-zlib
-
-ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
-	LIBGLIB2_DEPENDENCIES += gobject-introspection
-	HOST_LIBGLIB2_DEPENDENCIES += host-gobject-introspection
-endif
 
 # We explicitly specify a giomodule-dir to avoid having a value
 # containing ${libdir} in gio-2.0.pc. Indeed, a value depending on
