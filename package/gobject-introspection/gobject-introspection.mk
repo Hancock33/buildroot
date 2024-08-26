@@ -23,6 +23,7 @@ GOBJECT_INTROSPECTION_DEPENDENCIES = \
 	host-qemu \
 	libffi \
 	libglib2 \
+	pcre2 \
 	python3 \
 	zlib
 
