@@ -22,7 +22,7 @@ GOBJECT_INTROSPECTION_DEPENDENCIES = \
 	host-gobject-introspection \
 	host-qemu \
 	libffi \
-	libglib2 \
+	host-libglib2 \
 	pcre2 \
 	python3 \
 	zlib
