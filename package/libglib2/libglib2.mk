@@ -42,7 +42,6 @@ LIBGLIB2_DEPENDENCIES = \
 
 HOST_LIBGLIB2_DEPENDENCIES = \
 	host-gettext \
-	host-gobject-introspection \
 	host-libffi \
 	host-pcre2 \
 	host-pkgconf \
