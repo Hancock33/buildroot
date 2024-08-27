@@ -7,7 +7,7 @@
 # When updating the version, please also update kodi-jsonschemabuilder
 # and kodi-texturepacker
 KODI_VERSION_NAME = Omega
-KODI_VERSION = 21.1-Omega-2-g5d02c508a1e1e2f96eaba897280f3133c70ef0aa
+KODI_VERSION = 21.1-Omega-5-g106516bbb5ed477d2c479596387d30e531c057f9
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
@@ -18,6 +18,7 @@ KODI_INSTALL_STAGING = YES
 # kodi recommends building out-of-source
 KODI_SUPPORTS_IN_SOURCE_BUILD = NO
 KODI_DEPENDENCIES = \
+	exiv2\
 	ffmpeg \
 	flatbuffers \
 	fmt \

@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-EXIV2_VERSION = 0.27.6
+EXIV2_VERSION = v0.28.3
 EXIV2_SOURCE = exiv2-$(EXIV2_VERSION)-Source.tar.gz
-EXIV2_SITE = https://github.com/Exiv2/exiv2/releases/download/v$(EXIV2_VERSION)
+EXIV2_SITE = $(call github,Exiv2,exiv2,$(EXIV2_VERSION))
 EXIV2_INSTALL_STAGING = YES
 EXIV2_LICENSE = GPL-2.0+
 EXIV2_LICENSE_FILES = COPYING
@@ -14,7 +14,8 @@ EXIV2_CPE_ID_VENDOR = exiv2
 
 EXIV2_CONF_OPTS += \
 	-DBUILD_WITH_STACK_PROTECTOR=OFF \
-	-DEXIV2_BUILD_SAMPLES=OFF
+	-DEXIV2_BUILD_SAMPLES=OFF \
+	-DEXIV2_ENABLE_BROTLI=OFF 
 
 ifeq ($(BR2_PACKAGE_EXIV2_LENSDATA),y)
 EXIV2_CONF_OPTS += -DEXIV2_ENABLE_LENSDATA=ON
