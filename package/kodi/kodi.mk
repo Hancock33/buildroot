@@ -18,7 +18,6 @@ KODI_INSTALL_STAGING = YES
 # kodi recommends building out-of-source
 KODI_SUPPORTS_IN_SOURCE_BUILD = NO
 KODI_DEPENDENCIES = \
-	exiv2\
 	ffmpeg \
 	flatbuffers \
 	fmt \
