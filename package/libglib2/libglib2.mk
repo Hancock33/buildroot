@@ -22,23 +22,32 @@ ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
 LIBGLIB2_CFLAGS += -marm
 endif
 
-HOST_LIBGLIB2_CONF_OPTS = \
+LIBGLIB2_COMMON_CONF_OPTS = \
 	-Ddtrace=false \
 	-Dglib_debug=disabled \
-	-Dintrospection=enabled \
+	-Dgtk_doc=false \
 	-Dlibelf=disabled \
-	-Dselinux=disabled \
+	-Dman=false \
+	-Dmultiarch=false \
+	-Doss_fuzz=disabled \
+	-Dsysprof=disabled \
 	-Dsystemtap=false \
-	-Dxattr=false \
-	-Dtests=false \
-	-Doss_fuzz=disabled
+	-Dtests=false
+
+HOST_LIBGLIB2_CONF_OPTS = \
+	$(LIBGLIB2_COMMON_CONF_OPTS) \
+	-Dnls=disabled \
+	-Dselinux=disabled \
+	-Dxattr=false
 
 LIBGLIB2_DEPENDENCIES = \
-	gobject-introspection \
 	host-pkgconf \
 	host-libglib2 \
-	host-qemu \
-	libffi pcre2 zlib $(TARGET_NLS_DEPENDENCIES)
+	libffi \
+	pcre2 \
+	zlib \
+	$(TARGET_NLS_DEPENDENCIES) \
+	$(if $(BR2_ENABLE_LOCALE),,libiconv)
 
 HOST_LIBGLIB2_DEPENDENCIES = \
 	host-gettext \
@@ -53,12 +62,9 @@ HOST_LIBGLIB2_DEPENDENCIES = \
 # ${libdir} would be prefixed by the sysroot by pkg-config, causing a
 # bogus installation path once combined with $(DESTDIR).
 LIBGLIB2_CONF_OPTS = \
-	-Dglib_debug=disabled \
-	-Dlibelf=disabled \
+	$(LIBGLIB2_COMMON_CONF_OPTS) \
 	-Dgio_module_dir=/usr/lib/gio/modules \
-	-Dintrospection=enabled \
-	-Dtests=false \
-	-Doss_fuzz=disabled
+	-Dnls=$(if $(BR2_SYSTEM_ENABLE_NLS),enabled,disabled)
 
 LIBGLIB2_MESON_EXTRA_PROPERTIES = \
 	have_c99_vsnprintf=true \
@@ -143,5 +149,3 @@ $(eval $(meson-package))
 $(eval $(host-meson-package))
 
 LIBGLIB2_HOST_BINARY = $(HOST_DIR)/bin/glib-genmarshal
-
-include package/libglib2/libglib2-bootstrap/libglib2-bootstrap.mk
