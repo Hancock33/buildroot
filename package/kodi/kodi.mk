@@ -42,6 +42,7 @@ KODI_DEPENDENCIES = \
 	libdrm \
 	libegl \
 	libfribidi \
+	libiconv-kodi \
 	libplist \
 	libpng \
 	lzo \
@@ -77,8 +78,9 @@ endef
 KODI_POST_EXTRACT_HOOKS = KODI_PROVIDE_JAVA_TARBALLS
 
 KODI_CONF_OPTS += \
-	-DCMAKE_C_FLAGS="$(TARGET_CFLAGS) $(KODI_C_FLAGS)" \
-	-DCMAKE_EXE_LINKER_FLAGS="$(KODI_EXTRA_LIBS)" \
+	-DCMAKE_PREFIX_PATH=$(STAGING_DIR)/usr/lib/libiconv-kodi \
+	-DCMAKE_C_FLAGS="$(TARGET_CFLAGS) $(KODI_C_FLAGS) -I$(STAGING_DIR)/usr/lib/libiconv-kodi/include" \
+	-DCMAKE_EXE_LINKER_FLAGS="$(KODI_EXTRA_LIBS) -L$(STAGING_DIR)/usr/lib/libiconv-kodi/lib" \
 	-DENABLE_APP_AUTONAME=OFF \
 	-DENABLE_CCACHE=OFF \
 	-DENABLE_DVDCSS=ON \
