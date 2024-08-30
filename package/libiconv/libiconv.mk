@@ -4,11 +4,14 @@
 #
 ################################################################################
 
-LIBICONV_VERSION = 1.15
+LIBICONV_VERSION = 1.17
 LIBICONV_SITE = $(BR2_GNU_MIRROR)/libiconv
 LIBICONV_INSTALL_STAGING = YES
 LIBICONV_LICENSE = GPL-3.0+ (iconv program), LGPL-2.0+ (library)
 LIBICONV_LICENSE_FILES = COPYING COPYING.LIB
+LIBICONV_LIBTOOL_PATCH = NO
+
+LIBICONV_CONF_OPTS += --disable-shared
 
 ifeq ($(BR2_PACKAGE_LIBICONV_EXTRA_ENCODINGS),y)
 LIBICONV_CONF_OPTS += --enable-extra-encodings
