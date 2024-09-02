@@ -9,9 +9,6 @@ FBDUMP_SITE = http://www.rcdrummond.net/fbdump
 FBDUMP_LICENSE = GPL-2.0
 FBDUMP_LICENSE_FILES = COPYING
 
-# gcc-14 compile
-FBDUMP_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -Wno-incompatible-pointer-types"
-
 # The VGA16 specific feature of fbdump doesn't make much sense outside
 # of the x86/x86-64 architectures, and causes build problems on some
 # architectures as outw() is not always available.
