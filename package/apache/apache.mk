@@ -12,6 +12,8 @@ APACHE_LICENSE_FILES = LICENSE
 APACHE_CPE_ID_VENDOR = apache
 APACHE_CPE_ID_PRODUCT = http_server
 APACHE_SELINUX_MODULES = apache
+# Needed for mod_php
+APACHE_INSTALL_STAGING = YES
 # We have a patch touching configure.in and Makefile.in,
 # so we need to autoreconf:
 APACHE_AUTORECONF = YES
@@ -19,7 +21,6 @@ APACHE_DEPENDENCIES = host-pkgconf apr apr-util pcre2
 
 APACHE_CONF_ENV= \
 	ap_cv_void_ptr_lt_long=no \
-	ac_cv_func_gettid=no \
 	PCRE_CONFIG=$(STAGING_DIR)/usr/bin/pcre2-config
 
 ifeq ($(BR2_PACKAGE_APACHE_MPM_EVENT),y)
@@ -31,16 +32,10 @@ APACHE_MPM = worker
 endif
 
 APACHE_CONF_OPTS = \
+	--sysconfdir=/etc/apache2 \
 	--with-apr=$(STAGING_DIR)/usr \
 	--with-apr-util=$(STAGING_DIR)/usr \
 	--with-pcre=$(STAGING_DIR)/usr/bin/pcre2-config \
-
-ifeq ($(BR2_PACKAGE_APACHE_DAEMON),y)
-# Needed for mod_php
-APACHE_INSTALL_STAGING = YES
-
-APACHE_CONF_OPTS += \
-	--sysconfdir=/etc/apache2 \
 	--enable-http \
 	--enable-dbd \
 	--enable-proxy \
@@ -126,15 +121,5 @@ define APACHE_INSTALL_INIT_SYSTEMD
 	$(INSTALL) -D -m 644 package/apache/apache.service \
 		$(TARGET_DIR)/usr/lib/systemd/system/apache.service
 endef
-else
-define APACHE_BUILD_CMDS
-	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D)/support htdigest htpasswd
-endef
-
-define APACHE_INSTALL_TARGET_CMDS
-	$(INSTALL) -m 0755 -D $(@D)/support/htdigest $(TARGET_DIR)/usr/bin/htdigest
-	$(INSTALL) -m 0755 -D $(@D)/support/htpasswd $(TARGET_DIR)/usr/bin/htpasswd
-endef
-endif
 
 $(eval $(autotools-package))
