@@ -3,11 +3,9 @@
 # sdl_net
 #
 ################################################################################
-# The latest officially released version of SDL_image is 1.2.8, released in 2012.
-# Since then, there have been several bugfixes.
-#
-# Version: Commits on Oct 22, 2023 (branch@SDL-1.2)
-SDL_NET_VERSION = 83ba32df29225b0f29be1a6d66e678b1b1cb01ac
+# Version: Commits on Apr 23, 2024
+SDL_NET_VERSION = 0043be2e559f8d562d04bf62d6e3f4162ed8edad
+SDL_NET_BRANCH = SDL-1.2
 SDL_NET_SITE = $(call github,libsdl-org,SDL_net,$(SDL_NET_VERSION))
 SDL_NET_SOURCE = SDL_net-$(SDL_NET_VERSION).tar.gz
 SDL_NET_LICENSE = Zlib

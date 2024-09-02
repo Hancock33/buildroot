@@ -3,11 +3,9 @@
 # sdl_image
 #
 ################################################################################
-# The latest officially released version of SDL_image is 1.2.12, released in 2012.
-# Since then, there have been many bugfixes, including security fixes.
-#
-# Version: Commits on Dec 10, 2023 (branch@SDL-1.2)
-SDL_IMAGE_VERSION = 429ab25105508757d64dca4ada147f986d244aa0
+# Version: Commits on Apr 23, 2024
+SDL_IMAGE_VERSION = 7adb1a70f97d62f1bb307bfb4e6c2fa0bc8c33ab
+SDL_IMAGE_BRANCH = SDL-1.2
 SDL_IMAGE_SITE = $(call github,libsdl-org,SDL_image,$(SDL_IMAGE_VERSION))
 SDL_IMAGE_INSTALL_STAGING = YES
 SDL_IMAGE_LICENSE = Zlib
