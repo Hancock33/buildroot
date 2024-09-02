@@ -4,24 +4,14 @@
 #
 ################################################################################
 
-YAD_VERSION = 0.40.0
-YAD_SOURCE = yad-$(YAD_VERSION).tar.xz
-YAD_SITE = http://sourceforge.net/projects/yad-dialog/files
+YAD_VERSION = 14.1
+YAD_SITE = $(call github,v1cont,yad,v$(YAD_VERSION))
 YAD_LICENSE = GPL-3.0
 YAD_LICENSE_FILES = COPYING
 YAD_DEPENDENCIES = host-intltool host-pkgconf $(TARGET_NLS_DEPENDENCIES)
+YAD_AUTORECONF = YES
 YAD_CONF_ENV = LIBS=$(TARGET_NLS_LIBS)
-# gcc-14 compile
-YAD_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -Wno-incompatible-pointer-types"
 
 YAD_CONF_OPTS = --enable-html=no
-
-ifeq ($(BR2_PACKAGE_LIBGTK3_X11),y)
-YAD_DEPENDENCIES += libgtk3
-YAD_CONF_OPTS += --with-gtk=gtk3
-else
-YAD_DEPENDENCIES += libgtk2
-YAD_CONF_OPTS += --with-gtk=gtk2
-endif
 
 $(eval $(autotools-package))
