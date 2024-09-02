@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-JSON_GLIB_VERSION_MAJOR = 1.8
+JSON_GLIB_VERSION_MAJOR = 1.10
 JSON_GLIB_VERSION = $(JSON_GLIB_VERSION_MAJOR).0
 JSON_GLIB_SITE = https://download.gnome.org/sources/json-glib/$(JSON_GLIB_VERSION_MAJOR)
 JSON_GLIB_SOURCE = json-glib-$(JSON_GLIB_VERSION).tar.xz
