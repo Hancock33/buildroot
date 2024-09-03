@@ -30,18 +30,48 @@ LIBGLIB2_BOOTSTRAP_DL_SUBDIR = libglib2
 LIBGLIB2_BOOTSTRAP_CFLAGS = $(LIBGLIB2_CFLAGS)
 LIBGLIB2_BOOTSTRAP_LDFLAGS = $(LIBGLIB2_LDFLAGS)
 
-LIBGLIB2_BOOTSTRAP_DEPENDENCIES = $(filter-out gobject-introspection,$(LIBGLIB2_DEPENDENCIES))
-LIBGLIB2_BOOTSTRAP_CONF_OPTS = $(patsubst -Dintrospection=%,-Dintrospection=disabled,$(LIBGLIB2_CONF_OPTS))
+LIBGLIB2_BOOTSTRAP_DEPENDENCIES = \
+	libffi \
+	pcre2 \
+	zlib \
+	$(TARGET_NLS_DEPENDENCIES)
 
-HOST_LIBGLIB2_BOOTSTRAP_DEPENDENCIES = $(filter-out host-gobject-introspection,$(HOST_LIBGLIB2_DEPENDENCIES))
-HOST_LIBGLIB2_BOOTSTRAP_CONF_OPTS = $(patsubst -Dintrospection=%,-Dintrospection=disabled,$(HOST_LIBGLIB2_CONF_OPTS))
+LIBGLIB2_BOOTSTRAP_CONF_OPTS = \
+	-Dglib_debug=disabled \
+	-Dlibelf=disabled \
+	-Dgio_module_dir=/usr/lib/gio/modules \
+	-Dtests=false \
+	-Doss_fuzz=disabled \
+	-Dintrospection=disabled \
+	-Dselinux=disabled \
+	-Dxattr=false \
+	-Dlibmount=disabled
 
-LIBGLIB2_BOOTSTRAP_MESON_EXTRA_PROPERTIES = $(LIBGLIB2_MESON_EXTRA_PROPERTIES)
+LIBGLIB2_BOOTSTRAP_MESON_EXTRA_PROPERTIES = \
+	have_c99_vsnprintf=true \
+	have_c99_snprintf=true \
+	have_unix98_printf=true
 
 LIBGLIB2_BOOTSTRAP_POST_INSTALL_TARGET_HOOKS = $(LIBGLIB2_POST_INSTALL_TARGET_HOOKS)
 
-# Finalize hooks aren't necessary for the bootstrap package, the full
-# libglib2 will take care of that.
+HOST_LIBGLIB2_BOOTSTRAP_DEPENDENCIES = \
+	host-gettext \
+	host-libffi \
+	host-pcre2 \
+	host-pkgconf \
+	host-util-linux \
+	host-zlib
+
+HOST_LIBGLIB2_BOOTSTRAP_CONF_OPTS = \
+	-Ddtrace=false \
+	-Dglib_debug=disabled \
+	-Dintrospection=disabled \
+	-Dlibelf=disabled \
+	-Dselinux=disabled \
+	-Dsystemtap=false \
+	-Dxattr=false \
+	-Dtests=false \
+	-Doss_fuzz=disabled
 
 $(eval $(meson-package))
 $(eval $(host-meson-package))

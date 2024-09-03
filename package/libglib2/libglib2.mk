@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-LIBGLIB2_VERSION_MAJOR = 2.78
-LIBGLIB2_VERSION = $(LIBGLIB2_VERSION_MAJOR).6
+LIBGLIB2_VERSION_MAJOR = 2.82
+LIBGLIB2_VERSION = $(LIBGLIB2_VERSION_MAJOR).0
 LIBGLIB2_SOURCE = glib-$(LIBGLIB2_VERSION).tar.xz
 LIBGLIB2_SITE = https://download.gnome.org/sources/glib/$(LIBGLIB2_VERSION_MAJOR)
 LIBGLIB2_LICENSE = LGPL-2.1+
@@ -22,35 +22,24 @@ ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
 LIBGLIB2_CFLAGS += -marm
 endif
 
-LIBGLIB2_COMMON_CONF_OPTS = \
+HOST_LIBGLIB2_CONF_OPTS = \
 	-Ddtrace=false \
 	-Dglib_debug=disabled \
-	-Dgtk_doc=false \
+	-Dintrospection=enabled \
 	-Dlibelf=disabled \
-	-Dman=false \
-	-Dmultiarch=false \
-	-Doss_fuzz=disabled \
-	-Dsysprof=disabled \
-	-Dsystemtap=false \
-	-Dtests=false
-
-HOST_LIBGLIB2_CONF_OPTS = \
-	$(LIBGLIB2_COMMON_CONF_OPTS) \
-	-Dnls=disabled \
 	-Dselinux=disabled \
-	-Dxattr=false
+	-Dsystemtap=false \
+	-Dxattr=false \
+	-Dtests=false \
+	-Doss_fuzz=disabled
 
 LIBGLIB2_DEPENDENCIES = \
-	host-pkgconf \
-	host-libglib2 \
-	libffi \
-	pcre2 \
-	zlib \
-	$(TARGET_NLS_DEPENDENCIES) \
-	$(if $(BR2_ENABLE_LOCALE),,libiconv)
+	host-pkgconf host-libglib2 \
+	libffi pcre2 zlib $(TARGET_NLS_DEPENDENCIES)
 
 HOST_LIBGLIB2_DEPENDENCIES = \
 	host-gettext \
+	host-gobject-introspection \
 	host-libffi \
 	host-pcre2 \
 	host-pkgconf \
@@ -62,14 +51,34 @@ HOST_LIBGLIB2_DEPENDENCIES = \
 # ${libdir} would be prefixed by the sysroot by pkg-config, causing a
 # bogus installation path once combined with $(DESTDIR).
 LIBGLIB2_CONF_OPTS = \
-	$(LIBGLIB2_COMMON_CONF_OPTS) \
+	-Dglib_debug=disabled \
+	-Dlibelf=disabled \
 	-Dgio_module_dir=/usr/lib/gio/modules \
-	-Dnls=$(if $(BR2_SYSTEM_ENABLE_NLS),enabled,disabled)
+	-Dtests=false \
+	-Doss_fuzz=disabled
 
 LIBGLIB2_MESON_EXTRA_PROPERTIES = \
 	have_c99_vsnprintf=true \
 	have_c99_snprintf=true \
 	have_unix98_printf=true
+
+ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
+LIBGLIB2_CONF_OPTS += -Dintrospection=enabled
+LIBGLIB2_DEPENDENCIES += gobject-introspection host-qemu
+LIBGLIB2_MESON_EXTRA_BINARIES = exe_wrapper='$(@D)/libglib2-qemu-wrapper'
+define LIBGLIB2_INSTALL_QEMUWARPPER
+	$(INSTALL) -D -m 755 $(LIBGLIB2_PKGDIR)/libglib2-qemu-wrapper.in \
+		$(@D)/libglib2-qemu-wrapper
+	$(SED) 's%@QEMU_USER@%$(QEMU_USER)%g; \
+		s%@TOOLCHAIN_HEADERS_VERSION@%$(BR2_TOOLCHAIN_HEADERS_AT_LEAST)%g; \
+		s%@QEMU_USERMODE_ARGS@%$(call qstrip,$(BR2_PACKAGE_HOST_QEMU_USER_MODE_ARGS))%g; \
+		' \
+		$(@D)/libglib2-qemu-wrapper
+endef
+LIBGLIB2_PRE_CONFIGURE_HOOKS += LIBGLIB2_INSTALL_QEMUWARPPER
+else
+LIBGLIB2_CONF_OPTS += -Dintrospection=disabled
+endif
 
 ifeq ($(BR2_PACKAGE_ELFUTILS),y)
 LIBGLIB2_DEPENDENCIES += elfutils
@@ -149,3 +158,9 @@ $(eval $(meson-package))
 $(eval $(host-meson-package))
 
 LIBGLIB2_HOST_BINARY = $(HOST_DIR)/bin/glib-genmarshal
+
+# Bootstrap is only needed if building with introspection. However
+# introspection is unconditionally enabled for host-libglib2, so the
+# include must happen for the host package even if target libglib2 is
+# built without introspection.
+include package/libglib2/libglib2-bootstrap/libglib2-bootstrap.mk
