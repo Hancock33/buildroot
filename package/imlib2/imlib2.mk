@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-IMLIB2_VERSION = 1.7.3
-IMLIB2_SOURCE = imlib2-$(IMLIB2_VERSION).tar.bz2
+IMLIB2_VERSION = 1.12.3
+IMLIB2_SOURCE = imlib2-$(IMLIB2_VERSION).tar.xz
 IMLIB2_SITE = http://downloads.sourceforge.net/project/enlightenment/imlib2-src/$(IMLIB2_VERSION)
 IMLIB2_LICENSE = Imlib2
 IMLIB2_LICENSE_FILES = COPYING COPYING-PLAIN
