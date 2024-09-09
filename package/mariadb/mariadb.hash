@@ -1,5 +1,5 @@
-# From https://downloads.mariadb.org/mariadb/11.3.2
-sha512  6a8b3d72916faa6dd60c5b4733aae95a628aab58c14643175a7963bae45535c5225e71318c5a40176a7baea79a10dc679c66c225902f660122742b6540e66458  mariadb-11.3.2.tar.gz
+# From https://downloads.mariadb.org/mariadb/11.4.3
+sha512  0aef97265a48fdbeee3b802b52854c8ca2b34cd13c4ed33ded9e68e38ff132e8ae14254dda836a4e3804d6ae8810866e0af1c9c968cca0902f6d85742315fb34  mariadb-11.4.3.tar.gz
 sha256  6747442c189064b857336007dd7fa3aaf58512aa1a0b2ba76bf1182eefb01025  8.0.1.zip
 
 # Hash for license files
