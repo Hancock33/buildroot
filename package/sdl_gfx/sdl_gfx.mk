@@ -5,7 +5,7 @@
 ################################################################################
 
 SDL_GFX_VERSION_MAJOR = 2.0
-SDL_GFX_VERSION = $(SDL_GFX_VERSION_MAJOR).23
+SDL_GFX_VERSION = $(SDL_GFX_VERSION_MAJOR).27
 SDL_GFX_SOURCE = SDL_gfx-$(SDL_GFX_VERSION).tar.gz
 SDL_GFX_SITE = http://www.ferzkopp.net/Software/SDL_gfx-$(SDL_GFX_VERSION_MAJOR)
 SDL_GFX_LICENSE = Zlib
