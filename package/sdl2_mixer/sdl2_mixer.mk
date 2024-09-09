@@ -3,8 +3,8 @@
 # sdl2_mixer
 #
 ################################################################################
-# Version: Commits on Feb 07, 2023 (branch@release-2.6.x)
-SDL2_MIXER_VERSION = release-2.6.3
+
+SDL2_MIXER_VERSION = release-2.8.0
 SDL2_MIXER_SITE = $(call github,libsdl-org,SDL_mixer,$(SDL2_MIXER_VERSION))
 SDL2_MIXER_LICENSE = Zlib
 SDL2_MIXER_LICENSE_FILES = LICENSE.txt
