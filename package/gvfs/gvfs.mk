@@ -15,6 +15,7 @@ GVFS_DEPENDENCIES = \
 	dbus \
 	gsettings-desktop-schemas \
 	libglib2 \
+	libsoup3 \
 	shared-mime-info \
 	$(TARGET_NLS_DEPENDENCIES)
 GVFS_LICENSE = LGPL-2.0+
