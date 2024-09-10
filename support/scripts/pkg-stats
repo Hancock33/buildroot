@@ -1271,7 +1271,7 @@ def parse_args():
                         help='Path to the local NVD database', type=resolvepath)
     parser.add_argument('--disable', type=list_str,
                         help='Features to disable, comma-separated (cve, upstream, url, warning)',
-                        default=[])
+                        default=['cve, url, warning'])
     args = parser.parse_args()
     if not args.html and not args.json:
         parser.error('at least one of --html or --json (or both) is required')

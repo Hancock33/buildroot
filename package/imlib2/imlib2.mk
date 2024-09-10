@@ -14,7 +14,7 @@ IMLIB2_CPE_ID_VENDOR = enlightenment
 IMLIB2_INSTALL_STAGING = YES
 IMLIB2_DEPENDENCIES = host-pkgconf freetype
 IMLIB2_CONF_OPTS = --with-freetype-config=$(STAGING_DIR)/usr/bin/freetype-config
-IMLIB2_CONFIG_SCRIPTS = imlib2-config
+#IMLIB2_CONFIG_SCRIPTS = imlib2-config
 
 ifeq ($(BR2_PACKAGE_IMLIB2_X),y)
 IMLIB2_CONF_OPTS += --with-x
@@ -59,10 +59,10 @@ IMLIB2_CONF_OPTS += --without-id3
 endif
 
 # drop -L<dir> from linker flags
-define IMLIB2_FIXUP_IMLIB2_CONFIG
-	$(SED) 's/-L[^ ]*//g' $(STAGING_DIR)/usr/bin/imlib2-config
-endef
+#define IMLIB2_FIXUP_IMLIB2_CONFIG
+#	$(SED) 's/-L[^ ]*//g' $(STAGING_DIR)/usr/bin/imlib2-config
+#endef
 
-IMLIB2_POST_INSTALL_STAGING_HOOKS += IMLIB2_FIXUP_IMLIB2_CONFIG
+#IMLIB2_POST_INSTALL_STAGING_HOOKS += IMLIB2_FIXUP_IMLIB2_CONFIG
 
 $(eval $(autotools-package))
