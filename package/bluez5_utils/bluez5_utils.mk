@@ -199,6 +199,23 @@ else
 BLUEZ5_UTILS_CONF_OPTS += --disable-systemd
 endif
 
+# bluez installs /etc/bluetooth with mode 555 which causes issues
+define BLUEZ5_UTILS_FIX_PERMISSIONS_STAGING
+	chmod 755 $(STAGING_DIR)/etc/bluetooth/
+endef
+BLUEZ5_UTILS_POST_INSTALL_STAGING_HOOKS += \
+	BLUEZ5_UTILS_FIX_PERMISSIONS_STAGING
+
+define BLUEZ5_UTILS_FIX_PERMISSIONS_TARGET
+	chmod 755 $(TARGET_DIR)/etc/bluetooth/
+endef
+BLUEZ5_UTILS_POST_INSTALL_TARGET_HOOKS += \
+	BLUEZ5_UTILS_FIX_PERMISSIONS_TARGET
+
+define BLUEZ5_UTILS_PERMISSIONS
+	/etc/bluetooth/ d 555 0 0 - - - - -
+endef
+
 define BLUEZ5_UTILS_INSTALL_INIT_SYSV
 	$(INSTALL) -m 0755 -D package/bluez5_utils/S40bluetoothd \
 		$(TARGET_DIR)/etc/init.d/S40bluetoothd
