@@ -77,10 +77,8 @@ GNUTLS_CONF_OPTS += --disable-openssl-compatibility
 endif
 
 ifeq ($(BR2_PACKAGE_BROTLI),y)
-GNUTLS_CONF_OPTS += --with-brotli
+GNUTLS_CONF_OPTS += --with-libbrotli
 GNUTLS_DEPENDENCIES += brotli
-else
-GNUTLS_CONF_OPTS += --without-brotli
 endif
 
 ifeq ($(BR2_PACKAGE_CRYPTODEV_LINUX),y)
