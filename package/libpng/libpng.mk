@@ -18,7 +18,7 @@ LIBPNG_CONFIG_SCRIPTS = libpng$(LIBPNG_SERIES)-config libpng-config
 LIBPNG_CONF_OPTS = --disable-tools
 
 ifeq ($(BR2_ARM_CPU_HAS_NEON)$(BR2_aarch64),y)
-LIBPNG_CONF_OPTS += --enable-arm-neon
+LIBPNG_CONF_OPTS += --enable-arm-neon=off
 else
 LIBPNG_CONF_OPTS += --disable-arm-neon
 endif
