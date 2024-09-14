@@ -2478,6 +2478,7 @@ endmenu
 	source "package/htpdate/Config.in"
 	source "package/httping/Config.in"
 	source "package/i2pd/Config.in"
+	source "package/iana-assignments/Config.in"
 	source "package/ibrdtn-tools/Config.in"
 	source "package/ibrdtnd/Config.in"
 	source "package/ifenslave/Config.in"
