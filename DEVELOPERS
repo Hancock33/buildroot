@@ -612,6 +612,9 @@ F:	package/gstreamer1/gst1-shark/
 F:	package/micropython/
 F:	package/syslog-ng/
 
+N:	Christian Hitz <christian@klarinett.li>
+F:	package/qt6/qt6scxml/
+
 N:	Christian Kellermann <christian.kellermann@solectrix.de>
 F:	package/python-pylibftdi/
 
@@ -3296,6 +3299,7 @@ N:	Waldemar Brodkorb <wbx@openadk.org>
 F:	board/qemu/riscv32-virt/
 F:	configs/qemu_riscv32_nommu_virt_defconfig
 F:	package/asterisk/
+F:	package/evilwm/
 F:	package/fbv/
 F:	package/libjwt/
 F:	package/mksh/
