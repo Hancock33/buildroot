@@ -890,6 +890,7 @@ package/mosquitto/S50mosquitto Shellcheck lib_sysv.Indent lib_sysv.Variables
 package/motion/S99motion Shellcheck lib_sysv.Indent lib_sysv.Variables
 package/mpd/0001-src-event-meson.build-add-atomic-dependency-for-spar.patch lib_patch.Upstream
 package/mpir/0001-mpn-arm-udiv.asm-workaround-binutils-bug-14887.patch lib_patch.Upstream
+package/mpv/0001-fix-powerpc64-altivec.patch lib_patch.Upstream
 package/mraa/0001-include-Declare-gVERSION-global-as-extern.patch lib_patch.Upstream
 package/mrouted/S41mrouted NotExecutable
 package/mrp/S65mrp lib_sysv.Indent lib_sysv.Variables
@@ -1346,7 +1347,6 @@ package/wilc-driver/0005-Fix-cast-warnings.patch lib_patch.Upstream
 package/wipe/0001-musl.patch lib_patch.Upstream
 package/wireless_tools/0001-remove-bzero.patch lib_patch.Upstream
 package/woff2/0001-CMake-Handle-multiple-libraries-being-returned-for-B.patch lib_patch.Upstream
-package/wpa_supplicant/0001-build-re-enable-options-for-libwpa_client.so-and-.patch lib_patch.Upstream
 package/wpa_supplicant/ifupdown.sh Shellcheck
 package/x11r7/xapp_luit/0001-posix-openpt.patch lib_patch.Upstream
 package/x11r7/xapp_xdm/S99xdm lib_sysv.Indent lib_sysv.Variables
