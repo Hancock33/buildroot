@@ -492,11 +492,6 @@ config BR2_LINUX_KERNEL_NEEDS_HOST_PAHOLE
 	  such as "BTF: .tmp_vmlinux.btf: pahole (pahole) is not
 	  available".
 
-config BR2_LINUX_BUILD_WITH_LLVM
-	bool "build with llvm"
-	help
-	  Build linux kernel with llvm (experimental)
-
 # Linux extensions
 source "linux/Config.ext.in"
 
