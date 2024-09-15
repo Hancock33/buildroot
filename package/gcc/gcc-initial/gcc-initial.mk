@@ -38,7 +38,6 @@ HOST_GCC_INITIAL_CONF_OPTS = \
 	--disable-shared \
 	--without-headers \
 	--disable-threads \
-	--enable-checking=release \
 	--with-newlib \
 	--disable-largefile \
 	$(call qstrip,$(BR2_EXTRA_GCC_CONFIG_OPTIONS))

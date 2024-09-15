@@ -11,19 +11,9 @@ GCC_VERSION = $(call qstrip,$(BR2_GCC_VERSION))
 ifeq ($(BR2_GCC_VERSION_ARC),y)
 	GCC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,gcc,$(GCC_VERSION))
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
-else ifeq ($(BR2_GCC_VERSION_14_GIT),y)
+else ifeq ($(BR2_GCC_VERSION_GIT),y)
 # git describe --abbrev=40 origin/releases/gcc-14 | cut -d '-' -f 2-
 	GCC_VERSION = 14.2.0-143-g890a26bb95c7db41c99dbb6695a661b6d3675e9d
-	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
-	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
-else ifeq ($(BR2_GCC_VERSION_13_GIT),y)
-# git describe --abbrev=40 origin/releases/gcc-13 | cut -d '-' -f 2-
-	GCC_VERSION = 13.3.0-243-g973c6ea242cea7d95c2888ec6dde39b5cbb9dbb3
-	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
-	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
-else ifeq ($(BR2_GCC_VERSION_12_GIT),y)
-# git describe --abbrev=40 origin/releases/gcc-12 | cut -d '-' -f 2-
-	GCC_VERSION = 12.4.0-141-g0344276a0015415e2076c79e2f56c980efae004f
 	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
 	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else
@@ -85,7 +75,6 @@ HOST_GCC_COMMON_DEPENDENCIES = \
 HOST_GCC_COMMON_CONF_OPTS = \
 	--target=$(GNU_TARGET_NAME) \
 	--with-sysroot=$(STAGING_DIR) \
-	--enable-checking=release \
 	--enable-__cxa_atexit \
 	--with-gnu-ld \
 	--disable-libssp \
@@ -265,10 +254,6 @@ endif
 
 ifneq ($(GCC_TARGET_FLOAT_ABI),)
 HOST_GCC_COMMON_CONF_OPTS += --with-float=$(GCC_TARGET_FLOAT_ABI)
-endif
-
-ifneq ($(GCC_TARGET_SIMD),)
-HOST_GCC_COMMON_CONF_OPTS += --with-simd=$(GCC_TARGET_SIMD)
 endif
 
 ifneq ($(GCC_TARGET_MODE),)
