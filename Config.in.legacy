@@ -201,6 +201,28 @@ config BR2_BINUTILS_VERSION_2_40_X
 
 comment "Legacy options removed in 2024.08"
 
+config BR2_PACKAGE_MIDORI
+	bool "midori has been removed"
+	select BR2_LEGACY
+	help
+	  The original WebKitGTK-based Midori is no longer maintained
+	  and doesn't build since WebKitGTK moved to libsoup3 as of
+	  commit 38a098df133aaa2ebf09742054b02db5a44f58e5.
+
+config BR2_PACKAGE_FROTZ
+	bool "frotz has been removed"
+	select BR2_LEGACY
+	help
+	  This package was causing build breakage, and was no longer
+	  maintained in Buildroot.
+
+config BR2_PACKAGE_FAN_CTRL
+	bool "fan-ctrl has been removed"
+	select BR2_LEGACY
+	help
+	  This package was no longer available from SourceForge, the
+	  upstream is completely dead.
+
 config BR2_PACKAGE_FLUTTER_DYNAMIC_LAYOUTS_EXAMPLE
 	bool "flutter-dynamic-layouts-example has been removed"
 	select BR2_LEGACY

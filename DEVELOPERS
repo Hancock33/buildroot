@@ -391,7 +391,6 @@ F:	package/intel-mediasdk/
 F:	package/intel-microcode/
 F:	package/intel-vpl-gpu-rt/
 F:	package/jsoncpp/
-F:	package/kissfft/
 F:	package/kodi*
 F:	package/lame/
 F:	package/lcms2/
@@ -457,14 +456,12 @@ F:	package/mc/
 F:	package/mesa3d/
 F:	package/minidlna/
 F:	package/mjpg-streamer/
-F:	package/monero/
 F:	package/mpg123/
 F:	package/ntp/
 F:	package/nut/
 F:	package/openconnect/
 F:	package/openvpn/
 F:	package/opus/
-F:	package/p2pool/
 F:	package/pciutils/
 F:	package/perl-crypt-openssl-guess/
 F:	package/perl-crypt-openssl-random/
@@ -1279,8 +1276,6 @@ F:	configs/rockpro64_defconfig
 F:	package/at/
 F:	package/binutils/
 F:	package/cryptsetup/
-F:	package/dotnet-runtime-prebuilt/
-F:	package/dotnet6-runtime/
 F:	package/erlang-jiffy/
 F:	package/esp-hosted/
 F:	package/gcc/
