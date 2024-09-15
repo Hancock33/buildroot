@@ -7,6 +7,7 @@ config BR2_PACKAGE_PYTHON_GRPC_REQUESTS
 	select BR2_PACKAGE_PYTHON_GOOGLE_API_CORE # runtime
 	select BR2_PACKAGE_PYTHON_GRPCIO # runtime
 	select BR2_PACKAGE_PYTHON_GRPCIO_REFLECTION # runtime
+	select BR2_PACKAGE_PYTHON_PROTOBUF # runtime
 	help
 	  grpc for Humans. grpc reflection support client.
 
