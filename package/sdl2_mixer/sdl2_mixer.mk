@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-SDL2_MIXER_VERSION = release-2.8.0
-SDL2_MIXER_SITE = $(call github,libsdl-org,SDL_mixer,$(SDL2_MIXER_VERSION))
+SDL2_MIXER_VERSION = 2.8.0
+SDL2_MIXER_SOURCE = SDL2_mixer-$(SDL2_MIXER_VERSION).tar.gz
+SDL2_MIXER_SITE = http://www.libsdl.org/projects/SDL_mixer/release
 SDL2_MIXER_LICENSE = Zlib
 SDL2_MIXER_LICENSE_FILES = LICENSE.txt
 SDL2_MIXER_INSTALL_STAGING = YES
