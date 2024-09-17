@@ -946,7 +946,8 @@ pkg-stats:
 	$(TOPDIR)/support/scripts/pkg-stats -c \
 		--json $(O)/pkg-stats.json \
 		--html $(O)/pkg-stats.html \
-		--nvd-path $(DL_DIR)/buildroot-nvd
+		--nvd-path $(DL_DIR)/buildroot-nvd \
+		--disable cve, url
 
 else # ifeq ($(BR2_HAVE_DOT_CONFIG),y)
 
