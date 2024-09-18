@@ -4,17 +4,12 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/24.0 | cut -d '-' -f 2-
-MESA3D_VERSION = 24.2.2-1-g89ff25e14681597eb59a8c416d9b15fabcab9544
+MESA3D_VERSION = 24.2.3-1-gebd2c2e668e6f8f47ffe8a741e6b00a5201605a9
 MESA3D_SITE = $(call gitlabfreedesktop,mesa,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
 MESA3D_CPE_ID_VENDOR = mesa3d
 MESA3D_CPE_ID_PRODUCT = mesa
-
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_BCM2711),y)
-MESA3D_VERSION = 24.1.7-1-g27f5670eac8a666770d2bc3edb5613c4aeeb7479
-endif
-
 MESA3D_INSTALL_STAGING = YES
 
 MESA3D_PROVIDES =
