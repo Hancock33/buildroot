@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-LIBRSVG_VERSION_MAJOR = 2.52
-LIBRSVG_VERSION = $(LIBRSVG_VERSION_MAJOR).11
+LIBRSVG_VERSION_MAJOR = 2.50
+LIBRSVG_VERSION = $(LIBRSVG_VERSION_MAJOR).9
 LIBRSVG_SITE = https://download.gnome.org/sources/librsvg/$(LIBRSVG_VERSION_MAJOR)
 LIBRSVG_SOURCE = librsvg-$(LIBRSVG_VERSION).tar.xz
 LIBRSVG_INSTALL_STAGING = YES
