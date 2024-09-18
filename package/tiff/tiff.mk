@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-TIFF_VERSION = 4.6.0
+TIFF_VERSION = 4.7.0
 TIFF_SITE = http://download.osgeo.org/libtiff
 TIFF_LICENSE = tiff license
 TIFF_LICENSE_FILES = LICENSE.md
