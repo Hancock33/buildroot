@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-UPOWER_VERSION = 1.90.5
+UPOWER_VERSION = 1.90.6
 UPOWER_SOURCE = upower-v$(UPOWER_VERSION).tar.bz2
 UPOWER_SITE = https://gitlab.freedesktop.org/upower/upower/-/archive/v$(UPOWER_VERSION)
 UPOWER_LICENSE = GPL-2.0+
