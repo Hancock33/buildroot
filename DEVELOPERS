@@ -456,12 +456,14 @@ F:	package/mc/
 F:	package/mesa3d/
 F:	package/minidlna/
 F:	package/mjpg-streamer/
+F:	package/monero/
 F:	package/mpg123/
 F:	package/ntp/
 F:	package/nut/
 F:	package/openconnect/
 F:	package/openvpn/
 F:	package/opus/
+F:	package/p2pool/
 F:	package/pciutils/
 F:	package/perl-crypt-openssl-guess/
 F:	package/perl-crypt-openssl-random/
@@ -494,6 +496,7 @@ F:	package/privoxy/
 F:	package/pure-ftpd/
 F:	package/python-couchdb/
 F:	package/python-cssutils/
+F:	package/python-emailproxy/
 F:	package/python-glslang/
 F:	package/python-mako/
 F:	package/python-mwclient/
