@@ -1,3 +1,5 @@
-# Locally calculated
-sha256  e2b976e67d6fcf7078f799143a73f2a4d9cf3126ca68a1a6f1bda30fe5f3585c  protobuf-python-4.21.12.tar.gz
+# md5, sha256 from https://pypi.org/pypi/protobuf/json
+md5  6125fb2d92df0e4db192c869424b8bac  protobuf-5.28.2.tar.gz
+sha256  59379674ff119717404f7454647913787034f03fe7049cbef1d74a97bb4593f0  protobuf-5.28.2.tar.gz
+# Locally computed sha256 checksums
 sha256  6e5e117324afd944dcf67f36cf329843bc1a92229a8cd9bb573d7a83130fea7d  LICENSE
