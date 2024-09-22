@@ -21,13 +21,15 @@ UTIL_LINUX_LICENSE = \
 	LGPL-2.1+ (libblkid, libfdisk, libmount), \
 	BSD-3-Clause (libuuid), \
 	BSD-2-Clause (xxhash), \
-	ISC (rfkill)
+	ISC (rfkill) \
+	MIT (hardlink, flock)
 UTIL_LINUX_LICENSE_FILES = README.licensing \
 	Documentation/licenses/COPYING.BSD-3-Clause \
 	Documentation/licenses/COPYING.BSD-4-Clause-UC \
 	Documentation/licenses/COPYING.GPL-2.0-or-later \
 	Documentation/licenses/COPYING.ISC \
-	Documentation/licenses/COPYING.LGPL-2.1-or-later
+	Documentation/licenses/COPYING.LGPL-2.1-or-later \
+	Documentation/licenses/COPYING.MIT
 
 UTIL_LINUX_CPE_ID_VENDOR = kernel
 UTIL_LINUX_INSTALL_STAGING = YES
@@ -222,6 +224,7 @@ HOST_UTIL_LINUX_CONF_OPTS += \
 	--disable-chfn-chsh \
 	--disable-chmem \
 	--disable-ipcmk \
+	--disable-liblastlog2 \
 	--disable-login \
 	--disable-lsfd \
 	--disable-lslogins \
