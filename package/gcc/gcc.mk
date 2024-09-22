@@ -303,6 +303,11 @@ ifeq ($(BR2_nios2),y)
 HOST_GCC_COMMON_CONF_OPTS += --enable-obsolete
 endif
 
+# semantic interposition
+ifeq ($(BR2_GCC_ENABLE_SEMANTIC_INTERPOSITION),y)
+HOST_GCC_COMMON_CONF_OPTS += --enable-default-semantic-interposition=no
+endif
+
 HOST_GCC_COMMON_TOOLCHAIN_WRAPPER_ARGS += -DBR_CROSS_PATH_SUFFIX='".br_real"'
 
 # For gcc-initial, we need to tell gcc that the C library will be

@@ -47,7 +47,7 @@ config BR2_GCC_VERSION_14_X
 	select BR2_TOOLCHAIN_GCC_AT_LEAST_14
 
 config BR2_GCC_VERSION_GIT
-	bool "gcc 14.git"
+	bool "gcc git"
 	# powerpc spe support has been deprecated since gcc 8.x.
 	# https://gcc.gnu.org/ml/gcc/2018-04/msg00102.html
 	depends on !BR2_POWERPC_CPU_HAS_SPE
@@ -144,3 +144,12 @@ config BR2_GCC_ENABLE_GRAPHITE
 
 comment "graphite support needs gcc >= 5.x"
 	depends on !BR2_TOOLCHAIN_GCC_AT_LEAST_5
+
+config BR2_GCC_ENABLE_SEMANTIC_INTERPOSITION
+	bool "Enable semantic interposition"
+	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_14
+	help
+	  The suppression of interprocedural optimizations and
+	  inlining for such default visibility non-vague-linkage
+	  function definitions is the biggest difference between
+	  -fPIE/-fPIC.
