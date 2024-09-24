@@ -1,0 +1,20 @@
+diff --git a/appl/test/auditdns.c b/appl/test/auditdns.c
+index 3a79af45e..9bfcc8d2a 100644
+--- a/appl/test/auditdns.c
++++ b/appl/test/auditdns.c
+@@ -44,13 +44,13 @@
+ # define restrict /* empty */
+ #endif
+ 
+-struct rk_dns_reply *
++/*struct rk_dns_reply *
+ rk_dns_lookup(const char *domain, const char *type_name)
+ {
+ 
+     fprintf(stderr, "DNS leak: %s %s (%s)\n", __func__, domain, type_name);
+     abort();
+-}
++}*/
+ 
+ struct hostent *
+ gethostbyname(const char *name)

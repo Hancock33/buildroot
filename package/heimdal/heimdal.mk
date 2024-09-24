@@ -3,8 +3,8 @@
 # heimdal
 #
 ################################################################################
-
-HEIMDAL_VERSION = 487ba95669591aa41ba04cbdf6109c78b099e3dc
+# Version: Commits on Sept 10, 2024
+HEIMDAL_VERSION = fd2d434dd375c402d803e6f948cfc6e257d3facc
 HEIMDAL_SITE = $(call github,heimdal,heimdal,$(HEIMDAL_VERSION))
 HOST_HEIMDAL_DEPENDENCIES = host-e2fsprogs host-ncurses host-pkgconf
 HOST_HEIMDAL_AUTORECONF = YES
