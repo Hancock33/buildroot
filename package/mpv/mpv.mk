@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MPV_VERSION = 0.38.0
+MPV_VERSION = 0.39.0
 MPV_SITE = $(call github,mpv-player,mpv,v$(MPV_VERSION))
 MPV_DEPENDENCIES = \
 	host-pkgconf ffmpeg libass libplacebo zlib \
@@ -234,7 +234,7 @@ endif
 
 # batocera - add vulkan
 ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
-MPV_CONF_OPTS += -Dvulkan=enabled -Dvulkan-interop=enabled
+MPV_CONF_OPTS += -Dvulkan=enabled
 MPV_DEPENDENCIES += vulkan-headers vulkan-loader
 else
 MPV_CONF_OPTS += -Dvulkan=disabled -Dvulkan-interop=disabled
