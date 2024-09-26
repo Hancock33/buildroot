@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = n6.1.2-8-gf00f71f590f02bc4a280c9efed3988ceb06d32e1
-FFMPEG_SITE = $(call github,FFmpeg,FFmpeg,$(FFMPEG_VERSION))
+FFMPEG_VERSION = 7.0.2
+FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
+FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
 
 FFMPEG_LICENSE = LGPL-2.1+, libjpeg license
@@ -31,7 +32,6 @@ FFMPEG_CONF_OPTS = \
 	--disable-gray \
 	--enable-swscale-alpha \
 	--disable-small \
-	--disable-crystalhd \
 	--disable-dxva2 \
 	--enable-runtime-cpudetect \
 	--disable-hardcoded-tables \
@@ -39,8 +39,6 @@ FFMPEG_CONF_OPTS = \
 	--disable-mipsdspr2 \
 	--disable-msa \
 	--enable-hwaccels \
-	--disable-cuvid \
-	--disable-nvenc \
 	--disable-avisynth \
 	--disable-frei0r \
 	--disable-libopencore-amrnb \
@@ -84,16 +82,6 @@ FFMPEG_CONF_OPTS += --enable-ffplay
 FFMPEG_CONF_ENV += SDL_CONFIG=$(STAGING_DIR)/usr/bin/sdl2-config
 else
 FFMPEG_CONF_OPTS += --disable-ffplay
-endif
-
-ifeq ($(BR2_PACKAGE_JACK1),y)
-FFMPEG_CONF_OPTS += --enable-libjack
-FFMPEG_DEPENDENCIES += jack1
-else ifeq ($(BR2_PACKAGE_JACK2),y)
-FFMPEG_CONF_OPTS += --enable-libjack
-FFMPEG_DEPENDENCIES += jack2
-else
-FFMPEG_CONF_OPTS += --disable-libjack
 endif
 
 ifeq ($(BR2_PACKAGE_LIBV4L),y)
@@ -298,6 +286,16 @@ else
 FFMPEG_CONF_OPTS += --disable-mmal --disable-omx --disable-omx-rpi
 endif
 
+# batocera - add RPi H.265 hardware acceleration
+ifeq ($(BR2_PACKAGE_RPI_HEVC),y)
+FFMPEG_CONF_OPTS += --disable-mmal
+FFMPEG_CONF_OPTS += --enable-neon
+FFMPEG_CONF_OPTS += --enable-v4l2-request
+FFMPEG_CONF_OPTS += --enable-libudev
+FFMPEG_CONF_OPTS += --enable-epoxy
+FFMPEG_CONF_OPTS += --enable-sand
+endif
+
 # To avoid a circular dependency only use opencv if opencv itself does
 # not depend on ffmpeg.
 ifeq ($(BR2_PACKAGE_OPENCV3_LIB_IMGPROC)x$(BR2_PACKAGE_OPENCV3_WITH_FFMPEG),yx)
@@ -387,12 +385,12 @@ else
 FFMPEG_CONF_OPTS += --disable-iconv
 endif
 
-# batocera - add cuda
+# batocera - add cuda & nvenc
 ifeq ($(BR2_PACKAGE_NVIDIA_OPEN_DRIVER_CUDA),y)
-FFMPEG_CONF_OPTS += --enable-cuda
+FFMPEG_CONF_OPTS += --enable-cuda --enable-cuvid --enable-nvdec --enable-nvenc
 FFMPEG_DEPENDENCIES += nv-codec-headers
 else
-FFMPEG_CONF_OPTS += --disable-cuda
+FFMPEG_CONF_OPTS += --disable-cuda --disable-cuvid --disable-nvdec --disable-nvenc 
 endif
 
 # ffmpeg freetype support require fenv.h which is only
@@ -520,6 +518,14 @@ else
 FFMPEG_CONF_OPTS += --disable-neon
 endif
 
+# batocera
+ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER)$(BR2_PACKAGE_SHADERC),yyy)
+FFMPEG_CONF_OPTS += --enable-vulkan --enable-libshaderc
+FFMPEG_DEPENDENCIES += vulkan-headers vulkan-loader shaderc
+else
+FFMPEG_CONF_OPTS += --disable-vulkan
+endif
+
 ifeq ($(BR2_mips)$(BR2_mipsel)$(BR2_mips64)$(BR2_mips64el),y)
 ifeq ($(BR2_MIPS_SOFT_FLOAT),y)
 FFMPEG_CONF_OPTS += --disable-mipsfpu
@@ -565,11 +571,6 @@ endif
 FFMPEG_CFLAGS = $(TARGET_CFLAGS)
 
 ifeq ($(BR2_TOOLCHAIN_HAS_GCC_BUG_85180),y)
-FFMPEG_CONF_OPTS += --disable-optimizations
-FFMPEG_CFLAGS += -O0
-endif
-
-ifeq ($(BR2_TOOLCHAIN_HAS_GCC_BUG_68485),y)
 FFMPEG_CONF_OPTS += --disable-optimizations
 FFMPEG_CFLAGS += -O0
 endif
