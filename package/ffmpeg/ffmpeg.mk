@@ -288,6 +288,7 @@ endif
 
 # batocera - add RPi H.265 hardware acceleration
 ifeq ($(BR2_PACKAGE_RPI_HEVC),y)
+FFMPEG_VERSION = 7.0.2
 FFMPEG_CONF_OPTS += --disable-mmal
 FFMPEG_CONF_OPTS += --enable-neon
 FFMPEG_CONF_OPTS += --enable-v4l2-request
