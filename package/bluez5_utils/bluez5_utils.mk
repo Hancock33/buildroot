@@ -66,15 +66,19 @@ endif
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_PLUGINS_AUDIO),y)
 BLUEZ5_UTILS_CONF_OPTS += \
 	--enable-a2dp \
+	--enable-asha \
 	--enable-avrcp \
 	--enable-bap \
+	--enable-bass \
 	--enable-mcp \
 	--enable-vcp
 else
 BLUEZ5_UTILS_CONF_OPTS += \
 	--disable-a2dp \
+	--disable-asha \
 	--disable-avrcp \
 	--disable-bap \
+	--disable-bass \
 	--disable-mcp \
 	--disable-vcp
 endif
