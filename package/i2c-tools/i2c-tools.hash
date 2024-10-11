@@ -1,5 +1,5 @@
 # From https://www.kernel.org/pub/software/utils/i2c-tools/sha256sums.asc
-sha256  1f899e43603184fac32f34d72498fc737952dbc9c97a8dd9467fadfdf4600cf9  i2c-tools-4.3.tar.xz
+sha256  8b15f0a880ab87280c40cfd7235cfff28134bf14d5646c07518b1ff6642a2473  i2c-tools-4.4.tar.xz
 
 # License files
 sha256  ab15fd526bd8dd18a9e77ebc139656bf4d33e97fc7238cd11bf60e2b9b8666c6  COPYING
