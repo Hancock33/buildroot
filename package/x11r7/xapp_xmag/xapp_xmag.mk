@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_XMAG_VERSION = 1.0.7
+XAPP_XMAG_VERSION = 1.0.8
 XAPP_XMAG_SOURCE = xmag-$(XAPP_XMAG_VERSION).tar.xz
 XAPP_XMAG_SITE = https://xorg.freedesktop.org/releases/individual/app
 XAPP_XMAG_LICENSE = MIT
