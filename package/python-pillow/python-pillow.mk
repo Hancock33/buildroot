@@ -58,16 +58,4 @@ else
 PYTHON_PILLOW_BUILD_OPTS += -C--build-option=--disable-tiff
 endif
 
-ifeq ($(BR2_PACKAGE_WEBP),y)
-PYTHON_PILLOW_DEPENDENCIES += webp
-PYTHON_PILLOW_BUILD_OPTS += -C--build-option=--enable-webp
-ifeq ($(BR2_PACKAGE_WEBP_DEMUX)$(BR2_PACKAGE_WEBP_MUX),yy)
-PYTHON_PILLOW_BUILD_OPTS += -C--build-option=--enable-webpmux
-else
-PYTHON_PILLOW_BUILD_OPTS += -C--build-option=--disable-webpmux
-endif
-else
-PYTHON_PILLOW_BUILD_OPTS += -C--build-option=--disable-webp -C--build-option=--disable-webpmux
-endif
-
 $(eval $(python-package))
