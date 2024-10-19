@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-DAV1D_VERSION = 1.4.3
-DAV1D_SOURCE = dav1d-$(DAV1D_VERSION).tar.xz
-DAV1D_SITE = https://download.videolan.org/pub/videolan/dav1d/$(DAV1D_VERSION)
+DAV1D_VERSION = 1.5.0
+DAV1D_SITE = $(call github,videolan,dav1d,$(DAV1D_VERSION))
 DAV1D_LICENSE = BSD-2-Clause
 DAV1D_LICENSE_FILES = COPYING
 DAV1D_CPE_ID_VENDOR = videolan
