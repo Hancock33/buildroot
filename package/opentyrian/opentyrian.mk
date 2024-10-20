@@ -3,8 +3,8 @@
 # opentyrian
 #
 ################################################################################
-# Version: Commits on Jan 09, 2023
-OPENTYRIAN_VERSION = 9750f8cfab738d0ea08ccb8d8752b95f5c09df07
+# Version: Commits on Aug 02, 2024
+OPENTYRIAN_VERSION = ebc4f191f409549d54b09887ebb87333f9dadd42
 OPENTYRIAN_SITE = $(call github,opentyrian,opentyrian,$(OPENTYRIAN_VERSION))
 OPENTYRIAN_LICENSE = GPL-2.0+
 OPENTYRIAN_LICENSE_FILES = COPYING
