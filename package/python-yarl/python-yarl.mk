@@ -10,5 +10,8 @@ PYTHON_YARL_SITE = https://files.pythonhosted.org/packages/23/52/e9766cc6c2eab7d
 PYTHON_YARL_LICENSE = Apache-2.0
 PYTHON_YARL_LICENSE_FILES = LICENSE
 PYTHON_YARL_SETUP_TYPE = setuptools
+PYTHON_YARL_DEPENDENCIES = \
+	host-python-cython \
+	host-python-expandvars
 
 $(eval $(python-package))
