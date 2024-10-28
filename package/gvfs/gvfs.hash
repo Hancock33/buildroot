@@ -1,5 +1,5 @@
-# From https://download.gnome.org/sources/gvfs/1.52/gvfs-1.52.3.sha256sum
-sha256  d4ffda5ed785a63e02e90f0f19f3e7e39859023d3034145d71ac9108bac1b432  gvfs-1.52.3.tar.xz
+# From https://download.gnome.org/sources/gvfs/1.56/gvfs-1.56.1.sha256sum
+sha256  86731ccec679648f8734e237b1de190ebdee6e4c8c0f56f454c31588e509aa10  gvfs-1.56.1.tar.xz
 
 # Hash for license file
 sha256  45cf336e2e48176993babc5aabf44437390f40e6a86a472c6abfc7ce9c035db4  COPYING
