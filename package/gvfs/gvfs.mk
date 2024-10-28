@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-GVFS_VERSION_MAJOR = 1.52
-GVFS_VERSION = $(GVFS_VERSION_MAJOR).3
+GVFS_VERSION_MAJOR = 1.56
+GVFS_VERSION = $(GVFS_VERSION_MAJOR).1
 GVFS_SOURCE = gvfs-$(GVFS_VERSION).tar.xz
 GVFS_SITE = https://download.gnome.org/sources/gvfs/$(GVFS_VERSION_MAJOR)
 GVFS_INSTALL_STAGING = YES
@@ -31,7 +31,8 @@ GVFS_CONF_OPTS = \
 	-Dgoogle=false \
 	-Dmtp=false \
 	-Dsftp=false \
-	-Dudisks2=false
+	-Dudisks2=false\
+	-Donedrive=false
 
 ifeq ($(BR2_PACKAGE_AVAHI),y)
 GVFS_DEPENDENCIES += avahi
