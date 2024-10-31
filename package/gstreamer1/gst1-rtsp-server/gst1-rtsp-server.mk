@@ -33,7 +33,7 @@ GST1_RTSP_SERVER_CONF_OPTS += \
 	-Dglib-checks=disabled
 
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
-GST1_RTSP_SERVER_CONF_OPTS += -Dintrospection=enabled
+GST1_RTSP_SERVER_CONF_OPTS += -Dintrospection=disabled
 GST1_RTSP_SERVER_DEPENDENCIES += gobject-introspection
 else
 GST1_RTSP_SERVER_CONF_OPTS += -Dintrospection=disabled

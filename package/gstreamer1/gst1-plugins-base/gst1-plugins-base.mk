@@ -44,7 +44,7 @@ GST1_PLUGINS_BASE_DEPENDENCIES += graphene
 # These plugins are listed in the order from ./configure --help
 
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
-GST1_PLUGINS_BASE_CONF_OPTS += -Dintrospection=enabled
+GST1_PLUGINS_BASE_CONF_OPTS += -Dintrospection=disabled
 GST1_PLUGINS_BASE_DEPENDENCIES += gobject-introspection
 else
 GST1_PLUGINS_BASE_CONF_OPTS += -Dintrospection=disabled
