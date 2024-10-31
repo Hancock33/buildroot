@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-GSTREAMER1_VERSION = 1.24.8
+GSTREAMER1_VERSION = 1.24.9
 GSTREAMER1_SOURCE = gstreamer-$(GSTREAMER1_VERSION).tar.xz
 GSTREAMER1_SITE = https://gstreamer.freedesktop.org/src/gstreamer
 GSTREAMER1_INSTALL_STAGING = YES
@@ -40,7 +40,7 @@ GSTREAMER1_DEPENDENCIES = \
 	$(TARGET_NLS_DEPENDENCIES)
 
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
-GSTREAMER1_CONF_OPTS += -Dintrospection=enabled
+GSTREAMER1_CONF_OPTS += -Dintrospection=disabled
 GSTREAMER1_DEPENDENCIES += gobject-introspection
 else
 GSTREAMER1_CONF_OPTS += -Dintrospection=disabled
