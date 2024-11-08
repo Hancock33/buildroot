@@ -21,6 +21,7 @@ MESA3D_DEPENDENCIES = \
 	host-python-pyyaml \
 	expat \
 	libdrm \
+	xlib_libxshmfence \
 	zlib
 
 # batocera
