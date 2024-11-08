@@ -4,7 +4,7 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/24.0 | cut -d '-' -f 2-
-MESA3D_VERSION = 24.2.6-26-g7e011814fe1074e817972ddc98f956c9e76b5a82
+MESA3D_VERSION = 24.3.0-rc1-7-g00c835ae6496ab22579cc739630a6331f2be4d92
 MESA3D_SITE = $(call gitlabfreedesktop,mesa,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
@@ -29,18 +29,10 @@ MESA3D_DEPENDENCIES += directx-headers
 endif
 
 MESA3D_CONF_OPTS = \
-	-Dgallium-omx=disabled \
 	-Dgallium-rusticl=false \
 	-Dmicrosoft-clc=disabled \
 	-Dopencl-spirv=false \
 	-Dpower8=disabled
-
-ifeq ($(BR2_PACKAGE_MESA3D_DRIVER)$(BR2_PACKAGE_XORG7),yy)
-MESA3D_CONF_OPTS += -Ddri3=enabled
-MESA3D_DEPENDENCIES += xlib_libxshmfence
-else
-MESA3D_CONF_OPTS += -Ddri3=disabled
-endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
 MESA3D_DEPENDENCIES += host-llvm llvm
@@ -362,7 +354,6 @@ HOST_MESA3D_CONF_OPTS += \
 	-Dgallium-drivers="" \
 	-Dgallium-vdpau=disabled \
 	-Dplatforms= \
-	-Ddri3=disabled \
 	-Dglx=disabled \
 	-Dvulkan-drivers=""
 
