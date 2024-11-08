@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_XBACKLIGHT_VERSION = 1.2.3
+XAPP_XBACKLIGHT_VERSION = 1.2.4
 XAPP_XBACKLIGHT_SOURCE = xbacklight-$(XAPP_XBACKLIGHT_VERSION).tar.bz2
 XAPP_XBACKLIGHT_SITE = https://xorg.freedesktop.org/archive/individual/app
 XAPP_XBACKLIGHT_LICENSE = MIT
