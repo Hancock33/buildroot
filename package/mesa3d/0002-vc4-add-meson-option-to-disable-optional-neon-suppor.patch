@@ -1,8 +1,8 @@
 diff --git a/meson_options.txt b/meson_options.txt
-index 382393e5097..5dc5e4113f0 100644
+index 79ee65e6094..5ec4dc9ac61 100644
 --- a/meson_options.txt
 +++ b/meson_options.txt
-@@ -148,6 +148,13 @@ option(
+@@ -117,6 +117,13 @@ option(
    description : 'enable gallium va frontend.',
  )
  
@@ -17,21 +17,21 @@ index 382393e5097..5dc5e4113f0 100644
    'va-libs-path',
    type : 'string',
 diff --git a/src/gallium/drivers/vc4/meson.build b/src/gallium/drivers/vc4/meson.build
-index f4f5c9f4bc1..5eea10913ff 100644
+index 54b165d69db..8398715bf39 100644
 --- a/src/gallium/drivers/vc4/meson.build
 +++ b/src/gallium/drivers/vc4/meson.build
-@@ -67,7 +67,7 @@ files_libvc4 = files(
- vc4_c_args = []
+@@ -72,7 +72,7 @@ vc4_deps = [
+ ]
  
  libvc4_neon = []
 -if host_machine.cpu_family() == 'arm'
 +if host_machine.cpu_family() == 'arm' and not get_option('gallium-vc4-neon').disabled()
    libvc4_neon = static_library(
      'vc4_neon',
-     'vc4_tiling_lt_neon.c',
-@@ -76,7 +76,7 @@ if host_machine.cpu_family() == 'arm'
-     ],
-     c_args : '-mfpu=neon',
+     'vc4_tiling_lt.c',
+@@ -82,7 +82,7 @@ if host_machine.cpu_family() == 'arm'
+     c_args : ['-mfpu=neon', '-DV3D_BUILD_NEON'],
+     dependencies : vc4_deps,
    )
 -  vc4_c_args += '-DUSE_ARM_ASM'
 +  vc4_c_args += '-DVC4_TILING_LT_NEON'
