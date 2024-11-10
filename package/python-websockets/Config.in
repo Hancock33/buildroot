@@ -6,4 +6,4 @@ config BR2_PACKAGE_PYTHON_WEBSOCKETS
 	  An implementation of the WebSocket Protocol (RFC 6455 &
 	  7692).
 
-	  https://github.com/aaugustin/websockets
+	  https://github.com/python-websockets/websockets
