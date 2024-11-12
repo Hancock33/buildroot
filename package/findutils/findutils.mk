@@ -14,6 +14,7 @@ FINDUTILS_CONF_ENV = \
 	gl_cv_func_stdin=yes \
 	ac_cv_func_working_mktime=yes \
 	gl_cv_func_wcwidth_works=yes
+FINDUTILS_CONF_OPTS = --disable-year2038
 
 ifeq ($(BR2_PACKAGE_LIBSELINUX),y)
 FINDUTILS_DEPENDENCIES += libselinux
