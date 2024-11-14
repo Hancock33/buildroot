@@ -5,7 +5,8 @@
 ################################################################################
 
 TIFF_VERSION = 4.7.0
-TIFF_SITE = http://download.osgeo.org/libtiff
+TIFF_SOURCE = tiff-$(TIFF_VERSION).tar.xz
+TIFF_SITE = https://download.osgeo.org/libtiff
 TIFF_LICENSE = tiff license
 TIFF_LICENSE_FILES = LICENSE.md
 TIFF_CPE_ID_VENDOR = libtiff
