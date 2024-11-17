@@ -4,13 +4,14 @@
 #
 ################################################################################
 
-LIBXMLB_VERSION = 0.3.19
+LIBXMLB_VERSION = 0.3.21
 LIBXMLB_SITE = $(call github,hughsie,libxmlb,$(LIBXMLB_VERSION))
 LIBXMLB_LICENSE = LGPL-2.1+
 LIBXMLB_LICENSE_FILES = LICENSE
 LIBXMLB_INSTALL_STAGING = YES
 LIBXMLB_DEPENDENCIES = libglib2
 LIBXMLB_CONF_OPTS = -Dgtkdoc=false -Dtests=false
+HOST_LIBXMLB_CONF_OPTS = -Dgtkdoc=false -Dtests=false
 
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
 LIBXMLB_CONF_OPTS += -Dintrospection=true
@@ -34,3 +35,4 @@ LIBXMLB_CONF_OPTS += -Dlzma=disabled
 endif
 
 $(eval $(meson-package))
+$(eval $(host-meson-package))

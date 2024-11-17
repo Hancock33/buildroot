@@ -30,3 +30,4 @@ endif
 BROTLI_CONF_OPTS += -DCMAKE_C_FLAGS="$(BROTLI_CFLAGS)"
 
 $(eval $(cmake-package))
+$(eval $(host-cmake-package))
