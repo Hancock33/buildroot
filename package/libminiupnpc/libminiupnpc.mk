@@ -23,3 +23,4 @@ LIBMINIUPNPC_CONF_OPTS += -DUPNPC_BUILD_SHARED=ON -DUPNPC_BUILD_STATIC=ON
 endif
 
 $(eval $(cmake-package))
+$(eval $(host-cmake-package))
