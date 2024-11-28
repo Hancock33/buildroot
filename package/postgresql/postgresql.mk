@@ -15,12 +15,14 @@ POSTGRESQL_INSTALL_STAGING = YES
 POSTGRESQL_CONFIG_SCRIPTS = pg_config
 POSTGRESQL_CONF_ENV = LIBS=$(TARGET_NLS_LIBS)
 POSTGRESQL_CONF_OPTS = -Drpath=false
-POSTGRESQL_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES)
+POSTGRESQL_DEPENDENCIES = \
+	$(TARGET_NLS_DEPENDENCIES) \
+	host-bison \
+	host-flex
 
 # CVE-2017-8806 is related to postgresql-common package
 # It is false positive for postgresql
 POSTGRESQL_IGNORE_CVES += CVE-2017-8806
-
 
 ifeq ($(BR2_PACKAGE_POSTGRESQL_FULL),y)
 POSTGRESQL_NINJA_OPTS += world
@@ -28,19 +30,22 @@ POSTGRESQL_INSTALL_TARGET_OPTS += DESTDIR=$(TARGET_DIR) install-world
 POSTGRESQL_INSTALL_STAGING_OPTS += DESTDIR=$(STAGING_DIR) install-world
 endif
 
-
 ifeq ($(BR2_arcle)$(BR2_arceb)$(BR2_microblazeel)$(BR2_microblazebe)$(BR2_or1k)$(BR2_nios2)$(BR2_riscv)$(BR2_xtensa),y)
 POSTGRESQL_CONF_OPTS += -Dspinlocks=false
+else
+POSTGRESQL_CONF_OPTS += -Dspinlocks=true
 endif
 
 ifeq ($(BR2_PACKAGE_READLINE),y)
 POSTGRESQL_DEPENDENCIES += readline
+POSTGRESQL_CONF_OPTS += -Dreadline=enabled
 else
-POSTGRESQL_CONF_OPTS += --Dreadline=disabled
+POSTGRESQL_CONF_OPTS += -Dreadline=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_ZLIB),y)
 POSTGRESQL_DEPENDENCIES += zlib
+POSTGRESQL_CONF_OPTS += -Dzlib=enabled
 else
 POSTGRESQL_CONF_OPTS += -Dzlib=disabled
 endif
@@ -56,6 +61,8 @@ endif
 ifeq ($(BR2_PACKAGE_OPENSSL),y)
 POSTGRESQL_DEPENDENCIES += openssl
 POSTGRESQL_CONF_OPTS += -Dssl=openssl
+else
+POSTGRESQL_CONF_OPTS += -Dssl=none
 endif
 
 ifeq ($(BR2_PACKAGE_OPENLDAP),y)
