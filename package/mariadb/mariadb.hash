@@ -1,6 +1,6 @@
-# From https://downloads.mariadb.org/mariadb/11.6.1
-sha512  584496de3f4f26be2d7266087b1f2de42bbfdf56603543be4c95198dbf5906370a6193868e259dee06ffced6bafac233e678e8280f6e4d30fffd594e13df4232  mariadb-11.6.1.tar.gz
-sha256  62ca45531814109b5d6cef0cf2fd17db92c32a30dd23012976e768c685534814 fmt-11.0.1.zip
+# From https://downloads.mariadb.org/mariadb/11.7.1
+sha512  f2ac706442b0aaaa7e181a5d334bc66fce6ebeac1ce76d770b87ec102c445dfea26543e45756afd5751b2a9389f403c1fcd7eac9fb55d7060bf5935e0e1e6432  mariadb-11.7.1.tar.gz
+sha256  40fc58bebcf38c759e11a7bd8fdc163507d2423ef5058bba7f26280c5b9c5465 fmt-11.0.2.zip
 # Hash for license files
 sha256  2b278a3a2f20696113a7c57c4f3e6a5cdb9a25f2a827e72e0c089a2f805ff91a  README.md
 sha256  240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b  COPYING
