@@ -12,7 +12,11 @@ LIBFFI_LICENSE_FILES = LICENSE
 LIBFFI_CPE_ID_VALID = YES
 LIBFFI_INSTALL_STAGING = YES
 # We're patching configure.ac
-LIBFFI_AUTORECONF = YES
+define LIBFFI_AUTOCONFIG
+	cd $(@D) && autoreconf -f -i
+endef
+LIBFFI_PRE_CONFIGURE_HOOKS += LIBFFI_AUTOCONFIG
+
 LIBFFI_CONF_OPTS = --disable-multi-os-directory
 
 # The static exec trampolines is enabled by default since
