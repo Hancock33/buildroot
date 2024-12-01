@@ -3,7 +3,7 @@
 # sway
 #
 ################################################################################
-# batocera (update)
+
 SWAY_VERSION = 1.10
 SWAY_SITE = https://github.com/swaywm/sway/releases/download/$(SWAY_VERSION)
 SWAY_LICENSE = MIT
@@ -20,12 +20,6 @@ SWAY_CONF_OPTS = \
 	-Dman-pages=disabled
 # batocera - We don't want systemd
 #-Dsd-bus-provider=libsystemd
-
-ifeq ($(BR2_PACKAGE_WLROOTS_X11),y)
-SWAY_CONF_OPTS += -Dxwayland=enabled
-else
-SWAY_CONF_OPTS += -Dxwayland=disabled
-endif
 
 ifeq ($(BR2_PACKAGE_GDK_PIXBUF),y)
 SWAY_CONF_OPTS += -Dgdk-pixbuf=enabled
