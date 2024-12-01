@@ -3,7 +3,7 @@
 # libxkbcommon
 #
 ################################################################################
-# batocera (update)
+
 LIBXKBCOMMON_VERSION = 1.7.0
 LIBXKBCOMMON_SITE = https://xkbcommon.org/download
 LIBXKBCOMMON_SOURCE = libxkbcommon-$(LIBXKBCOMMON_VERSION).tar.xz

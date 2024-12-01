@@ -14,6 +14,7 @@ WLROOTS_DEPENDENCIES = \
 	host-pkgconf \
 	host-wayland \
 	hwdata \
+	libdisplay-info \
 	libinput \
 	libxkbcommon \
 	libegl \
