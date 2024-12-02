@@ -395,7 +395,7 @@ ifeq ($(BR2_PACKAGE_NVIDIA_OPEN_DRIVER_CUDA),y)
 FFMPEG_CONF_OPTS += --enable-cuda --enable-cuvid --enable-nvdec --enable-nvenc
 FFMPEG_DEPENDENCIES += nv-codec-headers
 else
-FFMPEG_CONF_OPTS += --disable-cuda --disable-cuvid --disable-nvdec --disable-nvenc 
+FFMPEG_CONF_OPTS += --disable-cuda --disable-cuvid --disable-nvdec --disable-nvenc
 endif
 
 # ffmpeg freetype support require fenv.h which is only

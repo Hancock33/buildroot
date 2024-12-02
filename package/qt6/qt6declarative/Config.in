@@ -12,9 +12,9 @@ config BR2_PACKAGE_QT6DECLARATIVE
     help
         Qt is a cross-platform application and UI framework for
         developers using C++.
-        
+
         This package corresponds to the qt6declarative module.
-        
+
         https://doc.qt.io/qt-6/qtmodules.html
 
 comment "qt6declarative needs headers >= 3.6"
