@@ -7,7 +7,7 @@ menuconfig BR2_PACKAGE_MESA3D
 	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_8
 	select BR2_PACKAGE_EXPAT
 	select BR2_PACKAGE_LIBDRM
-	select BR2_PACKAGE_WAYLAND_PROTOCOLS if BR2_PACKAGE_WAYLAND
+	select BR2_PACKAGE_WAYLAND_PROTOCOLS    if BR2_PACKAGE_WAYLAND
 	select BR2_PACKAGE_ZLIB
 	select BR2_PACKAGE_PYTHON3              if BR2_PACKAGE_WAYLAND && BR2_PACKAGE_MESA3D_NEEDS_X11 # batocera
 	select BR2_PACKAGE_HOST_GLSLANG         if BR2_PACKAGE_BATOCERA_VULKAN && BR2_PACKAGE_MESA3D_NEEDS_X11 # batocera
@@ -67,10 +67,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_MESA3D_DRIVER
 
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER
-	bool
-	select BR2_PACKAGE_MESA3D_DRIVER
-
-config BR2_PACKAGE_MESA3D_VIDEO_CODEC
 	bool
 	select BR2_PACKAGE_MESA3D_DRIVER
 
@@ -158,6 +154,17 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_LIMA
 	help
 	  Mesa driver for ARM Mali Utgard GPUs.
 
+config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_LLVMPIPE
+	bool "Gallium llvmpipe driver"
+	depends on BR2_PACKAGE_MESA3D_LLVM
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	help
+	  This is a llvm opengl implementation using the Gallium3D
+	  infrastructure.
+
+comment "llvmpipe driver needs llvm"
+	depends on !BR2_PACKAGE_MESA3D_LLVM
+
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_NOUVEAU
 	bool "Gallium nouveau driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
@@ -231,8 +238,8 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SVGA
 	help
 	  This is a virtual GPU driver for VMWare virtual machines.
 
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SWRAST
-	bool "Gallium swrast driver"
+config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SOFTPIPE
+	bool "Gallium softpipe driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	help
 	  This is a software opengl implementation using the Gallium3D
@@ -280,40 +287,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VIRGL
 	help
 	  virgl is the 3D acceleration backend for the virtio-gpu
 	  shipping with qemu.
-
-# batocera - add zink
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ZINK
-	bool "Gallium zink driver"
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	select BR2_PACKAGE_MESA3D_OPENGL_ES
-	select BR2_PACKAGE_MESA3D_OPENGL_EGL
-	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
-	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
-	help
-	  The Zink driver emits Vulkan API calls instead of targeting a specific GPU architecture.
-	  This can be used to get full desktop OpenGL support on devices that only support Vulkan.
-
-# batocera - add d3d12
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_D3D12
-	bool "Gallium Direct3D 12 driver"
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	select BR2_PACKAGE_MESA3D_OPENGL_ES
-	select BR2_PACKAGE_MESA3D_OPENGL_EGL
-	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
-	help
-	  The D3D12 driver emits D3D12 API calls instead of targeting a specific GPU architecture.
-	  This can be used to get full desktop OpenGL support on Windows devices through WSL.
-
-# batocera - add lavapipe
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_LAVAPIPE
-	bool "Vulkan LLVM software-based driver"
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	select BR2_PACKAGE_MESA3D_OPENGL_ES
-	select BR2_PACKAGE_MESA3D_OPENGL_EGL
-	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
-	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
-	help
-	  The LavaPipe driver is a software-based Vulkan implementation leveraging Mesa and LLVM.
 
 config BR2_PACKAGE_MESA3D_VDPAU
 	bool "Gallium VDPAU state tracker"
@@ -367,9 +340,46 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_SWRAST
 	help
 	  Vulkan swrast driver.
 
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_VIRTIO
+	bool "Vulkan VirtIO driver (Venus)"
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  Vulkan VirtIO (venus) driver.
+
 comment "Off-screen Rendering"
 
-# batocera
+# batocera additions
+config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ZINK
+	bool "Gallium zink driver"
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_OPENGL_ES
+	select BR2_PACKAGE_MESA3D_OPENGL_EGL
+	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  The Zink driver emits Vulkan API calls instead of targeting a specific GPU architecture.
+	  This can be used to get full desktop OpenGL support on devices that only support Vulkan.
+
+config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_D3D12
+	bool "Gallium Direct3D 12 driver"
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_OPENGL_ES
+	select BR2_PACKAGE_MESA3D_OPENGL_EGL
+	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
+	help
+	  The D3D12 driver emits D3D12 API calls instead of targeting a specific GPU architecture.
+	  This can be used to get full desktop OpenGL support on Windows devices through WSL.
+
+config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_LAVAPIPE
+	bool "Vulkan LLVM software-based driver"
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_OPENGL_ES
+	select BR2_PACKAGE_MESA3D_OPENGL_EGL
+	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  The LavaPipe driver is a software-based Vulkan implementation leveraging Mesa and LLVM.
+
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_HASWELL
 	bool "Vulkan Haswell driver"
 	depends on BR2_i386 || BR2_x86_64
@@ -386,9 +396,6 @@ comment "intel haswell vulkan needs a glibc toolchain w/ headers >= 3.17"
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC
 
-comment "Off-screen Rendering"
-
-# batocera
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_AMD
 	bool "Vulkan AMD Radeon driver"
 	depends on BR2_i386 || BR2_x86_64
@@ -408,9 +415,6 @@ comment "radeon vulkan depends on X.org and needs a glibc toolchain w/ headers >
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC || !BR2_PACKAGE_XORG7
 
-comment "Off-screen Rendering"
-
-# batocera
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_NOUVEAU
 	bool "Vulkan NVidia Radeon driver"
 	depends on BR2_i386 || BR2_x86_64
@@ -430,8 +434,6 @@ comment "radeon vulkan depends on X.org and needs a glibc toolchain w/ headers >
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC || !BR2_PACKAGE_XORG7
 
-comment "Off-screen Rendering"
-
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_PANFROST
 	bool "Midgard and Bifrost Vulkan driver"
 	depends on BR2_arm || BR2_aarch64
@@ -448,15 +450,9 @@ comment "panfrost vulkan needs a glibc toolchain w/ headers >= 3.17"
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC
 
-comment "Off-screen Rendering"
-
-config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_VIRTIO
-	bool "Vulkan virtio driver"
-	depends on BR2_PACKAGE_MESA3D_LLVM
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SWRAST
-	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
-	help
-	  Vulkan virtio driver.
+config BR2_PACKAGE_MESA3D_VIDEO_CODEC
+	bool
+	select BR2_PACKAGE_MESA3D_DRIVER
 
 config BR2_PACKAGE_MESA3D_VIDEO_CODEC_VC1DEC
 	bool "VC1DEC video codec support"
