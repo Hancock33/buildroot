@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/protobuf/json
-md5  b1423a3b2cb258c4a5f8d4e4a042612f  protobuf-5.29.0.tar.gz
-sha256  445a0c02483869ed8513a585d80020d012c6dc60075f96fa0563a724987b1001  protobuf-5.29.0.tar.gz
+md5  b41ad75726fc696ea90aabb056dc1ca5  protobuf-5.29.1.tar.gz
+sha256  683be02ca21a6ffe80db6dd02c0b5b2892322c59ca57fd6c872d652cb80549cb  protobuf-5.29.1.tar.gz
 # Locally computed sha256 checksums
 sha256  6e5e117324afd944dcf67f36cf329843bc1a92229a8cd9bb573d7a83130fea7d  LICENSE
