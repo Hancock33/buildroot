@@ -13,6 +13,9 @@ BLUEZ5_UTILS_LICENSE = GPL-2.0+, LGPL-2.1+
 BLUEZ5_UTILS_LICENSE_FILES = COPYING COPYING.LIB
 BLUEZ5_UTILS_CPE_ID_VENDOR = bluez
 BLUEZ5_UTILS_CPE_ID_PRODUCT = bluez
+# required because 0002-Leave-config-files-writable-for-owner.patch
+# modifies Makefile.am
+BLUEZ5_UTILS_AUTORECONF = YES
 
 BLUEZ5_UTILS_DEPENDENCIES = \
 	$(if $(BR2_PACKAGE_BLUEZ5_UTILS_HEADERS),bluez5_utils-headers) \
@@ -27,7 +30,7 @@ BLUEZ5_UTILS_CONF_OPTS = \
 	--disable-lsan \
 	--disable-ubsan \
 	--disable-pie \
-	--with-dbusconfdir=/etc
+	--with-dbusconfdir=/usr/share
 
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS_OBEX),y)
 BLUEZ5_UTILS_CONF_OPTS += --enable-obex
@@ -202,23 +205,6 @@ BLUEZ5_UTILS_DEPENDENCIES += systemd
 else
 BLUEZ5_UTILS_CONF_OPTS += --disable-systemd
 endif
-
-# bluez installs /etc/bluetooth with mode 555 which causes issues
-define BLUEZ5_UTILS_FIX_PERMISSIONS_STAGING
-	chmod 755 $(STAGING_DIR)/etc/bluetooth/
-endef
-BLUEZ5_UTILS_POST_INSTALL_STAGING_HOOKS += \
-	BLUEZ5_UTILS_FIX_PERMISSIONS_STAGING
-
-define BLUEZ5_UTILS_FIX_PERMISSIONS_TARGET
-	chmod 755 $(TARGET_DIR)/etc/bluetooth/
-endef
-BLUEZ5_UTILS_POST_INSTALL_TARGET_HOOKS += \
-	BLUEZ5_UTILS_FIX_PERMISSIONS_TARGET
-
-define BLUEZ5_UTILS_PERMISSIONS
-	/etc/bluetooth/ d 555 0 0 - - - - -
-endef
 
 define BLUEZ5_UTILS_INSTALL_INIT_SYSV
 	$(INSTALL) -m 0755 -D package/bluez5_utils/S40bluetoothd \
