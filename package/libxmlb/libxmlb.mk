@@ -35,3 +35,4 @@ LIBXMLB_CONF_OPTS += -Dlzma=disabled
 endif
 
 $(eval $(meson-package))
+$(eval $(host-meson-package))
