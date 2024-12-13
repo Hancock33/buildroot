@@ -1,3 +1,21 @@
+From 057c836d1d6b61e490d9015fb4d679a54c5e9f2c Mon Sep 17 00:00:00 2001
+From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Date: Wed, 22 Feb 2017 16:21:31 -0800
+Subject: [PATCH] Make the build of pyc files conditional
+
+This commit adds a new configure option --disable-pyc-build to disable
+the compilation of pyc.
+
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+[ Andrey Smrinov: ported to Python 3.6 ]
+Signed-off-by: Andrey Smirnov <andrew.smirnov@gmail.com>
+[ Adam Duskett: ported to Python 3.12.0 ]
+Signed-off-by: Adam Duskett <adam.duskett@amarulasolutions.com>
+---
+ Makefile.pre.in | 2 ++
+ configure.ac    | 6 ++++++
+ 2 files changed, 8 insertions(+)
+
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index 083f4c750a0..2ff75f51571 100644
 --- a/Makefile.pre.in
@@ -35,3 +53,6 @@ index 9270b5f7172..879e6a2d432 100644
  # MacOSX framework builds need more magic. LDLIBRARY is the dynamic
  # library that we build, but we do not want to link against it (we
  # will find it with a -framework option). For this reason there is an
+-- 
+2.39.5
+

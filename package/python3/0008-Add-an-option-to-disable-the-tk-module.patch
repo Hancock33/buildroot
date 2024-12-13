@@ -1,3 +1,23 @@
+From 4d02905278ef62aaf9e984022033c3390d675948 Mon Sep 17 00:00:00 2001
+From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Date: Wed, 22 Feb 2017 17:23:42 -0800
+Subject: [PATCH] Add an option to disable the tk module
+
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Signed-off-by: Samuel Martin <s.martin49@gmail.com>
+[ Andrey Smirnov: ported to Python 3.6 ]
+Signed-off-by: Andrey Smirnov <andrew.smirnov@gmail.com>
+[ Adam Duskett: ported to Python 3.10.0 ]
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+[ Bernd Kuhls: ported to Python 3.11.4]
+Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+[ Adam Duskett: ported to Python 3.12.1 ]
+Signed-off-by: Adam Duskett <adam.duskett@amarulasolutions.com>
+---
+ Makefile.pre.in | 8 +++++---
+ configure.ac    | 7 +++++++
+ 2 files changed, 12 insertions(+), 3 deletions(-)
+
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index 7c5bcea59ba..5de6f63220d 100644
 --- a/Makefile.pre.in
@@ -56,3 +76,6 @@ index 3fbcabe29c8..4331ed4264f 100644
  # Check for enable-ipv6
  AH_TEMPLATE([ENABLE_IPV6], [Define if --enable-ipv6 is specified])
  AC_MSG_CHECKING([if --enable-ipv6 is specified])
+-- 
+2.39.5
+

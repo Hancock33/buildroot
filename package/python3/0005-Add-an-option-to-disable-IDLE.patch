@@ -1,3 +1,23 @@
+From 5b4755f8d6bbeb68f2966464038c3e1f337868d3 Mon Sep 17 00:00:00 2001
+From: Maxime Ripard <maxime.ripard@free-electrons.com>
+Date: Wed, 22 Feb 2017 17:45:14 -0800
+Subject: [PATCH] Add an option to disable IDLE
+
+IDLE is an IDE embedded into python, written using Tk, so it doesn't make
+much sense to have it into our build.
+
+Signed-off-by: Maxime Ripard <maxime.ripard@free-electrons.com>
+[ Andrey Smirnov: ported to Python 3.6 ]
+Signed-off-by: Andrey Smirnov <andrew.smirnov@gmail.com>
+[ Adam Duskett: ported to Python 3.10.0 ]
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+[ Adam Duskett: ported to Python 3.12.1 ]
+Signed-off-by: Adam Duskett <adam.duskett@amarulasolutions.com>
+---
+ Makefile.pre.in | 9 ++++++++-
+ configure.ac    | 6 ++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index b44ad736144..aceb52e31ce 100644
 --- a/Makefile.pre.in
@@ -58,3 +78,6 @@ index 9b77582560d..becec336dc2 100644
  # generate output files
  AC_CONFIG_FILES(m4_normalize([
    Makefile.pre
+-- 
+2.39.5
+
