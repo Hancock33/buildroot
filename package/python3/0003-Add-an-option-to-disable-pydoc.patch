@@ -1,3 +1,24 @@
+From c1c1a844c1819da38c0e03d1f23a97099b571b86 Mon Sep 17 00:00:00 2001
+From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Date: Wed, 22 Feb 2017 17:07:56 -0800
+Subject: [PATCH] Add an option to disable pydoc
+
+It removes 0.5 MB of data from the target plus the pydoc script
+itself.
+
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Signed-off-by: Samuel Martin <s.martin49@gmail.com>
+[ Andrey Smirnov: ported to Python 3.6 ]
+Signed-off-by: Andrey Smirnov <andrew.smirnov@gmail.com>
+[ Adam Duskett: ported to Python 3.10.0 ]
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+[ Adam Duskett: ported to Python 3.12.1 ]
+Signed-off-by: Adam Duskett <adam.duskett@amarulasolutions.com>
+---
+ Makefile.pre.in | 9 ++++++++-
+ configure.ac    | 6 ++++++
+ 2 files changed, 14 insertions(+), 1 deletion(-)
+
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index 2ff75f51571..401d130b804 100644
 --- a/Makefile.pre.in
@@ -58,3 +79,6 @@ index 7bc049863c3..ca226dcc5b9 100644
  # Check for enable-ipv6
  AH_TEMPLATE([ENABLE_IPV6], [Define if --enable-ipv6 is specified])
  AC_MSG_CHECKING([if --enable-ipv6 is specified])
+-- 
+2.39.5
+

@@ -1,3 +1,26 @@
+From 2a4b87bb00805156d40782a3197fbbf20937da6f Mon Sep 17 00:00:00 2001
+From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Date: Wed, 22 Feb 2017 17:15:31 -0800
+Subject: [PATCH] Add an option to disable lib2to3
+
+lib2to3 is a library to convert Python 2.x code to Python 3.x. As
+such, it is probably not very useful on embedded system targets.
+
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Signed-off-by: Samuel Martin <s.martin49@gmail.com>
+[ Andrey Smirnov: ported to Python 3.6 ]
+Signed-off-by: Andrey Smirnov <andrew.smirnov@gmail.com>
+[ Adam Duskett: ported to Python 3.10.0 ]
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+[ Bernd Kuhls: ported to Python 3.11.4]
+Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+[ Adam Duskett: ported to Python 3.12.1 ]
+Signed-off-by: Adam Duskett <adam.duskett@amarulasolutions.com>
+---
+ Makefile.pre.in | 19 ++++++++++++++-----
+ configure.ac    |  6 ++++++
+ 2 files changed, 20 insertions(+), 5 deletions(-)
+
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index 401d130b804..b44ad736144 100644
 --- a/Makefile.pre.in
@@ -86,3 +109,6 @@ index ca226dcc5b9..9b77582560d 100644
  # generate output files
  AC_CONFIG_FILES(m4_normalize([
    Makefile.pre
+-- 
+2.39.5
+

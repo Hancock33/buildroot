@@ -1,3 +1,20 @@
+From a24aee2ba81617baf01215b333c26434355bf91a Mon Sep 17 00:00:00 2001
+From: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+Date: Tue, 6 Feb 2024 22:12:20 +0100
+Subject: [PATCH] Add option to disable the sqlite3 module
+
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
+Signed-off-by: Samuel Martin <s.martin49@gmail.com>
+[ Andrey Smirnov: ported to Python 3.6 ]
+Signed-off-by: Andrey Smirnov <andrew.smirnov@gmail.com>
+[ Adam Duskett: ported to Python 3.10.0 ]
+Signed-off-by: Adam Duskett <aduskett@gmail.com>
+Signed-off-by: Thomas Petazzoni <thomas.petazzoni@bootlin.com>
+---
+ Makefile.pre.in | 5 ++++-
+ configure.ac    | 7 +++++++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
 diff --git a/Makefile.pre.in b/Makefile.pre.in
 index aceb52e31ce..7c5bcea59ba 100644
 --- a/Makefile.pre.in
@@ -39,3 +56,6 @@ index ab68cc3dd73..3fbcabe29c8 100644
  AC_SUBST(PYDOC)
  
  AC_ARG_ENABLE(pydoc,
+-- 
+2.39.5
+
