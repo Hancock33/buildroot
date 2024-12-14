@@ -25,14 +25,18 @@ QT6DECLARATIVE_CONF_OPTS = \
 	-DQT_HOST_PATH=$(HOST_DIR) \
 	$(QT6_COMMON_CONF_OPTS)
 
-QT6DECLARATIVE_DEPENDENCIES = host-qt6declarative qt6base qt6shadertools qt6tools
-
-
-HOST_QT6DECLARATIVE_DEPENDENCIES = host-qt6base host-qt6shadertools host-qt6tools
-
 HOST_QT6DECLARATIVE_CONF_OPTS = \
 	-DQT_HOST_PATH=$(HOST_DIR) \
 	$(QT6_COMMON_CONF_OPTS)
+
+QT6DECLARATIVE_DEPENDENCIES = host-qt6declarative \
+	qt6base \
+	qt6shadertools \
+	qt6tools
+
+HOST_QT6DECLARATIVE_DEPENDENCIES = host-qt6base \
+	host-qt6shadertools \
+	host-qt6tools
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
