@@ -1,4 +1,4 @@
 # From https://www.kernel.org/pub/linux/utils/kbd/sha256sums.asc
-sha256  9add0c3647dc133dd8787a9b1253c772ec65f403d70d82db8e09ac4c580cfa11  kbd-2.7.tar.xz
+sha256  f167d899d92b56ccf12f6f49355173f93870a95f15d8aeebf5fdcd28a621aca8  kbd-2.7.1.tar.xz
 sha256  8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  COPYING
 sha256  5a16340fe773f422144b436df90319114a2884933c56e9be6fad642e59be5e1f  CREDITS

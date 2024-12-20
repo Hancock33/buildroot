@@ -30,6 +30,8 @@ else
 STELLA_CONF_OPTS += --disable-zip
 endif
 
+STELLA_CONF_OPTS += --disable-debugger --disable-windowed --enable-release
+
 # The configure script is not autoconf based, so we use the
 # generic-package infrastructure
 define STELLA_CONFIGURE_CMDS
