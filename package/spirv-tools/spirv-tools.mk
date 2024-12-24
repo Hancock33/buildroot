@@ -3,8 +3,8 @@
 # spirv-tools
 #
 ################################################################################
-# Version: Commits on Dec 11, 2024
-SPIRV_TOOLS_VERSION = 1229f1ef3b82498af600965141cde29a3c928e29
+# Version: Commits on Dec 23, 2024
+SPIRV_TOOLS_VERSION = becf97fdc95572165e941feadc1a3064e2b95c87
 SPIRV_TOOLS_SITE = $(call github,KhronosGroup,SPIRV-Tools,$(SPIRV_TOOLS_VERSION))
 SPIRV_TOOLS_LICENSE = Apache-2.0
 SPIRV_TOOLS_LICENSE_FILES = LICENSE
