@@ -40,7 +40,7 @@ GSTREAMER1_DEPENDENCIES = \
 	$(TARGET_NLS_DEPENDENCIES)
 
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
-GSTREAMER1_CONF_OPTS += -Dintrospection=disabled
+GSTREAMER1_CONF_OPTS += -Dintrospection=enabled
 GSTREAMER1_DEPENDENCIES += gobject-introspection
 else
 GSTREAMER1_CONF_OPTS += -Dintrospection=disabled
