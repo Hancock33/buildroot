@@ -1,0 +1,38 @@
+From 388b849fb6c33882b481123568995a749a54f648 Mon Sep 17 00:00:00 2001
+From: Paolo Bonzini <pbonzini@redhat.com>
+Date: Mon, 21 Oct 2024 18:07:16 +0200
+Subject: [PATCH] stubs: avoid duplicate symbols in libqemuutil.a
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+qapi_event_send_device_deleted is always included (together with the
+rest of QAPI) in libqemuutil.a if either system-mode emulation or tools
+are being built, and in that case the stub causes a duplicate symbol
+to appear in libqemuutil.a.
+
+Add the symbol only if events are not being requested.
+
+Cc: qemu-stable@nongnu.org
+Reviewed-by: Alex Bennée <alex.bennee@linaro.org>
+Tested-by: Alex Bennée <alex.bennee@linaro.org>
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+diff --git a/stubs/meson.build b/stubs/meson.build
+index e91614a874..772a3e817d 100644
+--- a/stubs/meson.build
++++ b/stubs/meson.build
+@@ -55,12 +55,7 @@ endif
+ if have_user
+   # Symbols that are used by hw/core.
+   stub_ss.add(files('cpu-synchronize-state.c'))
+-
+-  # Stubs for QAPI events.  Those can always be included in the build, but
+-  # they are not built at all for --disable-system --disable-tools builds.
+-  if not (have_system or have_tools)
+-    stub_ss.add(files('qdev.c'))
+-  endif
++  stub_ss.add(files('qdev.c'))
+ endif
+ 
+ if have_system
