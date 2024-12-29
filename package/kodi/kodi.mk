@@ -7,7 +7,7 @@
 # When updating the version, please also update kodi-jsonschemabuilder
 # and kodi-texturepacker
 KODI_VERSION_NAME = Omega
-KODI_VERSION = 21.1-Omega-138-g65a2e76e49eb30f10a6b2a3068b4f7497716f65d
+KODI_VERSION = 21.1-Omega-145-gd71ae7be88251b04b9332b9c321efae47f9e179e
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
