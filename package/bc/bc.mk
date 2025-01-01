@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-BC_VERSION = 1.07.1
+BC_VERSION = 1.08.0
 BC_SITE = $(BR2_GNU_MIRROR)/bc
 BC_DEPENDENCIES = host-flex
 BC_LICENSE = GPL-2.0+, LGPL-2.1+
