@@ -17,14 +17,39 @@ HOST_PIXMAN_DEPENDENCIES = host-pkgconf
 
 # don't build gtk based demos
 PIXMAN_CONF_OPTS = \
+	-Dloongson-mmi=disabled \
+	-Dvmx=disabled \
+	-Dmips-dspr2=disabled \
+	-Dopenmp=disabled \
+	-Dgnuplot=false \
 	-Dgtk=disabled \
-	-Dtests=disabled \
-	-Ddemos=disabled
+	-Dlibpng=disabled \
+	-Dtests=disabled
 
-HOST_PIXMAN_CONF_OPTS = \
-	-Dgtk=disabled \
-	-Dtests=disabled \
-	-Ddemos=disabled
+# Affects only tests, and we don't build tests (see
+# 0001-Disable-tests.patch). See
+# https://gitlab.freedesktop.org/pixman/pixman/-/issues/76, which says
+# "not sure why NVD keeps assigning CVEs like this. This is just a
+# test executable".
+PIXMAN_IGNORE_CVES += CVE-2023-37769
+
+ifeq ($(BR2_X86_CPU_HAS_MMX),y)
+PIXMAN_CONF_OPTS += -Dmmx=enabled
+else
+PIXMAN_CONF_OPTS += -Dmmx=disabled
+endif
+
+ifeq ($(BR2_X86_CPU_HAS_SSE2),y)
+PIXMAN_CONF_OPTS += -Dsse2=enabled
+else
+PIXMAN_CONF_OPTS += -Dsse2=disabled
+endif
+
+ifeq ($(BR2_X86_CPU_HAS_SSSE3),y)
+PIXMAN_CONF_OPTS += -Dssse3=enabled
+else
+PIXMAN_CONF_OPTS += -Dssse3=disabled
+endif
 
 # The ARM SIMD code from pixman requires a recent enough ARM core, but
 # there is a runtime CPU check that makes sure it doesn't get used if
@@ -41,6 +66,18 @@ ifeq ($(BR2_ARM_CPU_HAS_ARM)$(BR2_ARM_CPU_HAS_NEON),yy)
 PIXMAN_CONF_OPTS += -Dneon=enabled
 else
 PIXMAN_CONF_OPTS += -Dneon=disabled
+endif
+
+ifeq ($(BR2_aarch64)$(BR2_ARM_CPU_HAS_NEON),yy)
+PIXMAN_CONF_OPTS += -Da64-neon=enabled
+else
+PIXMAN_CONF_OPTS += -Da64-neon=disabled
+endif
+
+PIXMAN_CFLAGS = $(TARGET_CFLAGS)
+
+ifeq ($(BR2_TOOLCHAIN_HAS_GCC_BUG_101737),y)
+PIXMAN_CFLAGS += -O0
 endif
 
 $(eval $(meson-package))
