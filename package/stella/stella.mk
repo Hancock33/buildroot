@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-STELLA_VERSION = 7.0b
+STELLA_VERSION = 7.0c
 STELLA_SITE =  $(call github,stella-emu,stella,$(STELLA_VERSION))
 STELLA_LICENSE = GPL-2.0+
 STELLA_LICENSE_FILES = Copyright.txt License.txt
