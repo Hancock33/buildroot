@@ -1,8 +1,8 @@
 # Generated with utils/update-rust
 # Do not edit manually
 
-# From https://static.rust-lang.org/dist/rustc-1.83.0-src.tar.xz.sha256
-sha256  7b11d4242dab0921a7d54758ad3fe805153c979c144625fecde11735760f97df  rustc-1.83.0-src.tar.xz
+# From https://static.rust-lang.org/dist/rustc-1.84.0-src.tar.xz.sha256
+sha256  bc2c1639f26814c7b17a323992f1e08c3b01fe88cdff9a27d951987d886e00b3  rustc-1.84.0-src.tar.xz
 # Locally generated
 sha256  62c7a1e35f56406896d7aa7ca52d0cc0d272ac022b5d2796e7d6905db8a3636a  LICENSE-APACHE
 sha256  23f18e03dc49df91622fe2a76176497404e46ced8a715d9d2b67a7446571cca3  LICENSE-MIT
