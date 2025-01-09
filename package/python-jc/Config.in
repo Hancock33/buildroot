@@ -1,5 +1,8 @@
 config BR2_PACKAGE_PYTHON_JC
 	bool "python-jc"
+	select BR2_PACKAGE_PYTHON_PYGMENTS # runtime
+	select BR2_PACKAGE_PYTHON_RUAMEL_YAML # runtime
+	select BR2_PACKAGE_PYTHON_XMLTODICT # runtime
 	help
 	  Converts the output of popular command-line tools and file-
 	  types to JSON.
