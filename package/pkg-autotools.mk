@@ -167,6 +167,7 @@ define $(2)_CONFIGURE_CMDS
 	$$(TARGET_CONFIGURE_OPTS) \
 	$$(TARGET_CONFIGURE_ARGS) \
 	$$($$(PKG)_CONF_ENV) \
+	SSL_CERT_DIR=/etc/ssl/certs \
 	CONFIG_SITE=/dev/null \
 	./configure -q \
 		--target=$$(GNU_TARGET_NAME) \
@@ -204,6 +205,7 @@ define $(2)_CONFIGURE_CMDS
 	CFLAGS="$$(HOST_CFLAGS)" \
 	LDFLAGS="$$(HOST_LDFLAGS)" \
 	$$($$(PKG)_CONF_ENV) \
+	SSL_CERT_DIR=/etc/ssl/certs \
 	CONFIG_SITE=/dev/null \
 	./configure -q \
 		--prefix="$$(HOST_DIR)" \
