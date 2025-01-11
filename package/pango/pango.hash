@@ -1,5 +1,5 @@
-# From https://download.gnome.org/sources/pango/1.55/pango-1.55.5.sha256sum
-sha256  e396126ea08203cbd8ef12638e6222e2e1fd8aa9cac6743072fedc5f2d820dd8  pango-1.55.5.tar.xz
+# From https://download.gnome.org/sources/pango/1.56/pango-1.56.0.sha256sum
+sha256  1fb98b338ee6f7cf8ef96153b7d242f4568fe60f9b7434524eca630a57bd538b  pango-1.56.0.tar.xz
 
 # Locally computed
 sha256  d245807f90032872d1438d741ed21e2490e1175dc8aa3afa5ddb6c8e529b58e5  COPYING
