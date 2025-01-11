@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-AT_SPI2_CORE_VERSION_MAJOR = 2.54
+AT_SPI2_CORE_VERSION_MAJOR = 2.55
 AT_SPI2_CORE_VERSION = $(AT_SPI2_CORE_VERSION_MAJOR).0
 AT_SPI2_CORE_SOURCE = at-spi2-core-$(AT_SPI2_CORE_VERSION).tar.xz
 AT_SPI2_CORE_SITE = https://download.gnome.org/sources/at-spi2-core/$(AT_SPI2_CORE_VERSION_MAJOR)
