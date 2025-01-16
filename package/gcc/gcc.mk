@@ -298,11 +298,6 @@ HOST_GCC_COMMON_CONF_OPTS += \
 	--with-long-double-128
 endif
 
-# allow to build gcc 14.x
-ifeq ($(BR2_nios2),y)
-HOST_GCC_COMMON_CONF_OPTS += --enable-obsolete
-endif
-
 # semantic interposition
 ifeq ($(BR2_GCC_ENABLE_SEMANTIC_INTERPOSITION),y)
 HOST_GCC_COMMON_CONF_OPTS += --enable-default-semantic-interposition=no
