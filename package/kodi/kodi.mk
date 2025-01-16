@@ -3,8 +3,8 @@
 # kodi
 #
 ################################################################################
-# Version: Commits on Aug 17, 2024
-KODI_VERSION = 21.1-Omega
+# Version: Commits on Jan 15, 2024
+KODI_VERSION = 21.2-Omega
 KODI_VERSION_NAME = Omega
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
