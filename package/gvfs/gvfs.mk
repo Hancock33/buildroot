@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-GVFS_VERSION_MAJOR = 1.57
+GVFS_VERSION_MAJOR = 1.56
 GVFS_VERSION = $(GVFS_VERSION_MAJOR).1
 GVFS_SOURCE = gvfs-$(GVFS_VERSION).tar.xz
 GVFS_SITE = https://download.gnome.org/sources/gvfs/$(GVFS_VERSION_MAJOR)
