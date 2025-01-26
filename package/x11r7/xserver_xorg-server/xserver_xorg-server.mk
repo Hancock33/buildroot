@@ -41,6 +41,7 @@ XSERVER_XORG_SERVER_DEPENDENCIES = \
 	xkeyboard-config \
 	pixman \
 	mcookie \
+	mesa3d \
 	host-pkgconf
 
 # We force -O2 regardless of the optimization level chosen by the
