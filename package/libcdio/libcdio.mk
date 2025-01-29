@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBCDIO_VERSION = 2.1.1
+LIBCDIO_VERSION = 2.2.0
 LIBCDIO_SITE =  $(call github,libcdio,libcdio,$(LIBCDIO_VERSION))
 LIBCDIO_INSTALL_STAGING = YES
 LIBCDIO_LICENSE = GPL-3.0+
