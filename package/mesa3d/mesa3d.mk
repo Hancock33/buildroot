@@ -4,7 +4,7 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/24.3 | cut -d '-' -f 2-
-MESA3D_VERSION = 24.3.4-54-g645788b2e0fe420cb7dd1d04c6f32116685ad619
+MESA3D_VERSION = mesa-25.0.0-rc1
 MESA3D_SITE = $(call gitlabfreedesktop,mesa,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
@@ -32,7 +32,6 @@ endif
 MESA3D_CONF_OPTS = \
 	-Dgallium-rusticl=false \
 	-Dmicrosoft-clc=disabled \
-	-Dopencl-spirv=false \
 	-Dpower8=disabled
 
 ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
@@ -173,7 +172,7 @@ MESA3D_DEPENDENCIES += host-python-ply
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS),y)
-MESA3D_CONF_OPTS += -Dintel-clc=system
+MESA3D_CONF_OPTS += -Dmesa-clc=system
 MESA3D_DEPENDENCIES += host-mesa3d
 endif
 
@@ -350,7 +349,8 @@ endif
 
 HOST_MESA3D_CONF_OPTS += \
 	-Dglvnd=disabled \
-	-Dintel-clc=enabled \
+	-Dmesa-clc=enabled \
+	-Dinstall-mesa-clc=true \
 	-Dgallium-drivers="" \
 	-Dgallium-vdpau=disabled \
 	-Dplatforms= \
@@ -366,7 +366,8 @@ HOST_MESA3D_DEPENDENCIES = \
 	host-spirv-llvm-translator
 
 define HOST_MESA3D_INSTALL_CMDS
-	$(INSTALL) -D -m 0755 $(@D)/build/src/intel/compiler/intel_clc $(HOST_DIR)/bin/intel_clc
+	$(INSTALL) -D -m 0755 $(@D)/build/src/compiler/clc/mesa_clc      $(HOST_DIR)/bin
+	$(INSTALL) -D -m 0755 $(@D)/build/src/compiler/spirv/vtn_bindgen $(HOST_DIR)/bin
 endef
 
 $(eval $(meson-package))
