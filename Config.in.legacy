@@ -146,12 +146,12 @@ endif
 
 comment "Legacy options removed in 2025.02"
 
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SWRAST
-	bool "mesa Gallium swrast driver was replaced by softpipe"
+config BR2_TARGET_ROOTFS_EXT2_2r0
+	bool "ext2 rev0 support been removed"
 	select BR2_LEGACY
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SOFTPIPE
 	help
-	  The Gallium swrast driver was replaced by softpipe.
+	  Support for ext2 revision 0 format has been removed and
+	  revision 1 is now unconditionally used.
 
 config BR2_GDB_VERSION_13
 	bool "gdb 13.x has been removed"
