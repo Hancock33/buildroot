@@ -5,12 +5,12 @@
 ################################################################################
 
 LIBCDIO_VERSION = 2.2.0
-LIBCDIO_SITE =  $(call github,libcdio,libcdio,$(LIBCDIO_VERSION))
+LIBCDIO_SOURCE = libcdio-$(LIBCDIO_VERSION).tar.bz2
+LIBCDIO_SITE = https://github.com/libcdio/libcdio/releases/download/$(LIBCDIO_VERSION)
 LIBCDIO_INSTALL_STAGING = YES
 LIBCDIO_LICENSE = GPL-3.0+
 LIBCDIO_LICENSE_FILES = COPYING
 LIBCDIO_CPE_ID_VENDOR = gnu
-LIBCDIO_AUTORECONF = YES
 LIBCDIO_CONF_OPTS = --disable-example-progs --disable-cddb
 
 ifeq ($(BR2_ENABLE_LOCALE),)
