@@ -12,7 +12,6 @@ JSON_GLIB_LICENSE = LGPL-2.1+, MIT (conformance test data), CC0-1.0 (parts of bu
 JSON_GLIB_LICENSE_FILES = LICENSES/CC0-1.0.txt \
 	LICENSES/LGPL-2.1-or-later.txt \
 	LICENSES/MIT.txt \
-	.reuse/dep5 \
 	COPYING
 JSON_GLIB_INSTALL_STAGING = YES
 JSON_GLIB_CONF_OPTS = -Dgtk_doc=disabled -Dtests=false
