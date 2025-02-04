@@ -3,8 +3,8 @@
 # spirv-llvm-translator
 #
 ################################################################################
-# Version: Commits on Jan 27, 2025
-SPIRV_LLVM_TRANSLATOR_VERSION = b438ea35c080a8cdb58faa97077e1001238a7e5f
+# Version: Commits on Jan 31, 2025
+SPIRV_LLVM_TRANSLATOR_VERSION = 6675e28ce8621cd1a75550f703da0bf00a2aa1fb
 SPIRV_LLVM_TRANSLATOR_SITE = $(call github,KhronosGroup,SPIRV-LLVM-Translator,$(SPIRV_LLVM_TRANSLATOR_VERSION))
 SPIRV_LLVM_TRANSLATOR_LICENSE = NCSA
 SPIRV_LLVM_TRANSLATOR_LICENSE_FILES = LICENSE.TXT
