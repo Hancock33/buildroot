@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-VLC_VERSION = 3.0.21
+VLC_VERSION = 3.0.21-1-488-g3e64644242783c68892262b11c178a1c668ab14a
 VLC_SITE = https://code.videolan.org/videolan/vlc.git
 VLC_SITE_METHOD = git
 #VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
@@ -149,7 +149,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_FFMPEG),y)
 VLC_CONF_OPTS += --enable-avcodec
-VLC_DEPENDENCIES += ffmpeg4 #batocera - use our ffmpeg4 package
+VLC_DEPENDENCIES += ffmpeg
 else
 VLC_CONF_OPTS += --disable-avcodec
 endif
@@ -594,10 +594,5 @@ endif
 # batocera - disable pulse for ES themes
 # this causes audio to bleed through when it shouldn't
 VLC_CONF_OPTS += --disable-pulse
-
-# batocera - add ffmpeg4 config path
-VLC_CONF_ENV += PKG_CONFIG_PATH="$(STAGING_DIR)/usr/lib/ffmpeg4.4/pkgconfig"
-VLC_CONF_ENV += CFLAGS="-I$(STAGING_DIR)/usr/include/ffmpeg4.4:$(TARGET_CFLAGS) -O0"
-VLC_CONF_ENV += LDFLAGS="-L$(STAGING_DIR)/usr/lib/ffmpeg4.4"
 
 $(eval $(autotools-package))
