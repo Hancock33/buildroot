@@ -1,5 +1,5 @@
-# From https://download.gnome.org/sources/gtk/4.17/gtk-4.17.0.sha256sum
-sha256  efcef355b5d903fc62a70934b1c644f39661e3c2ff44c8c53a8fcdb70c7dd97e  gtk-4.17.0.tar.xz
+# From https://download.gnome.org/sources/gtk/4.17/gtk-4.17.4.sha256sum
+sha256  6ae47801d0255a136f52fbb76f1f96836360df7ff539931eabb94ed4f4968cc8  gtk-4.17.4.tar.xz
 
 # Hash for license file:
 sha256  b7993225104d90ddd8024fd838faf300bea5e83d91203eab98e29512acebd69c  COPYING

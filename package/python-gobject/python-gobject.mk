@@ -21,6 +21,10 @@ PYTHON_GOBJECT_CONF_OPTS += \
 	-Dpycairo=disabled \
 	-Dtests=false
 
+HOST_PYTHON_GOBJECT_CONF_OPTS += \
+	-Dpycairo=disabled \
+	-Dtests=false
+
 # A sysconfigdata_name must be manually specified or the resulting .so
 # will have a x86_64 prefix, which causes "import gi" to fail.
 # A pythonpath must be specified or the host python path will be used resulting
@@ -30,3 +34,5 @@ PYTHON_GOBJECT_CONF_ENV += \
 	PYTHONPATH=$(PYTHON3_PATH)
 
 $(eval $(meson-package))
+$(eval $(host-meson-package))
+
