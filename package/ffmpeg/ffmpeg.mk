@@ -390,6 +390,13 @@ else
 FFMPEG_CONF_OPTS += --disable-iconv
 endif
 
+ifeq ($(BR2_PACKAGE_LIBXML2),y)
+FFMPEG_CONF_OPTS += --enable-libxml2
+FFMPEG_DEPENDENCIES += libxml2
+else
+FFMPEG_CONF_OPTS += --disable-libxml2
+endif
+
 # batocera - add cuda & nvenc
 ifeq ($(BR2_PACKAGE_NVIDIA_OPEN_DRIVER_CUDA),y)
 FFMPEG_CONF_OPTS += --enable-cuda --enable-cuvid --enable-nvdec --enable-nvenc
