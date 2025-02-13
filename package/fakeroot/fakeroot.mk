@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-FAKEROOT_VERSION = 1.36.2
+FAKEROOT_VERSION = 1.37
 FAKEROOT_SOURCE = fakeroot_$(FAKEROOT_VERSION).orig.tar.gz
-FAKEROOT_SITE = https://snapshot.debian.org/archive/debian/20241224T023644Z/pool/main/f/fakeroot/
+FAKEROOT_SITE = https://snapshot.debian.org/archive/debian/20250213T150451Z/pool/main/f/fakeroot/
 
 HOST_FAKEROOT_DEPENDENCIES = host-acl
 # Force capabilities detection off
