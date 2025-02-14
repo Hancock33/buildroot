@@ -922,6 +922,9 @@ endif
 ifeq ($$($(2)_INSTALL_TARGET),YES)
 $(1)-install-target:		$$($(2)_TARGET_INSTALL_TARGET)
 $$($(2)_TARGET_INSTALL_TARGET):	$$($(2)_TARGET_BUILD)
+# batocera - fix intra-package dependency in boot/syslinux
+# Some packages use install-target stuff for install-images
+$$($(2)_TARGET_INSTALL_IMAGES):	$$($(2)_TARGET_INSTALL_TARGET)
 else
 $(1)-install-target:
 endif
