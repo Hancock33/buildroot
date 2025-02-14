@@ -43,10 +43,11 @@ SQLITE_CFLAGS += $(subst -Ofast,-O3,$(TARGET_CFLAGS))
 endif
 
 ifeq ($(BR2_PACKAGE_NCURSES)$(BR2_PACKAGE_READLINE),yy)
-SQLITE_DEPENDENCIES += ncurses readline
-else ifeq ($(BR2_PACKAGE_LIBEDIT),y)
-SQLITE_DEPENDENCIES += libedit
-SQLITE_CONF_OPTS += --disable-readline --editline
+SQLITE_CONF_OPTS += --with-readline-cflags=-I$(STAGING_DIR)/usr/include
+else ifeq ($(BR2_PACKAGE_NCURSES)$(BR2_PACKAGE_LIBEDIT),yy)
+SQLITE_DEPENDENCIES += ncurses libedit
+SQLITE_CONF_OPTS += --with-readline-cflags=-I$(STAGING_DIR)/usr/include
+SQLITE_CONF_OPTS += --editline
 else
 SQLITE_CONF_OPTS += --disable-readline
 endif
@@ -84,7 +85,7 @@ define SQLITE_INSTALL_TARGET_CMDS
 endef
 
 define HOST_SQLITE_CONFIGURE_CMDS
-	(cd $(@D); $(HOST_CONFIGURE_OPTS) $(SQLITE_CONF_ENV) ./configure \
+	(cd $(@D); $(HOST_CONFIGURE_OPTS) ./configure \
 		--prefix=/usr \
 		--host="$(GNU_HOST_NAME)" \
 		--build="$(GNU_HOST_NAME)" \
