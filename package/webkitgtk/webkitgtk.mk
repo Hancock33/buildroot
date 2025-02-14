@@ -19,6 +19,14 @@ WEBKITGTK_DEPENDENCIES = host-ruby host-python3 host-gperf host-unifdef \
 
 WEBKITGTK_CMAKE_BACKEND = ninja
 
+# batocera - limit the number of parallel jobs
+# otherwise webkitgtk eats all your memory C....
+total_memory_kb := $(shell grep MemTotal /proc/meminfo | awk '{print $$2}')
+memory_based_jobs := $(shell echo $$(( $(total_memory_kb) / 1024 / 1024 / 2 + 1)))
+cpu_threads := $(shell nproc)
+jobs := $(shell echo $$(( $(memory_based_jobs) < $(cpu_threads) ? $(memory_based_jobs) : $(cpu_threads) )))
+WEBKITGTK_BUILD_OPTS= -j$(jobs) -- -l$(jobs)
+
 WEBKITGTK_CONF_OPTS = \
 	-DENABLE_API_TESTS=OFF \
 	-DENABLE_DOCUMENTATION=OFF \
@@ -30,7 +38,8 @@ WEBKITGTK_CONF_OPTS = \
 	-DUSE_AVIF=OFF \
 	-DUSE_GTK4=OFF \
 	-DUSE_LIBHYPHEN=OFF \
-	-DUSE_WOFF2=ON
+	-DUSE_WOFF2=ON \
+	-DWAYLAND_PROTOCOLS_DATADIR=$(STAGING_DIR)/usr/share/wayland-protocols
 
 ifeq ($(BR2_PACKAGE_WEBKITGTK_SANDBOX),y)
 WEBKITGTK_CONF_OPTS += \
