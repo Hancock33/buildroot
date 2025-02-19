@@ -38,8 +38,7 @@ endif
 ifeq ($(BR2_microblaze):$(BR2_TOOLCHAIN_GCC_AT_LEAST_5),y:)
 SQLITE_CFLAGS += $(TARGET_CFLAGS) -O0
 else
-# fallback to standard -O3 when -Ofast is present to avoid -ffast-math
-SQLITE_CFLAGS += $(subst -Ofast,-O3,$(TARGET_CFLAGS))
+SQLITE_CFLAGS += -O2 -pipe
 endif
 
 ifeq ($(BR2_PACKAGE_NCURSES)$(BR2_PACKAGE_READLINE),yy)
@@ -63,6 +62,7 @@ SQLITE_CONF_OPTS += --disable-json
 endif
 
 SQLITE_CONF_ENV = CFLAGS="$(SQLITE_CFLAGS)" LDFLAGS="$(SQLITE_LDFLAGS)"
+HOST_SQLITE_CONF_ENV = CFLAGS="$(SQLITE_CFLAGS)" LDFLAGS="-Wl,-rpath,$(HOST_DIR)/lib $(SQLITE_LDFLAGS)"
 
 define SQLITE_CONFIGURE_CMDS
 	(cd $(@D); $(TARGET_CONFIGURE_OPTS) \
@@ -90,7 +90,7 @@ endef
 
 define HOST_SQLITE_CONFIGURE_CMDS
 	(cd $(@D); $(HOST_CONFIGURE_OPTS) \
-		$(SQLITE_CONF_ENV) ./configure \
+		$(HOST_SQLITE_CONF_ENV) ./configure \
 		--prefix=/usr \
 		--host="$(GNU_HOST_NAME)" \
 		--build="$(GNU_HOST_NAME)" \
