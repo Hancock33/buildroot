@@ -10,6 +10,7 @@ KMOD_SITE = $(BR2_KERNEL_MIRROR)/linux/utils/kernel/kmod
 KMOD_INSTALL_STAGING = YES
 KMOD_DEPENDENCIES = host-pkgconf
 HOST_KMOD_DEPENDENCIES = host-pkgconf
+KMOD_AUTORECONF = YES
 
 # license info for libkmod only, conditionally add more below
 KMOD_LICENSE = LGPL-2.1+ (library)
@@ -115,6 +116,13 @@ define HOST_KMOD_INSTALL_TOOLS
 endef
 
 HOST_KMOD_POST_INSTALL_HOOKS += HOST_KMOD_INSTALL_TOOLS
+
+define KMOD_REMOVE_SYMLINKS
+	rm -rf $(@D)/build-aux
+endef
+
+KMOD_POST_EXTRACT_HOOKS += KMOD_REMOVE_SYMLINKS
+HOST_KMOD_POST_EXTRACT_HOOKS += KMOD_REMOVE_SYMLINKS
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
