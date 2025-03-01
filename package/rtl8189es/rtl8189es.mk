@@ -3,8 +3,8 @@
 # rtl8189es
 #
 ################################################################################
-# Version: Commits on Dec 29, 2024
-RTL8189ES_VERSION = 6b4cfb5c37f10c099d330ece54436706161c2f2e
+# Version: Commits on Feb 24, 2025
+RTL8189ES_VERSION = fcf2a5746e6fe11d9d71337ee5dac6cf43423a97
 RTL8189ES_SITE = $(call github,jwrdegoede,rtl8189ES_linux,$(RTL8189ES_VERSION))
 RTL8189ES_LICENSE = GPL-2.0
 
