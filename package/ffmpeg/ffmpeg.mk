@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 7.1
+FFMPEG_VERSION = 7.1.1
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
@@ -293,6 +293,7 @@ endif
 
 # batocera - add RPi H.265 hardware acceleration
 ifeq ($(BR2_PACKAGE_RPI_HEVC),y)
+FFMPEG_VERSION = 7.1
 FFMPEG_CONF_OPTS += --disable-mmal
 FFMPEG_CONF_OPTS += --enable-neon
 FFMPEG_CONF_OPTS += --enable-v4l2-request
