@@ -1,5 +1,5 @@
-# From https://download.gnome.org/sources/gtk/3.24/gtk-3.24.48.sha256sum
-sha256  d10ce9ea9df44c1016d8d1721f39e55d3d607fcfb85334aec0d236cdc9a70556  gtk-3.24.48.tar.xz
+# From https://download.gnome.org/sources/gtk/3.24/gtk-3.24.49.sha256sum
+sha256  5ea52c6a28f0e5ecf2e9a3c2facbb30d040b73871fcd5f33cd1317e9018a146e  gtk-3.24.49.tar.xz
 
 # Hash for license file:
 sha256  b7993225104d90ddd8024fd838faf300bea5e83d91203eab98e29512acebd69c  COPYING
