@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/aiohappyeyeballs/json
-md5  aa9b4d3abc3e3da688a59c9802306388  aiohappyeyeballs-2.4.8.tar.gz
-sha256  19728772cb12263077982d2f55453babd8bec6a052a926cd5c0c42796da8bf62  aiohappyeyeballs-2.4.8.tar.gz
+md5  a4ff48ea76f014d8f57cb572e3c81ea0  aiohappyeyeballs-2.5.0.tar.gz
+sha256  18fde6204a76deeabc97c48bdd01d5801cfda5d6b9c8bbeb1aaaee9d648ca191  aiohappyeyeballs-2.5.0.tar.gz
 # Locally computed sha256 checksums
 sha256  3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf  LICENSE
