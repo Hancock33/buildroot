@@ -40,14 +40,13 @@ Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
  2 files changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/wscript_configure_embedded_heimdal b/wscript_configure_embedded_heimdal
-index 8c55ae2..4fdae80 100644
+index c1488e5506e..fd3b937fd7d 100644
 --- a/wscript_configure_embedded_heimdal
 +++ b/wscript_configure_embedded_heimdal
-@@ -13,3 +13,14 @@
- # when this will be available also in
+@@ -14,4 +14,15 @@ conf.RECURSE('third_party/heimdal_build')
  # system libraries...
  conf.define('HAVE_CLIENT_GSS_C_CHANNEL_BOUND_FLAG', 1)
-+
+ 
 +def check_system_heimdal_binary(name):
 +    if conf.LIB_MAY_BE_BUNDLED(name):
 +        return False
@@ -58,6 +57,5 @@ index 8c55ae2..4fdae80 100644
 +
 +check_system_heimdal_binary("compile_et")
 +check_system_heimdal_binary("asn1_compile")
--- 
-2.20.1
-
++
+ conf.define('HAVE_KRB5_INIT_CREDS_STEP', 1)
