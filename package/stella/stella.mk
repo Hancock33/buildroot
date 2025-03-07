@@ -38,7 +38,6 @@ define STELLA_CONFIGURE_CMDS
 	(cd $(@D); \
 		$(TARGET_CONFIGURE_OPTS) \
 		$(TARGET_CONFIGURE_ARGS) \
-		LDFLAGS="$(TARGET_LDFLAGS) -Wl,-allow-multiple-definition" \
 		./configure $(STELLA_CONF_OPTS) \
 	)
 endef
