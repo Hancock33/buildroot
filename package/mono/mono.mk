@@ -4,11 +4,9 @@
 #
 ################################################################################
 
-MONO_VERSION = mono-6.12.0.206
-MONO_SOURCE = $(MONO_VERSION).tar.gz
-MONO_SITE = https://gitlab.winehq.org/mono/mono.git
-MONO_SITE_METHOD=git
-MONO_GIT_SUBMODULES=YES
+MONO_VERSION = 6.14.0
+MONO_SITE = https://dl.winehq.org/mono/sources/mono
+MONO_SOURCE = mono-$(MONO_VERSION).tar.xz
 MONO_SELINUX_MODULES = mono
 MONO_LICENSE = GPL-2.0 or MIT (compiler, tools), MIT (libs) or commercial
 MONO_LICENSE_FILES = LICENSE mcs/COPYING \
@@ -18,35 +16,25 @@ MONO_INSTALL_STAGING = YES
 
 ## Mono native
 
+# patching configure.ac
+MONO_AUTORECONF = YES
+
 MONO_COMMON_CONF_OPTS = --with-mcs-docs=no \
 	--with-ikvm-native=no \
 	--enable-minimal=profiler,debug \
 	--enable-static \
 	--disable-btls \
-	--disable-system-aot \
-	--enable-ninja
+	--disable-system-aot
 
 # Disable managed code (mcs folder) from building
 MONO_CONF_OPTS = $(MONO_COMMON_CONF_OPTS) --disable-mcs-build
 
 # The libraries have been built by the host-mono build. Since they are
 # architecture-independent, we simply copy them to the target.
-ifeq ($(BR2_PACKAGE_MONO_SPECIFY_FOLDERS_TO_INSTALL),y)
-# Copy only selected folders
-define MONO_INSTALL_LIBS
-	mkdir -p $(TARGET_DIR)/usr/lib/mono
-	(for dir in $(call qstrip,$(BR2_PACKAGE_MONO_FOLDERS_TO_INSTALL)); do \
-		rsync -av --exclude=*.so --exclude=*.mdb \
-		$(HOST_DIR)/lib/mono/$${dir} $(TARGET_DIR)/usr/lib/mono; \
-	done)
-endef
-else
-# Copy all folders
 define MONO_INSTALL_LIBS
 	rsync -av --exclude=*.so --exclude=*.mdb \
 		$(HOST_DIR)/lib/mono $(TARGET_DIR)/usr/lib/
 endef
-endif
 
 MONO_POST_INSTALL_TARGET_HOOKS += MONO_INSTALL_LIBS
 
@@ -69,19 +57,11 @@ HOST_MONO_MAKE_OPTS += EXTERNAL_MCS=false
 HOST_MONO_DEPENDENCIES = host-monolite host-gettext host-python3
 
 define HOST_MONO_SETUP_MONOLITE
-	mkdir -p $(@D)/mcs/class/lib
 	rm -rf $(@D)/mcs/class/lib/monolite
-	(cd $(@D)/mcs/class/lib; ln -sf $(HOST_DIR)/lib/monolite monolite)
+	(cd $(@D)/mcs/class/lib; ln -s $(HOST_DIR)/lib/monolite monolite)
 endef
 
 HOST_MONO_POST_CONFIGURE_HOOKS += HOST_MONO_SETUP_MONOLITE
-
-define MONO_AUTOGEN
-	cd $(@D); NOCONFIGURE=1 ./autogen.sh
-endef
-
-MONO_PRE_CONFIGURE_HOOKS += MONO_AUTOGEN
-HOST_MONO_PRE_CONFIGURE_HOOKS += MONO_AUTOGEN
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
