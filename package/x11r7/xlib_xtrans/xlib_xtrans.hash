@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2024-November/003554.html
-sha256  5c5cbfe34764a9131d048f03c31c19e57fb4c682d67713eab6a65541b4dff86c  xtrans-1.5.2.tar.xz
-sha512  4c4909402cb7df0d69bf2801722de822f7e376d585ff5aa8db8f88be77ed7fb7dfbdc410827069fc5041327e81afeb9d403c6c92e5c1e02d593c829ef6c37536  xtrans-1.5.2.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2025-March/003588.html
+sha256  faafea166bf2451a173d9d593352940ec6404145c5d1da5c213423ce4d359e92  xtrans-1.6.0.tar.xz
+sha512  e0ac4a2df0eeacdf23cedd74fee063a8eea81d05c4c4c9a9a113b9b4238db7cacb3c831973ac647fe1a5b06426dcdf0b2f8be5ac27862700333269880e25725b  xtrans-1.6.0.tar.xz
 # Locally computed
 sha256  22616bf00b6db85ee3164775a95206894af987b85ff1a7703de55644bc722a39  COPYING
