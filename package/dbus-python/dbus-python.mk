@@ -4,7 +4,8 @@
 #
 ################################################################################
 
-DBUS_PYTHON_VERSION = 1.3.2
+DBUS_PYTHON_VERSION = 1.4.0
+DBUS_PYTHON_SOURCE = dbus-python-$(DBUS_PYTHON_VERSION).tar.xz
 DBUS_PYTHON_SITE = http://dbus.freedesktop.org/releases/dbus-python
 DBUS_PYTHON_INSTALL_STAGING = YES
 DBUS_PYTHON_LICENSE = MIT (dbus-python), AFL-2.1 or GPL-2.0+ (dbus-gmain)
@@ -24,5 +25,5 @@ HOST_DBUS_PYTHON_CONF_ENV = \
 	PYTHON_LIBS="`$(HOST_DIR)/bin/python3-config --ldflags`" \
 	PYTHON_EXTRA_LIBS="`$(HOST_DIR)/bin/python3-config --libs --embed`"
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))
