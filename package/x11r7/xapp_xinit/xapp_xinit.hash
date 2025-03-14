@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2025-January/003577.html
-sha256  86409f21a6a31148d2c1c17bf5f2d904eb5ef455f9dc67c49fbd0c10ab18fd5a  xinit-1.4.3.tar.xz
-sha512  ff754567d2224d1ff5023b302cae3a435950a6f24a773e214ea108b96d18b722d4cc86d0e25a7d92edea1307e3037248b4da004c1b392f73ba7bc1e04a94b77b  xinit-1.4.3.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2025-March/003593.html
+sha256  40a47c7a164c7f981ce3787b4b37f7e411fb43231dcde543d70094075dacfef9  xinit-1.4.4.tar.xz
+sha512  387285c952bbe074d2ed2dbbf745d1634763bb71f7f7edb22b3306b9e96ae4e28e59ecd6c48cc646b12dbdbcc68d42036bd127da75ef3c16fabdae87794ad6d1  xinit-1.4.4.tar.xz
 # Locally computed
 sha256  c47001aa217d4ae7787121d80634db4bdba564e49a0ecab8d48b1bdc4edee1c7  COPYING
