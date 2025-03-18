@@ -1,0 +1,38 @@
+From 87d1691c63a1172397968286a12e94991bf05d86 Mon Sep 17 00:00:00 2001
+From: Vincent Jardin <vjardin@free.fr>
+Date: Tue, 18 Mar 2025 22:18:14 +0100
+Subject: [PATCH] e100g1_split.rcw: fix parse error
+
+Embedded /* */ comments into comments is not a proper syntax.
+
+Signed-off-by: Vincent Jardin <vjardin@free.fr>
+
+Origin: https://github.com/nxp-qoriq/rcw/issues/4
+---
+ lx2160asi/e100g1_split.rcw | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/lx2160asi/e100g1_split.rcw b/lx2160asi/e100g1_split.rcw
+index e1853f8..e63f393 100644
+--- a/lx2160asi/e100g1_split.rcw
++++ b/lx2160asi/e100g1_split.rcw
+@@ -6,11 +6,11 @@
+  *
+  * board_info {
+  *	serdes {
+- *		/* Do not rely on the RCW protocol number, but rather read
+- *		 * the protocol status registers (PSSR) for each SerDes
+- *		 * block. That information will be used to enable/disable
+- *		 * the appropriate MACs.
+- *		 */
++ *		 // Do not rely on the RCW protocol number, but rather read
++ *		 // the protocol status registers (PSSR) for each SerDes
++ *		 // block. That information will be used to enable/disable
++ *		 // the appropriate MACs.
++ *		 //
+  *		follow_hw_pssr;
+  *	};
+  * };
+-- 
+2.48.1
+
