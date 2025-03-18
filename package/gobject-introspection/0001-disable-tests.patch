@@ -9,26 +9,20 @@ the subdir tests altogether fixes this issue.
 
 Signed-off-by: Adam Duskett <aduskett@gmail.com>
 ---
- meson.build | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/meson.build b/meson.build
-index c2cb577f..65ce7adf 100644
+f --git a/meson.build b/meson.build
+index 3bb40cb6..6cd9ce23 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -237,12 +237,6 @@ else
+@@ -299,12 +299,6 @@ else
  endif
  subdir('docs')
  
 -# The tests will also run, which is not possible if they
 -# were built for a different architecture.
--if not meson.is_cross_build()
+-if not meson.is_cross_build() and get_option('tests')
 -  subdir('tests')
 -endif
 -
  install_data('Makefile.introspection', install_dir: join_paths(get_option('datadir'), 'gobject-introspection-1.0'))
  install_data('m4/introspection.m4', install_dir: join_paths(get_option('datadir'), 'aclocal'))
  
--- 
-2.25.1
-
