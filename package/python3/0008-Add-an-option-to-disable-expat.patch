@@ -1,15 +1,15 @@
-From 427866cb484c9bb925bdf0d916a3441354ba79cb Mon Sep 17 00:00:00 2001
+From fb7d73d6e3c4cdc9cb272120845103b1aa965240 Mon Sep 17 00:00:00 2001
 From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
 Date: Wed, 22 Feb 2017 17:40:45 -0800
 Subject: [PATCH] Add an option to disable expat
-
-Upstream: N/A
 
 This patch replaces the existing --with-system-expat option with a
 --with-expat={system,builtin,none} option, which allows to tell Python
 whether we want to use the system expat (already installed), the expat
 builtin the Python sources, or no expat at all (which disables the
 installation of XML modules).
+
+Upstream: N/A
 
 Signed-off-by: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
 Signed-off-by: Samuel Martin <s.martin49@gmail.com>
