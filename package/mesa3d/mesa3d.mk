@@ -4,7 +4,7 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/25.0 | cut -d '-' -f 2-
-MESA3D_VERSION = 25.0.1-72-gadfc49a390a16c73d476a67254abc633ac710f3c
+MESA3D_VERSION = 25.0.2-1-ga801a4aab60a35dad940521e8a603431fbdf193c
 MESA3D_SITE = $(call gitlabfreedesktop,mesa,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = docs/license.rst
