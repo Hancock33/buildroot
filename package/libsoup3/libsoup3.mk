@@ -46,8 +46,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBKRB5),y)
 LIBSOUP3_CONF_OPTS += \
-	-Dgssapi=enabled \
-	-Dkrb5_config=$(STAGING_DIR)/usr/bin/krb5-config
+	-Dgssapi=enabled
 LIBSOUP3_DEPENDENCIES += libkrb5
 else
 LIBSOUP3_CONF_OPTS += -Dgssapi=disabled
