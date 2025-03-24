@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PYTHON_TROVE_CLASSIFIERS_VERSION = 2025.3.9.19
+PYTHON_TROVE_CLASSIFIERS_VERSION = 2025.3.19.19
 PYTHON_TROVE_CLASSIFIERS_SOURCE = trove_classifiers-$(PYTHON_TROVE_CLASSIFIERS_VERSION).tar.gz
 PYTHON_TROVE_CLASSIFIERS_SITE = https://files.pythonhosted.org/packages/23/c6/1bc495f33ab4cd16c1044bde55d5ac76646c6c759df751218c7c2aeb3bba
 PYTHON_TROVE_CLASSIFIERS_SETUP_TYPE = setuptools
