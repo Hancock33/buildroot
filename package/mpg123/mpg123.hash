@@ -1,6 +1,6 @@
-# From https://sourceforge.net/projects/mpg123/files/mpg123/1.32.9/
-sha1  25aea7c5edfe6bc637f603c075210c13955200fe  mpg123-1.32.9.tar.bz2
+# From https://sourceforge.net/projects/mpg123/files/mpg123/1.32.10/
+sha1  6fc6b73016bd616326bf22426ba6a619443a6cdb  mpg123-1.32.10.tar.bz2
 # Locally calculated
-sha256  03b61e4004e960bacf2acdada03ed94d376e6aab27a601447bd4908d8407b291  mpg123-1.32.9.tar.bz2
+sha256  87b2c17fe0c979d3ef38eeceff6362b35b28ac8589fbf1854b5be75c9ab6557c  mpg123-1.32.10.tar.bz2
 # License file
 sha256  c22482728a634a8dfdb4ff72a96d4c1ed64cd8f3e79335c401751ac591609366  COPYING
