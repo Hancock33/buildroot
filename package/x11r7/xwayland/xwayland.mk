@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XWAYLAND_VERSION = 24.1.5
+XWAYLAND_VERSION = 24.1.6
 XWAYLAND_SOURCE = xwayland-$(XWAYLAND_VERSION).tar.xz
 XWAYLAND_SITE = https://xorg.freedesktop.org/archive/individual/xserver
 XWAYLAND_LICENSE = MIT
@@ -13,7 +13,6 @@ XWAYLAND_CPE_ID_VENDOR = x.org
 XWAYLAND_INSTALL_STAGING = YES
 XWAYLAND_DEPENDENCIES = \
 	libdrm \
-	mesa3d \
 	pixman \
 	wayland \
 	wayland-protocols \
@@ -26,7 +25,6 @@ XWAYLAND_DEPENDENCIES = \
 	xorgproto
 XWAYLAND_CONF_OPTS = \
 	-Ddri3=true \
-	-Dxwayland_eglstream=false \
 	-Dxvfb=false \
 	-Ddefault_font_path=/usr/share/fonts/X11/ \
 	-Ddtrace=false \
