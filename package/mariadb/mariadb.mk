@@ -117,7 +117,7 @@ MARIADB_CONF_OPTS += \
 	-DMYSQL_UNIX_ADDR=$(MYSQL_SOCKET)
 
 HOST_MARIADB_DEPENDENCIES = host-openssl
-HOST_MARIADB_CONF_OPTS += -DWITH_SSL=system
+HOST_MARIADB_CONF_OPTS += -DWITH_SSL=system -DCONNECT_WITH_LIBXML2=OFF
 
 # Some helpers must be compiled for host in order to crosscompile mariadb for
 # the target. They are then included by import_executables.cmake which is
