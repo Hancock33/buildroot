@@ -45,8 +45,7 @@ LIBSOUP3_CONF_OPTS += -Dintrospection=disabled -Dvapi=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_LIBKRB5),y)
-LIBSOUP3_CONF_OPTS += \
-	-Dgssapi=enabled
+LIBSOUP3_CONF_OPTS += -Dgssapi=enabled
 LIBSOUP3_DEPENDENCIES += libkrb5
 else
 LIBSOUP3_CONF_OPTS += -Dgssapi=disabled
