@@ -4,12 +4,10 @@
 #
 ################################################################################
 
-LIBTHEORA_VERSION = 1.1.1
-LIBTHEORA_SOURCE = libtheora-$(LIBTHEORA_VERSION).tar.xz
+LIBTHEORA_VERSION = 1.2.0
+LIBTHEORA_SOURCE = libtheora-$(LIBTHEORA_VERSION).tar.gz
 LIBTHEORA_SITE = http://downloads.xiph.org/releases/theora
 LIBTHEORA_INSTALL_STAGING = YES
-# We're patching Makefile.am
-LIBTHEORA_AUTORECONF = YES
 LIBTHEORA_LICENSE = BSD-3-Clause
 LIBTHEORA_LICENSE_FILES = COPYING LICENSE
 
