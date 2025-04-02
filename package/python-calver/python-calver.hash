@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/calver/json
-md5  360d65345b5b2ddd65f801fa9b9e7f00  calver-2025.3.31.tar.gz
-sha256  255d1a70bba8f97dc1eee3af4240ed35980508da69257feef94c79e5c6545fc7  calver-2025.3.31.tar.gz
+md5  3378afab63377a0926a805b920f1f820  calver-2025.4.1.tar.gz
+sha256  662f1518a4ddeb7e31470cca55f56b3272dcd94be60d7a1fc20a27b44d162bca  calver-2025.4.1.tar.gz
 # Locally computed sha256 checksums
 sha256  cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  LICENSE
