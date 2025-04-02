@@ -1,5 +1,5 @@
 # From http://downloads.xiph.org/releases/theora/SHA256SUMS
-sha256  279327339903b544c28a92aeada7d0dcfd0397b59c2f368cc698ac56f515906e  libtheora-1.2.0.tar.gz
+sha256  ae7ddbb77914b7536efdb8d3e9c5782d1c9fd650b7e2301c5966ace0d51c7c9f  libtheora-1.2.0.tar.gz
 
 # Locally calculated
 sha256  8417fad7da775735564e209484a2e011e0fa201e94f01fdbee6e4977e478e6fc  COPYING
