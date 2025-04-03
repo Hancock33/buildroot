@@ -1,4 +1,4 @@
-# From https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.0.sha256sum
-sha256  3e2ed89d81d210322d70b35460166d4ea285e5bb017576972a1d76a09631985c  libxml2-2.14.0.tar.xz
+# From https://download.gnome.org/sources/libxml2/2.14/libxml2-2.14.1.sha256sum
+sha256  310df85878b65fa717e5e28e0d9e8f6205fd29d883929303a70a4f2fc4f6f1f2  libxml2-2.14.1.tar.xz
 # License files, locally calculated
 sha256  c99aae1afe013e50b8b3701e089222b351258043c3025b64053a233fd25b4be7  Copyright
