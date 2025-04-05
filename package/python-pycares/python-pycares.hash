@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/pycares/json
-md5  5824db5d38e1aa13a412e2b8bbe52160  pycares-4.5.0.tar.gz
-sha256  025b6c2ffea4e9fb8f9a097381c2fecb24aff23fbd6906e70da22ec9ba60e19d  pycares-4.5.0.tar.gz
+md5  6e80966128ddd4e063af1be13c1afa2e  pycares-4.6.0.tar.gz
+sha256  b8a004b18a7465ac9400216bc3fad9d9966007af1ee32f4412d2b3a94e33456e  pycares-4.6.0.tar.gz
 # Locally computed sha256 checksums
 sha256  427bb3a5372024a26e2c290b24382512bcc7ca123431c4dd178dd613beea7eee  LICENSE
