@@ -1,5 +1,5 @@
-# From https://sourceforge.net/projects/enlightenment/files/imlib2-src/1.12.4/
-sha256  bf07ff09255ed30f05a1c252d4b578426c2dcdbbc28e8c714adf060690395720  imlib2-1.12.4.tar.xz
+# From https://sourceforge.net/projects/enlightenment/files/imlib2-src/1.12.5/
+sha256  fa2315f28379b430a6e6605b4284b07be06a3ef422d4f5e1c9bb24714c4cf6dd  imlib2-1.12.5.tar.xz
 
 # Locally computed
 sha256  fb70339dd33a77b6213c7ae067fccf93d04af44ff3f937c61f8863f7970e73f6  COPYING
