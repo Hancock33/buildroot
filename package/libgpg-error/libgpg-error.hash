@@ -1,6 +1,6 @@
 # From https://www.gnupg.org/download/integrity_check.html
-sha1  227a0514e7afee71ad980bc943135a22370c79dd  libgpg-error-1.52.tar.bz2
-sha256  a1d3180cbdf07011e15931ed50561415af6b7305fe672d1cfa484a3dc7f49325  libgpg-error-1.52.tar.bz2
+sha1  19b3be1833f50fe2da4f57113eaa61da440a7242  libgpg-error-1.53.tar.bz2
+sha256  6a0721b52027415f53abcbf63b5c37776a0f774d9126d560a3ce76c0eb42903f  libgpg-error-1.53.tar.bz2
 
 # Locally calculated
 sha256  231f7edcc7352d7734a96eef0b8030f77982678c516876fcb81e25b32d68564c  COPYING
