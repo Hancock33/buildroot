@@ -1,4 +1,4 @@
-From 0b04847e1007f5d34b986eb12ae63f140d14b01e Mon Sep 17 00:00:00 2001
+From bd14e6f232232c11b67477a5d8f0caf174a089d0 Mon Sep 17 00:00:00 2001
 From: Thomas Petazzoni <thomas.petazzoni@free-electrons.com>
 Date: Wed, 22 Feb 2017 17:23:42 -0800
 Subject: [PATCH] Add an option to disable the tk module
@@ -17,24 +17,26 @@ Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
 Signed-off-by: Adam Duskett <adam.duskett@amarulasolutions.com>
 [ Vincent Fazio: ported to Python 3.13.2 ]
 Signed-off-by: Vincent Fazio <vfazio@gmail.com>
+[ Vincent Fazio: fix Python 3.13.3 conflict ]
+Signed-off-by: Vincent Fazio <vfazio@xes-inc.com>
 ---
  Makefile.pre.in | 8 +++++---
  configure.ac    | 7 +++++++
  2 files changed, 12 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile.pre.in b/Makefile.pre.in
-index 3bd4495f95b..35ceeb3ccb2 100644
+index 0f394d6ece4..a44307a0fb1 100644
 --- a/Makefile.pre.in
 +++ b/Makefile.pre.in
-@@ -2330,7 +2330,6 @@ LIBSUBDIRS=	asyncio \
+@@ -2331,7 +2331,6 @@ LIBSUBDIRS=	asyncio \
+ 		re \
  		site-packages \
- 		sqlite3 \
  		sysconfig \
 -		tkinter \
  		tomllib \
  		turtledemo \
  		unittest \
-@@ -2438,7 +2437,6 @@ TESTSUBDIRS=	idlelib/idle_test \
+@@ -2439,7 +2438,6 @@ TESTSUBDIRS=	idlelib/idle_test \
  		test/test_pydoc \
  		test/test_pyrepl \
  		test/test_sqlite3 \
@@ -42,7 +44,7 @@ index 3bd4495f95b..35ceeb3ccb2 100644
  		test/test_tomllib \
  		test/test_tomllib/data \
  		test/test_tomllib/data/invalid \
-@@ -2460,7 +2458,6 @@ TESTSUBDIRS=	idlelib/idle_test \
+@@ -2461,7 +2459,6 @@ TESTSUBDIRS=	idlelib/idle_test \
  		test/test_tools \
  		test/test_tools/i18n_data \
  		test/test_tools/msgfmt_data \
@@ -50,7 +52,7 @@ index 3bd4495f95b..35ceeb3ccb2 100644
  		test/test_unittest \
  		test/test_unittest/testmock \
  		test/test_warnings \
-@@ -2482,6 +2479,11 @@ TESTSUBDIRS=	idlelib/idle_test \
+@@ -2483,6 +2480,11 @@ TESTSUBDIRS=	idlelib/idle_test \
  		test/xmltestdata/c14n-20 \
  		test/zipimport_data
  
@@ -61,14 +63,14 @@ index 3bd4495f95b..35ceeb3ccb2 100644
 +
  COMPILEALL_OPTS=-j0
  
- TEST_MODULES=@TEST_MODULES@
+ ifeq (@PYDOC@,yes)
 diff --git a/configure.ac b/configure.ac
-index 3fcb18922c5..804b49891cc 100644
+index b6d5bb3d9c5..a1a91e094cd 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -4654,6 +4654,13 @@ AS_VAR_IF([posix_threads], [stub], [
-   AC_DEFINE([HAVE_PTHREAD_STUBS], [1], [Define if platform requires stubbed pthreads support])
- ])
+@@ -4680,6 +4680,13 @@ AC_ARG_ENABLE(pydoc,
+ 	AS_HELP_STRING([--disable-pydoc], [disable pydoc]),
+ 	[ PYDOC="${enableval}" ], [ PYDOC=yes ])
  
 +AC_SUBST(TK)
 +AC_ARG_ENABLE(tk,
