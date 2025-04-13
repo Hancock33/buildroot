@@ -1,9 +1,0 @@
-config BR2_TARGET_QORIQ_DDR_PHY_BINARY
-	bool "qoriq-ddr-phy-binary"
-	depends on BR2_aarch64
-	help
-	  Firmware binary for DDR PHY of NXP LX2160A family of SoCs.
-	  This package downloads and installs such firmware, which
-	  is needed to build the ATF.
-
-	  https://github.com/nxp-qoriq/ddr-phy-binary
