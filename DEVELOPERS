@@ -456,14 +456,12 @@ F:	package/mc/
 F:	package/mesa3d/
 F:	package/minidlna/
 F:	package/mjpg-streamer/
-F:	package/monero/
 F:	package/mpg123/
 F:	package/ntp/
 F:	package/nut/
 F:	package/openconnect/
 F:	package/openvpn/
 F:	package/opus/
-F:	package/p2pool/
 F:	package/pciutils/
 F:	package/perl-crypt-openssl-guess/
 F:	package/perl-crypt-openssl-random/
@@ -3378,7 +3376,7 @@ F:	board/technologic/ts5500/
 F:	configs/ts5500_defconfig
 
 N:	Vladimir Oltean <olteanv@gmail.com>
-F:	boot/qoriq-ddr-phy-binary/
+F:	package/qoriq-ddr-phy-binary/
 
 N:	Volkov Viacheslav <sv99@inbox.ru>
 F:	package/v4l2grab/
