@@ -36,8 +36,6 @@ config BR2_PACKAGE_MESA3D_LLVM
 	depends on BR2_HOST_GCC_AT_LEAST_7 # host-llvm
 	select BR2_PACKAGE_LLVM
 	select BR2_PACKAGE_LLVM_RTTI
-	select BR2_PACKAGE_CLANG
-	select BR2_PACKAGE_LIBCLC
 	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
 
 comment "llvm support needs a toolchain w/ wchar, threads, C++, gcc >= 7, dynamic library, host gcc >= 7"
