@@ -35,6 +35,10 @@ config BR2_PACKAGE_MESA3D_LLVM
 	depends on BR2_USE_WCHAR # std::wstring
 	depends on BR2_HOST_GCC_AT_LEAST_7 # host-llvm
 	select BR2_PACKAGE_LLVM
+	select BR2_PACKAGE_LLVM_RTTI
+	select BR2_PACKAGE_CLANG
+	select BR2_PACKAGE_LIBCLC
+	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
 
 comment "llvm support needs a toolchain w/ wchar, threads, C++, gcc >= 7, dynamic library, host gcc >= 7"
 	depends on BR2_PACKAGE_LLVM_ARCH_SUPPORTS
@@ -46,20 +50,6 @@ comment "llvm support needs a toolchain w/ wchar, threads, C++, gcc >= 7, dynami
 comment "llvm support needs a toolchain not affected by GCC bug 64735"
 	depends on BR2_PACKAGE_LLVM_ARCH_SUPPORTS
 	depends on BR2_TOOLCHAIN_HAS_GCC_BUG_64735
-
-# clang and libclc dependencies are satisfied by
-# BR2_PACKAGE_MESA3D_LLVM
-config BR2_PACKAGE_MESA3D_OPENCL
-	bool "OpenCL support"
-	depends on BR2_PACKAGE_MESA3D_LLVM
-	depends on BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_R600 || \
-		BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_RADEONSI || \
-		BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS
-	select BR2_PACKAGE_LLVM_RTTI
-	select BR2_PACKAGE_CLANG
-	select BR2_PACKAGE_LIBCLC
-	select BR2_PACKAGE_HAS_LIBOPENCL
-	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
 
 # inform the .mk file of gallium or vulkan driver selection
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
@@ -73,12 +63,6 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 config BR2_PACKAGE_MESA3D_DRIVER
 	bool
 	select BR2_PACKAGE_XLIB_LIBXSHMFENCE if BR2_PACKAGE_XORG7
-
-# Gallium xa state tracker.
-# Quote from mesa3d meson.build: "XA state tracker requires at least
-# one of the following gallium drivers: nouveau, freedreno, i915, svga.
-config BR2_PACKAGE_MESA3D_NEEDS_XA
-	bool
 
 # OpenGL GLX and Gallium VDPAU both needs X11
 config BR2_PACKAGE_MESA3D_NEEDS_X11
@@ -136,7 +120,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS
 	depends on BR2_i386 || BR2_x86_64
 	#depends on BR2_PACKAGE_MESA3D_LLVM
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	#select BR2_PACKAGE_MESA3D_OPENCL				if !BR2_PACKAGE_BATOCERA_LIB32
 	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR		if !BR2_PACKAGE_BATOCERA_LIB32
 	select BR2_PACKAGE_SPIRV_TOOLS
 	help
@@ -169,7 +152,6 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_NOUVEAU
 	bool "Gallium nouveau driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_LIBDRM_NOUVEAU
-	select BR2_PACKAGE_MESA3D_NEEDS_XA
 	select BR2_PACKAGE_LLVM_RTTI if BR2_PACKAGE_MESA3D_LLVM
 	help
 	  Supports all Nvidia GPUs.
@@ -234,23 +216,14 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SVGA
 	depends on BR2_i386 || BR2_x86_64
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_LIBDRM_VMWGFX
-	select BR2_PACKAGE_MESA3D_NEEDS_XA
 	help
 	  This is a virtual GPU driver for VMWare virtual machines.
-
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SOFTPIPE
-	bool "Gallium softpipe driver"
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	help
-	  This is a software opengl implementation using the Gallium3D
-	  infrastructure.
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_TEGRA
 	bool "Gallium tegra driver"
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_NOUVEAU
 	select BR2_PACKAGE_LIBDRM_NOUVEAU
-	select BR2_PACKAGE_MESA3D_NEEDS_XA
 	help
 	  Adds support for Nvidia Tegra GPUs, requires nouveau.
 
@@ -492,12 +465,6 @@ config BR2_PACKAGE_MESA3D_VIDEO_CODEC_VP9DEC
 	help
 	  VP9 hardware decoding on supported hardware.
 
-config BR2_PACKAGE_MESA3D_OSMESA_GALLIUM
-	bool "OSMesa (Gallium) library"
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SOFTPIPE
-	help
-	  The OSMesa API provides functions for off-screen rendering.
-
 if BR2_PACKAGE_MESA3D_DRIVER
 
 comment "OpenGL API Support"
@@ -558,9 +525,6 @@ config BR2_PACKAGE_PROVIDES_LIBEGL
 
 config BR2_PACKAGE_PROVIDES_LIBGLES
 	default "mesa3d" if BR2_PACKAGE_MESA3D_OPENGL_ES && !BR2_PACKAGE_LIBGLVND
-
-config BR2_PACKAGE_PROVIDES_LIBOPENCL
-	default "mesa3d" if BR2_PACKAGE_MESA3D_OPENCL
 
 endif # BR2_PACKAGE_MESA3D
 
