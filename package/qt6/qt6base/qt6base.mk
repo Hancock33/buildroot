@@ -52,9 +52,9 @@ QT6BASE_CONF_OPTS = \
 	-DFEATURE_icu=OFF \
 	-DFEATURE_glib=OFF \
 	-DFEATURE_system_doubleconversion=ON \
+	-DFEATURE_system_pcre2=ON \
 	-DFEATURE_system_zlib=ON \
 	-DFEATURE_system_libb2=ON
-#	-DFEATURE_system_pcre2=ON \
 
 # x86 optimization options. While we have a BR2_X86_CPU_HAS_AVX512, it
 # is not clear yet how it maps to all the avx512* options of Qt, so we
@@ -84,24 +84,39 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-libb2 \
 	host-pcre2 \
 	host-zlib
+
 HOST_QT6BASE_CONF_OPTS = \
-	-DFEATURE_gui=ON \
 	-DFEATURE_concurrent=OFF \
-	-DFEATURE_xml=ON \
-	-DFEATURE_sql=OFF \
-	-DFEATURE_testlib=OFF \
-	-DFEATURE_network=ON \
-	-DFEATURE_gssapi=OFF \
 	-DFEATURE_dbus=OFF \
-	-DFEATURE_icu=OFF \
+	-DFEATURE_eglfs=OFF \
+	-DFEATURE_fontconfig=OFF \
+	-DFEATURE_freetype=OFF \
+	-DFEATURE_gif=OFF \
 	-DFEATURE_glib=OFF \
+	-DFEATURE_gssapi=OFF \
+	-DFEATURE_gui=ON \
+	-DFEATURE_harfbuzz=OFF \
+	-DFEATURE_icu=OFF \
+	-DFEATURE_jpeg=OFF \
+	-DFEATURE_kms=OFF \
+	-DFEATURE_libinput=OFF \
+	-DFEATURE_linuxfb=ON \
+	-DFEATURE_network=ON \
+	-DFEATURE_opengl=OFF \
+	-DFEATURE_png=OFF \
+	-DFEATURE_printsupport=OFF \
+	-DFEATURE_sql=ON \
 	-DFEATURE_system_doubleconversion=ON \
 	-DFEATURE_system_libb2=ON \
 	-DFEATURE_system_pcre2=ON \
 	-DFEATURE_system_zlib=ON
-
-# Conditional blocks below are ordered by alphabetic ordering of the
-# BR2_PACKAGE_* option.
+	-DFEATURE_testlib=ON \
+	-DFEATURE_tslib=OFF \
+	-DFEATURE_vulkan=OFF \
+	-DFEATURE_widgets=ON \
+	-DFEATURE_xcb=OFF \
+	-DFEATURE_xml=ON \
+	-DINPUT_opengl=no
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 QT6BASE_CONF_OPTS += -DFEATURE_libudev=ON

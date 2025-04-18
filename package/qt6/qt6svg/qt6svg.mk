@@ -32,8 +32,7 @@ QT6SVG_CONF_OPTS = \
 
 QT6SVG_DEPENDENCIES = \
 	host-pkgconf \
-	qt6base \
-	qt6tools
+	qt6base
 
 HOST_QT6SVG_DEPENDENCIES = \
 	host-qt6base
