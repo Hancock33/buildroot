@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/frozenlist/json
-md5  0882f528872840df39091fb5085e258a  frozenlist-1.5.0.tar.gz
-sha256  81d5af29e61b9c8348e876d442253723928dce6433e0e76cd925cd83f1b4b817  frozenlist-1.5.0.tar.gz
+md5  79ced69488e2789077d5b969e72badb7  frozenlist-1.6.0.tar.gz
+sha256  b99655c32c1c8e06d111e7f41c06c29a5318cb1835df23a45518e02a47c63b68  frozenlist-1.6.0.tar.gz
 # Locally computed sha256 checksums
 sha256  6fd5243e92dd7f98ec69c7ac377728e74905709ff527a5bf98d6d0263c04f5b6  LICENSE
