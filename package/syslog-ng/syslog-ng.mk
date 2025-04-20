@@ -63,7 +63,7 @@ ifeq ($(BR2_PACKAGE_LIBCURL),y)
 SYSLOG_NG_DEPENDENCIES += libcurl
 SYSLOG_NG_CONF_OPTS += --enable-http
 SYSLOG_NG_CONF_OPTS += --with-libcurl="$(STAGING_DIR)/usr"
-ifeq ($(BR2_INSTALL_LIBSTDCPP),y)
+ifeq ($(BR2_INSTALL_LIBSTDCPP):$(BR2_PACKAGE_LIBRESSL),y:)
 SYSLOG_NG_CONF_OPTS += --enable-cloud-auth
 else
 SYSLOG_NG_CONF_OPTS += --disable-cloud-auth
