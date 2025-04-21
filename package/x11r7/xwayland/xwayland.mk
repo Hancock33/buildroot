@@ -12,6 +12,7 @@ XWAYLAND_LICENSE_FILES = COPYING
 XWAYLAND_CPE_ID_VENDOR = x.org
 XWAYLAND_INSTALL_STAGING = YES
 XWAYLAND_DEPENDENCIES = \
+	mesa3d \
 	libdrm \
 	pixman \
 	wayland \
@@ -85,6 +86,19 @@ XWAYLAND_CONF_OPTS += -Dlibunwind=true
 XWAYLAND_DEPENDENCIES += libunwind
 else
 XWAYLAND_CONF_OPTS += -Dlibunwind=false
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_LIBDECOR),y)
+XWAYLAND_CONF_OPTS += -Dlibdecor=true
+XWAYLAND_DEPENDENCIES += libdecor
+else
+XWAYLAND_CONF_OPTS += -Dlibdecor=false
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_XAPP_XKBCOMP),y)
+XWAYLAND_DEPENDENCIES += xapp_xkbcomp
 endif
 
 $(eval $(meson-package))
