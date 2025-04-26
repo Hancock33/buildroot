@@ -39,12 +39,23 @@ config BR2_GCC_VERSION_14_X
 	depends on !BR2_microblaze
 	select BR2_TOOLCHAIN_GCC_AT_LEAST_14
 
+config BR2_GCC_VERSION_15_X
+	bool "gcc 15.x"
+	# powerpc spe support has been deprecated since gcc 8.x.
+	# https://gcc.gnu.org/ml/gcc/2018-04/msg00102.html
+	depends on !BR2_POWERPC_CPU_HAS_SPE
+	# Severely broken on Microblaze
+	# https://gcc.gnu.org/bugzilla/show_bug.cgi?id=118280
+	depends on !BR2_microblaze
+	select BR2_TOOLCHAIN_GCC_AT_LEAST_15
+
 config BR2_GCC_VERSION_GIT
 	bool "gcc git"
 	# powerpc spe support has been deprecated since gcc 8.x.
 	# https://gcc.gnu.org/ml/gcc/2018-04/msg00102.html
 	depends on !BR2_POWERPC_CPU_HAS_SPE
 	select BR2_TOOLCHAIN_GCC_AT_LEAST_14
+
 endchoice
 
 config BR2_GCC_SUPPORTS_DLANG
@@ -124,13 +135,9 @@ config BR2_GCC_ENABLE_OPENMP
 
 config BR2_GCC_ENABLE_GRAPHITE
 	bool "Enable graphite support"
-	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_5
 	help
 	  This option enables the graphite optimizations in the
 	  compiler.
-
-comment "graphite support needs gcc >= 5.x"
-	depends on !BR2_TOOLCHAIN_GCC_AT_LEAST_5
 
 config BR2_GCC_ENABLE_SEMANTIC_INTERPOSITION
 	bool "Enable semantic interposition"
