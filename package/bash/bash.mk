@@ -4,12 +4,15 @@
 #
 ################################################################################
 
-BASH_VERSION = 5.2.37
-BASH_SITE = $(BR2_GNU_MIRROR)/bash
+BASH_VERSION = 5.2-39-g6794b5478f660256a1023712b5fc169196ed0a22
+BASH_SITE = $(call github,sailfishos-mirror,bash,$(BASH_VERSION))
 BASH_DEPENDENCIES = ncurses readline host-bison
 BASH_LICENSE = GPL-3.0+
 BASH_LICENSE_FILES = COPYING
 BASH_CPE_ID_VENDOR = gnu
+
+# GCC 15 defaults to `-std=gnu23` which breaks compilation
+BASH_CFLAGS += -std=gnu17
 
 # We want the bash binary in /bin
 BASH_CONF_OPTS = \
@@ -18,6 +21,7 @@ BASH_CONF_OPTS = \
 	--without-bash-malloc
 
 BASH_CONF_ENV += \
+	CFLAGS="$(BASH_CFLAGS)" \
 	ac_cv_rl_prefix="$(STAGING_DIR)" \
 	ac_cv_rl_version="$(READLINE_VERSION)" \
 	bash_cv_getcwd_malloc=yes \
