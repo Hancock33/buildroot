@@ -13,6 +13,12 @@ IRQBALANCE_DEPENDENCIES = host-pkgconf libglib2
 # Autoreconf needed because package is distributed without a configure script
 IRQBALANCE_AUTORECONF = YES
 
+# GCC 15 defaults to `-std=gnu23` which breaks compilation
+IRQBALANCE_CFLAGS += -std=gnu17
+
+IRQBALANCE_CONF_ENV += \
+	CFLAGS="$(IRQBALANCE_CFLAGS)"
+
 ifeq ($(BR2_PACKAGE_LIBCAP_NG),y)
 IRQBALANCE_DEPENDENCIES += libcap-ng
 IRQBALANCE_CONF_OPTS += --with-libcap-ng
