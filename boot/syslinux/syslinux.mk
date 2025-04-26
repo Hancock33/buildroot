@@ -60,7 +60,7 @@ define SYSLINUX_BUILD_CMDS
 	$(TARGET_MAKE_ENV) $(MAKE1) \
 		ASCIIDOC_OK=-1 \
 		A2X_XML_OK=-1 \
-		CC="$(TARGET_CC)" \
+		CC="$(TARGET_CC) -std=gnu17" \
 		LD="$(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld" \
 		OBJCOPY="$(TARGET_OBJCOPY)" \
 		AS="$(TARGET_AS)" \
