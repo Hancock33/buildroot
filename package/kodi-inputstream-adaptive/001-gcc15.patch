@@ -1,0 +1,12 @@
+diff --git a/src/common/AdaptiveUtils.h b/src/common/AdaptiveUtils.h
+index 7563cb86..89812532 100644
+--- a/src/common/AdaptiveUtils.h
++++ b/src/common/AdaptiveUtils.h
+@@ -13,6 +13,7 @@
+ #include <memory>
+ #include <string_view>
+ #include <vector>
++#include <cstdint>
+ 
+ // forwards
+ class AP4_Movie;
