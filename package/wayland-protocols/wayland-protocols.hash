@@ -1,4 +1,4 @@
 # From https://lists.freedesktop.org/archives/wayland-devel/2025-April/044161.html
 sha256  3df1107ecf8bfd6ee878aeca5d3b7afd81248a48031e14caf6ae01f14eebb50e  wayland-protocols-1.44.tar.xz
-sha512c 8714e0bedb394c01164b9f4d839daf014f130c79782e2695a304efbe1c8ea7b1e8ef01663fec340df485b179d2bfdb3bad5fba6474d6cb24b90a622d921b419b  wayland-protocols-1.44.tar.xz
+sha512  8714e0bedb394c01164b9f4d839daf014f130c79782e2695a304efbe1c8ea7b1e8ef01663fec340df485b179d2bfdb3bad5fba6474d6cb24b90a622d921b419b  wayland-protocols-1.44.tar.xz
 sha256  f1a2b233e8a9a71c40f4aa885be08a0842ac85bb8588703c1dd7e6e6502e3124  COPYING
