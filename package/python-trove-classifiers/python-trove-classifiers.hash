@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/trove-classifiers/json
-md5  5603f76e040d57c4c9f3b7b96e3d0a97  trove_classifiers-2025.4.11.15.tar.gz
-sha256  634728aa6698dc1ae3db161da94d9e4c7597a9a5da2c4410211b36f15fed60fc  trove_classifiers-2025.4.11.15.tar.gz
+md5  fdc718719169058acb97bad8410c89e7  trove_classifiers-2025.4.28.22.tar.gz
+sha256  42bef4957a74fe7724b8310dafd4b23e0a71406a4812cf4dfd65e2ee34f1943d  trove_classifiers-2025.4.28.22.tar.gz
 # Locally computed sha256 checksums
 sha256  c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4  LICENSE
