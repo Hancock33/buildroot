@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-PYTHON_SETUPTOOLS_VERSION = 80.1.0
+PYTHON_SETUPTOOLS_VERSION = 80.3.0
 PYTHON_SETUPTOOLS_SOURCE = setuptools-$(PYTHON_SETUPTOOLS_VERSION).tar.gz
-PYTHON_SETUPTOOLS_SITE = https://files.pythonhosted.org/packages/aa/b2/bd26ed086b842b68c8fe9aac380ad7e5118cf84fa7abd45bb059a88368a8
+PYTHON_SETUPTOOLS_SITE = https://files.pythonhosted.org/packages/51/6c/a3f892949418b5b9aced7396919c75ffb57e38f08b712b565f5eb10677ee
 PYTHON_SETUPTOOLS_LICENSE = MIT
 PYTHON_SETUPTOOLS_LICENSE_FILES = LICENSE
 PYTHON_SETUPTOOLS_CPE_ID_VENDOR = python
