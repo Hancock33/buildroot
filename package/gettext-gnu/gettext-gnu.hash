@@ -1,5 +1,5 @@
 # Please keep in sync with package/gettext-tiny/gettext-tiny.hash
 # Locally calculated
-sha256  e1620d518b26d7d3b16ac570e5018206e8b0d725fb65c02d048397718b5cf318  gettext-0.24.tar.xz
+sha256  6164ec7aa61653ac9cdfb41d5c2344563b21f707da1562712e48715f1d2052a6  gettext-0.24.1.tar.xz
 sha256  e79e9c8a0c85d735ff98185918ec94ed7d175efc377012787aebcf3b80f0d90b  COPYING
 sha256  3fe5361f24b7c49ba12911c08f5a33f9cb18871d95d9fb881f5b8a4793e04288  gettext-runtime/intl/COPYING.LIB
