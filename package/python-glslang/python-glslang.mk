@@ -3,8 +3,8 @@
 # python-glslang
 #
 ################################################################################
-# Version: Commits on Mar 01, 2025
-PYTHON_GLSLANG_VERSION = vulkan-sdk-1.4.309.0
+# Version: Commits on Apr 24, 2025
+PYTHON_GLSLANG_VERSION = vulkan-sdk-1.4.313.0
 PYTHON_GLSLANG_SITE = $(call github,KhronosGroup,glslang,$(PYTHON_GLSLANG_VERSION))
 PYTHON_GLSLANG_LICENSE = BSD-3-Clause
 PYTHON_GLSLANG_LICENSE_FILES = LICENSE.txt
