@@ -11,9 +11,6 @@ BASH_LICENSE = GPL-3.0+
 BASH_LICENSE_FILES = COPYING
 BASH_CPE_ID_VENDOR = gnu
 
-# GCC 15 defaults to `-std=gnu23` which breaks compilation
-BASH_CFLAGS += -std=gnu17
-
 # We want the bash binary in /bin
 BASH_CONF_OPTS = \
 	--bindir=/bin \
