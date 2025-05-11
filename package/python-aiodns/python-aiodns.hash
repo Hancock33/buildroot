@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/aiodns/json
-md5  7c15025d3da5c6aa2e60216ab316d39b  aiodns-3.3.0.tar.gz
-sha256  fdf7a7d51dcab0ad7cc22bf9cf54690d9c31b06414ac41c6cdbbecf50dd75ef1  aiodns-3.3.0.tar.gz
+md5  a614fa084df24661c6f557da618d915c  aiodns-3.4.0.tar.gz
+sha256  24b0ae58410530367f21234d0c848e4de52c1f16fbddc111726a4ab536ec1b2f  aiodns-3.4.0.tar.gz
 # Locally computed sha256 checksums
 sha256  eb0455d35129425ed399883cd710923de3e246a510e2eb84d9f00032d0bbec97  LICENSE
