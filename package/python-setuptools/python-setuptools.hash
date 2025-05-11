@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/setuptools/json
-md5  5166c89fb80c5b05a51ca4034ffae788  setuptools-80.1.0.tar.gz
-sha256  2e308396e1d83de287ada2c2fd6e64286008fe6aca5008e0b6a8cb0e2c86eedd  setuptools-80.1.0.tar.gz
+md5  cdf67736f9ae7643fbff43db904e0f10  setuptools-80.4.0.tar.gz
+sha256  5a78f61820bc088c8e4add52932ae6b8cf423da2aff268c23f813cfbb13b4006  setuptools-80.4.0.tar.gz
 # Locally computed sha256 checksums
 sha256  86da0f01aeae46348a3c3d465195dc1ceccde79f79e87769a64b8da04b2a4741  LICENSE
