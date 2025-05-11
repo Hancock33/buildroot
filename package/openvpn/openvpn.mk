@@ -4,11 +4,12 @@
 #
 ################################################################################
 
-OPENVPN_VERSION = 2.6.13
+OPENVPN_VERSION = 2.6.14
 OPENVPN_SITE = https://swupdate.openvpn.net/community/releases
 OPENVPN_DEPENDENCIES = host-pkgconf libcap-ng
 OPENVPN_LICENSE = GPL-2.0
 OPENVPN_LICENSE_FILES = COPYRIGHT.GPL
+OPENVPN_AUTORECONF = YES
 OPENVPN_CPE_ID_VENDOR = openvpn
 OPENVPN_SELINUX_MODULES = openvpn
 OPENVPN_CONF_OPTS = \
@@ -77,10 +78,9 @@ else
 OPENVPN_CONF_OPTS += --disable-systemd
 endif
 
-# batocera
-#define OPENVPN_INSTALL_INIT_SYSV
-#	$(INSTALL) -m 755 -D package/openvpn/S60openvpn \
-#		$(TARGET_DIR)/etc/init.d/S60openvpn
-#endef
+define OPENVPN_INSTALL_INIT_SYSV
+	$(INSTALL) -m 755 -D package/openvpn/S60openvpn \
+		$(TARGET_DIR)/etc/init.d/S60openvpn
+endef
 
 $(eval $(autotools-package))
