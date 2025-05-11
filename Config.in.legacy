@@ -146,12 +146,12 @@ endif
 
 comment "Legacy options removed in 2025.05"
 
-config BR2_GCC_VERSION_12_X
-	bool "gcc 12.x support removed"
+config BR2_KERNEL_HEADERS_6_13
+	bool "kernel headers version 6.13.x are no longer supported"
 	select BR2_LEGACY
 	help
-	  Support for building a toolchain based on GCC 12.x has been
-	  removed, chose a newer GCC version instead.
+	  Version 6.13.x of the Linux kernel headers are no longer
+	  maintained upstream and are now removed.
 
 config BR2_PACKAGE_MPD_SOUNDCLOUD
 	bool "mpd soundcloud support has been removed"
