@@ -13,7 +13,7 @@ PYTHON_SETUPTOOLS_CPE_ID_VENDOR = python
 PYTHON_SETUPTOOLS_CPE_ID_PRODUCT = setuptools
 PYTHON_SETUPTOOLS_SETUP_TYPE = pep517
 PYTHON_SETUPTOOLS_DEPENDENCIES = host-python-wheel
-HOST_PYTHON_SETUPTOOLS_DEPENDENCIES = host-python-wheel host-python-coherent-licensed
+HOST_PYTHON_SETUPTOOLS_DEPENDENCIES = host-python-wheel
 
 $(eval $(python-package))
 $(eval $(host-python-package))
