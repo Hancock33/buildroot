@@ -41,12 +41,14 @@ PKG_PYTHON_ENV = \
 	PATH=$(BR_PATH) \
 	$(TARGET_CONFIGURE_OPTS) \
 	PYTHONPATH="$(PYTHON3_PATH)" \
-	PYTHONNOUSERSITE=1
+	PYTHONNOUSERSITE=1 \
+	SSL_CERT_DIR=/etc/ssl/certs
 
 # Host python packages
 HOST_PKG_PYTHON_ENV = \
 	PATH=$(BR_PATH) \
 	PYTHONNOUSERSITE=1 \
+	SSL_CERT_DIR=/etc/ssl/certs \
 	$(HOST_CONFIGURE_OPTS)
 
 # Target pep517-based packages
