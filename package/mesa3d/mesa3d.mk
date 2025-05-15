@@ -38,9 +38,9 @@ MESA3D_CONF_OPTS = \
 	-Dmicrosoft-clc=disabled
 
 ifeq ($(BR2_PACKAGE_MESA3D_LLVM),y)
-MESA3D_DEPENDENCIES += host-llvm llvm
-MESA3D_MESON_EXTRA_BINARIES += llvm-config='$(STAGING_DIR)/usr/bin/llvm-config'
-MESA3D_CONF_OPTS += -Dllvm=enabled
+MESA3D_DEPENDENCIES += host-llvm
+MESA3D_MESON_EXTRA_BINARIES += llvm-config='$(HOST_DIR)/usr/bin/llvm-config'
+MESA3D_CONF_OPTS += -Dllvm=enabled -Dshared-llvm=disabled
 else
 # Avoid automatic search of llvm-config
 MESA3D_CONF_OPTS += -Dllvm=disabled
