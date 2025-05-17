@@ -1,5 +1,5 @@
 # Locally calculated after vendoring
-sha256  20d32e92af3b0e14064457f486f415490902da73e225936271bb6a1f32d90a98  python-cryptography-44.0.3-cargo2.tar.gz
+sha256  2884bd7ad16b2a5e4f058a846fc6085cbd0d9958e26c27e84e37e537eb9af35a  python-cryptography-44.0.3-cargo4.tar.gz
 # md5, sha256 from https://pypi.org/pypi/cryptography/json
 md5  01959c3e2b352c5e42edfc0cfe0c2cd1  cryptography-44.0.3.tar.gz
 sha256  fe19d8bc5536a91a24a8133328880a41831b6c5df54599a8417b62fe015d3053  cryptography-44.0.3.tar.gz
