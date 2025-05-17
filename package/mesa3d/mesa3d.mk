@@ -347,8 +347,8 @@ HOST_MESA3D_DEPENDENCIES = \
 	host-spirv-llvm-translator
 
 define HOST_MESA3D_INSTALL_CMDS
-	$(INSTALL) -D -m 0755 $(@D)/build/src/compiler/clc/mesa_clc       $(HOST_DIR)/bin
-	$(INSTALL) -D -m 0755 $(@D)/build/src/compiler/spirv/vtn_bindgen2 $(HOST_DIR)/bin
+	$(INSTALL) -D -m 0755 $(@D)/buildroot-build/src/compiler/clc/mesa_clc       $(HOST_DIR)/bin
+	$(INSTALL) -D -m 0755 $(@D)/buildroot-build/src/compiler/spirv/vtn_bindgen2 $(HOST_DIR)/bin
 endef
 
 $(eval $(meson-package))
