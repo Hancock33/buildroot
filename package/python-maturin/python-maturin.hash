@@ -1,3 +1,3 @@
 # md5, sha256 from https://pypi.org/pypi/maturin/json
-md5  dac87656b2a02dc9f3a00b21c0009e7f  python-maturin-1.8.6-cargo2.tar.gz
-sha256  57da01ecc42e9166cb5792db78a2888b6ce67c7a5af5c4afdafe08192a860c46  python-maturin-1.8.6-cargo2.tar.gz
+md5  8f78c8cab9012e1c66af184944eb008e  python-maturin-1.8.6-cargo4.tar.gz
+sha256  f63b345c6c59b017dd2e1a6ea82f7459f20f3c0a5c15a0af985b438506948d8a  python-maturin-1.8.6-cargo4.tar.gz
