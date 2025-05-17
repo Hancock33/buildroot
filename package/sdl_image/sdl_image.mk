@@ -3,8 +3,8 @@
 # sdl_image
 #
 ################################################################################
-# Version: Commits on Apr 23, 2024
-SDL_IMAGE_VERSION = 7adb1a70f97d62f1bb307bfb4e6c2fa0bc8c33ab
+# Version: Commits on Apr 27, 2025
+SDL_IMAGE_VERSION = a5eac02dacd8a8940ffccd1b8d0783c0b5f8ec7d
 SDL_IMAGE_BRANCH = SDL-1.2
 SDL_IMAGE_SITE = $(call github,libsdl-org,SDL_image,$(SDL_IMAGE_VERSION))
 SDL_IMAGE_INSTALL_STAGING = YES

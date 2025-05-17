@@ -3,8 +3,8 @@
 # sdl_mixer
 #
 ################################################################################
-# Version: Commits on May 25, 2024
-SDL_MIXER_VERSION = ed76d39cda0735d26c14a3e4f4da996e420f6478
+# Version: Commits on Mar 14, 2025
+SDL_MIXER_VERSION = 0eb9afc31dc3e2704f590c64e0e71e8bb75b4fd8
 SDL_MIXER_BRANCH = SDL-1.2
 SDL_MIXER_SITE = $(call github,libsdl-org,SDL_mixer,$(SDL_MIXER_VERSION))
 SDL_MIXER_LICENSE = Zlib

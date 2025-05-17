@@ -3,8 +3,8 @@
 # rapidjson
 #
 ################################################################################
-# Version: Commits on Oct 06, 2024
-RAPIDJSON_VERSION = 858451e5b7d1c56cf8f6d58f88cf958351837e53
+# Version: Commits on Dec 22, 2024
+RAPIDJSON_VERSION = 24b5e7a8b27f42fa16b96fc70aade9106cf7102f
 RAPIDJSON_SITE = $(call github,Tencent,rapidjson,$(RAPIDJSON_VERSION))
 RAPIDJSON_LICENSE = MIT
 RAPIDJSON_LICENSE_FILES = license.txt

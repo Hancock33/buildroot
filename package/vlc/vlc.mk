@@ -3,8 +3,8 @@
 # vlc
 #
 ################################################################################
-
-VLC_VERSION = 3.0.21-1-611-g82b241ee2bdffa1fbaa0d4fd3d7dc522e2f9b1d6
+# Version: Commits on May 14, 2025
+VLC_VERSION = 3.0.21-1-635-g8a7f54566a01a9990a60473b6a2417481a074cce
 VLC_SITE = https://code.videolan.org/videolan/vlc.git
 VLC_SITE_METHOD = git
 #VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
@@ -551,9 +551,7 @@ ifeq ($(BR2_PACKAGE_X264),y)
 VLC_CONF_OPTS += --enable-x264
 VLC_DEPENDENCIES += x264
 else
-# batocera
-# disable x26410b if no x264 (linking fails if x26410b enabled)
-VLC_CONF_OPTS += --disable-x264 --disable-x26410b
+VLC_CONF_OPTS += --disable-x264
 endif
 
 ifeq ($(BR2_PACKAGE_X265),y)

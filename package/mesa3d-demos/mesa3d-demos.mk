@@ -43,7 +43,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_GBM),y)
 # Meson search for gbm, but has no option to enable/disable it. See:
-# https://gitlab.freedesktop.org/mesa/demos/-/blob/mesa-demos-9.0.0/meson.build#L88
+# https://gitlab.freedesktop.org/mesa/demos/-/blob/mesa-demos-8.5.0/meson.build#L88
 # We still add the dependency, if needed, to make sure it will always
 # be detected.
 MESA3D_DEMOS_DEPENDENCIES += mesa3d
