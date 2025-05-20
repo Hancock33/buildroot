@@ -52,9 +52,6 @@ endif
 ifneq ($(BR2_PACKAGE_ALSA_LIB_UCM),y)
 ALSA_LIB_CONF_OPTS += --disable-ucm
 endif
-ifneq ($(BR2_PACKAGE_ALSA_LIB_ALISP),y)
-ALSA_LIB_CONF_OPTS += --disable-alisp
-endif
 ifneq ($(BR2_PACKAGE_ALSA_LIB_OLD_SYMBOLS),y)
 ALSA_LIB_CONF_OPTS += --disable-old-symbols
 endif
