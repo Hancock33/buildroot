@@ -1,4 +1,4 @@
-# https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.9.sha3-512
+# https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.6.10.sha3-512
 # Locally computed
-sha512  d3f839d3cf1030caa410e54f968e9c0caf3bc371c06ea0f64cf3a6ece6d31013c9dbfb08a3a63ea9137a2062aa6edc6e0bc542b365fe4ad66608df4cdbe94a4e  openldap-2.6.9.tgz
+sha512  18129ad9a385457941e3203de5f130fe2571701abf24592c5beffb01361aae3182c196b2cd48ffeecb792b9b0e5f82c8d92445a7ec63819084757bdedba63b20  openldap-2.6.10.tgz
 sha256  310fe25c858a9515fc8c8d7d1f24a67c9496f84a91e0a0e41ea9975b1371e569  LICENSE
