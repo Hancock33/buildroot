@@ -11,20 +11,9 @@ LLVM_LIBUNWIND_LICENSE = Apache-2.0 with exceptions
 LLVM_LIBUNWIND_LICENSE_FILES = LICENSE.TXT
 LLVM_LIBUNWIND_SUPPORTS_IN_SOURCE_BUILD = NO
 
-HOST_LLVM_LIBUNWIND_DEPENDENCIES = host-llvm-cmake
+HOST_LLVM_LIBUNWIND_DEPENDENCIES = host-llvm-cmake host-llvm-runtimes
 HOST_LLVM_LIBUNWIND_CONF_OPTS += \
 	-DCMAKE_MODULE_PATH="$(HOST_DIR)/lib/cmake/llvm" \
 	-DLIBUNWIND_INSTALL_HEADERS=ON
-
-define LLVM_LIBUNWIND_DL_CMAKE_MODULES
-	mkdir -p $(HOST_DIR)/lib/cmake/llvm
-	wget -O $(HOST_DIR)/lib/cmake/llvm/HandleFlags.cmake \
-		https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-$(LLVM_PROJECT_VERSION)/runtimes/cmake/Modules/HandleFlags.cmake
-	wget -O $(HOST_DIR)/lib/cmake/llvm/WarningFlags.cmake \
-		https://raw.githubusercontent.com/llvm/llvm-project/llvmorg-$(LLVM_PROJECT_VERSION)/runtimes/cmake/Modules/WarningFlags.cmake
-endef
-
-HOST_LLVM_LIBUNWIND_POST_EXTRACT_HOOKS += LLVM_LIBUNWIND_DL_CMAKE_MODULES
-LLVM_LIBUNWIND_POST_EXTRACT_HOOKS += LLVM_LIBUNWIND_DL_CMAKE_MODULES
 
 $(eval $(host-cmake-package))
