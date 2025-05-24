@@ -25,7 +25,6 @@ endif
 HOST_LIBGLIB2_CONF_OPTS = \
 	-Ddtrace=false \
 	-Dglib_debug=disabled \
-	-Dintrospection=enabled \
 	-Dlibelf=disabled \
 	-Dselinux=disabled \
 	-Dsystemtap=false \
@@ -39,12 +38,18 @@ LIBGLIB2_DEPENDENCIES = \
 
 HOST_LIBGLIB2_DEPENDENCIES = \
 	host-gettext \
-	host-gobject-introspection \
 	host-libffi \
 	host-pcre2 \
 	host-pkgconf \
 	host-util-linux \
 	host-zlib
+
+ifeq ($(BR2_PACKAGE_HOST_GOBJECT_INTROSPECTION),y)
+HOST_LIBGLIB2_CONF_OPTS += -Dintrospection=enabled
+HOST_LIBGLIB2_DEPENDENCIES += host-gobject-introspection
+else
+HOST_LIBGLIB2_CONF_OPTS += -Dintrospection=disabled
+endif
 
 # We explicitly specify a giomodule-dir to avoid having a value
 # containing ${libdir} in gio-2.0.pc. Indeed, a value depending on
@@ -159,8 +164,4 @@ $(eval $(host-meson-package))
 
 LIBGLIB2_HOST_BINARY = $(HOST_DIR)/bin/glib-genmarshal
 
-# Bootstrap is only needed if building with introspection. However
-# introspection is unconditionally enabled for host-libglib2, so the
-# include must happen for the host package even if target libglib2 is
-# built without introspection.
 include package/libglib2/libglib2-bootstrap/libglib2-bootstrap.mk
