@@ -117,11 +117,6 @@ ifeq ($(BR2_ENABLE_DEBUG),y)
 GCC_COMMON_TARGET_CFLAGS += -Wno-error
 endif
 
-ifeq ($(BR2_ENABLE_LTO),y)
-GCC_COMMON_TARGET_CFLAGS += -fno-lto
-GCC_COMMON_TARGET_CXXFLAGS += -fno-lto
-endif
-
 # Propagate options used for target software building to GCC target libs
 HOST_GCC_COMMON_CONF_ENV += CFLAGS_FOR_TARGET="$(GCC_COMMON_TARGET_CFLAGS)"
 HOST_GCC_COMMON_CONF_ENV += CXXFLAGS_FOR_TARGET="$(GCC_COMMON_TARGET_CXXFLAGS)"
