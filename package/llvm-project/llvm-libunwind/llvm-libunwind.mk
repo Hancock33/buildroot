@@ -13,6 +13,7 @@ LLVM_LIBUNWIND_SUPPORTS_IN_SOURCE_BUILD = NO
 
 HOST_LLVM_LIBUNWIND_DEPENDENCIES = host-llvm-cmake host-llvm-runtimes
 HOST_LLVM_LIBUNWIND_CONF_OPTS += \
-	-DCMAKE_MODULE_PATH="$(HOST_DIR)/lib/cmake/llvm"
+	-DCMAKE_MODULE_PATH="$(HOST_DIR)/lib/cmake/llvm" \
+	-DLIBUNWIND_INSTALL_HEADERS=ON
 
 $(eval $(host-cmake-package))
