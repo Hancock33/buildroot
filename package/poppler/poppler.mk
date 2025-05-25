@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-POPPLER_VERSION = 22.12.0
+POPPLER_VERSION = 25.05.0
 POPPLER_SOURCE = poppler-$(POPPLER_VERSION).tar.xz
 POPPLER_SITE = https://poppler.freedesktop.org
 POPPLER_DEPENDENCIES = fontconfig host-pkgconf
@@ -24,7 +24,8 @@ POPPLER_CONF_OPTS = \
 	-DBUILD_MANUAL_TESTS=OFF \
 	-DENABLE_GTK_DOC=OFF \
 	-DENABLE_QT6=OFF \
-	-DRUN_GPERF_IF_PRESENT=OFF
+	-DRUN_GPERF_IF_PRESENT=OFF \
+	-DENABLE_GPGME=OFF
 
 ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 POPPLER_CONF_OPTS += -DCMAKE_EXE_LINKER_FLAGS=-latomic
