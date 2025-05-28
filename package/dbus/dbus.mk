@@ -6,7 +6,7 @@
 
 # When updating dbus, check if there are changes in session.conf and
 # system.conf, and update the versions in the dbus-broker package accordingly.
-DBUS_VERSION = 1.14.10
+DBUS_VERSION = 1.16.2
 DBUS_SOURCE = dbus-$(DBUS_VERSION).tar.xz
 DBUS_SITE = https://dbus.freedesktop.org/releases/dbus
 DBUS_LICENSE = AFL-2.1 or GPL-2.0+ (library, tools), GPL-2.0+ (tools)
@@ -27,15 +27,14 @@ DBUS_DEPENDENCIES = host-pkgconf expat
 DBUS_SELINUX_MODULES = dbus
 
 DBUS_CONF_OPTS = \
-	--with-dbus-user=dbus \
-	--disable-tests \
-	--disable-asserts \
-	--disable-xml-docs \
-	--disable-doxygen-docs \
-	--with-system-socket=/run/dbus/system_bus_socket \
-	--with-system-pid-file=/run/messagebus.pid \
-	--with-session-socket-dir=/tmp \
-	--runstatedir=/run
+	-Ddbus_user=dbus \
+	-Dasserts=false \
+	-Dxml_docs=disabled \
+	-Ddoxygen_docs=disabled\
+	-Dsystem_socket=/run/dbus/system_bus_socket \
+	-Dsystem_pid_file=/run/messagebus.pid \
+	-Dsession_socket_dir=/tmp \
+	-Druntime_dir=/run
 
 ifeq ($(BR2_STATIC_LIBS),y)
 DBUS_CONF_OPTS += LIBS='-pthread'
@@ -43,40 +42,40 @@ endif
 
 ifeq ($(BR2_microblaze),y)
 # microblaze toolchain doesn't provide inotify_rm_* but does have sys/inotify.h
-DBUS_CONF_OPTS += --disable-inotify
+DBUS_CONF_OPTS += -Dinotify=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_LIBSELINUX),y)
-DBUS_CONF_OPTS += --enable-selinux
+DBUS_CONF_OPTS += -Dselinux=enabled
 DBUS_DEPENDENCIES += libselinux
 else
-DBUS_CONF_OPTS += --disable-selinux
+DBUS_CONF_OPTS += -Dselinux=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_AUDIT)$(BR2_PACKAGE_LIBCAP_NG),yy)
-DBUS_CONF_OPTS += --enable-libaudit
+DBUS_CONF_OPTS += -Dlibaudit=enabled
 DBUS_DEPENDENCIES += audit libcap-ng
 else
-DBUS_CONF_OPTS += --disable-libaudit
+DBUS_CONF_OPTS += -Dlibaudit=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBX11),y)
-DBUS_CONF_OPTS += --with-x
+DBUS_CONF_OPTS += -Dx11_autolaunch=enabled
 DBUS_DEPENDENCIES += xlib_libX11
 ifeq ($(BR2_PACKAGE_XLIB_LIBSM),y)
 DBUS_DEPENDENCIES += xlib_libSM
 endif
 else
-DBUS_CONF_OPTS += --without-x
+DBUS_CONF_OPTS += -Dx11_autolaunch=disabled
 endif
 
 ifeq ($(BR2_INIT_SYSTEMD),y)
 DBUS_CONF_OPTS += \
-	--enable-systemd \
-	--with-systemdsystemunitdir=/usr/lib/systemd/system
+	-Dsystemd=enabled \
+	-Dsystemd_system_unitdir=/usr/lib/systemd/system
 DBUS_DEPENDENCIES += systemd
 else
-DBUS_CONF_OPTS += --disable-systemd
+DBUS_CONF_OPTS += -Dsystemd=disabled
 endif
 
 # fix rebuild (dbus makefile errors out if /var/lib/dbus is a symlink)
@@ -122,14 +121,15 @@ endef
 
 HOST_DBUS_DEPENDENCIES = host-pkgconf host-expat
 HOST_DBUS_CONF_OPTS = \
-	--with-dbus-user=dbus \
-	--disable-tests \
-	--disable-asserts \
-	--disable-selinux \
-	--disable-xml-docs \
-	--disable-doxygen-docs \
-	--disable-systemd \
-	--without-x
+	-Ddbus_user=dbus \
+	-Dasserts=false \
+	-Dselinux=disabled \
+	-Dxml_docs=disabled \
+	-Ddoxygen_docs=disabled\
+	-Dsystemd=disabled \
+	-Dx11_autolaunch=disabled
+
+	
 
 # dbus for the host
 DBUS_HOST_INTROSPECT = $(HOST_DBUS_DIR)/introspect.xml
@@ -139,5 +139,5 @@ HOST_DBUS_GEN_INTROSPECT = \
 
 HOST_DBUS_POST_INSTALL_HOOKS += HOST_DBUS_GEN_INTROSPECT
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))
