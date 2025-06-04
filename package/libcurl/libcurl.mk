@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBCURL_VERSION = 8.14.0
+LIBCURL_VERSION = 8.14.1
 LIBCURL_SOURCE = curl-$(LIBCURL_VERSION).tar.xz
 LIBCURL_SITE = https://curl.se/download
 LIBCURL_DEPENDENCIES = host-pkgconf \
@@ -201,19 +201,4 @@ endef
 LIBCURL_POST_INSTALL_TARGET_HOOKS += LIBCURL_TARGET_CLEANUP
 endif
 
-# batocera - removing host-libcurl causes dependency problem on pipewire
-HOST_LIBCURL_DEPENDENCIES = host-openssl
-HOST_LIBCURL_CONF_OPTS = \
-	--disable-manual \
-	--disable-ntlm-wb \
-	--disable-curldebug \
-	--with-ssl \
-	--without-gnutls \
-	--without-mbedtls \
-	--without-nss \
-	--without-libpsl
-
-HOST_LIBCURL_POST_PATCH_HOOKS += LIBCURL_FIX_DOT_PC
-
 $(eval $(autotools-package))
-$(eval $(host-autotools-package))
