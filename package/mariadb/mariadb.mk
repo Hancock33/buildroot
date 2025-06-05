@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MARIADB_VERSION = 11.8.1
+MARIADB_VERSION = 12.0.1
 MARIADB_SITE = https://downloads.mariadb.org/interstitial/mariadb-$(MARIADB_VERSION)/source
 MARIADB_LICENSE = GPL-2.0 (server), GPL-2.0 with FLOSS exception (GPL client library), LGPL-2.0 (LGPL client library)
 # Tarball no longer contains LGPL license text
@@ -14,7 +14,6 @@ MARIADB_CPE_ID_VENDOR = mariadb
 MARIADB_SELINUX_MODULES = mysql
 MARIADB_INSTALL_STAGING = YES
 MARIADB_CONFIG_SCRIPTS = mysql_config
-HOST_MARIADB_EXTRA_DOWNLOADS = https://github.com/fmtlib/fmt/releases/download/11.0.2/fmt-11.0.2.zip
 
 MARIADB_DEPENDENCIES = \
 	host-mariadb \
@@ -24,13 +23,12 @@ MARIADB_DEPENDENCIES = \
 	pcre2 \
 	zlib \
 	libaio \
-	libxml2 \
-	openssl
+	libxml2
 
 MARIADB_CONF_OPTS += \
+	-DWITH_LIBFMT=system \
 	-DWITH_PCRE=system \
-	-DWITH_SSL=system  \
-	-DWITH_LIBFMT=bundled
+	-DHAVE_SYSTEM_LIBFMT_EXITCODE=0
 
 # use bundled GPL-2.0+ licensed readline as package/readline is GPL-3.0+
 MARIADB_CONF_OPTS += -DWITH_READLINE=ON
@@ -117,7 +115,7 @@ MARIADB_CONF_OPTS += \
 	-DMYSQL_UNIX_ADDR=$(MYSQL_SOCKET)
 
 HOST_MARIADB_DEPENDENCIES = host-openssl
-HOST_MARIADB_CONF_OPTS += -DWITH_SSL=system -DCONNECT_WITH_LIBXML2=OFF
+HOST_MARIADB_CONF_OPTS += -DWITH_SSL=system
 
 # Some helpers must be compiled for host in order to crosscompile mariadb for
 # the target. They are then included by import_executables.cmake which is
@@ -171,18 +169,11 @@ endef
 MARIADB_POST_INSTALL_STAGING_HOOKS += MARIADB_POST_STAGING_INSTALL
 
 # batocera
-define MARIADB_DL_LIBS
-	mkdir -p $(@D)/extra/libfmt/src
-	cp  $(MARIADB_DL_DIR)/fmt-11.0.2.zip $(@D)/extra/libfmt/src/fmt-11.0.2.zip
-endef
-
 define MARIADB_HOST_GSSAPI
 	sed -i -e s+"SET(GSSAPI_SOURCES"+"#SET(GSSAPI_SOURCES"+ $(@D)/libmariadb/plugins/auth/CMakeLists.txt
 	rm -r $(@D)/plugin/auth_gssapi
 endef
 
-MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_DL_LIBS
-HOST_MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_DL_LIBS
 HOST_MARIADB_PRE_CONFIGURE_HOOKS += MARIADB_HOST_GSSAPI
 
 $(eval $(cmake-package))
