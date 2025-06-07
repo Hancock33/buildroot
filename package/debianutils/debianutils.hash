@@ -1,4 +1,4 @@
-# From https://snapshot.debian.org/archive/debian/20250412T025124Z/pool/main/d/debianutils/debianutils_5.22.dsc
-sha256  043569241cdd893cc45e00f917c94c123d0c24143895d91c4d08c6c567e35155  debianutils_5.22.tar.xz
+# From https://snapshot.debian.org/archive/debian/20250607T143025Z/pool/main/d/debianutils/debianutils_5.23.1.dsc
+sha256  206c669cbf431da30904d4f9e69d049cb711714f5c137b66bf0b1f66d58710bc  debianutils_5.23.1.tar.xz
 # Locally calculated
 sha256  3c8b5112cb8f74ba959233291908d73f527afa6f1d96f93649aeb912b5884567  debian/copyright

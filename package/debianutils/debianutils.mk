@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-DEBIANUTILS_VERSION = 5.22
+DEBIANUTILS_VERSION = 5.23.1
 DEBIANUTILS_SOURCE = debianutils_$(DEBIANUTILS_VERSION).tar.xz
-DEBIANUTILS_SITE = https://snapshot.debian.org/archive/debian/20250412T025124Z/pool/main/d/debianutils
+DEBIANUTILS_SITE = https://snapshot.debian.org/archive/debian/20250607T143025Z/pool/main/d/debianutils
 DEBIANUTILS_AUTORECONF = YES
 DEBIANUTILS_CONF_OPTS = --exec-prefix=/
 DEBIANUTILS_LICENSE = GPL-2.0+, SMAIL (savelog)
