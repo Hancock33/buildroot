@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/ruamel-yaml/json
-md5  00564edeae2bbc0376d4c1cab3451712  ruamel.yaml-0.18.12.tar.gz
-sha256  5a38fd5ce39d223bebb9e3a6779e86b9427a03fb0bf9f270060f8b149cffe5e2  ruamel.yaml-0.18.12.tar.gz
+md5  bbeeb8c58e77314ff63380df056cd360  ruamel.yaml-0.18.13.tar.gz
+sha256  b0d5ac0a2b0b4e39d87aed00ddff26e795de6750b064da364a8d009b97ce5f26  ruamel.yaml-0.18.13.tar.gz
 # Locally computed sha256 checksums
 sha256  0ce9ad6a9d4f0829296a72c77d07795dd67f42751e2922be56c051d39ae1c011  LICENSE
