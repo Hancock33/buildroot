@@ -16,7 +16,7 @@ DIFFUTILS_CONF_ENV += gl_cv_func_strcasecmp_works=yes
 # Since glibc >= 2.26, don't try to use getopt_long replacement bundled
 # with diffutils. It will conflict with the one from glibc.
 ifeq ($(BR2_TOOLCHAIN_USES_GLIBC),y)
-DIFFUTILS_CONF_ENV += gl_cv_func_getopt_gnu=yes  gl_cv_func_strcasecmp_works=yes
+DIFFUTILS_CONF_ENV += gl_cv_func_getopt_gnu=yes
 endif
 
 $(eval $(autotools-package))
