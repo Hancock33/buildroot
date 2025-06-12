@@ -1,5 +1,5 @@
-# From https://www.python.org/downloads/release/python-3134/
-md5  2e2a8eb2e1be50049dc4248d99a52f89  Python-3.13.4.tar.xz
+# From https://www.python.org/downloads/release/python-3135/
+md5  dbaa8833aa736eddbb18a6a6ae0c10fa  Python-3.13.5.tar.xz
 # Locally computed
-sha256  27b15a797562a2971dce3ffe31bb216042ce0b995b39d768cf15f784cc757365  Python-3.13.4.tar.xz
+sha256  93e583f243454e6e9e4588ca2c2662206ad961659863277afcdb96801647d640  Python-3.13.5.tar.xz
 sha256  78b12c3a81360b357002334f0e70ea0e92eebf7a9b358805c03c48484945f3bb  LICENSE
