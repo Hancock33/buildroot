@@ -21,7 +21,8 @@ GDK_PIXBUF_CONF_OPTS = \
 	-Dgio_sniffing=false \
 	-Dtests=false \
 	-Dinstalled_tests=false \
-	-Dman=false
+	-Dman=false \
+	-Ddocumentation=false
 
 HOST_GDK_PIXBUF_CONF_OPTS = \
 	-Dgio_sniffing=false \
@@ -29,7 +30,8 @@ HOST_GDK_PIXBUF_CONF_OPTS = \
 	-Dinstalled_tests=false \
 	-Dintrospection=disabled \
 	-Drelocatable=true \
-	-Dman=false
+	-Dman=false \
+	-Ddocumentation=false
 
 # batocera - enable xpm and other file types
 GDK_PIXBUF_CONF_OPTS += -Dothers=enabled
