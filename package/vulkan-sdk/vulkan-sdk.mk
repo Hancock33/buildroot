@@ -5,7 +5,7 @@
 ################################################################################
 
 VULKAN_SDK_VERSION = $(VULKAN_HEADERS_VERSION)
-VULKAN_SDK_SITE = $(call github,zeux,sdk,$(VULKAN_SDK_VERSION))
+VULKAN_SDK_SITE = $(call github,zeux,volk,$(VULKAN_SDK_VERSION))
 VULKAN_SDK_LICENSE = MIT
 VULKAN_SDK_LICENSE_FILES = LICENSE.md
 VULKAN_SDK_INSTALL_STAGING = YES
