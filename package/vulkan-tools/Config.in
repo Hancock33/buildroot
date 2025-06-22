@@ -1,7 +1,7 @@
 config BR2_PACKAGE_VULKAN_TOOLS
 	bool "vulkan-tools"
 	depends on BR2_INSTALL_LIBSTDCPP # vulkan-loader
-	depends on !BR2_STATIC_LIBS # vullan-loader
+	depends on !BR2_STATIC_LIBS # vulkan-loader, vulkan-sdk
 	depends on BR2_TOOLCHAIN_GCC_AT_LEAST_4_9 # C++11
 	depends on BR2_TOOLCHAIN_HAS_THREADS # vulkan-loader
 	select BR2_PACKAGE_VULKAN_HEADERS
@@ -10,7 +10,7 @@ config BR2_PACKAGE_VULKAN_TOOLS
 	select BR2_PACKAGE_HOST_PYTHON3_SSL
 	select BR2_PACKAGE_GLSLANG
 	select BR2_PACKAGE_WAYLAND
-	select BR2_PACKAGE_VULKAN_VOLK
+	select BR2_PACKAGE_VULKAN_SDK
 
 	help
 	  The Khronos official Vulkan Tools and Utilities.

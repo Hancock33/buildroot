@@ -17,7 +17,7 @@ VULKAN_TOOLS_DEPENDENCIES = \
 	host-python3 \
 	host-glslang \
 	wayland \
-	vulkan-volk
+	vulkan-sdk
 
 ifeq ($(BR2_PACKAGE_MESA3D),y)
 VULKAN_TOOLS_DEPENDENCIES += mesa3d
