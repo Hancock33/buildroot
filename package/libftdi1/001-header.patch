@@ -1,0 +1,12 @@
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 7e81bea..71d62a1 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -76,6 +76,6 @@ if (STATICLIBS)
+ endif ()
+ 
+ install(FILES ${c_headers}
+-        DESTINATION include/${PROJECT_NAME}
++        DESTINATION include
+         COMPONENT headers
+ )
