@@ -1,5 +1,5 @@
 # From https://pypi.org/project/lxml/
-sha256  d12832e1dbea4be280b22fd0ea7c9b87f0d8fc51ba06e92dc62d52f804f78ebd  lxml-5.4.0.tar.gz
+sha256  032e65120339d44cdc3efc326c9f660f5f7205f3a535c1fdbf898b29ea01fb72  lxml-6.0.0.tar.gz
 # Locally computed
 sha256  41d49dd406aa0e1548a6d5f21a30d6bf638b3cd96eb7289dd348d83ed2e40392  LICENSES.txt
 sha256  69edb445c1335a8312d4c09271847e9956d84f0d9f724d125340cc3fad767b2a  doc/licenses/BSD.txt
