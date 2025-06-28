@@ -29,6 +29,7 @@ TPM2_TSS_CONF_OPTS = \
 	ac_cv_prog_useradd=yes \
 	ac_cv_prog_groupadd=yes \
 	--with-crypto=ossl \
+	--disable-tcti-spi-ftdi \
 	--disable-doxygen-doc \
 	--disable-defaultflags
 
