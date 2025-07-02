@@ -1,5 +1,5 @@
 # From https://sourceware.org/ftp/lvm2/sha512.sum
-sha512  6a7acebf10274b029211b0f5b7c7a9aabf2074a8e9ce1b72fce7eadffdaf2ebb23d9d998be41ff31a9e10808ece32ec2dde3454c82103c39084ac1beffe18ec1  LVM2.2.03.32.tgz
+sha512  e023b99bffdf0bdfbb06148fc8f305533db609df0448a645f85cd047ab464f66450351f57e4b3a178e20001db6d632caf1d9f9cb1786f47722cbd29f5cc10348  LVM2.2.03.33.tgz
 # Locally computed sha256 checksums
 sha256  e76fbcd2fb97cf202da330301327754d2db5c58b5b4bebd3a8a749393e7603d1  COPYING
 sha256  5df07007198989c622f5d41de8d703e7bef3d0e79d62e24332ee739a452af62a  COPYING.LIB
