@@ -19,6 +19,7 @@ HOST_GDK_PIXBUF_DEPENDENCIES = host-libpng host-pkgconf host-libglib2
 
 GDK_PIXBUF_CONF_OPTS = \
 	-Dgio_sniffing=false \
+	-Dglycin=disabled \
 	-Dtests=false \
 	-Dinstalled_tests=false \
 	-Dman=false \
@@ -26,6 +27,7 @@ GDK_PIXBUF_CONF_OPTS = \
 
 HOST_GDK_PIXBUF_CONF_OPTS = \
 	-Dgio_sniffing=false \
+	-Dglycin=disabled \
 	-Dtests=false \
 	-Dinstalled_tests=false \
 	-Dintrospection=disabled \
