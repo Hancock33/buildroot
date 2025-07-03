@@ -29,10 +29,10 @@ GVFS_CONF_OPTS = \
 	-Dafc=false \
 	-Dgoa=false \
 	-Dgoogle=false \
+	-Donedrive=false \
 	-Dmtp=false \
 	-Dsftp=false \
-	-Dudisks2=false\
-	-Donedrive=false
+	-Dudisks2=false
 
 ifeq ($(BR2_PACKAGE_AVAHI),y)
 GVFS_DEPENDENCIES += avahi
@@ -129,8 +129,8 @@ else
 GVFS_CONF_OPTS += -Dkeyring=false
 endif
 
-ifeq ($(BR2_PACKAGE_LIBSOUP)$(BR2_PACKAGE_LIBXML2),yy)
-GVFS_DEPENDENCIES += libsoup libxml2
+ifeq ($(BR2_PACKAGE_LIBSOUP3)$(BR2_PACKAGE_LIBXML2),yy)
+GVFS_DEPENDENCIES += libsoup3 libxml2
 GVFS_CONF_OPTS += -Dhttp=true
 else
 GVFS_CONF_OPTS += -Dhttp=false
