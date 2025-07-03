@@ -32,8 +32,7 @@ GVFS_CONF_OPTS = \
 	-Donedrive=false \
 	-Dmtp=false \
 	-Dsftp=false \
-	-Dudisks2=false\
-	-Donedrive=false
+	-Dudisks2=false
 
 ifeq ($(BR2_PACKAGE_AVAHI),y)
 GVFS_DEPENDENCIES += avahi
