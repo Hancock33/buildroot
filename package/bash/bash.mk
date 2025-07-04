@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-BASH_VERSION = 5.2-39-g6794b5478f660256a1023712b5fc169196ed0a22
-BASH_SITE = $(call github,sailfishos-mirror,bash,$(BASH_VERSION))
+BASH_VERSION = 5.3
+BASH_SITE = $(BR2_GNU_MIRROR)/bash
 BASH_DEPENDENCIES = ncurses readline host-bison
 BASH_LICENSE = GPL-3.0+
 BASH_LICENSE_FILES = COPYING

@@ -1,5 +1,4 @@
 # Locally calculated after checking pgp signature from
-# https://ftp.gnu.org/gnu/bash/bash-5.2.37.tar.gz.sig
-sha256  9599b22ecd1d5787ad7d3b7bf0c59f312b3396d1e281175dd1f8a4014da621ff  bash-5.2.37.tar.gz
-sha256  c5f9d1e9e4049ffbb5637544d49ca88745c7a9e6b600dc051b838c8dfb880cde  bash-5.2-39-g6794b5478f660256a1023712b5fc169196ed0a22.tar.gz
+# https://ftp.gnu.org/gnu/bash/bash-5.3.tar.gz.sig
+sha256  62dd49c44c399ed1b3f7f731e87a782334d834f08e098a35f2c87547d5dbb269  bash-5.3.tar.gz
 sha256  8ceb4b9ee5adedde47b31e975c1d90c73ad27b6b165a1dcd80c7c545eb65b903  COPYING
