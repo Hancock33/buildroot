@@ -6,7 +6,8 @@
 
 LIBPNG_VERSION = 1.6.50
 LIBPNG_SERIES = 16
-LIBPNG_SITE = $(call github,pnggroup,libpng,v$(LIBPNG_VERSION))
+LIBPNG_SOURCE = libpng-$(LIBPNG_VERSION).tar.xz
+LIBPNG_SITE = https://downloads.sourceforge.net/project/libpng/libpng$(LIBPNG_SERIES)/$(LIBPNG_VERSION)
 LIBPNG_LICENSE = Libpng-2.0
 LIBPNG_LICENSE_FILES = LICENSE
 LIBPNG_CPE_ID_VENDOR = libpng
