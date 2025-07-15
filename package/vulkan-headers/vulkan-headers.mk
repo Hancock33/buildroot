@@ -3,8 +3,8 @@
 # vulkan-headers
 #
 ################################################################################
-# Version: Commits on Apr 18, 2025
-VULKAN_HEADERS_VERSION = vulkan-sdk-1.4.313.0
+# Version: Commits on Jul 03, 2025
+VULKAN_HEADERS_VERSION = vulkan-sdk-1.4.321.0
 VULKAN_HEADERS_SITE = $(call github,KhronosGroup,Vulkan-Headers,$(VULKAN_HEADERS_VERSION))
 VULKAN_HEADERS_LICENSE = Apache-2.0, MIT
 VULKAN_HEADERS_LICENSE_FILES = LICENSE.md
