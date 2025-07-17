@@ -1,5 +1,5 @@
-# From https://gstreamer.freedesktop.org/src/gstreamer-editing-services/gst-editing-services-1.26.3.tar.xz.sha256sum
-sha256  dd20a93d2c3468b6a1024ff0c927886b21937bd13b8cb8f175f8637360d16fd2  gst-editing-services-1.26.3.tar.xz
+# From https://gstreamer.freedesktop.org/src/gstreamer-editing-services/gst-editing-services-1.26.4.tar.xz.sha256sum
+sha256  fd0769d393dbb441c2149b89cba8bde6907ed3d8e5772573acb2be9402ad0abd  gst-editing-services-1.26.4.tar.xz
 
 # Hashes for license files:
 sha256  ad2eec519ebd4b5df86ea84dff24ae3bfa2edea846a703b58902dd221ae375db  COPYING
