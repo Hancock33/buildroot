@@ -13,7 +13,6 @@ PYTHON_SETUPTOOLS_SCM_SETUP_TYPE = pep517
 
 HOST_PYTHON_SETUPTOOLS_SCM_DEPENDENCIES = \
 	host-python-packaging \
-	host-python-setuptools \
-	host-python-typing-extensions
+	host-python-setuptools
 
 $(eval $(host-python-package))
