@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-PKGCONF_VERSION = 2.5.1
+PKGCONF_VERSION = 2.3.0
 PKGCONF_SITE = https://distfiles.ariadne.space/pkgconf
 PKGCONF_SOURCE = pkgconf-$(PKGCONF_VERSION).tar.xz
 PKGCONF_LICENSE = pkgconf license
