@@ -5,7 +5,7 @@
 ################################################################################
 
 GDK_PIXBUF_VERSION_MAJOR = 2.43
-GDK_PIXBUF_VERSION = $(GDK_PIXBUF_VERSION_MAJOR).2
+GDK_PIXBUF_VERSION = $(GDK_PIXBUF_VERSION_MAJOR).3
 GDK_PIXBUF_SOURCE = gdk-pixbuf-$(GDK_PIXBUF_VERSION).tar.xz
 GDK_PIXBUF_SITE = https://download.gnome.org/sources/gdk-pixbuf/$(GDK_PIXBUF_VERSION_MAJOR)
 GDK_PIXBUF_LICENSE = LGPL-2.1+
@@ -52,9 +52,8 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBPNG),y)
 GDK_PIXBUF_CONF_OPTS += -Dpng=enabled
+HOST_GDK_PIXBUF_CONF_OPTS += -Dpng=enabled
 GDK_PIXBUF_DEPENDENCIES += libpng
-else
-GDK_PIXBUF_CONF_OPTS += -Dpng=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_JPEG),y)
@@ -62,9 +61,6 @@ GDK_PIXBUF_CONF_OPTS += -Djpeg=enabled
 HOST_GDK_PIXBUF_CONF_OPTS += -Djpeg=enabled
 GDK_PIXBUF_DEPENDENCIES += jpeg
 HOST_GDK_PIXBUF_DEPENDENCIES += host-libjpeg
-else
-GDK_PIXBUF_CONF_OPTS += -Djpeg=disabled
-HOST_GDK_PIXBUF_CONF_OPTS += -Djpeg=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_TIFF),y)
@@ -75,6 +71,11 @@ HOST_GDK_PIXBUF_DEPENDENCIES += host-tiff
 else
 GDK_PIXBUF_CONF_OPTS += -Dtiff=disabled
 HOST_GDK_PIXBUF_CONF_OPTS += -Dtiff=disabled
+endif
+
+ifeq ($(BR2_PACKAGE_GIFLIB),y)
+GDK_PIXBUF_CONF_OPTS += -Dgif=enabled
+HOST_GDK_PIXBUF_CONF_OPTS += -Dgif=enabled
 endif
 
 # gdk-pixbuf requires the loaders.cache file populated to work properly
