@@ -33,7 +33,7 @@ config BR2_PACKAGE_MESA3D_LLVM
 	depends on !BR2_TOOLCHAIN_HAS_GCC_BUG_64735 # std::shared_future
 	depends on !BR2_STATIC_LIBS
 	depends on BR2_USE_WCHAR # std::wstring
-	depends on BR2_HOST_GCC_AT_LEAST_7
+	depends on BR2_HOST_GCC_AT_LEAST_7 # host-llvm
 	select BR2_PACKAGE_LLVM
 	select BR2_PACKAGE_LLVM_RTTI
 	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
@@ -116,16 +116,14 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_I915
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_IRIS
 	bool "Gallium iris driver"
-	depends on BR2_i386 || BR2_x86_64
-	#depends on BR2_PACKAGE_MESA3D_LLVM
+	depends on BR2_PACKAGE_MESA3D_LLVM
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR		if !BR2_PACKAGE_BATOCERA_LIB32
+	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
 	select BR2_PACKAGE_SPIRV_TOOLS
 	help
 	  Mesa driver for iris-based Intel GPUs.
 
 comment "iris driver needs llvm"
-	depends on BR2_i386 || BR2_x86_64
 	depends on !BR2_PACKAGE_MESA3D_LLVM
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_LIMA
@@ -158,10 +156,15 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_NOUVEAU
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_PANFROST
 	bool "Gallium panfrost driver"
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
+	depends on BR2_PACKAGE_MESA3D_LLVM
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	select BR2_PACKAGE_MESA3D_OPENGL_EGL
+	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
+	select BR2_PACKAGE_SPIRV_TOOLS
 	help
 	  Mesa driver for ARM Mali Midgard and Bifrost GPUs.
+
+comment "panfrost driver needs llvm"
+	depends on !BR2_PACKAGE_MESA3D_LLVM
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_R300
 	bool "Gallium Radeon R300 driver"
@@ -200,11 +203,11 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_RADEONSI
 	bool "Gallium Radeon SI driver"
 	depends on BR2_USE_MMU # libdrm
 	depends on BR2_i386 || BR2_x86_64
-	#depends on BR2_PACKAGE_MESA3D_LLVM
+	depends on BR2_PACKAGE_MESA3D_LLVM
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
 	select BR2_PACKAGE_LIBDRM_AMDGPU
 	select BR2_PACKAGE_LIBDRM_RADEON
-	select BR2_PACKAGE_LLVM_AMDGPU				if !BR2_PACKAGE_BATOCERA_LIB32
+	select BR2_PACKAGE_LLVM_AMDGPU
 	select BR2_PACKAGE_ELFUTILS
 	select BR2_PACKAGE_MESA3D_NEEDS_ELFUTILS
 	help
@@ -234,7 +237,7 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_V3D
 	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VC4 # runtime
 	select BR2_PACKAGE_MESA3D_OPENGL_EGL
 	help
-	  Driver for Broadcom VC6 (rpi4) GPUs (needs vc4).
+	  Driver for Broadcom VC6/7 (rpi4/5) GPUs (needs vc4).
 
 	  It requires a kernel 4.18+ with DRM V3D support enabled:
 
@@ -249,7 +252,8 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VC4
 	select BR2_PACKAGE_LIBDRM_VC4
 	select BR2_PACKAGE_MESA3D_OPENGL_EGL
 	help
-	  Driver for Broadcom VC4 (rpi2/3) GPUs.
+	  Driver for Broadcom VC4 (rpi0/1/2/3) GPUs.
+
 	  It requires a vanilla 4.5+ kernel with drm vc4 (open) support.
 
 config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VIRGL
@@ -259,6 +263,27 @@ config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_VIRGL
 	help
 	  virgl is the 3D acceleration backend for the virtio-gpu
 	  shipping with qemu.
+
+config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ZINK
+	bool "Gallium zink driver"
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	select BR2_PACKAGE_VULKAN_LOADER
+	help
+	  Zink is a Gallium driver that emits Vulkan API calls,
+	  providing OpenGL support on devices that only support
+	  Vulkan.
+
+# batocera - add d3d12
+config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_D3D12
+	bool "Gallium Direct3D 12 driver"
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
+	select BR2_PACKAGE_MESA3D_OPENGL_ES
+	select BR2_PACKAGE_MESA3D_OPENGL_EGL
+	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
+	help
+	  The D3D12 driver emits D3D12 API calls instead of targeting a specific GPU architecture.
+	  This can be used to get full desktop OpenGL support on Windows devices through WSL.
 
 config BR2_PACKAGE_MESA3D_VDPAU
 	bool "Gallium VDPAU state tracker"
@@ -283,7 +308,7 @@ comment "Vulkan drivers"
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_BROADCOM
 	bool "Vulkan broadcom driver"
 	depends on BR2_arm || BR2_aarch64
-	depends on BR2_TOOLCHAIN_HAS_SYNC_4 # dri3/libxshmfence
+	depends on BR2_TOOLCHAIN_HAS_SYNC_4 # libxshmfence
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
 	  Vulkan broadcom driver.
@@ -298,19 +323,31 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_IMAGINATION
 
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL
 	bool "Vulkan Intel driver"
-	depends on BR2_i386 || BR2_x86_64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
 	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 # memfd.h
 	depends on BR2_TOOLCHAIN_USES_GLIBC # ifunc, static_assert
+	depends on BR2_PACKAGE_MESA3D_LLVM
+	select BR2_PACKAGE_SPIRV_LLVM_TRANSLATOR
+	select BR2_PACKAGE_SPIRV_TOOLS
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
 	  Vulkan driver for Intel hardware from Ivy Bridge onward.
 
+comment "intel vulkan needs llvm"
+	depends on !BR2_PACKAGE_MESA3D_LLVM
+
 comment "intel vulkan needs a glibc toolchain w/ headers >= 3.17"
-	depends on BR2_i386 || BR2_x86_64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC
+
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_SWRAST
+	bool "Vulkan swrast driver"
+	depends on BR2_PACKAGE_MESA3D_LLVM
+	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_SOFTPIPE
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  Vulkan swrast driver.
 
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_VIRTIO
 	bool "Vulkan VirtIO driver (Venus)"
@@ -318,36 +355,14 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_VIRTIO
 	help
 	  Vulkan VirtIO (venus) driver.
 
-comment "Off-screen Rendering"
-
-# batocera additions
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_ZINK
-	bool "Gallium zink driver"
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	select BR2_PACKAGE_MESA3D_OPENGL_ES
-	select BR2_PACKAGE_MESA3D_OPENGL_EGL
-	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
-	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
-	help
-	  The Zink driver emits Vulkan API calls instead of targeting a specific GPU architecture.
-	  This can be used to get full desktop OpenGL support on devices that only support Vulkan.
-
-config BR2_PACKAGE_MESA3D_GALLIUM_DRIVER_D3D12
-	bool "Gallium Direct3D 12 driver"
-	select BR2_PACKAGE_MESA3D_GALLIUM_DRIVER
-	select BR2_PACKAGE_MESA3D_OPENGL_ES
-	select BR2_PACKAGE_MESA3D_OPENGL_EGL
-	select BR2_PACKAGE_MESA3D_OPENGL_GLX        if BR2_PACKAGE_XORG7
-	help
-	  The D3D12 driver emits D3D12 API calls instead of targeting a specific GPU architecture.
-	  This can be used to get full desktop OpenGL support on Windows devices through WSL.
-
+# batocera
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_HASWELL
 	bool "Vulkan Haswell driver"
 	depends on BR2_i386 || BR2_x86_64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 || !BR2_PACKAGE_XORG7 # libxshmfence
 	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 # memfd.h
 	depends on BR2_TOOLCHAIN_USES_GLIBC # ifunc, static_assert
+	select BR2_PACKAGE_MESA3D_DRI3 if BR2_PACKAGE_XORG7
 	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
 	help
 	  Vulkan driver for Ivy Bridge / Haswell / Broadwell support.
@@ -358,6 +373,7 @@ comment "intel haswell vulkan needs a glibc toolchain w/ headers >= 3.17"
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC
 
+# batocera
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_AMD
 	bool "Vulkan AMD Radeon driver"
 	depends on BR2_i386 || BR2_x86_64
@@ -377,8 +393,9 @@ comment "radeon vulkan depends on X.org and needs a glibc toolchain w/ headers >
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC || !BR2_PACKAGE_XORG7
 
+# batocera
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_NOUVEAU
-	bool "Vulkan NVidia Radeon driver"
+	bool "Vulkan NVidia driver"
 	depends on BR2_i386 || BR2_x86_64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4 # libxshmfence
 	depends on BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 # memfd.h
@@ -388,13 +405,30 @@ config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_NOUVEAU
 	select BR2_PACKAGE_XORGPROTO
 	select BR2_PACKAGE_XLIB_LIBXSHMFENCE
 	help
-	  Vulkan driver for NVidia Radeon hardware.
+	  Vulkan driver for NVidia hardware.
 
-comment "radeon vulkan depends on X.org and needs a glibc toolchain w/ headers >= 3.17"
+comment "NVidia vulkan depends on X.org and needs a glibc toolchain w/ headers >= 3.17"
 	depends on BR2_i386 || BR2_x86_64
 	depends on BR2_TOOLCHAIN_HAS_SYNC_4
 	depends on !BR2_TOOLCHAIN_HEADERS_AT_LEAST_3_17 || \
 		!BR2_TOOLCHAIN_USES_GLIBC || !BR2_PACKAGE_XORG7
+
+# batocera
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_FREEDRENO
+	bool "Vulkan freedreno driver"
+	depends on BR2_aarch64
+	depends on BR2_TOOLCHAIN_HAS_SYNC_4 # libxshmfence
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  Vulkan freedreno driver.
+
+config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_ASAHI
+	bool "Vulkan Asahi driver"
+	depends on BR2_aarch64
+	depends on BR2_TOOLCHAIN_HAS_SYNC_4 # libxshmfence
+	select BR2_PACKAGE_MESA3D_VULKAN_DRIVER
+	help
+	  Vulkan asahi driver.
 
 config BR2_PACKAGE_MESA3D_VULKAN_DRIVER_PANFROST
 	bool "Midgard and Bifrost Vulkan driver"
