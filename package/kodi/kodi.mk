@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on May 17, 2025
-KODI_VERSION = 21.2-Omega-56-g527c7ac02512bd2902a553e350b74ca1794b84aa
+KODI_VERSION = 21.2-Omega-61-g3845c09a81b040f2c4c6ac1d1745598fddb6ae6b
 KODI_VERSION_NAME = Omega
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
