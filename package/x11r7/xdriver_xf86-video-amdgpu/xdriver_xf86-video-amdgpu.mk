@@ -17,12 +17,9 @@ XDRIVER_XF86_VIDEO_AMDGPU_DEPENDENCIES = \
 	xserver_xorg-server
 
 ifeq ($(BR2_PACKAGE_HAS_LIBEGL)$(BR2_PACKAGE_HAS_LIBGL)$(BR2_PACKAGE_LIBEPOXY),yyy)
-XDRIVER_XF86_VIDEO_AMDGPU_CONF_OPTS += --enable-glamor
+XDRIVER_XF86_VIDEO_AMDGPU_CONF_OPTS += -Dglamor=enabled
 else
-XDRIVER_XF86_VIDEO_AMDGPU_CONF_OPTS += --disable-glamor
+XDRIVER_XF86_VIDEO_AMDGPU_CONF_OPTS += -Dglamor=disabled
 endif
 
-# xdriver_xf86-video-amdgpu requires O_CLOEXEC
-XDRIVER_XF86_VIDEO_AMDGPU_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -D_GNU_SOURCE"
-
-$(eval $(autotools-package))
+$(eval $(meson-package))
