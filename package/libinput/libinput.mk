@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBINPUT_VERSION = 1.28.1
+LIBINPUT_VERSION = 1.29.0
 LIBINPUT_SOURCE = libinput-$(LIBINPUT_VERSION).tar.gz
 LIBINPUT_SITE = https://gitlab.freedesktop.org/libinput/libinput/-/archive/$(LIBINPUT_VERSION)
 LIBINPUT_DEPENDENCIES = host-pkgconf libevdev mtdev libudev
