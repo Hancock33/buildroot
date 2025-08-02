@@ -1,5 +1,5 @@
-# From https://download.gnome.org/sources/at-spi2-core/2.57/at-spi2-core-2.57.0.sha256sum
-sha256  942070eff19155b7d6ce5557f1a020015287b840048536e9ef9a28c4e9ce428c  at-spi2-core-2.57.0.tar.xz
+# From https://download.gnome.org/sources/at-spi2-core/2.57/at-spi2-core-2.57.1.sha256sum
+sha256  5d1eac51ede2bf0d438b6ee69654ab0baa8c3ce183a5aaf450255eabc0d88da6  at-spi2-core-2.57.1.tar.xz
 
 # locally calculated
 sha256  dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551  COPYING
