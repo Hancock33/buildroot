@@ -22,6 +22,10 @@ LLVM_DEPENDENCIES = host-binutils host-llvm host-lld
 HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -DLLVM_BINUTILS_INCDIR=$(BUILD_DIR)/host-binutils-$(BINUTILS_VERSION)/include
 LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -DLLVM_BINUTILS_INCDIR=$(BUILD_DIR)/host-binutils-$(BINUTILS_VERSION)/include
 
+# Build with Os
+LLVM_CONF_OPTS += -DCMAKE_C_FLAGS="-Os $(subst ",,$(BR2_TARGET_OPTIMIZATION))"
+LLVM_CONF_OPTS += -DCMAKE_CXX_FLAGS="-Os  $(subst ",,$(BR2_TARGET_OPTIMIZATION))"
+
 # Don't build clang libcxx libcxxabi lldb compiler-rt lld polly as llvm subprojects
 # This flag assumes that projects are checked out side-by-side and not nested
 HOST_LLVM_CONF_OPTS += -DLLVM_ENABLE_PROJECTS=""
