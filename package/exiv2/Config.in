@@ -10,6 +10,7 @@ config BR2_PACKAGE_EXIV2
 	depends on BR2_TOOLCHAIN_HAS_THREADS
 	depends on !BR2_TOOLCHAIN_USES_MUSL # PTHREAD_RECURSIVE_MUTEX_INITIALIZER_NP
 	depends on BR2_USE_WCHAR
+	select BR2_PACKAGE_INIH
 	help
 	  Exiv2 is a C++ library and a command line utility to manage
 	  image metadata. It provides fast and easy read and write
