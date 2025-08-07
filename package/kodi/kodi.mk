@@ -3,19 +3,21 @@
 # kodi
 #
 ################################################################################
-# Version: Commits on May 17, 2025
-KODI_VERSION = 21.2-Omega-61-g3845c09a81b040f2c4c6ac1d1745598fddb6ae6b
+
+KODI_VERSION_MAJOR = 21.2
 KODI_VERSION_NAME = Omega
+KODI_VERSION = 24839ce8e735e2568990489fc2045cbbd6416caf
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
 KODI_CPE_ID_VENDOR = kodi
-KODI_CPE_ID_VERSION = $(KODI_VERSION)
+KODI_CPE_ID_VERSION = $(KODI_VERSION_MAJOR)
 # needed for binary addons
 KODI_INSTALL_STAGING = YES
 # kodi recommends building out-of-source
 KODI_SUPPORTS_IN_SOURCE_BUILD = NO
 KODI_DEPENDENCIES = \
+	exiv2 \
 	ffmpeg \
 	flatbuffers \
 	fmt \
@@ -33,8 +35,8 @@ KODI_DEPENDENCIES = \
 	host-swig \
 	host-xmlstarlet \
 	jpeg \
+	json-for-modern-cpp \
 	libass \
-	libcdio \
 	libcrossguid \
 	libcurl \
 	libdrm \
@@ -44,9 +46,8 @@ KODI_DEPENDENCIES = \
 	libpng \
 	lzo \
 	openssl \
-	pcre \
+	pcre2 \
 	python3 \
-	rapidjson \
 	spdlog \
 	sqlite \
 	taglib \
@@ -59,18 +60,18 @@ KODI_LIBDVDCSS_VERSION = 1.4.3-Next-Nexus-Alpha2-2
 KODI_LIBDVDNAV_VERSION = 6.1.1-Next-Nexus-Alpha2-2
 KODI_LIBDVDREAD_VERSION = 6.1.3-Next-Nexus-Alpha2-2
 KODI_EXTRA_DOWNLOADS += \
-	https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-4.0.16.zip \
-	https://archive.apache.org/dist/commons/lang/binaries/commons-lang3-3.14.0-bin.tar.gz \
-	https://archive.apache.org/dist/commons/text/binaries/commons-text-1.11.0-bin.tar.gz \
+	https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-4.0.26.zip \
+	https://archive.apache.org/dist/commons/lang/binaries/commons-lang3-3.17.0-bin.tar.gz \
+	https://archive.apache.org/dist/commons/text/binaries/commons-text-1.13.0-bin.tar.gz \
 	$(call github,xbmc,libdvdcss,$(KODI_LIBDVDCSS_VERSION))/kodi-libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.gz \
 	$(call github,xbmc,libdvdnav,$(KODI_LIBDVDNAV_VERSION))/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
 	$(call github,xbmc,libdvdread,$(KODI_LIBDVDREAD_VERSION))/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
 
 define KODI_PROVIDE_JAVA_TARBALLS
 	mkdir -p $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/apache-groovy-binary-4.0.16.zip $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/commons-lang3-3.14.0-bin.tar.gz $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/commons-text-1.11.0-bin.tar.gz $(@D)/buildroot-build/build/download
+	cp $(KODI_DL_DIR)/apache-groovy-binary-4.0.26.zip $(@D)/buildroot-build/build/download
+	cp $(KODI_DL_DIR)/commons-lang3-3.17.0-bin.tar.gz $(@D)/buildroot-build/build/download
+	cp $(KODI_DL_DIR)/commons-text-1.13.0-bin.tar.gz $(@D)/buildroot-build/build/download
 endef
 KODI_POST_EXTRACT_HOOKS = KODI_PROVIDE_JAVA_TARBALLS
 
@@ -84,7 +85,6 @@ KODI_CONF_OPTS += \
 	-DWITH_FFMPEG=$(STAGING_DIR)/usr \
 	-DENABLE_INTERNAL_FLATBUFFERS=OFF \
 	-DFLATBUFFERS_FLATC_EXECUTABLE=$(HOST_DIR)/bin/flatc \
-	-DENABLE_INTERNAL_RapidJSON=OFF \
 	-DENABLE_INTERNAL_SPDLOG=OFF \
 	-DKODI_DEPENDSBUILD=OFF \
 	-DENABLE_GOLD=OFF \
@@ -93,11 +93,11 @@ KODI_CONF_OPTS += \
 	-DNATIVEPREFIX=$(HOST_DIR) \
 	-DDEPENDS_PATH=$(STAGING_DIR)/usr \
 	-DENABLE_TESTING=OFF \
-	-DENABLE_DEBUGFISSION=OFF \
 	-DPYTHON_EXECUTABLE=$(HOST_DIR)/bin/python \
 	-DPYTHON_INCLUDE_DIRS=$(STAGING_DIR)/usr/include/python$(PYTHON3_VERSION_MAJOR) \
 	-DPYTHON_PATH=$(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR) \
 	-DPYTHON_VER=$(PYTHON3_VERSION_MAJOR) \
+	-DVERBOSE_FIND=ON \
 	-DWITH_JSONSCHEMABUILDER=$(HOST_DIR)/bin/ \
 	-DJSONSCHEMABUILDER_EXECUTABLE=$(HOST_DIR)/bin/kodi-JsonSchemaBuilder \
 	-DWITH_TEXTUREPACKER=$(HOST_DIR)/bin/ \
@@ -237,9 +237,9 @@ else
 KODI_CONF_OPTS += -DENABLE_MYSQLCLIENT=OFF
 endif
 
-ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
+ifeq ($(BR2_PACKAGE_HAS_LIBUDEV),y)
 KODI_CONF_OPTS += -DENABLE_UDEV=ON
-KODI_DEPENDENCIES += udev
+KODI_DEPENDENCIES += libudev
 else
 KODI_CONF_OPTS += -DENABLE_UDEV=OFF
 ifeq ($(BR2_PACKAGE_KODI_LIBUSB),y)
@@ -372,6 +372,7 @@ KODI_CONF_OPTS += -DENABLE_UPNP=OFF
 endif
 
 ifeq ($(BR2_PACKAGE_KODI_OPTICALDRIVE),y)
+KODI_DEPENDENCIES += libcdio
 KODI_CONF_OPTS += -DENABLE_OPTICAL=ON
 else
 KODI_CONF_OPTS += -DENABLE_OPTICAL=OFF
@@ -408,6 +409,41 @@ define KODI_CLEAN_UNUSED_ADDONS
 		$(KODI_ADDON_MANIFEST)
 endef
 KODI_POST_INSTALL_TARGET_HOOKS += KODI_CLEAN_UNUSED_ADDONS
+
+# Skin estuary is installed by default and needs to be
+# removed if disabled in buildroot
+ifeq ($(BR2_PACKAGE_KODI_SKIN_ESTUARY),y)
+define KODI_CLEAN_SKIN_ESTUARY
+	find $(TARGET_DIR)/usr/share/kodi/addons/skin.estuary/media -name *.gif -delete
+	find $(TARGET_DIR)/usr/share/kodi/addons/skin.estuary/media -name *.jpg -delete
+	find $(TARGET_DIR)/usr/share/kodi/addons/skin.estuary/media -name *.png -delete
+endef
+KODI_POST_INSTALL_TARGET_HOOKS += KODI_CLEAN_SKIN_ESTUARY
+else
+define KODI_REMOVE_SKIN_ESTUARY
+	rm -Rf $(TARGET_DIR)/usr/share/kodi/addons/skin.estuary
+	$(HOST_DIR)/bin/xml ed -L \
+		-d "/addons/addon[text()='skin.estuary']" \
+		$(KODI_ADDON_MANIFEST)
+endef
+KODI_POST_INSTALL_TARGET_HOOKS += KODI_REMOVE_SKIN_ESTUARY
+endif
+
+# The default value 'skin.estuary' is stored in
+# xbmc/system/settings/settings.xml.
+# If skin estuary is disabled this value needs to be changed to avoid
+# https://github.com/xbmc/xbmc/blob/32a6916059a0b14ab5fc65cedb17b2615c039918/xbmc/Application.cpp#L1124
+
+define KODI_SET_DEFAULT_SKIN_CONFLUENCE
+	$(SED) 's/skin.estuary/skin.confluence/#g' $(TARGET_DIR)/usr/share/kodi/system/settings/settings.xml
+	$(HOST_DIR)/bin/xml ed -L -O --subnode "/addons" \
+		-t elem -n "addon" -v "skin.confluence" \
+		$(KODI_ADDON_MANIFEST)
+endef
+
+ifeq ($(BR2_PACKAGE_KODI_SKIN_DEFAULT_CONFLUENCE),y)
+KODI_POST_INSTALL_TARGET_HOOKS += KODI_SET_DEFAULT_SKIN_CONFLUENCE
+endif
 
 define KODI_INSTALL_BR_WRAPPER
 	$(INSTALL) -D -m 0755 package/kodi/br-kodi \

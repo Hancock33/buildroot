@@ -25,11 +25,8 @@ config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_GBM
 	depends on BR2_PACKAGE_HAS_LIBGL || BR2_PACKAGE_HAS_LIBGLES
 	depends on BR2_PACKAGE_HAS_LIBGBM
 	depends on BR2_PACKAGE_LIBGBM_HAS_FEATURE_DMA_BUF
-	depends on BR2_PACKAGE_HAS_UDEV # libinput
 	select BR2_PACKAGE_KODI_PLATFORM_SUPPORTS
-
-comment "kodi needs udev support for gbm"
-	depends on !BR2_PACKAGE_KODI_PLATFORM_SUPPORTS
+	select BR2_PACKAGE_LIBUDEV
 
 config BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_WAYLAND
 	bool
@@ -67,7 +64,8 @@ menuconfig BR2_PACKAGE_KODI
 	depends on BR2_PACKAGE_PYTHON3
 	depends on !BR2_PACKAGE_PYTHON3_PYC_ONLY
 	select BR2_NEEDS_HOST_JAVA
-	select BR2_HOST_CMAKE_AT_LEAST_3_24
+	select BR2_HOST_CMAKE_AT_LEAST_3_26
+	select BR2_PACKAGE_EXIV2
 	select BR2_PACKAGE_FFMPEG
 	select BR2_PACKAGE_FFMPEG_GPL
 	select BR2_PACKAGE_FFMPEG_POSTPROC
@@ -79,8 +77,8 @@ menuconfig BR2_PACKAGE_KODI
 	select BR2_PACKAGE_FSTRCMP
 	select BR2_PACKAGE_GIFLIB
 	select BR2_PACKAGE_JPEG
+	select BR2_PACKAGE_JSON_FOR_MODERN_CPP
 	select BR2_PACKAGE_LIBASS
-	select BR2_PACKAGE_LIBCDIO
 	select BR2_PACKAGE_LIBCROSSGUID
 	select BR2_PACKAGE_LIBCURL
 	select BR2_PACKAGE_LIBDRM
@@ -91,8 +89,7 @@ menuconfig BR2_PACKAGE_KODI
 	select BR2_PACKAGE_LIBPNG
 	select BR2_PACKAGE_LZO
 	select BR2_PACKAGE_OPENSSL
-	select BR2_PACKAGE_PCRE
-	select BR2_PACKAGE_PCRE_UCP
+	select BR2_PACKAGE_PCRE2
 	select BR2_PACKAGE_PYTHON_PACKAGING
 	select BR2_PACKAGE_PYTHON3_2TO3
 	select BR2_PACKAGE_PYTHON3_PYEXPAT
@@ -100,7 +97,6 @@ menuconfig BR2_PACKAGE_KODI
 	select BR2_PACKAGE_PYTHON3_SSL
 	select BR2_PACKAGE_PYTHON3_UNICODEDATA
 	select BR2_PACKAGE_PYTHON3_ZLIB
-	select BR2_PACKAGE_RAPIDJSON
 	select BR2_PACKAGE_SPDLOG
 	select BR2_PACKAGE_SQLITE
 	select BR2_PACKAGE_TAGLIB
@@ -256,7 +252,7 @@ config BR2_PACKAGE_KODI_LIBUSB
 	bool "usb"
 	# https://github.com/xbmc/xbmc/blob/Jarvis/configure.ac#L1554
 	# "if libudev is available, we don't need libusb"
-	depends on !BR2_PACKAGE_HAS_UDEV
+	depends on !BR2_PACKAGE_HAS_LIBUDEV
 	select BR2_PACKAGE_LIBUSB
 	select BR2_PACKAGE_LIBUSB_COMPAT
 	help
@@ -281,6 +277,7 @@ config BR2_PACKAGE_KODI_UPNP
 
 config BR2_PACKAGE_KODI_OPTICALDRIVE
 	bool "optical drives"
+	select BR2_PACKAGE_LIBCDIO
 	help
 	  Add support for optical drives, to read e.g. DVDs...
 
@@ -355,6 +352,29 @@ menu "Screensavers"
 endmenu
 
 menu "Skins"
+
+config BR2_PACKAGE_KODI_SKIN_ENABLED
+	bool
+
+choice
+	prompt "Default skin"
+
+config BR2_PACKAGE_KODI_SKIN_DEFAULT_ESTUARY
+	bool "kodi-skin-estuary"
+	depends on BR2_PACKAGE_KODI_SKIN_ESTUARY
+
+config BR2_PACKAGE_KODI_SKIN_DEFAULT_CONFLUENCE
+	bool "kodi-skin-confluence"
+	depends on BR2_PACKAGE_KODI_SKIN_CONFLUENCE
+
+endchoice
+
+config BR2_PACKAGE_KODI_SKIN_ESTUARY
+	bool "kodi-skin-estuary"
+	default y
+	help
+	  Default skin Estuary
+
 	source "package/kodi-skin-confluence/Config.in"
 endmenu
 
