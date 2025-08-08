@@ -1,5 +1,5 @@
-# From https://downloads.mariadb.org/mariadb/12.1.0
-sha512  d56166b9c53309c4a7d4206e8c05b668f69e24efae723d750150818d6efc33374408e24e8ebfa6877448b300c244551c072eed80bac63db405fcf8e01fcf5433  mariadb-12.1.0.tar.gz
+# From https://downloads.mariadb.org/mariadb/12.1.1
+sha512  6e958893356aa7e291198311e3ba7d3b8e990632533a018c118d86776955ba29a88ea1ba8ee80bbb0f113391d23b94c26db534bc720d5d075441f9d4fe69d22d  mariadb-12.1.1.tar.gz
 # Hash for license files
 sha256  ff437f42ea15b42f3d9617e691b9f159f38a0b1b0748e482304857a5026ede90  README.md
 sha256  240a15a1d0f34d3abca462cdb7e5fb89470967563f16b0e71169e51c1e74cf2b  COPYING

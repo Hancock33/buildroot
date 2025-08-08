@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MARIADB_VERSION = 12.1.0
+MARIADB_VERSION = 12.1.1
 MARIADB_SITE = https://downloads.mariadb.org/interstitial/mariadb-$(MARIADB_VERSION)/source
 MARIADB_LICENSE = GPL-2.0 (server), GPL-2.0 with FLOSS exception (GPL client library), LGPL-2.0 (LGPL client library)
 # Tarball no longer contains LGPL license text
