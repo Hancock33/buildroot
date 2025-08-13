@@ -1,5 +1,5 @@
 # From https://www.kernel.org/pub/linux/kernel/people/kdave/btrfs-progs/sha256sums.asc
-sha256  57da428dd2199fd88d83ecf1cad05678ce78640ef7e52d7633be9887cef674bb  btrfs-progs-v6.15.tar.xz
+sha256  31a930f8737c2618a824ad4bd1fdd83f54103e0eaa15aaadc484ffae33466fc5  btrfs-progs-v6.16.tar.xz
 # Locally computed
 sha256  0d5bf346df9e635a29dcdddf832dc5b002ca6cdc1c5c9c6c567d2a61bb0c5c15  COPYING
 sha256  dc626520dcd53a22f727af3ee42c770e56c97a64fe3adb063799d8ab032fe551  libbtrfsutil/COPYING
