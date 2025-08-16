@@ -6,7 +6,7 @@
 
 # Use last Go version that go-bootstrap-stage2 can build: v1.21.x
 # See https://go.dev/doc/go1.22#bootstrap
-GO_BOOTSTRAP_STAGE3_VERSION = 1.21.8
+GO_BOOTSTRAP_STAGE3_VERSION = 1.21.13
 GO_BOOTSTRAP_STAGE3_SITE = https://storage.googleapis.com/golang
 GO_BOOTSTRAP_STAGE3_SOURCE = go$(GO_BOOTSTRAP_STAGE3_VERSION).src.tar.gz
 
