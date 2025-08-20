@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-KODI_VERSION_MAJOR = 21.2
-KODI_VERSION_NAME = Omega
-KODI_VERSION = b65e2abbf093bfb04e7233e51acc6e42c6745f8f
+KODI_VERSION_MAJOR = 22.0a1
+KODI_VERSION_NAME = Piers
+KODI_VERSION = 93aa9b2b85b1aa893ef8a062689eeaaa977149e8
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
