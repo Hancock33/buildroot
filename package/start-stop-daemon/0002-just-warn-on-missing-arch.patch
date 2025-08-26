@@ -13,7 +13,9 @@ Signed-off-by: Baruch Siach <baruch@tkos.co.il>
 Signed-off-by: Peter Seiderer <ps.report@gmx.net>
 ---
  m4/dpkg-arch.m4 | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ m4/dpkg-libs.m4 | 2 +-
+ 
+ 2 file changed, 2 insertion(+), 2 deletion(-)
 
 diff --git a/m4/dpkg-arch.m4 b/m4/dpkg-arch.m4
 index 3e18b3b1d..cc6e37d9f 100644
@@ -28,6 +30,20 @@ index 3e18b3b1d..cc6e37d9f 100644
    ], [
      AC_MSG_RESULT([$dpkg_arch])
    ])
+diff --git a/m4/dpkg-libs.m4 b/m4/dpkg-libs.m4
+index f8d546596..3981d001b 100644
+--- a/m4/dpkg-libs.m4
++++ b/m4/dpkg-libs.m4
+@@ -21,7 +21,7 @@ AC_DEFUN([DPKG_LIB_MD], [
+     ])
+   ])
+   AS_IF([test "$have_libmd" = "no"], [
+-    AC_MSG_FAILURE([md5 digest functions not found])
++    AC_MSG_WARN([md5 digest functions not found])
+   ])
+ ])# DPKG_LIB_MD
+ 
+
 -- 
 2.30.2
 
