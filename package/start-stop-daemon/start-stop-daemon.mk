@@ -7,13 +7,14 @@
 # Debian start-stop-daemon is part of dpkg. Since start-stop-daemon is the only
 # interesting tool in it, we call the buildroot package start-stop-daemon.
 
-START_STOP_DAEMON_VERSION = 1.20.7.1
+START_STOP_DAEMON_VERSION = 1.22.21
 START_STOP_DAEMON_SOURCE = dpkg_$(START_STOP_DAEMON_VERSION).tar.xz
-START_STOP_DAEMON_SITE = https://snapshot.debian.org/archive/debian/20210109T083441Z/pool/main/d/dpkg
+START_STOP_DAEMON_SITE = https://snapshot.debian.org/archive/debian/20250826T083413Z/pool/main/d/dpkg
 START_STOP_DAEMON_CONF_OPTS = \
 	--disable-dselect \
 	--disable-update-alternatives \
 	--disable-install-info \
+	--disable-shared \
 	--exec-prefix=/
 START_STOP_DAEMON_CONF_ENV = \
 	dpkg_cv_va_copy=yes \

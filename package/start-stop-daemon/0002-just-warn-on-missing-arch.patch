@@ -16,13 +16,13 @@ Signed-off-by: Peter Seiderer <ps.report@gmx.net>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/m4/dpkg-arch.m4 b/m4/dpkg-arch.m4
-index 71044c9..1394531 100644
+index 3e18b3b1d..cc6e37d9f 100644
 --- a/m4/dpkg-arch.m4
 +++ b/m4/dpkg-arch.m4
 @@ -58,7 +58,7 @@ AC_DEFUN([DPKG_ARCHITECTURE], [
    AC_MSG_CHECKING([dpkg architecture name])
    _DPKG_ARCHITECTURE([DEB_HOST_ARCH], [dpkg_arch])
-   AS_IF([test "x$dpkg_arch" = "x"], [
+   AS_IF([test -z "$dpkg_arch"], [
 -    AC_MSG_ERROR([cannot determine host dpkg architecture])
 +    AC_MSG_WARN([cannot determine host dpkg architecture])
    ], [
