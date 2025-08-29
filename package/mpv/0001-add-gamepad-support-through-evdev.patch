@@ -380,12 +380,12 @@ index 0000000000..73dc5ce4b9
 +    mp_input_add_thread_src(ictx, NULL, read_gamepad_thread);
 +}
 diff --git a/input/input.c b/input/input.c
-index cffe8ccca8..141127ac54 100644
+index 412c6db319..fdd40d81f1 100644
 --- a/input/input.c
 +++ b/input/input.c
-@@ -220,9 +220,7 @@ const struct m_sub_options input_config = {
-         {"input-preprocess-wheel", OPT_BOOL(preprocess_wheel)},
+@@ -234,9 +234,7 @@ const struct m_sub_options input_config = {
          {"input-touch-emulate-mouse", OPT_BOOL(touch_emulate_mouse)},
+         {"input-tablet-emulate-mouse", OPT_BOOL(tablet_emulate_mouse)},
          {"input-dragging-deadzone", OPT_INT(dragging_deadzone)},
 -#if HAVE_SDL2_GAMEPAD
          {"input-gamepad", OPT_BOOL(use_gamepad)},
@@ -393,7 +393,7 @@ index cffe8ccca8..141127ac54 100644
          {"window-dragging", OPT_BOOL(allow_win_drag)},
          {0}
      },
-@@ -1578,12 +1576,13 @@ void mp_input_load_config(struct input_ctx *ictx)
+@@ -1752,12 +1750,13 @@ void mp_input_load_config(struct input_ctx *ictx)
      bool use_gamepad = ictx->opts->use_gamepad;
      input_unlock(ictx);
  
@@ -410,10 +410,10 @@ index cffe8ccca8..141127ac54 100644
  
  bool mp_input_load_config_file(struct input_ctx *ictx, char *file)
 diff --git a/input/input.h b/input/input.h
-index 4da6178c05..b9d09d0249 100644
+index 01b0d0c0b9..6e62ed33a7 100644
 --- a/input/input.h
 +++ b/input/input.h
-@@ -224,6 +224,7 @@ void mp_input_set_repeat_info(struct input_ctx *ictx, int rate, int delay);
+@@ -245,6 +245,7 @@ void mp_input_set_repeat_info(struct input_ctx *ictx, int rate, int delay);
  struct mpv_node mp_input_get_bindings(struct input_ctx *ictx);
  
  void mp_input_sdl_gamepad_add(struct input_ctx *ictx);
@@ -422,10 +422,10 @@ index 4da6178c05..b9d09d0249 100644
  struct mp_ipc_ctx;
  struct mp_client_api;
 diff --git a/meson.build b/meson.build
-index 7572769e0e..aa8ca86d07 100644
+index 94ee12feee..017a3a28dd 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -749,6 +749,8 @@ if features['sdl2-gamepad']
+@@ -750,6 +750,8 @@ if features['sdl2-gamepad']
      sources += files('input/sdl_gamepad.c')
  endif
  
