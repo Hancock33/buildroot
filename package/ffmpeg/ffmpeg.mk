@@ -50,12 +50,6 @@ FFMPEG_CONF_OPTS = \
 	--disable-symver \
 	--disable-doc
 
-# batocera - add pulse audio support for batocera-record
-ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
-FFMPEG_CONF_OPTS += --enable-libpulse
-FFMPEG_DEPENDENCIES += pulseaudio
-endif
-
 # batocera - force dash demuxer & libxml2 for Kodi
 FFMPEG_CONF_OPTS += --enable-demuxer=dash
 FFMPEG_CONF_OPTS += --enable-libxml2
@@ -87,6 +81,23 @@ FFMPEG_CONF_OPTS += --enable-ffplay
 FFMPEG_CONF_ENV += SDL_CONFIG=$(STAGING_DIR)/usr/bin/sdl2-config
 else
 FFMPEG_CONF_OPTS += --disable-ffplay
+endif
+
+ifeq ($(BR2_PACKAGE_JACK1),y)
+FFMPEG_CONF_OPTS += --enable-libjack
+FFMPEG_DEPENDENCIES += jack1
+else ifeq ($(BR2_PACKAGE_JACK2),y)
+FFMPEG_CONF_OPTS += --enable-libjack
+FFMPEG_DEPENDENCIES += jack2
+else
+FFMPEG_CONF_OPTS += --disable-libjack
+endif
+
+ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
+FFMPEG_DEPENDENCIES += pulseaudio
+FFMPEG_CONF_OPTS += --enable-libpulse
+else
+FFMPEG_CONF_OPTS += --disable-libpulse
 endif
 
 ifeq ($(BR2_PACKAGE_LIBV4L),y)
@@ -374,6 +385,13 @@ FFMPEG_CONF_OPTS += --enable-libopenmpt
 FFMPEG_DEPENDENCIES += libopenmpt
 else
 FFMPEG_CONF_OPTS += --disable-libopenmpt
+endif
+
+ifeq ($(BR2_PACKAGE_LIBSOXR),y)
+FFMPEG_CONF_OPTS += --enable-libsoxr
+FFMPEG_DEPENDENCIES += libsoxr
+else
+FFMPEG_CONF_OPTS += --disable-libsoxr
 endif
 
 ifeq ($(BR2_PACKAGE_SPEEX),y)
