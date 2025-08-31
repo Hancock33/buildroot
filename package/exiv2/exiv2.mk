@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-EXIV2_VERSION = v0.28.5
+EXIV2_VERSION = v0.28.7
 EXIV2_SOURCE = exiv2-$(EXIV2_VERSION)-Source.tar.gz
 EXIV2_SITE = $(call github,Exiv2,exiv2,$(EXIV2_VERSION))
 EXIV2_INSTALL_STAGING = YES
