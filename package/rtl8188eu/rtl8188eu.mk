@@ -3,8 +3,8 @@
 # rtl8188eu
 #
 ################################################################################
-# Version: Commits on Jun 18, 2025
-RTL8188EU_VERSION = 702a90b02edca722cc0d139260ba02c23f406333
+# Version: Commits on Sept 03, 2025
+RTL8188EU_VERSION = c3104bd094970dd5944e2b28141b552630933bde
 RTL8188EU_BRANCH = v5.2.2.4
 RTL8188EU_SITE = $(call github,benetti-engineering,rtl8188eu,$(RTL8188EU_VERSION))
 RTL8188EU_LICENSE = GPL-2.0, proprietary (rtl8188eufw.bin firmware blob)
