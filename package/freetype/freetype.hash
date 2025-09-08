@@ -1,6 +1,6 @@
-# From https://sourceforge.net/projects/freetype/files/freetype2/2.13.3/
-sha1  2437819d11c1205e81141735dcb0a36c0d541e96  freetype-2.13.3.tar.xz
-sha256  0550350666d427c74daeb85d5ac7bb353acba5f76956395995311a9c6f063289  freetype-2.13.3.tar.xz
+# From https://sourceforge.net/projects/freetype/files/freetype2/2.14.0/
+sha1  5986e15c8514369fdbdd2cf64d9ce26ceb1e0f10  freetype-2.14.0.tar.xz
+sha256  f8dfa8f15ef0576738dfb55b2e6e6b172fd5d09b6f03785a1df03239549f64d2  freetype-2.14.0.tar.xz
 
 # Locally calculated
 sha256  2e3bbb7d7c5c396368dd0853a790ec29ce5b8647163dde42a0493fb0d6556b2b  LICENSE.TXT

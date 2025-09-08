@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2022-December/003278.html
-sha256  9a7446f3484b9b7538ac5ee30d2c1ce9e5b7fbbaf1440e02f6cca186a1fa745f  libXres-1.2.2.tar.xz
-sha512  897f2d426ea6f41169a5a52c356d1a1cb2ffb9144ae41b9fedd06455c3d81042930fe55be269ce4b8545ee65fcfe168101192a599053d810e8810f627c94f810  libXres-1.2.2.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2025-September/003628.html
+sha256  e1ee4845aa6a59e6ba7145422279ffc7da521b4d3dd302c0b1febdf45d06d093  libXres-1.2.3.tar.gz
+sha512  f13eec976c817b260312726f86373f7fe6f46234d08448fe31d03a85253a26d41f51bd62742cae6c6d21ad2f8833c8ae9f8958b6d8a8018a1ffe093af4581727  libXres-1.2.3.tar.gz
 # Locally calculated
 sha256  0d7300168f85833ea2564835f66a61e036ede90b33e76c06a7b4078096fedbcc  COPYING
