@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-SYSVINIT_VERSION = 3.14
-SYSVINIT_SOURCE = sysvinit-$(SYSVINIT_VERSION).tar.xz
-SYSVINIT_SITE = https://github.com/slicer69/sysvinit/releases/download/$(SYSVINIT_VERSION)
+SYSVINIT_VERSION = 3.15
+SYSVINIT_SOURCE = sysvinit-$(SYSVINIT_VERSION).tar.gz
+SYSVINIT_SITE = $(call github,slicer69,sysvinit,$(SYSVINIT_VERSION))
 SYSVINIT_LICENSE = GPL-2.0+
 SYSVINIT_LICENSE_FILES = COPYING
 SYSVINIT_CPE_ID_VALID = YES
