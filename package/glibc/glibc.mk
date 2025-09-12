@@ -146,6 +146,12 @@ endif
 ifeq ($(BR2_OPTIMIZE_FAST),y)
 GLIBC_CFLAGS += -O2
 endif
+
+# glibc can't be built for small file sizes optimisations
+ifeq ($(BR2_OPTIMIZE_S),y)
+GLIBC_CFLAGS += -O2
+endif
+
 GLIBC_CFLAGS += -pipe
 GLIBC_LDFLAGS+= -Wl,--hash-style=both
 
