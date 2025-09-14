@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-LIBGTK4_VERSION_MAJOR = 4.17
-LIBGTK4_VERSION = $(LIBGTK4_VERSION_MAJOR).4
+LIBGTK4_VERSION_MAJOR = 4.20
+LIBGTK4_VERSION = $(LIBGTK4_VERSION_MAJOR).1
 LIBGTK4_SOURCE = gtk-$(LIBGTK4_VERSION).tar.xz
 LIBGTK4_SITE = https://download.gnome.org/sources/gtk/$(LIBGTK4_VERSION_MAJOR)
 LIBGTK4_LICENSE = LGPL-2.0+
@@ -15,14 +15,13 @@ LIBGTK4_CPE_ID_PRODUCT = gtk
 LIBGTK4_INSTALL_STAGING = YES
 
 LIBGTK4_DEPENDENCIES = \
-	host-gobject-introspection \
 	host-pkgconf \
 	host-libgtk4 \
 	gdk-pixbuf \
 	graphene \
 	libepoxy \
 	libglib2 \
-	libpng \
+	librsvg \
 	pango \
 	$(TARGET_NLS_DEPENDENCIES)
 
@@ -35,7 +34,7 @@ LIBGTK4_CONF_OPTS = \
 	-Dsysprof=disabled \
 	-Dtracker=disabled \
 	-Dcolord=disabled \
-	-Dintrospection=enabled \
+	-Dintrospection=disabled \
 	-Ddocumentation=false \
 	-Dscreenshots=false \
 	-Dman-pages=false
