@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/pyparsing/json
-md5  cc302d3f74bd1c56b4895d7186e4dd68  pyparsing-3.2.3.tar.gz
-sha256  b9c13f1ab8b3b542f72e28f634bad4de758ab3ce4546e4301970ad6fa77c38be  pyparsing-3.2.3.tar.gz
+md5  17ca8aeb98566fed54c5fdaf8ff60de9  pyparsing-3.2.4.tar.gz
+sha256  fff89494f45559d0f2ce46613b419f632bbb6afbdaed49696d322bcf98a58e99  pyparsing-3.2.4.tar.gz
 # Locally computed sha256 checksums
 sha256  10d5120a16805804ffda8b688c220bfb4e8f39741b57320604d455a309e01972  LICENSE
