@@ -1,5 +1,9 @@
 config BR2_PACKAGE_WEBP
 	bool "webp"
+	select BR2_PACKAGE_GIFLIB
+	select BR2_PACKAGE_JPEG
+	select BR2_PACKAGE_LIBPNG
+	select BR2_PACKAGE_TIFF
 	help
 	  WebP is a new image format that provides lossless and lossy
 	  compression for images on the web
