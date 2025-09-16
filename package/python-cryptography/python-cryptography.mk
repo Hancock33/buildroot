@@ -15,13 +15,17 @@ PYTHON_CRYPTOGRAPHY_CPE_ID_VENDOR = cryptography_project
 PYTHON_CRYPTOGRAPHY_CPE_ID_PRODUCT = cryptography
 PYTHON_CRYPTOGRAPHY_CARGO_MANIFEST_PATH = src/rust/Cargo.toml
 PYTHON_CRYPTOGRAPHY_DEPENDENCIES = \
+	host-pkgconf \
 	host-python-cffi \
 	host-python-setuptools \
 	openssl
 HOST_PYTHON_CRYPTOGRAPHY_DEPENDENCIES = \
+	host-pkgconf \
 	host-python-cffi \
 	host-python-setuptools \
 	host-openssl
+PYTHON_CRYPTOGRAPHY_ENV = OPENSSL_NO_VENDOR=1
+HOST_PYTHON_CRYPTOGRAPHY_ENV = OPENSSL_NO_VENDOR=1
 PYTHON_CRYPTOGRAPHY_BUILD_OPTS = --skip-dependency-check
 HOST_PYTHON_CRYPTOGRAPHY_BUILD_OPTS = --skip-dependency-check
 
