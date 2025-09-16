@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/pyopenssl/json
-md5  ed54c876e38a6f3525008f9054b32ac1  pyopenssl-25.1.0.tar.gz
-sha256  8d031884482e0c67ee92bf9a4d8cceb08d92aba7136432ffb0703c5280fc205b  pyopenssl-25.1.0.tar.gz
+md5  95e61978db6fa98ee4565be5783a5598  pyopenssl-25.2.0.tar.gz
+sha256  71db4c6a4badb88b9804ade80886dc19b7eec3678a4a23c9029f97024c65191a  pyopenssl-25.2.0.tar.gz
 # Locally computed sha256 checksums
 sha256  cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  LICENSE
