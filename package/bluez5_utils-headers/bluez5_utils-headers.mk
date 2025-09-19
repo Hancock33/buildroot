@@ -19,7 +19,7 @@ BLUEZ5_UTILS_HEADERS_INSTALL_TARGET = NO
 
 define BLUEZ5_UTILS_HEADERS_INSTALL_STAGING_CMDS
 	$(INSTALL) -d $(STAGING_DIR)/usr/include/bluetooth/
-	$(INSTALL) -m 644 $(@D)/lib/*.h $(STAGING_DIR)/usr/include/bluetooth/
+	$(INSTALL) -m 644 $(@D)/lib/bluetooth/*.h $(STAGING_DIR)/usr/include/bluetooth/
 endef
 
 $(eval $(generic-package))
