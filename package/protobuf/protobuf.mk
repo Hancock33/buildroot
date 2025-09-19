@@ -7,7 +7,7 @@
 # When bumping this package, make sure to also verify if the
 # python-protobuf package still works and to update its hash,
 # as they share the same version/site variables.
-PROTOBUF_VERSION = 30.2
+PROTOBUF_VERSION = 32.1
 PROTOBUF_SITE = https://github.com/protocolbuffers/protobuf/releases/download/v$(PROTOBUF_VERSION)
 PROTOBUF_LICENSE = BSD-3-Clause
 PROTOBUF_LICENSE_FILES = LICENSE
@@ -34,7 +34,7 @@ HOST_PROTOBUF_CONF_OPTS = \
 	-Dprotobuf_ALLOW_CCACHE=ON \
 	-Dprotobuf_BUILD_CONFORMANCE=OFF \
 	-Dprotobuf_BUILD_LIBPROTOC=ON \
-	-Dprotobuf_BUILD_LIBUPB=OFF \
+	-Dprotobuf_BUILD_LIBUPB=ON \
 	-Dprotobuf_BUILD_PROTOBUF_BINARIES=ON \
 	-Dprotobuf_BUILD_PROTOC_BINARIES=ON \
 	-Dprotobuf_BUILD_TESTS=OFF \
