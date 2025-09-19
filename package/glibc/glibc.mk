@@ -48,7 +48,7 @@ GLIBC_DEPENDENCIES = host-gcc-initial linux-headers host-bison host-gawk host-mo
 	$(BR2_MAKE_HOST_DEPENDENCY) $(BR2_PYTHON3_HOST_DEPENDENCY)
 
 ifeq ($(BR_CMAKE_USE_CLANG),y)
-	GLIBC_DEPENDENCIES += host-lld
+	GLIBC_DEPENDENCIES += host-lld host-doxygen
 endif
 
 GLIBC_SUBDIR = build

@@ -22,7 +22,7 @@ endif
 
 LIBXML2_CONF_OPTS = --with-http --with-gnu-ld --without-debug
 
-HOST_LIBXML2_DEPENDENCIES = host-pkgconf host-doxygen
+HOST_LIBXML2_DEPENDENCIES = host-pkgconf
 LIBXML2_DEPENDENCIES = host-pkgconf
 
 HOST_LIBXML2_CONF_OPTS = --without-zlib --without-lzma
