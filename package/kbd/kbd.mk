@@ -4,12 +4,13 @@
 #
 ################################################################################
 
-KBD_VERSION = 2.8.0
+KBD_VERSION = 2.9.0
 KBD_SOURCE = kbd-$(KBD_VERSION).tar.xz
 KBD_SITE = $(BR2_KERNEL_MIRROR)/linux/utils/kbd
 KBD_CONF_OPTS = \
 	--disable-vlock \
-	--disable-tests
+	--disable-tests \
+	--with-zlib=no
 KBD_DEPENDENCIES = \
 	$(TARGET_NLS_DEPENDENCIES) \
 	host-pkgconf
