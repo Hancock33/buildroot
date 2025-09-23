@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBGPGME_VERSION = 2.0.0
+LIBGPGME_VERSION = 2.0.1
 LIBGPGME_SITE = https://gnupg.org/ftp/gcrypt/gpgme
 LIBGPGME_SOURCE = gpgme-$(LIBGPGME_VERSION).tar.bz2
 LIBGPGME_LICENSE = LGPL-2.1+
