@@ -3,8 +3,8 @@
 # python-glslang
 #
 ################################################################################
-# Version: Commits on Jun 27, 2025
-PYTHON_GLSLANG_VERSION = 15.4.0
+# Version: Commits on Sept 25, 2025
+PYTHON_GLSLANG_VERSION = 16.0.0
 PYTHON_GLSLANG_SITE = $(call github,KhronosGroup,glslang,$(PYTHON_GLSLANG_VERSION))
 PYTHON_GLSLANG_LICENSE = BSD-3-Clause
 PYTHON_GLSLANG_LICENSE_FILES = LICENSE.txt
