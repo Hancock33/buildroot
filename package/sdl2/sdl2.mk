@@ -4,7 +4,7 @@
 #
 ################################################################################
 # git describe --tags --abbrev=40 origin/release-2.30.x | cut -d '-' -f 2-
-SDL2_VERSION = 2.32.10-9-g7fe49da380bc2403462751cd1f9466b71728be98
+SDL2_VERSION = 2.32.10-11-ga5f445dba181740c541ff9a5b93fd80d1470cd06
 SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = LICENSE.txt
