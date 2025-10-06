@@ -16,7 +16,7 @@ Upstream: Not applicable
 Signed-off-by: Francois Perrad <francois.perrad@gadz.org>
 Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 [- added Upstream: tag
- - rebased for 4.0.1
+ - rebased for 4.0.2
  - removed "check optional module versions" portion of the patch due to
    upstream commit
    https://github.com/apache/spamassassin/commit/cf16b312343633c70f52d372c6b3635be9cbeb14
@@ -24,7 +24,7 @@ Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 
 --- a/Makefile.PL
 +++ b/Makefile.PL
-@@ -134,10 +134,8 @@
+@@ -71,10 +71,8 @@
        'spamassassin.raw' => 'spamassassin',
        'sa-learn.raw'     => 'sa-learn',
        'sa-update.raw'    => 'sa-update',
@@ -35,7 +35,7 @@ Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
        'spamd/spamd.raw'  => 'spamd/spamd',
      },
  
-@@ -1071,7 +1055,7 @@
+@@ -1006,7 +1008,7 @@
  
  FIXBANG		= -Msharpbang \
                    -Mconditional \
@@ -44,7 +44,7 @@ Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
  		  -DPERL_WARN="$(PERL_WARN)" \
  		  -DPERL_TAINT="$(PERL_TAINT)"
  
-@@ -1081,7 +1065,7 @@
+@@ -1016,7 +1014,7 @@
  sa-learn: sa-learn.raw
  	$(PREPROCESS) $(FIXBYTES) $(FIXVARS) $(FIXBANG) -m$(PERM_RWX) -i$? -o$@
  
