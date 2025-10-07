@@ -146,6 +146,14 @@ endif
 
 comment "Legacy options removed in 2025.11"
 
+config BR2_PACKAGE_LIBJWT
+	bool "libjwt has been removed"
+	select BR2_LEGACY
+	help
+	  The only dependee of libjwt, asterisk, is incompatible with
+	  version 3 so the version bundled with asterisk is used and
+	  this package can be removed.
+
 config BR2_TARGET_ROOTFS_AXFS
 	bool "AXFS root filesystem has been removed"
 	select BR2_LEGACY
@@ -323,6 +331,54 @@ config BR2_LINUX_KERNEL_EXT_EV3DEV_LINUX_DRIVERS
 	  are targeting an outdated kernel which is no longer supported.
 
 comment "Legacy options removed in 2025.08"
+
+config BR2_PACKAGE_BCTOOLBOX
+	bool "bctoolbox has been removed"
+	select BR2_LEGACY
+	help
+	  This package has been removed as part of the linphone
+	  removal. In addition, newer version of linphone directly
+	  bundle bctoolbox making a separate package unnecessary.
+
+config BR2_PACKAGE_ORTP
+	bool "ortp has been removed"
+	select BR2_LEGACY
+	help
+	  This package has been removed as part of the linphone
+	  removal. In addition, newer version of linphone directly
+	  bundle ortp making a separate package unnecessary.
+
+config BR2_PACKAGE_MEDIASTREAMER
+	bool "mediastreamer has been removed"
+	select BR2_LEGACY
+	help
+	  This package has been removed as part of the linphone
+	  removal. In addition, newer version of linphone directly
+	  bundle mediastreamer making a separate package unnecessary.
+
+config BR2_PACKAGE_BELR
+	bool "belr has been removed"
+	select BR2_LEGACY
+	help
+	  This package has been removed as part of the linphone
+	  removal. In addition, newer version of linphone directly
+	  bundle belr making a separate package unnecessary.
+
+config BR2_PACKAGE_BELLE_SIP
+	bool "belle-sip has been removed"
+	select BR2_LEGACY
+	help
+	  This package has been removed as part of the linphone
+	  removal. In addition, newer version of linphone directly
+	  bundle belle-sip making a separate package unnecessary.
+
+config BR2_PACKAGE_LINPHONE
+	bool "linphone has been removed"
+	select BR2_LEGACY
+	help
+	  This package was no longer maintained in Buildroot and was
+	  no longer building. It can be re-added if someone volunteers
+	  to fix the issues, update the package and maintain it.
 
 config BR2_PACKAGE_NETSTAT_NAT
 	bool "netstat-nat has been removed"

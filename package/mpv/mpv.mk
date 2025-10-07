@@ -44,6 +44,10 @@ else
 MPV_CONF_OPTS += -Dalsa=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_LIBDISPLAY_INFO),y)
+MPV_DEPENDENCIES += libdisplay-info
+endif
+
 ifeq ($(BR2_PACKAGE_MESA3D_GBM),y)
 MPV_CONF_OPTS += -Dgbm=enabled
 MPV_DEPENDENCIES += mesa3d
@@ -167,14 +171,6 @@ MPV_CONF_OPTS += -Dsdl2=enabled
 MPV_DEPENDENCIES += sdl2
 else
 MPV_CONF_OPTS += -Dsdl2=disabled
-endif
-
-# Raspberry Pi support
-ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
-#MPV_CONF_OPTS += -Drpi=enabled -Dgl=enabled
-#MPV_DEPENDENCIES += rpi-userland
-#else
-#MPV_CONF_OPTS += -Drpi=disabled
 endif
 
 # va-api support

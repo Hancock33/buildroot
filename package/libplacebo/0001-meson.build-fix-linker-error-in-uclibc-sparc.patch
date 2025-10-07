@@ -1,7 +1,7 @@
 From 4386f3e3b3d02c55776e3f674d8447fd24388c2c Mon Sep 17 00:00:00 2001
 From: Javad Rahimipetroudi <javad.rahimipetroudi@mind.be>
 Date: Fri, 19 Jul 2024 07:02:48 +0200
-Subject: [PATCH] meson.build: add libatomic dependency if needed  
+Subject: [PATCH] meson.build: add libatomic dependency if needed
 
 This PR fixes the problem related to not finding the libatomic during the
 build. Some combinations or architecture and libc (e.g. uClibc on SPARC)
@@ -23,7 +23,7 @@ diff --git a/meson.build b/meson.build
 index a73e49ff..f8cbf9f1 100644
 --- a/meson.build
 +++ b/meson.build
-@@ -448,6 +448,7 @@ add_project_link_arguments(link_args, language: ['c', 'cpp'])
+@@ -450,6 +450,7 @@ add_project_link_arguments(link_args, language: ['c', 'cpp'])
  # Global dependencies
  fs = import('fs')
  libm = cc.find_library('m', required: false)
@@ -31,7 +31,7 @@ index a73e49ff..f8cbf9f1 100644
  thirdparty = meson.project_source_root()/'3rdparty'
  python = import('python').find_installation()
  python_env = environment()
-@@ -473,7 +474,7 @@ else
+@@ -475,7 +476,7 @@ else
      )
  endif
  

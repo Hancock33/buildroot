@@ -5,7 +5,7 @@
 ################################################################################
 
 LIBAO_VERSION = 1.2.2
-LIBAO_SITE = $(call github,xiph,libao,$(LIBAO_VERSION))
+LIBAO_SITE = https://gitlab.xiph.org/xiph/libao/-/archive/$(LIBAO_VERSION)
 LIBAO_DEPENDENCIES = host-pkgconf
 LIBAO_INSTALL_STAGING = YES
 LIBAO_LICENSE = GPL-2.0+
