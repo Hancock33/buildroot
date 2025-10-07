@@ -18,6 +18,12 @@ LIBTHEORA_CONF_OPTS = \
 	--disable-examples \
 	--disable-spec
 
+# assembly code on arm is broken:
+# https://gitlab.xiph.org/xiph/theora/-/merge_requests/53
+ifeq ($(BR2_arm),y)
+LIBTHEORA_CONF_OPTS += --disable-asm
+endif
+
 LIBTHEORA_DEPENDENCIES = libogg libvorbis host-pkgconf
 
 $(eval $(autotools-package))

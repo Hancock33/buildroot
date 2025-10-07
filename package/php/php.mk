@@ -43,6 +43,10 @@ ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 PHP_EXTRA_LIBS += -latomic
 endif
 
+ifeq ($(BR2_TOOLCHAIN_USES_UCLIBC),y)
+PHP_CONF_ENV += php_cv_func_copy_file_range=no
+endif
+
 ifeq ($(BR2_PACKAGE_LIBUCONTEXT),y)
 PHP_DEPENDENCIES += libucontext
 PHP_EXTRA_LIBS += -lucontext
@@ -259,10 +263,10 @@ PHP_POST_CONFIGURE_HOOKS += PHP_DISABLE_VALGRIND
 
 ifeq ($(BR2_PACKAGE_PCRE2_JIT),y)
 PHP_CONF_OPTS += --with-pcre-jit=yes
-PHP_CONF_ENV += ac_cv_have_pcre2_jit=yes
+PHP_CONF_ENV += php_cv_have_pcre2_jit=yes
 else
 PHP_CONF_OPTS += --with-pcre-jit=no
-PHP_CONF_ENV += ac_cv_have_pcre2_jit=no
+PHP_CONF_ENV += php_cv_have_pcre2_jit=no
 endif
 
 ifeq ($(BR2_PACKAGE_PHP_EXT_CURL),y)

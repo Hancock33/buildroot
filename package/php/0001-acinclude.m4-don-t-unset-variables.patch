@@ -10,7 +10,7 @@ Signed-off-by: Gustavo Zacarias <gustavo@zacarias.com.ar>
 Signed-off-by: Adam Duskett <aduskett@gmail.com>
 [aduskett@gmail.com: Update for 7.3.0]
 Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
-[Bernd: rebased for 8.1.7 & 8.4.11]
+[Bernd: rebased for 8.4.13]
 ---
  build/php.m4 | 4 ----
  1 file changed, 4 deletions(-)

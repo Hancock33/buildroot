@@ -18,7 +18,7 @@ Signed-off-by: Fabrice Fontaine <fabrice.fontaine@orange.com>
 Signed-off-by: Adam Duskett <aduskett@gmail.com>
 [aduskett@gmail.com: Update for 8.0.7]
 Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
-[Bernd: rebased for 8.4.11]
+[Bernd: rebased for 8.4.13]
 ---
  sapi/apache2handler/config.m4 | 3 +++
  1 file changed, 3 insertions(+)
