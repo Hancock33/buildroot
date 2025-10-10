@@ -26,7 +26,7 @@ config BR2_PACKAGE_REFPOLICY
 	  policies is not correct.  Individual policies would need to
 	  be tweaked to get everything functioning properly.
 
-	  https://github.com/TresysTechnology/refpolicy
+	  https://github.com/SELinuxProject/refpolicy
 
 if BR2_PACKAGE_REFPOLICY
 
@@ -121,19 +121,17 @@ config BR2_REFPOLICY_EXTRA_MODULES
 
 endif
 
-config BR2_REFPOLICY_DISABLE_DONTAUDIT
-	bool "Disable dontaudit"
+config BR2_REFPOLICY_ENABLEAUDIT
+	bool "remove dontaudit rules from policy (debugging only)"
 	help
-	  Builds the refpolicy with the "dontaudit" rules disabled.
-	  This will trigger unseen, and probably unharmful audit logs that are
-	  explicitely silenced otherwise. This option can be helpful for
-	  debugging purposes, should a silenced message cause a real issue
-	  that would otherwise be hard to troubleshoot.
+	  Remove dontaudit rules from policy.conf before compiling the
+	  policy. This can be useful for debugging to see "denied"
+	  audit log messages that would otherwise be hidden, which
+	  show the cause of problems.
 
-	  This option should be used for debugging purposes only, due to
-	  the amount of avc logs it generates.
-
-	  If unsure, select n.
+	  Warning: This option will likely produce a high rate of
+	  audit log messages, and should be enabled only for
+	  debugging.
 
 endif
 

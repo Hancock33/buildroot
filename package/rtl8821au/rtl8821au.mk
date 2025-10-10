@@ -3,8 +3,8 @@
 # rtl8821au
 #
 ################################################################################
-# Version: Commits on Aug 28, 2025
-RTL8821AU_VERSION = 4d39880a41201ddb14b19f2e7273054bb812b32e
+# Version: Commits on Oct 08, 2025
+RTL8821AU_VERSION = dfe6801adb9b3a5572260ab308d3b69522992814
 RTL8821AU_BRANCH = v5.2.6
 RTL8821AU_SITE = $(call github,benetti-engineering,rtl8821au,$(RTL8821AU_VERSION))
 RTL8821AU_LICENSE = GPL-2.0
