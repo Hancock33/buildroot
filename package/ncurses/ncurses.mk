@@ -37,7 +37,7 @@ NCURSES_CONF_OPTS = \
 	$(if $(BR2_PACKAGE_NCURSES_TARGET_PROGS),,--without-progs) \
 	--without-manpages  \
 	--enable-sigwinch \
-	--with-termlib
+	--with-termlib=tinfo
 
 ifeq ($(BR2_STATIC_LIBS),y)
 NCURSES_CONF_OPTS += --without-shared --with-normal
