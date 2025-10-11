@@ -13,6 +13,9 @@ LIBZLIB_INSTALL_STAGING = YES
 LIBZLIB_PROVIDES = zlib
 LIBZLIB_CPE_ID_VENDOR = zlib
 LIBZLIB_CPE_ID_PRODUCT = zlib
+HOST_LIBZLIB_DEPENDENCIES = host-pkgconf
+# The package is a dependency to ccache so ccache cannot be a dependency
+HOST_LIBZLIB_ADD_CCACHE_DEPENDENCY = NO
 
 # It is not possible to build only a shared version of zlib, so we build both
 # shared and static, unless we only want the static libs, and we eventually
@@ -40,6 +43,8 @@ define HOST_LIBZLIB_CONFIGURE_CMDS
 	(cd $(@D); rm -rf config.cache; \
 		$(HOST_CONFIGURE_ARGS) \
 		$(HOST_CONFIGURE_OPTS) \
+		CC="$(HOSTCC_NOCCACHE)" \
+		CXX="$(HOSTCXX_NOCCACHE)" \
 		./configure \
 		--prefix="$(HOST_DIR)" \
 		--sysconfdir="$(HOST_DIR)/etc" \

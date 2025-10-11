@@ -18,6 +18,9 @@ LIBOPENSSL_PROVIDES = openssl
 LIBOPENSSL_CPE_ID_VENDOR = $(LIBOPENSSL_PROVIDES)
 LIBOPENSSL_CPE_ID_PRODUCT = $(LIBOPENSSL_PROVIDES)
 
+# The package is a dependency to ccache so ccache cannot be a dependency
+HOST_LIBOPENSSL_ADD_CCACHE_DEPENDENCY = NO
+
 ifeq ($(BR2_m68k_cf),y)
 # relocation truncated to fit: R_68K_GOT16O
 LIBOPENSSL_CFLAGS += -mxgot
@@ -54,6 +57,8 @@ endif
 define HOST_LIBOPENSSL_CONFIGURE_CMDS
 	cd $(@D); \
 		$(HOST_CONFIGURE_OPTS) \
+		CC="$(HOSTCC_NOCCACHE)" \
+		CXX="$(HOSTCXX_NOCCACHE)" \
 		./config \
 		--prefix=$(HOST_DIR) \
 		--openssldir=$(HOST_DIR)/etc/ssl \

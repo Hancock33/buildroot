@@ -30,7 +30,7 @@ HOST_CMAKE_ADD_CCACHE_DEPENDENCY = NO
 #   linking with the ones bundled into the CMake sources.
 
 CMAKE_DEPENDENCIES = zlib jsoncpp libcurl libarchive expat bzip2 xz libuv rhash
-
+HOST_CMAKE_DEPENDENCIES = host-openssl
 CMAKE_CONF_OPTS = \
 	-DKWSYS_LFS_WORKS=TRUE \
 	-DKWSYS_CHAR_IS_SIGNED=TRUE \
@@ -61,7 +61,7 @@ define HOST_CMAKE_CONFIGURE_CMDS
 			-DCMAKE_C_FLAGS="$(HOST_CMAKE_CFLAGS)" \
 			-DCMAKE_CXX_FLAGS="$(HOST_CMAKE_CXXFLAGS)" \
 			-DCMAKE_EXE_LINKER_FLAGS="$(HOST_LDFLAGS)" \
-			-DCMAKE_USE_OPENSSL:BOOL=OFF \
+			-DCMAKE_USE_OPENSSL:BOOL=ON \
 			-DBUILD_CursesDialog=OFF \
 	)
 endef
