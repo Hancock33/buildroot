@@ -78,13 +78,13 @@ endif
 
 ifeq ($(BR2_PACKAGE_SYSTEMD),y)
 PIPEWIRE_CONF_OPTS += \
-	-Dsystemd=enabled \
+	-Dlibsystemd=enabled \
 	-Dsystemd-system-service=enabled \
 	-Dsystemd-user-service=enabled
 PIPEWIRE_DEPENDENCIES += systemd
 else
 PIPEWIRE_CONF_OPTS += \
-	-Dsystemd=disabled \
+	-Dlibsystemd=disabled \
 	-Dsystemd-system-service=disabled \
 	-Dsystemd-user-service=disabled
 endif
