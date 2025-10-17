@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBXKBCOMMON_VERSION = 1.12.0
+LIBXKBCOMMON_VERSION = 1.12.1
 LIBXKBCOMMON_SITE = https://github.com/xkbcommon/libxkbcommon/archive/refs/tags
 LIBXKBCOMMON_SOURCE = xkbcommon-$(LIBXKBCOMMON_VERSION).tar.gz
 LIBXKBCOMMON_LICENSE = MIT/X11
