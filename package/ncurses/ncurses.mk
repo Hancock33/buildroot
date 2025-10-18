@@ -102,6 +102,8 @@ define NCURSES_LINK_LIBS_SHARED
 	)
 	ln -sf libncurses$(NCURSES_LIB_SUFFIX).so \
 		$(STAGING_DIR)/usr/lib/libcurses.so
+	ln -sf libtinfo.so $(STAGING_DIR)/usr/lib/libtinfow.so
+	ln -sf libtinfo.so $(TARGET_DIR)/usr/lib/libtinfow.so
 endef
 
 define NCURSES_LINK_PC
