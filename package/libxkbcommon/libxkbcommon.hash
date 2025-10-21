@@ -1,5 +1,5 @@
 # From https://lists.freedesktop.org/archives/wayland-devel/2025-May/044264.html
-sha256  bb1543d956a5b962ee414174e9882c5d6fac3af9f95ebf48defb105151780ed1  xkbcommon-1.12.1.tar.gz
+sha256  40a333433d850c308f6fe8b15b57c54c769aad655e9c6563cc288bc650111ecf  xkbcommon-1.12.2.tar.gz
 
 # License file:
 sha256  086caee279449369d41c1157911ec7696e707b93feba7280de757d3c470b2dfb  LICENSE
