@@ -4,7 +4,7 @@
 #
 ################################################################################
 # git describe --abbrev=40 origin/staging/25.1 | cut -d '-' -f 2-
-MESA3D_VERSION = 25.2.5-31-g9cd6ff1f81e0689539559dc9a5ebf5391693d507
+MESA3D_VERSION = 25.3.0-rc2-23-gce6dff0ee4d11d42e66b43fd0eb4ffb0030b3691
 MESA3D_SITE = $(call gitlabfreedesktop,mesa,mesa,$(MESA3D_VERSION))
 MESA3D_LICENSE = MIT, SGI, Khronos
 MESA3D_LICENSE_FILES = \
@@ -96,12 +96,6 @@ MESA3D_CONF_OPTS += \
 else
 MESA3D_CONF_OPTS += \
 	-Dglx=disabled
-endif
-
-ifeq ($(BR2_ARM_CPU_HAS_NEON),y)
-MESA3D_CONF_OPTS += -Dgallium-vc4-neon=auto
-else
-MESA3D_CONF_OPTS += -Dgallium-vc4-neon=disabled
 endif
 
 # Drivers
@@ -299,13 +293,6 @@ else
 MESA3D_CONF_OPTS += -Dlibunwind=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_MESA3D_VDPAU),y)
-MESA3D_DEPENDENCIES += libvdpau
-MESA3D_CONF_OPTS += -Dgallium-vdpau=enabled
-else
-MESA3D_CONF_OPTS += -Dgallium-vdpau=disabled
-endif
-
 ifeq ($(BR2_PACKAGE_LM_SENSORS),y)
 MESA3D_CONF_OPTS += -Dlmsensors=enabled
 MESA3D_DEPENDENCIES += lm-sensors
@@ -362,7 +349,6 @@ endif
 HOST_MESA3D_CONF_OPTS = \
 	-Dglvnd=disabled \
 	-Dgallium-drivers= \
-	-Dgallium-vdpau=disabled \
 	-Dinstall-mesa-clc=true \
 	-Dmesa-clc=enabled \
 	-Dplatforms= \
