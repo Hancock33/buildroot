@@ -4,10 +4,8 @@
 #
 ################################################################################
 
-LIBGLVND_VERSION = v1.7.0
-LIBGLVND_SOURCE= libglvnd-$(LIBGLVND_VERSION).tar.gz
-LIBGLVND_SITE = https://gitlab.freedesktop.org/glvnd/libglvnd/-/archive/$(LIBGLVND_VERSION)
-
+LIBGLVND_VERSION = 1.7.0
+LIBGLVND_SITE = https://gitlab.freedesktop.org/glvnd/libglvnd/uploads/c24806c283070dc70700234ca8ffacf8
 # batocera - host package
 LIBGLVND_DEPENDENCIES = host-libglvnd
 
