@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-UNRAR_VERSION = 7.1.9
+UNRAR_VERSION = 7.2.1
 UNRAR_SOURCE = unrarsrc-$(UNRAR_VERSION).tar.gz
 UNRAR_SITE = https://www.rarlab.com/rar
 UNRAR_LICENSE = unrar
