@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-KODI_VERSION_MAJOR = 22.0a1
+KODI_VERSION_MAJOR = 22.0a2
 KODI_VERSION_NAME = Piers
-KODI_VERSION = 22.0a1-Piers-490-g2b5a899b37941847f7b44cbf8875692e09c7d9d9
+KODI_VERSION = 22.0a2-Piers-22-g8bf358d47c997b923f94b3841280bd1a1b5f0176
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
