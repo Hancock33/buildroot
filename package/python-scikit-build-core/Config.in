@@ -1,0 +1,6 @@
+config BR2_PACKAGE_PYTHON_SCIKIT_BUILD_CORE
+	bool "python-scikit-build-core"
+	help
+	  Build backend for CMake based projects.
+
+	  https://github.com/scikit-build/scikit-build-core

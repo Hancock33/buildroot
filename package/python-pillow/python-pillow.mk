@@ -4,16 +4,16 @@
 #
 ################################################################################
 
-PYTHON_PILLOW_VERSION = 11.3.0
-PYTHON_PILLOW_SITE = https://files.pythonhosted.org/packages/f3/0d/d0d6dea55cd152ce3d6767bb38a8fc10e33796ba4ba210cbab9354b6d238
+PYTHON_PILLOW_VERSION = 12.0.0
+PYTHON_PILLOW_SITE = https://files.pythonhosted.org/packages/5a/b0/cace85a1b0c9775a9f8f5d5423c8261c858760e2466c79b2dd184638b056
 PYTHON_PILLOW_SOURCE = pillow-$(PYTHON_PILLOW_VERSION).tar.gz
 PYTHON_PILLOW_LICENSE = HPND
 PYTHON_PILLOW_LICENSE_FILES = LICENSE
 PYTHON_PILLOW_CPE_ID_VENDOR = python
 PYTHON_PILLOW_CPE_ID_PRODUCT = pillow
-PYTHON_PILLOW_SETUP_TYPE = setuptools
+PYTHON_PILLOW_SETUP_TYPE = pep517
 
-PYTHON_PILLOW_DEPENDENCIES = host-pkgconf
+PYTHON_PILLOW_DEPENDENCIES = host-pkgconf host-python-pybind11
 PYTHON_PILLOW_BUILD_OPTS = \
 	-Cplatform-guessing=disable \
 	-Cimagequant=disable \
