@@ -10,6 +10,6 @@ PYTHON_PYBIND11_SITE = https://files.pythonhosted.org/packages/2f/7b/a6d8dcb83c4
 PYTHON_PYBIND11_SETUP_TYPE = pep517
 PYTHON_PYBIND11_LICENSE = BSD-3-Clause
 PYTHON_PYBIND11_LICENSE_FILES = LICENSE
-PYTHON_PYBIND11_DEPENDENCIES = host-python-scikit-build-core
+HOST_PYTHON_PYBIND11_DEPENDENCIES = host-python-scikit-build-core
 
 $(eval $(host-python-package))

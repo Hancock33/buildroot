@@ -10,5 +10,6 @@ PYTHON_SCIKIT_BUILD_CORE_SITE = https://files.pythonhosted.org/packages/48/b2/c1
 PYTHON_SCIKIT_BUILD_CORE_SETUP_TYPE = hatch
 PYTHON_SCIKIT_BUILD_CORE_LICENSE = BSD-3-Clause, MIT, Apache-2.0, BSD-3-Clause-LBNL
 PYTHON_SCIKIT_BUILD_CORE_LICENSE_FILES = LICENSE
+HOST_PYTHON_SCIKIT_BUILD_CORE_DEPENDENCIES = host-python-hatch-vcs
 
 $(eval $(host-python-package))
