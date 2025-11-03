@@ -35,3 +35,4 @@ DAV1D_LDFLAGS += $(TARGET_LDFLAGS) -latomic
 endif
 
 $(eval $(meson-package))
+$(eval $(host-meson-package))
