@@ -18,8 +18,8 @@ LIBRSVG_CONF_ENV = $(PKG_CARGO_ENV)
 LIBRSVG_NINJA_ENV = $(PKG_CARGO_ENV)
 LIBRSVG_CONF_OPTS = \
 	-Dtriplet=$(RUSTC_TARGET_NAME) \
-	-Drsvg-convert=disabled \
-	-Dpixbuf-loader=disabled \
+	-Drsvg-convert=enabled \
+	-Dpixbuf-loader=enabled \
 	-Ddocs=disabled \
 	-Dtests=false
 LIBRSVG_DEPENDENCIES = \
@@ -38,7 +38,9 @@ LIBRSVG_DEPENDENCIES = \
 HOST_LIBRSVG_CONF_ENV = $(HOST_PKG_CARGO_ENV)
 HOST_LIBRSVG_NINJA_ENV = $(HOST_PKG_CARGO_ENV)
 HOST_LIBRSVG_CONF_OPTS = \
-	-Dintrospection=disabled
+	-Dintrospection=disabled \
+	-Drsvg-convert=enabled \
+	-Dpixbuf-loader=enabled
 HOST_LIBRSVG_DEPENDENCIES = \
 	host-cairo \
 	host-cargo-c \
