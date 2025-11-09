@@ -11,18 +11,12 @@ COREUTILS_LICENSE = GPL-3.0+
 COREUTILS_LICENSE_FILES = COPYING
 COREUTILS_CPE_ID_VENDOR = gnu
 
-# Do not build subdirectory gnulilb-tests
-define COREUTILS_REMOVE_GNULIB_TESTS
-	$(SED) 's/^SUBDIRS =.*/SUBDIRS = po ./g' $(@D)/Makefile.in
-endef
-COREUTILS_POST_PATCH_HOOKS = COREUTILS_REMOVE_GNULIB_TESTS
-
+# --disable-year2038: tells the configure script to not abort if the
+# system is not Y2038 compliant. util-linux-libs will support year2038
+# if the system is compliant even with this option passed
 COREUTILS_CONF_OPTS = --disable-rpath \
+	--disable-year2038 \
 	$(if $(BR2_TOOLCHAIN_USES_MUSL),--with-included-regex)
-
-ifneq ($(BR2_TIME_BITS_64),y)
-COREUTILS_CONF_OPTS += --disable-year2038
-endif
 
 ifeq ($(BR2_PACKAGE_COREUTILS_INDIVIDUAL_BINARIES),y)
 COREUTILS_CONF_OPTS += --disable-single-binary

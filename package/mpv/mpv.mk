@@ -125,14 +125,6 @@ else
 MPV_CONF_OPTS += -Ddrm=disabled
 endif
 
-# libvdpau
-ifeq ($(BR2_PACKAGE_LIBVDPAU),y)
-MPV_CONF_OPTS += -Dvdpau=enabled
-MPV_DEPENDENCIES += libvdpau
-else
-MPV_CONF_OPTS += -Dvdpau=disabled
-endif
-
 # LUA support, only for lua51/lua52/luajit
 # This enables the controller (OSD) together with libass
 ifeq ($(BR2_PACKAGE_LUA_5_1)$(BR2_PACKAGE_LUAJIT),y)
