@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XSCREENSAVER_VERSION = 6.06
+XSCREENSAVER_VERSION = 6.12
 XSCREENSAVER_SITE = https://www.jwz.org/xscreensaver
 
 # N.B. GPL-2.0+ code (in the hacks/glx subdirectory) is not currently built.
@@ -13,23 +13,17 @@ XSCREENSAVER_LICENSE_FILES = hacks/screenhack.h hacks/glx/chessmodels.h
 XSCREENSAVER_CPE_ID_VALID = YES
 XSCREENSAVER_SELINUX_MODULES = xdg xscreensaver xserver
 
-# 0001-disable-check-for-pam.patch
-# 0002-build-Do-not-build-po-files.patch
-XSCREENSAVER_AUTORECONF = YES
-
-# fix missing config.rpath (needed for autoreconf) in the codebase
-define XSCREENSAVER_TOUCH_CONFIG_RPATH
-	touch $(@D)/config.rpath
+define XSCREENSAVER_FIX_INCLUDE_GL
+	$(SED) 's%OpenGL/gl.h%GL/gl.h%' $(@D)/driver/subprocs.c
 endef
-XSCREENSAVER_PRE_CONFIGURE_HOOKS += XSCREENSAVER_TOUCH_CONFIG_RPATH
+XSCREENSAVER_POST_EXTRACT_HOOKS = XSCREENSAVER_FIX_INCLUDE_GL
 
 XSCREENSAVER_DEPENDENCIES = \
 	gdk-pixbuf \
-	gdk-pixbuf-xlib \
 	jpeg \
 	libgl \
 	libglu \
-	libgtk2 \
+	libgtk3 \
 	libxml2 \
 	xlib_libX11 \
 	xlib_libXft \
@@ -50,6 +44,10 @@ XSCREENSAVER_CONF_OPTS += --with-png=yes
 XSCREENSAVER_DEPENDENCIES += libpng
 else
 XSCREENSAVER_CONF_OPTS += --with-png=no
+endif
+
+ifeq ($(BR2_PACKAGE_LIBXCRYPT),y)
+XSCREENSAVER_DEPENDENCIES += libxcrypt
 endif
 
 ifeq ($(BR2_PACKAGE_SYSTEMD),y)
