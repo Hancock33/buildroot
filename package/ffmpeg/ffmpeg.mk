@@ -278,13 +278,6 @@ else
 FFMPEG_CONF_OPTS += --disable-vaapi
 endif
 
-ifeq ($(BR2_PACKAGE_LIBVDPAU),y)
-FFMPEG_CONF_OPTS += --enable-vdpau
-FFMPEG_DEPENDENCIES += libvdpau
-else
-FFMPEG_CONF_OPTS += --disable-vdpau
-endif
-
 ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
 FFMPEG_CONF_OPTS += --enable-omx --enable-omx-rpi \
 	--extra-cflags=-I$(STAGING_DIR)/usr/include/IL
