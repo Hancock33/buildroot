@@ -11,4 +11,4 @@ LIBDVDCSS_INSTALL_STAGING = YES
 LIBDVDCSS_LICENSE = GPL-2.0+
 LIBDVDCSS_LICENSE_FILES = COPYING
 
-$(eval $(autotools-package))
+$(eval $(meson-package))
