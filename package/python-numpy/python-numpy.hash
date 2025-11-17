@@ -1,6 +1,6 @@
 # md5, sha256 from https://pypi.org/pypi/numpy/json
-md5  8717ed1828a8a390c454c6636e91c46a  numpy-2.3.4.tar.gz
-sha256  a7d018bfedb375a8d979ac758b120ba846a7fe764911a64465fd87b8729f4a6a  numpy-2.3.4.tar.gz
+md5  d80a4c755edbc181f302ed2113d50dcf  numpy-2.3.5.tar.gz
+sha256  784db1dcdab56bf0517743e746dfb0f885fc68d948aba86eeec2cba234bdf1c0  numpy-2.3.5.tar.gz
 # License files, locally calculated
 sha256  263223390c43a9d4a0841e0209265fd927a198f8e89c8eee809b7437d7e5e8c2  LICENSE.txt
 sha256  c27d0a8026bdb8876562b720ab24d1688e3827a89f6083cd6e7e8caa9584aba3  numpy/core/src/multiarray/dragon4.c
