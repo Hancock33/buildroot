@@ -4,8 +4,11 @@
 #
 ################################################################################
 
-MARIADB_VERSION = 12.1.1
-MARIADB_SITE = https://downloads.mariadb.org/interstitial/mariadb-$(MARIADB_VERSION)/source
+MARIADB_VERSION = mariadb-12.1.2
+MARIADB_SITE = https://github.com/MariaDB/server.git
+MARIADB_SITE_METHOD=git
+MARIADB_GIT_SUBMODULES=YES
+MARIADB_SOURCE = $(MARIADB_VERSION)-git4.tar.gz
 MARIADB_LICENSE = GPL-2.0 (server), GPL-2.0 with FLOSS exception (GPL client library), LGPL-2.0 (LGPL client library)
 # Tarball no longer contains LGPL license text
 # https://jira.mariadb.org/browse/MDEV-12297
