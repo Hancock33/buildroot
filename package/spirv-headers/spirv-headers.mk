@@ -3,9 +3,9 @@
 # spirv-headers
 #
 ################################################################################
-# Version: Commits on Sept 09, 2025
-SPIRV_HEADERS_VERSION = 01e0577914a75a2569c846778c2f93aa8e6feddd
-SPIRV_HEADERS_BRANCH = vulkan-sdk-1.4.328
+# Version: Commits on Oct 29, 2025
+SPIRV_HEADERS_VERSION = f2e4bd213104fe323a01e935df56557328d37ac8
+SPIRV_HEADERS_BRANCH = vulkan-tmp-1.4.333
 SPIRV_HEADERS_SITE = $(call github,KhronosGroup,SPIRV-Headers,$(SPIRV_HEADERS_VERSION))
 SPIRV_HEADERS_LICENSE = MIT
 SPIRV_HEADERS_LICENSE_FILES = LICENSE
