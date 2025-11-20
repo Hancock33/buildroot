@@ -22,6 +22,8 @@ PCRE2_CONF_OPTS += $(if $(BR2_PACKAGE_PCRE2_32),--enable-pcre2-32,--disable-pcre
 
 ifeq ($(BR2_PACKAGE_PCRE2_JIT),y)
 PCRE2_CONF_OPTS += --enable-jit
+PCRE2_LICENSE += BSD-2-Clause
+PCRE2_LICENSE_FILES += deps/sljit/LICENSE
 else
 PCRE2_CONF_OPTS += --disable-jit
 endif
