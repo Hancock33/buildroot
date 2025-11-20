@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 8.0
+FFMPEG_VERSION = 8.0.1
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
