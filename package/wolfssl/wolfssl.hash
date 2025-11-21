@@ -1,5 +1,5 @@
 # Locally computed:
-sha256  3ef126e3466e2f8f6ebb62b916a7f8fb26c6709dbdf2b63a167759f2fdb53068  wolfssl-5.8.2.tar.gz
+sha256  2b702b7a66b0067bfd284408827b1e59288b357b0dd758d0089c062395f2a522  wolfssl-5.8.4.tar.gz
 
 # Hash for license files:
 sha256  8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  COPYING
