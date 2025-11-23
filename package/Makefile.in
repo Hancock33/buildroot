@@ -130,25 +130,25 @@ STAGING_DIR    = $(HOST_DIR)/$(STAGING_SUBDIR)
 BATOCERA_OPT = $(call qstrip,$(BR2_TARGET_OPTIMIZATION))
 
 ifeq ($(BR2_OPTIMIZE_0),y)
-TARGET_OPTIMIZATION = -O0 -pipe -w -fno-semantic-interposition $(BATOCERA_OPT)
+TARGET_OPTIMIZATION = -O0 -pipe -w $(BATOCERA_OPT)
 endif
 ifeq ($(BR2_OPTIMIZE_1),y)
-TARGET_OPTIMIZATION = -O1 -pipe -w -fno-semantic-interposition $(BATOCERA_OPT)
+TARGET_OPTIMIZATION = -O1 -pipe -w $(BATOCERA_OPT)
 endif
 ifeq ($(BR2_OPTIMIZE_2),y)
-TARGET_OPTIMIZATION = -O2 -pipe -w -fno-semantic-interposition $(BATOCERA_OPT)
+TARGET_OPTIMIZATION = -O2 -pipe -w $(BATOCERA_OPT)
 endif
 ifeq ($(BR2_OPTIMIZE_3),y)
-TARGET_OPTIMIZATION = -O3 -pipe -w -fno-semantic-interposition $(BATOCERA_OPT)
+TARGET_OPTIMIZATION = -O3 -pipe -w $(BATOCERA_OPT)
 endif
 ifeq ($(BR2_OPTIMIZE_G),y)
-TARGET_OPTIMIZATION = -Og -pipe -w -fno-semantic-interposition $(BATOCERA_OPT)
+TARGET_OPTIMIZATION = -Og -pipe -w $(BATOCERA_OPT)
 endif
 ifeq ($(BR2_OPTIMIZE_S),y)
-TARGET_OPTIMIZATION = -Os -pipe -w -fno-semantic-interposition $(BATOCERA_OPT)
+TARGET_OPTIMIZATION = -Os -pipe -w $(BATOCERA_OPT)
 endif
 ifeq ($(BR2_OPTIMIZE_FAST),y)
-TARGET_OPTIMIZATION = -Ofast -pipe -w -fno-semantic-interposition $(BATOCERA_OPT)
+TARGET_OPTIMIZATION = -Ofast -pipe -w $(BATOCERA_OPT)
 endif
 ifeq ($(BR2_ENABLE_DEBUG),)
 TARGET_DEBUGGING = -g0
