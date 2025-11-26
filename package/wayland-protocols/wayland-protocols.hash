@@ -1,4 +1,4 @@
-# From https://lore.freedesktop.org/wayland-devel/aEw0AP7h6T8l11ug@gmail.com/T/#u
-sha256  4d2b2a9e3e099d017dc8107bf1c334d27bb87d9e4aff19a0c8d856d17cd41ef0  wayland-protocols-1.45.tar.xz
-sha512  d0557a75eb486fb824f182648bec346e270cb1ada8727613377ab95b0ccb595c516de242f486110c88b7009e98c87b071bf5b598f84466e5624aa1d81f19e195  wayland-protocols-1.45.tar.xz
+# From https://lore.freedesktop.org/wayland-devel/AzTKh6JewwfUBFKaOS86DT4obISpv5b5bjFghXGwYrMPyk6Wxpz6H4_trRcEOyF9VpVV-0p1-UTNv7_esjO6ppw5SyIyGxWB8R5xI_SJYfA=@emersion.fr/T/#u
+sha256  fd0de056a895fa48bd1aa5f0b8dfeed454101b88bc7e1c61a953422eb71db167  wayland-protocols-1.46.tar.xz
+sha512  867b55357b9ca49d14504e3066c2d4e39762b4706bae4ca30330d8e8fad954531d2e055595d1ceb544e37cca6cce68152f12cf093ee9805987975619a3b24958  wayland-protocols-1.46.tar.xz
 sha256  f1a2b233e8a9a71c40f4aa885be08a0842ac85bb8588703c1dd7e6e6502e3124  COPYING
