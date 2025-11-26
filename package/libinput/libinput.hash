@@ -1,5 +1,5 @@
 # Locally computed
-sha256  5dc72f4d9579b04556af8177bec11e1bb8ee1216a69d923e52470a3b6fea00ea  libinput-1.29.901.tar.gz
+sha256  fcce701746b8f5ee57c6724e963496d2223a9639856c6d1b811cff38e6dd4465  libinput-1.30.0.tar.gz
 
 # License files
 sha256  80de50b2022a840db044c56db804ca3565600a692c0714babface587acc6d1b0  COPYING
