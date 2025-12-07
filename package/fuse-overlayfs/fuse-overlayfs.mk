@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FUSE_OVERLAYFS_VERSION = 1.14
+FUSE_OVERLAYFS_VERSION = 1.16
 FUSE_OVERLAYFS_SITE = $(call github,containers,fuse-overlayfs,v$(FUSE_OVERLAYFS_VERSION))
 FUSE_OVERLAYFS_LICENSE = GPL-2.0+
 FUSE_OVERLAYFS_LICENSE_FILES = COPYING
