@@ -1,25 +1,8 @@
-From 27635f902831fac898586f1f3dc98369f12582c9 Mon Sep 17 00:00:00 2001
-From: Bernd Kuhls <bernd.kuhls@t-online.de>
-Date: Sun, 26 Aug 2018 12:51:04 +0200
-Subject: [PATCH] configure.ac: also use AC_PATH_PROG to check for
- wayland-scanner
-
-When cross-compiling the .pc file might point to the wrong
-wayland-scanner binary (target rather than host) resulting in a
-non-executable and wrong scanner.
-Try searching the PATH first, and if that fails fall back into
-pkg-config.
-
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
----
- configure.ac | 19 +++++++++++--------
- 1 file changed, 11 insertions(+), 8 deletions(-)
-
 diff --git a/configure.ac b/configure.ac
-index 4808b8becf..a18641ed23 100644
+index 3e15b4d68d..3edc4c97e4 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3140,14 +3140,17 @@ AS_IF([test "${enable_wayland}" != "no"], [
+@@ -3276,14 +3276,17 @@ AS_IF([test "${enable_wayland}" = "yes"], [
        AC_MSG_ERROR([$(${PKG_CONFIG} --print-errors 'wayland-protocols >= 1.4')])
      ])
  
@@ -45,6 +28,3 @@ index 4808b8becf..a18641ed23 100644
  
      have_wayland="yes"
  
--- 
-2.18.0
-

@@ -1,28 +1,8 @@
-From 0435cf37308652af1cf244b6429e919fa7ffaa95 Mon Sep 17 00:00:00 2001
-From: Bernd Kuhls <bernd.kuhls@t-online.de>
-Date: Tue, 1 May 2018 22:31:23 +0200
-Subject: [PATCH] Don't assume strerror_l() is available
-
-Fix compile error
-
-  CCLD     vlc
-/home/br/br3/output/build/vlc-2.2.1/src/.libs/libvlccore.so: undefined reference to `strerror_l'
-
-Code for #else condition was taken from
-http://patches.osdyson.org/patch/series/view/vlc/2.2.0~rc2-1+dyson2/dyson.patch
-
-[Bernd: rebased for vlc-3.0.6 & 3.0.9.2]
-Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
----
- configure.ac      | 2 +-
- src/posix/error.c | 4 ++++
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
 diff --git a/configure.ac b/configure.ac
-index c695b2f232..606dd054fa 100644
+index 4ac7dc204b..3e15b4d68d 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -665,7 +665,7 @@ dnl Check for system libs needed
+@@ -667,7 +667,7 @@ dnl Check for system libs needed
  need_libc=false
  
  dnl Check for usual libc functions
@@ -53,6 +33,3 @@ index db51004601..b4aa6fb3ca 100644
      return buf;
  }
  
--- 
-2.14.4
-
