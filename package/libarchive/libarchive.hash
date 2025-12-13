@@ -1,4 +1,5 @@
-# Locally computed after verifying the signature from
+# From https://github.com/libarchive/libarchive/releases/tag/v3.8.4
+# After verifying the pgp signature from:
 # https://www.libarchive.de/downloads/libarchive-3.8.4.tar.xz.asc
 sha256  c7b847b57feacf5e182f4d14dd6cae545ac6843d55cb725f58e107cdf1c9ad73  libarchive-3.8.4.tar.xz
 # Locally computed:
