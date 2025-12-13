@@ -3,9 +3,10 @@
 # sdl2
 #
 ################################################################################
-# git describe --tags --abbrev=40 origin/release-2.30.x | cut -d '-' -f 2-
-SDL2_VERSION = 2.32.10-34-gf21394381b5a0a2f449783e890e67d9a35257da3
-SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
+
+SDL2_VERSION = 2.32.10
+SDL2_SOURCE = SDL2-$(SDL2_VERSION).tar.gz
+SDL2_SITE = http://www.libsdl.org/release
 SDL2_LICENSE = Zlib
 SDL2_LICENSE_FILES = LICENSE.txt
 SDL2_CPE_ID_VENDOR = libsdl
@@ -175,13 +176,6 @@ else
 SDL2_CONF_OPTS += --disable-video-x11 --without-x
 endif
 
-ifeq ($(BR2_PACKAGE_SDL2_WAYLAND),y)
-SDL2_DEPENDENCIES += libegl libxkbcommon wayland wayland-protocols
-SDL2_CONF_OPTS += --enable-video-wayland
-else
-SDL2_CONF_OPTS += --disable-video-wayland
-endif
-
 ifeq ($(BR2_PACKAGE_SDL2_OPENGL),y)
 SDL2_CONF_OPTS += --enable-video-opengl
 SDL2_DEPENDENCIES += libgl
@@ -210,6 +204,13 @@ SDL2_CONF_OPTS += --disable-alsa
 endif
 
 ifeq ($(BR2_PACKAGE_SDL2_KMSDRM),y)
+# batocera - needed because of 3aca3b603e8e68752f1846ccb54c8d53c22042d7
+ifeq ($(BR2_PACKAGE_HAS_LIBGBM),y)
+SDL2_DEPENDENCIES += libgbm
+endif
+ifeq ($(BR2_PACKAGE_HAS_LIBEGL),y)
+SDL2_DEPENDENCIES += libegl
+endif
 SDL2_DEPENDENCIES += libdrm
 SDL2_CONF_OPTS += --enable-video-kmsdrm
 else
