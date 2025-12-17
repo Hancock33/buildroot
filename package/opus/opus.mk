@@ -25,10 +25,10 @@ OPUS_CFLAGS += -O0
 endif
 
 OPUS_CONF_ENV = CFLAGS="$(OPUS_CFLAGS)"
-OPUS_CONF_OPTS = --enable-custom-modes
+OPUS_CONF_OPTS = -Dcustom-modes=true
 
 ifeq ($(BR2_PACKAGE_OPUS_FIXED_POINT),y)
-OPUS_CONF_OPTS += --enable-fixed-point
+OPUS_CONF_OPTS += -Dfloat-approx=true
 endif
 
 ifeq ($(BR2_OPTIMIZE_FAST),y)
@@ -38,12 +38,16 @@ endif
 # When we're on ARM, but we don't have ARM instructions (only
 # Thumb-2), disable the usage of assembly as it is not Thumb-ready.
 ifeq ($(BR2_arm)$(BR2_armeb):$(BR2_ARM_CPU_HAS_ARM),y:)
-OPUS_CONF_OPTS += --disable-asm
+OPUS_CONF_OPTS += -Dasm=disabled
 endif
 
 # batocera workaround rk3288 test programs build failure
 ifeq ($(BR2_cortex_a17),y)
-OPUS_CONF_OPTS += --disable-extra-programs
+OPUS_CONF_OPTS += -Dextra-programs=disabled
 endif
 
-$(eval $(autotools-package))
+ifeq ($(BR2_arm),y)
+OPUS_CONF_OPTS += -Dintrinsics=disabled
+endif
+
+$(eval $(meson-package))
