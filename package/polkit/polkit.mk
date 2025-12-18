@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-POLKIT_VERSION = 126
+POLKIT_VERSION = 127
 POLKIT_SITE = $(call github,polkit-org,polkit,$(POLKIT_VERSION))
 POLKIT_LICENSE = GPL-2.0
 POLKIT_LICENSE_FILES = COPYING
