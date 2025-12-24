@@ -1,0 +1,38 @@
+From 0a936479ef45307cb92f020bbf74808754d07784 Mon Sep 17 00:00:00 2001
+From: AFIQE ANUAR <afiqe.anuar@atmark-techno.com>
+Date: Tue, 7 Jan 2025 11:20:07 +0900
+Subject: [PATCH] ipc: add missing unistd.h include
+
+musl requires unistd.h to be included for close() as specified by POSIX.
+
+This always printed a warning and has become and error since gcc 14:
+
+ipc/network_ipc-if.c: In function 'inst_wait_for_complete':
+ipc/network_ipc-if.c:74:17: error: implicit declaration of function 'close'; did you mean 'clone'? [-Wimplicit-function-declaration]
+   74 |                 close(*progressfd);
+      |                 ^~~~~
+      |                 clone
+
+Upstream: https://github.com/sbabic/swupdate/commit/0a936479ef45307cb92f020bbf74808754d07784
+Signed-off-by: AFIQE ANUAR <afiqe.anuar@atmark-techno.com>
+Signed-off-by: Dominique Martinet <dominique.martinet@atmark-techno.com>
+Signed-off-by: Giulio Benetti <giulio.benetti@benettiengineering.com>
+---
+ ipc/network_ipc-if.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/ipc/network_ipc-if.c b/ipc/network_ipc-if.c
+index 51a99357..7740d1dc 100644
+--- a/ipc/network_ipc-if.c
++++ b/ipc/network_ipc-if.c
+@@ -12,6 +12,7 @@
+ #include <signal.h>
+ #include <pthread.h>
+ #include <inttypes.h>
++#include <unistd.h>
+ #include "network_ipc.h"
+ #include "progress_ipc.h"
+ 
+-- 
+2.47.3
+
