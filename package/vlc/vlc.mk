@@ -73,7 +73,9 @@ VLC_CONF_OPTS += \
 	--disable-microdns \
 	--disable-mmal \
 	--disable-mtp \
+	--disable-mpc \
 	--disable-notify \
+	--disable-opencv \
 	--disable-projectm \
 	--disable-schroedinger \
 	--disable-shine \
@@ -204,13 +206,6 @@ VLC_CONF_OPTS += --enable-gles2
 VLC_DEPENDENCIES += libgles
 else
 VLC_CONF_OPTS += --disable-gles2
-endif
-
-ifeq ($(BR2_PACKAGE_OPENCV3),y)
-VLC_CONF_OPTS += --enable-opencv
-VLC_DEPENDENCIES += opencv3
-else
-VLC_CONF_OPTS += --disable-opencv
 endif
 
 ifeq ($(BR2_PACKAGE_OPUS),y)
@@ -456,13 +451,6 @@ VLC_CONF_OPTS += --enable-mpg123
 VLC_DEPENDENCIES += mpg123
 else
 VLC_CONF_OPTS += --disable-mpg123
-endif
-
-ifeq ($(BR2_PACKAGE_MUSEPACK),y)
-VLC_CONF_OPTS += --enable-mpc
-VLC_DEPENDENCIES += musepack
-else
-VLC_CONF_OPTS += --disable-mpc
 endif
 
 ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)

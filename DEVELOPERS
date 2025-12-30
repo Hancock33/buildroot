@@ -344,11 +344,12 @@ F:	package/tcpdump/
 F:	package/ti-uim/
 F:	package/uhubctl/
 
+N:	Bastien Curutchet <bastien.curutchet@bootlin.com>
+F:	package/rasdaemon/
+F:	support/testing/tests/package/test_rasdaemon.py
+
 N:	Baxiche Su <baxiche@gmail.com>
 F:	package/qt6/qt6multimedia/
-
-N:	Ben Boeckel <mathstuf@gmail.com>
-F:	package/taskd/
 
 N:	Benjamin Kamath <kamath.ben@gmail.com>
 F:	package/lapack/
@@ -1563,9 +1564,6 @@ F:	package/microchip-hss-payload-generator/
 N:	Jan Havran <havran.jan@email.cz>
 F:	board/pine64/pinecube/
 F:	configs/pine64_pinecube_defconfig
-
-N:	Jan Heylen <jan.heylen@nokia.com>
-F:	package/opentracing-cpp/
 
 N:	Jan Kraval <jan.kraval@gmail.com>
 F:	board/orangepi/orangepi-lite
@@ -2934,7 +2932,6 @@ F:	package/mesa3d/
 F:	package/minetest/
 F:	package/minetest-game/
 F:	package/ogre/
-F:	package/openpowerlink/
 F:	package/physfs/
 F:	package/piglit/
 F:	package/python-libevdev/
@@ -3072,7 +3069,6 @@ F:	package/neard/
 F:	package/neardal/
 F:	package/owl-linux/
 F:	package/rapidjson/
-F:	package/sconeserver/
 F:	package/sound-theme-borealis/
 F:	package/sound-theme-freedesktop/
 F:	package/vlc/
@@ -3551,7 +3547,6 @@ F:	package/libusb/
 F:	package/libusb-compat/
 F:	package/proj/
 F:	package/python-iniparse/
-F:	package/qjson/
 F:	package/qt6/qt6core5compat/
 F:	package/quazip/
 F:	package/shapelib/
