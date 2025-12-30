@@ -146,8 +146,8 @@ endif
 
 comment "Legacy options removed in 2026.02"
 
-config BR2_PACKAGE_LIBFREEIMAGE
-	bool "libfreeimage"
+config BR2_PACKAGE_LIBFREEIMAGEBR
+	bool "libfreeimagebr"
 	select BR2_LEGACY
 	help
 	  libfreeimage is unmaintained and has been removed
