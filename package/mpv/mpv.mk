@@ -25,7 +25,8 @@ MPV_CONF_OPTS = \
 	-Drubberband=disabled \
 	-Duchardet=disabled \
 	-Dvapoursynth=disabled \
-	-Dsdl2-gamepad=disabled
+	-Dsdl2-gamepad=disabled \
+	-Drpi=disabled
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 MPV_CONF_OPTS += -Dbuild-date=disabled
@@ -158,10 +159,13 @@ endif
 
 # SDL support
 # Sdl2 requires 64-bit sync intrinsics
-ifeq ($(BR2_TOOLCHAIN_HAS_SYNC_8)$(BR2_PACKAGE_SDL2),yy)
+ifeq ($(BR2_TOOLCHAIN_HAS_SYNC_8)$(BR2_PACKAGE_SDL2)$(BR2_PACKAGE_SDL2_MIXER),yyy)
 MPV_CONF_OPTS += -Dsdl2-audio=enabled
 MPV_CONF_OPTS += -Dsdl2-video=enabled
-MPV_DEPENDENCIES += sdl2
+MPV_DEPENDENCIES += sdl2 sdl2_mixer
+else
+MPV_CONF_OPTS += -Dsdl2-audio=disabled
+MPV_CONF_OPTS += -Dsdl2-video=disabled
 endif
 
 # va-api support

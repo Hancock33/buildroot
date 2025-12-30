@@ -26,6 +26,7 @@ SDL2_CONF_OPTS += \
 	--disable-video-dummy \
 	--disable-video-offscreen \
 	--disable-video-directfb \
+	--disable-video-rpi \
 	--disable-ime \
 	--disable-ibus \
 	--disable-fcitx \
@@ -121,13 +122,6 @@ ifeq ($(BR2_X86_CPU_HAS_3DNOW),y)
 SDL2_CONF_OPTS += --enable-3dnow
 else
 SDL2_CONF_OPTS += --disable-3dnow
-endif
-
-ifeq ($(BR2_PACKAGE_SDL2_OPENGLES)$(BR2_PACKAGE_RPI_USERLAND),yy)
-SDL2_DEPENDENCIES += rpi-userland
-SDL2_CONF_OPTS += --enable-video-rpi
-else
-SDL2_CONF_OPTS += --disable-video-rpi
 endif
 
 # x-includes and x-libraries must be set for cross-compiling
