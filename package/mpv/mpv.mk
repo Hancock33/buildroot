@@ -25,8 +25,7 @@ MPV_CONF_OPTS = \
 	-Drubberband=disabled \
 	-Duchardet=disabled \
 	-Dvapoursynth=disabled \
-	-Dsdl2-gamepad=disabled \
-	-Drpi=disabled
+	-Dsdl2-gamepad=disabled
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 MPV_CONF_OPTS += -Dbuild-date=disabled
