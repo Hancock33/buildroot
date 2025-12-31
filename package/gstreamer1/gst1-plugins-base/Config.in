@@ -17,7 +17,7 @@ config BR2_PACKAGE_GST1_PLUGINS_BASE_INSTALL_TOOLS
 	  Install the gst-discoverer, gst-device-monitor and gst-play
 	  tools.
 
-fcomment "dependency-less plugins"
+comment "dependency-less plugins"
 
 config BR2_PACKAGE_GST1_PLUGINS_BASE_PLUGIN_ADDER
 	bool "adder"
