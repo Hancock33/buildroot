@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-LIBZLIB_VERSION = 1.3.1
-LIBZLIB_SOURCE = zlib-$(LIBZLIB_VERSION).tar.xz
-LIBZLIB_SITE = https://www.zlib.net
+LIBZLIB_VERSION = v1.3.1.2
+LIBZLIB_SITE = $(call github,madler,zlib,$(LIBZLIB_VERSION))
 LIBZLIB_LICENSE = Zlib
 LIBZLIB_LICENSE_FILES = LICENSE
 LIBZLIB_INSTALL_STAGING = YES
