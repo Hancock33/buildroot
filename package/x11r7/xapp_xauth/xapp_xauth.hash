@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2025-March/003589.html
-sha256  e9318141464ad7b4dc0f8564a580f0d20f977c85a388cc40d5a766206151c690  xauth-1.1.4.tar.xz
-sha512  6f08b92acec08fe426da0bcf7f68b0c6d21777bed76c5c316717bf15df0654809a97b6c4d3d570d861c49b85857191a5c5be3b4b84049b2459688af2c7b0a74d  xauth-1.1.4.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2025-December/003653.html
+sha256  a4000e2f441facebf569026bedecc23ba262cc6927be52070abe0002625cfbe0  xauth-1.1.5.tar.xz
+sha512 df94b59de49ced2490351b7ab42d56d3ef92077891b8ba7a73c53b6babb1facd250d934b82f36ee1ddc355dffefb8f52914d30893c9d578711264f82e9bf3cb9  xauth-1.1.5.tar.xz
 # Locally computed
 sha256  dcdf5fa36a652efbe61a21def1301739b0010334ae3f049f1cff433221a8c7a5  COPYING
