@@ -661,6 +661,7 @@ menu "Interpreter languages and scripting"
 	source "package/dotnet6-runtime/Config.in"
 	source "package/dotnet8-runtime/Config.in"
 	source "package/dotnet-runtime-prebuilt/Config.in"
+	source "package/duktape/Config.in"
 	source "package/enscript/Config.in"
 	source "package/erlang/Config.in"
 if BR2_PACKAGE_ERLANG
@@ -1872,42 +1873,6 @@ menu "Hardware handling"
 	source "package/tslib/Config.in"
 	source "package/uhd/Config.in"
 	source "package/urg/Config.in"
-endmenu
-
-menu "Javascript"
-	source "package/bootstrap/Config.in"
-	source "package/chartjs/Config.in"
-	source "package/datatables/Config.in"
-	source "package/datatables-buttons/Config.in"
-	source "package/datatables-fixedcolumns/Config.in"
-	source "package/datatables-responsive/Config.in"
-	source "package/duktape/Config.in"
-	source "package/explorercanvas/Config.in"
-	source "package/flot/Config.in"
-	source "package/forge/Config.in"
-	source "package/jquery/Config.in"
-if BR2_PACKAGE_JQUERY
-menu "External jQuery plugins"
-	source "package/jquery-datetimepicker/Config.in"
-	source "package/jquery-keyboard/Config.in"
-	source "package/jquery-mobile/Config.in"
-	source "package/jquery-sidebar/Config.in"
-	source "package/jquery-sparkline/Config.in"
-	source "package/jquery-ui/Config.in"
-	source "package/jquery-ui-themes/Config.in"
-	source "package/jquery-validation/Config.in"
-endmenu
-endif
-	source "package/jsmin/Config.in"
-	source "package/json-javascript/Config.in"
-	source "package/jszip/Config.in"
-	source "package/openlayers/Config.in"
-	source "package/vis-network/Config.in"
-	source "package/vuejs/Config.in"
-if BR2_PACKAGE_VUEJS
-comment "External Vue.js plugins"
-	source "package/vuejs-router/Config.in"
-endif
 endmenu
 
 menu "JSON/XML"
