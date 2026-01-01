@@ -2649,7 +2649,6 @@ endif
 	source "package/snort3/Config.in"
 	source "package/socat/Config.in"
 	source "package/socketcand/Config.in"
-	source "package/softether/Config.in"
 	source "package/spawn-fcgi/Config.in"
 	source "package/spice/Config.in"
 	source "package/spice-protocol/Config.in"
@@ -2803,6 +2802,7 @@ comment "Utilities"
 	source "package/xmlstarlet/Config.in"
 	source "package/xxhash/Config.in"
 	source "package/ytree/Config.in"
+	source "package/zellij/Config.in"
 	source "package/zoxide/Config.in"
 endmenu
 
