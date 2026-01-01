@@ -1,3 +1,4 @@
-# md5, sha256 from https://pypi.org/pypi/pybind11/json
-md5  81399a5277559163b3ee912b41de1b76  python-pybind-3.0.1.tar.gz
+# Locally calculated
 sha256  741633da746b7c738bb71f1854f957b9da660bcd2dce68d71949037f0969d0ca  python-pybind-3.0.1.tar.gz
+# License files, locally calculated
+sha256  83965b843b98f670d3a85bd041ed4b372c8ec50d7b4a5995a83ac697ba675dcb  LICENSE
