@@ -11,7 +11,6 @@ EFL_LICENSE = BSD-2-Clause, LGPL-2.1+, GPL-2.0+, FTL, MIT
 EFL_LICENSE_FILES = \
 	COMPLIANCE \
 	COPYING \
-	COPYING.images \
 	licenses/COPYING.ASL \
 	licenses/COPYING.BSD \
 	licenses/COPYING.FTL \
