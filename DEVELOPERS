@@ -759,7 +759,6 @@ F:	package/pangomm2_46/
 F:	package/sam-ba/
 
 N:	Damien Lanson <damien@kal-host.com>
-F:	package/libvdpau/
 F:	package/log4cpp/
 
 N:	Damien Le Moal <dlemoal@kernel.org>
