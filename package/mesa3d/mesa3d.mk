@@ -351,12 +351,15 @@ else
 MESA3D_CONF_OPTS += -Dglvnd=disabled
 endif
 
+HOST_MESA3D_CONF_ENV = LLVM_CONFIG="$(HOST_DIR)/bin/llvm-config"
+
 # host-mesa3d is needed by mesa3d only when the Iris Gallium driver is
 # enabled
 HOST_MESA3D_CONF_OPTS = \
 	-Dglvnd=disabled \
 	-Dgallium-drivers= \
 	-Dinstall-mesa-clc=true \
+	-Dllvm=enabled \
 	-Dmesa-clc=enabled \
 	-Dplatforms= \
 	-Dprecomp-compiler=enabled \
@@ -369,6 +372,7 @@ endif
 
 HOST_MESA3D_DEPENDENCIES = \
 	host-libclc \
+	host-llvm \
 	host-python-mako \
 	host-python-ply \
 	host-python-pyyaml \
