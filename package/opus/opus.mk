@@ -41,13 +41,15 @@ ifeq ($(BR2_arm)$(BR2_armeb):$(BR2_ARM_CPU_HAS_ARM),y:)
 OPUS_CONF_OPTS += -Dasm=disabled
 endif
 
+# We also disable assembly in case we have a soft-float ABI (opus has
+# NEON instructions which are not available in that case).
+ifeq ($(BR2_arm),y)
+OPUS_CONF_OPTS += -Dintrinsics=disabled
+endif
+
 # batocera workaround rk3288 test programs build failure
 ifeq ($(BR2_cortex_a17),y)
 OPUS_CONF_OPTS += -Dextra-programs=disabled
-endif
-
-ifeq ($(BR2_arm),y)
-OPUS_CONF_OPTS += -Dintrinsics=disabled
 endif
 
 $(eval $(meson-package))
