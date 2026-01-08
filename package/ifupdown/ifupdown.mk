@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-IFUPDOWN_VERSION = 0.8.44
+IFUPDOWN_VERSION = 0.8.45
 IFUPDOWN_SOURCE = ifupdown_$(IFUPDOWN_VERSION).tar.xz
-IFUPDOWN_SITE = http://snapshot.debian.org/archive/debian/20240917T144520Z/pool/main/i/ifupdown
+IFUPDOWN_SITE = https://snapshot.debian.org/archive/debian/20260107T143839Z/pool/main/i/ifupdown
 IFUPDOWN_LICENSE = GPL-2.0+
 IFUPDOWN_LICENSE_FILES = COPYING
 IFUPDOWN_CPE_ID_VENDOR = debian
