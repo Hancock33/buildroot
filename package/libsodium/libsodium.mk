@@ -4,12 +4,15 @@
 #
 ################################################################################
 
-LIBSODIUM_VERSION = 1.0.20
+LIBSODIUM_VERSION = 1.0.21
 LIBSODIUM_SITE = https://download.libsodium.org/libsodium/releases
 LIBSODIUM_LICENSE = ISC
 LIBSODIUM_LICENSE_FILES = LICENSE
 LIBSODIUM_INSTALL_STAGING = YES
 
+ifeq ($(BR2_aarch64),y)
+LIBSODIUM_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -flax-vector-conversions"
+endif
 ifeq ($(BR2_TOOLCHAIN_SUPPORTS_PIE),)
 LIBSODIUM_CONF_OPTS += --disable-pie
 endif
