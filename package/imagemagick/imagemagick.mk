@@ -20,7 +20,8 @@ endif
 
 IMAGEMAGICK_CONF_ENV = \
 	ac_cv_sys_file_offset_bits=64 \
-	ax_cv_check_cl_libcl=no
+	ax_cv_check_cl_libcl=no \
+	CFLAGS="$(TARGET_CFLAGS) -Wno-incompatible-pointer-types"
 
 IMAGEMAGICK_CONF_OPTS = \
 	--program-transform-name='s,,,' \
