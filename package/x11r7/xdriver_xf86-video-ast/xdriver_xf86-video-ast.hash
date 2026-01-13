@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2025-January/003579.html
-sha256  86aa47dca9043867104f609fcdd3bef24aacc054f52b86b40b6e550b6a335d93  xf86-video-ast-1.2.0.tar.xz
-sha512  08e89eef33ce97d87f996ad52ed77387267614911df8d9f820a12742b82a5d036c8f5350d4d130a570d5c9f99b650d43f0be3c01eeae4e9979b92e9dc2d6499c  xf86-video-ast-1.2.0.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2025-August/003622.html
+sha256  df6b630e193c32972a20b02fa6db7fd38d026e835464e26d469de32e31c87cb6  xf86-video-ast-1.2.1.tar.xz
+sha512  50603333b3780aaf9a44132589e30ba8c9e1c938d769a38361ab3886231896227d2f526428cae36cc4e8f054f3bf8a75b1e4911d9c449298bf36c75c0f962745  xf86-video-ast-1.2.1.tar.xz
 # Locally calculated
 sha256  1cdd3d57e2fdcbd21b8a7b788ffbe6f809216a9bdd36b2225cff6c4b4404a170  COPYING

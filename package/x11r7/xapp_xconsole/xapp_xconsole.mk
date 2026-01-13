@@ -6,7 +6,7 @@
 
 XAPP_XCONSOLE_VERSION = 1.1.0
 XAPP_XCONSOLE_SOURCE = xconsole-$(XAPP_XCONSOLE_VERSION).tar.xz
-XAPP_XCONSOLE_SITE = https://xorg.freedesktop.org/releases/individual/app
+XAPP_XCONSOLE_SITE = https://xorg.freedesktop.org/archive/individual/app
 XAPP_XCONSOLE_LICENSE = MIT
 XAPP_XCONSOLE_LICENSE_FILES = COPYING
 XAPP_XCONSOLE_DEPENDENCIES = \

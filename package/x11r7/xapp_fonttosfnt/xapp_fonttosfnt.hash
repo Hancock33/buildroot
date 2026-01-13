@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2024-October/003533.html
-sha256  249635f67fb94fabd46837283c40ba8dd5e7b774df2bac03d5026a3480766372  fonttosfnt-1.2.4.tar.xz
-sha512  37654d66e8d63abc4801c76d48082cc99dc3cc7813376e634c287d97207d17592323cefefd305328a504e432c94e102260b92308088d5e0bf3931a471cb4b851  fonttosfnt-1.2.4.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2025-December/003651.html
+sha256  2e251e66e8753c08aa280b26fd4a10d0d88e7d9bba5c8aac3d3fb36705e5918e  fonttosfnt-1.2.5.tar.xz
+sha512  3be2a625234175dfc8a637b13f2d273afc82126ccd624a38afcc7ef3e13814dac0e55c8ae0a0a713725cf52078f8b45f3e86d7b357b1a19a55def55f969d0640  fonttosfnt-1.2.5.tar.xz
 # Locally computed
 sha256  f83378580cb7909a98b52bf5cd6a29f4894d76318c5c5312dd3f17a3e92beef1  COPYING

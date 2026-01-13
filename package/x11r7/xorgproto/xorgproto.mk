@@ -50,6 +50,8 @@ XORGPROTO_INSTALL_STAGING = YES
 XORGPROTO_INSTALL_TARGET = NO
 # xproxymngproto is needed by xfindproxy
 XORGPROTO_CONF_OPTS += --enable-legacy
+XORGPROTO_DEPENDENCIES = host-pkgconf
+HOST_XORGPROTO_DEPENDENCIES = host-pkgconf
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))

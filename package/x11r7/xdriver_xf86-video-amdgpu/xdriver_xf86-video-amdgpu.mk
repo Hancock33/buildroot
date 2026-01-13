@@ -22,4 +22,11 @@ else
 XDRIVER_XF86_VIDEO_AMDGPU_CONF_OPTS += -Dglamor=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
+XDRIVER_XF86_VIDEO_AMDGPU_CONF_OPTS += -Dudev=enabled
+XDRIVER_XF86_VIDEO_AMDGPU_DEPENDENCIES += udev
+else
+XDRIVER_XF86_VIDEO_AMDGPU_CONF_OPTS += -Dudev=disabled
+endif
+
 $(eval $(meson-package))
