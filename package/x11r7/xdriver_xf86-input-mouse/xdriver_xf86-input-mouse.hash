@@ -1,5 +1,0 @@
-# From https://lists.x.org/archives/xorg-announce/2023-May/003392.html
-sha256  7b1f9d06111d49d257778da46e264a69851f3c7e2f5034fc2c25c7f03876f989  xf86-input-mouse-2.0.0.tar.xz
-sha512  8579fe4d7beeb676a93c4f232283bbfccf2bea2859bfffea2af4d945ffac24e453843b002007d7d5e34375bc6f14eff896e519886e7b8886abab5f33b343e15e  xf86-input-mouse-2.0.0.tar.xz
-# Locally computed
-sha256  5b066654bdb61a1ef41f38cceda752897bbddb6e60e20f5889cab436a9b7b813  COPYING
