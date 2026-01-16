@@ -24,6 +24,16 @@ ifeq ($(BR2_PACKAGE_XLIB_LIBXRANDR),y)
 LIBCEC_DEPENDENCIES += xlib_libXrandr
 endif
 
+# batocera
+ifeq ($(BR2_PACKAGE_LIBCEC_LINUX_API),y)
+LIBCEC_CONF_OPTS += -DHAVE_LINUX_API=1
+endif
+
+# batocera
+ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_AMLOGIC_ANY),y)
+LIBCEC_CONF_OPTS += -DHAVE_AMLOGIC_API=1
+endif
+
 # Disable information about how libCEC is compiled.
 LIBCEC_CONF_OPTS += -DHAVE_GIT_BIN="" \
 	-DHAVE_WHOAMI_BIN="" \
