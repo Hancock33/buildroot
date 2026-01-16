@@ -12,12 +12,8 @@ LIBCEC_LICENSE_FILES = LICENSE.md
 LIBCEC_INSTALL_STAGING = YES
 LIBCEC_DEPENDENCIES = host-pkgconf libplatform
 
-ifeq ($(BR2_PACKAGE_LOCKDEV),y)
-LIBCEC_DEPENDENCIES += lockdev
-endif
-
-ifeq ($(BR2_PACKAGE_HAS_LIBUDEV),y)
-LIBCEC_DEPENDENCIES += libudev
+ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
+LIBCEC_DEPENDENCIES += udev
 endif
 
 ifeq ($(BR2_PACKAGE_PYTHON3),y)
@@ -26,16 +22,6 @@ endif
 
 ifeq ($(BR2_PACKAGE_XLIB_LIBXRANDR),y)
 LIBCEC_DEPENDENCIES += xlib_libXrandr
-endif
-
-# batocera
-ifeq ($(BR2_PACKAGE_LIBCEC_LINUX_API),y)
-LIBCEC_CONF_OPTS += -DHAVE_LINUX_API=1
-endif
-
-# batocera
-ifeq ($(BR2_PACKAGE_BATOCERA_TARGET_AMLOGIC_ANY),y)
-LIBCEC_CONF_OPTS += -DHAVE_AMLOGIC_API=1
 endif
 
 # Disable information about how libCEC is compiled.
