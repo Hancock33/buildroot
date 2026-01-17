@@ -1,5 +1,5 @@
 # From https://lists.gnu.org/archive/html/coreutils-announce/2025-09/msg00000.html
-sha1  456b5c69f3ce8fbdbe926a11652673ecf12bfc44  coreutils-9.9.tar.xz
-sha256  19bcb6ca867183c57d77155eae946c5eced88183143b45ca51ad7d26c628ca75  coreutils-9.9.tar.xz
+sha1  ce249d25d28d4a919c400d35ee05ba256eb7180b  coreutils-9.9.199-6328e.tar.xz
+sha256  23e3368a6136eb963161b31b722dc3c45f5a0e30cd286a4d0219d409d80adb61  coreutils-9.9.199-6328e.tar.xz
 # Locally computed
 sha256  3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986  COPYING
