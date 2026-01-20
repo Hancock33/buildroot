@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FAKEROOT_VERSION = 1.37.1.2
+FAKEROOT_VERSION = 1.37.2
 FAKEROOT_SOURCE = fakeroot_$(FAKEROOT_VERSION).orig.tar.gz
 FAKEROOT_SITE = https://snapshot.debian.org/archive/debian/20260120T143949Z/pool/main/f/fakeroot
 
