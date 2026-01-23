@@ -1,4 +1,4 @@
-# From https://snapshot.debian.org/archive/debian/20260120T143949Z/pool/main/d/dpkg/dpkg_1.23.4.dsc
-sha256  7dc853a423dfdc4e9af4107d3a3ee8e8363f4f1342e71e006561eb1651b3a18d  dpkg_1.23.4.tar.xz
+# From https://snapshot.debian.org/archive/debian/20260123T142735Z/pool/main/d/dpkg/dpkg_1.23.5.dsc
+sha256  2dd060e2ce856c721c4c7f5e017daaf2e52bc196cc45412db98bcaeaf98ef9ca  dpkg_1.23.5.tar.xz
 # Locally computed
 sha256  ab15fd526bd8dd18a9e77ebc139656bf4d33e97fc7238cd11bf60e2b9b8666c6  COPYING
