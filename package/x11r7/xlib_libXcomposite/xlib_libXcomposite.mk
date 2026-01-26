@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XLIB_LIBXCOMPOSITE_VERSION = 0.4.6
+XLIB_LIBXCOMPOSITE_VERSION = 0.4.7
 XLIB_LIBXCOMPOSITE_SOURCE = libXcomposite-$(XLIB_LIBXCOMPOSITE_VERSION).tar.xz
 XLIB_LIBXCOMPOSITE_SITE = https://xorg.freedesktop.org/archive/individual/lib
 XLIB_LIBXCOMPOSITE_LICENSE = MIT

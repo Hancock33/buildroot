@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2022-December/003276.html
-sha256  fe40bcf0ae1a09070eba24088a5eb9810efe57453779ec1e20a55080c6dc2c87  libXcomposite-0.4.6.tar.xz
-sha512  f35a0da8f9f22fd788eee01209557fe3a1b1abdc9744f76330ba42b21b6e3af5464ca4451c33415856417c30da5aa5624e3707980c644327249bfeda5a62a59b  libXcomposite-0.4.6.tar.xz
+# From https://lists.x.org/archives/xorg/2026-January/062178.html
+sha256  8bdf310967f484503fa51714cf97bff0723d9b673e0eecbf92b3f97c060c8ccb  libXcomposite-0.4.7.tar.xz
+sha512  24a03e3242f22b113aa6a3f9341858c072730f0f0073a1a7b9d36b982cd5b77223151aad32b61d1a38bbcb9f8ffedaf67b882dcb95f197d80ece9dbc99332c36  libXcomposite-0.4.7.tar.xz
 # Locally computed
 sha256  efa0219ed8485ac555c1a3fb82daf34539b2e0dcf4dadc99c01f1e39c69a4a68  COPYING
