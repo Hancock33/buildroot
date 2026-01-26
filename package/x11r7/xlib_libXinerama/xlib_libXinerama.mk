@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XLIB_LIBXINERAMA_VERSION = 1.1.5
+XLIB_LIBXINERAMA_VERSION = 1.1.6
 XLIB_LIBXINERAMA_SOURCE = libXinerama-$(XLIB_LIBXINERAMA_VERSION).tar.xz
 XLIB_LIBXINERAMA_SITE = https://xorg.freedesktop.org/archive/individual/lib
 XLIB_LIBXINERAMA_LICENSE = MIT
