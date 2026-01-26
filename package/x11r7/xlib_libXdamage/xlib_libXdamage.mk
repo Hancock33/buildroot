@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XLIB_LIBXDAMAGE_VERSION = 1.1.6
+XLIB_LIBXDAMAGE_VERSION = 1.1.7
 XLIB_LIBXDAMAGE_SOURCE = libXdamage-$(XLIB_LIBXDAMAGE_VERSION).tar.xz
 XLIB_LIBXDAMAGE_SITE = https://xorg.freedesktop.org/archive/individual/lib
 XLIB_LIBXDAMAGE_LICENSE = MIT
