@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XAPP_XFD_VERSION = 1.1.4
+XAPP_XFD_VERSION = 1.1.5
 XAPP_XFD_SOURCE = xfd-$(XAPP_XFD_VERSION).tar.xz
 XAPP_XFD_SITE = https://xorg.freedesktop.org/archive/individual/app
 XAPP_XFD_LICENSE = MIT

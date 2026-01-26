@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2022-December/003266.html
-sha256  d5470ffb66fd45a1e1b03d6df01f12d4caf0cf675cde0345cda237243e9076fd  xfd-1.1.4.tar.xz
-sha512  fa1f8a7b5d89be20fb2b1e3e0e8f4d7f9463e91fd385d21e1403a398c2e263112043b568417c420c5ee33bec60e06658498dd55df6d7ac19da3af0844f932209  xfd-1.1.4.tar.xz
+# From https://lists.x.org/archives/xorg/2026-January/062176.html
+sha256  9048aafba291e3baaab2e76fc298195ec58d82827649b9ee60af6838a1059475  xfd-1.1.5.tar.xz
+sha512  6a8838e90c4751ae357832da7856d65d2cc65f3626655e24d22b25e7623f1a47d41dea0d093c0f250ceee2651214a746b3e7bd7f152c5b1718ce28aa5f217fa4  xfd-1.1.5.tar.xz
 # Locally computed
 sha256  57ae10f24fc110dafb3b8d7735cf26b1905ff74e716745b2520e4ccd7751095c  COPYING
