@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XLIB_LIBXVMC_VERSION = 1.0.14
+XLIB_LIBXVMC_VERSION = 1.0.15
 XLIB_LIBXVMC_SOURCE = libXvMC-$(XLIB_LIBXVMC_VERSION).tar.xz
 XLIB_LIBXVMC_SITE = https://xorg.freedesktop.org/archive/individual/lib
 XLIB_LIBXVMC_LICENSE = MIT
