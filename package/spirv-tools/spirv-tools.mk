@@ -3,9 +3,9 @@
 # spirv-tools
 #
 ################################################################################
-# Version: Commits on Jan 08, 2026
-SPIRV_TOOLS_VERSION = 31a9403f7a96336545467fc7949fe4a67678179f
-SPIRV_TOOLS_BRANCH = vulkan-tmp-1.4.338
+# Version: Commits on Jan 22, 2026
+SPIRV_TOOLS_VERSION = fbe4f3ad913c44fe8700545f8ffe35d1382b7093
+SPIRV_TOOLS_BRANCH = vulkan-sdk-1.4.341
 SPIRV_TOOLS_SITE = $(call github,KhronosGroup,SPIRV-Tools,$(SPIRV_TOOLS_VERSION))
 SPIRV_TOOLS_LICENSE = Apache-2.0
 SPIRV_TOOLS_LICENSE_FILES = LICENSE

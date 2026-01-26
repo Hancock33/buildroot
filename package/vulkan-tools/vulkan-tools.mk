@@ -3,9 +3,9 @@
 # vulkan-tools
 #
 ################################################################################
-# Version: Commits on Jan 20, 2026
-VULKAN_TOOLS_VERSION = b9bbfed954ae7ec0409f72685cdc1ddc4b08e7d9
-VULKAN_TOOLS_BRANCH = vulkan-tmp-1.4.338
+# Version: Commits on Jan 23, 2026
+VULKAN_TOOLS_VERSION = 48a4bcbdf619e57204783f8c1a04c76c160ddd5b
+VULKAN_TOOLS_BRANCH = vulkan-sdk-1.4.341
 VULKAN_TOOLS_SITE = $(call github,KhronosGroup,Vulkan-Tools,$(VULKAN_TOOLS_VERSION))
 VULKAN_TOOLS_LICENSE = Apache-2.0
 VULKAN_TOOLS_LICENSE_FILES = LICENSE.txt
