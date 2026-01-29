@@ -6,7 +6,7 @@
 
 # Please keep in sync with GETTEXT_TINY_ARCHIVE_VERSION in
 # gettext-tiny/gettext-tiny.mk
-GETTEXT_GNU_VERSION = 0.25
+GETTEXT_GNU_VERSION = 1.0
 GETTEXT_GNU_SITE = $(BR2_GNU_MIRROR)/gettext
 GETTEXT_GNU_SOURCE = gettext-$(GETTEXT_GNU_VERSION).tar.xz
 GETTEXT_GNU_INSTALL_STAGING = YES
@@ -52,21 +52,6 @@ endif
 
 # For the target version, we only need the runtime.
 GETTEXT_GNU_SUBDIR = gettext-runtime
-# For the host variant, we only need the tools, but those need the
-# runtime, so it is much simpler to build the whole package. _SUBDIR
-# for the host is inherited from the target if not set or empty, so
-# we need to explicitly set it to build the whole package.
-HOST_GETTEXT_GNU_SUBDIR = .
-
-# Disable the build of documentation and examples of gettext-tools,
-# and the build of documentation and tests of gettext-runtime.
-define HOST_GETTEXT_GNU_DISABLE_UNNEEDED
-	$(SED) '/^SUBDIRS/s/ doc //;/^SUBDIRS/s/examples$$//' $(@D)/gettext-tools/Makefile.in
-	$(SED) '/^SUBDIRS/s/ doc //;/^SUBDIRS/s/tests$$//' $(@D)/gettext-runtime/Makefile.in
-endef
-
-GETTEXT_GNU_POST_PATCH_HOOKS += HOST_GETTEXT_GNU_DISABLE_UNNEEDED
-HOST_GETTEXT_GNU_POST_PATCH_HOOKS += HOST_GETTEXT_GNU_DISABLE_UNNEEDED
 
 define GETTEXT_GNU_REMOVE_UNNEEDED
 	$(RM) -rf $(TARGET_DIR)/usr/share/gettext/ABOUT-NLS
@@ -83,12 +68,6 @@ GETTEXT_GNU_POST_INSTALL_TARGET_HOOKS += GETTEXT_GNU_REMOVE_UNNEEDED
 ifeq ($(BR2_ENABLE_LOCALE),)
 GETTEXT_GNU_CONF_OPTS += --enable-nls
 endif
-
-# Disable interactive confirmation in host gettextize for package fixups
-define HOST_GETTEXT_GNU_GETTEXTIZE_CONFIRMATION
-	$(SED) '/read dummy/d' $(HOST_DIR)/bin/gettextize
-endef
-HOST_GETTEXT_GNU_POST_INSTALL_HOOKS += HOST_GETTEXT_GNU_GETTEXTIZE_CONFIRMATION
 
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
