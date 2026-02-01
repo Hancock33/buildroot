@@ -28,16 +28,16 @@ endif
 
 ifeq ($(BR2_PACKAGE_FONTCONFIG),y)
 LIBASS_DEPENDENCIES += fontconfig
-LIBASS_CONF_OPTS += --enable-fontconfig
+LIBASS_CONF_OPTS += -Dfontconfig=enabled
 else
-LIBASS_CONF_OPTS += --disable-fontconfig --disable-require-system-font-provider
+LIBASS_CONF_OPTS += -Dfontconfig=disabled -Drequire-system-font-provider=false
 endif
 
 ifeq ($(BR2_PACKAGE_LIBUNIBREAK),y)
 LIBASS_DEPENDENCIES += libunibreak
-LIBASS_CONF_OPTS += --enable-libunibreak
+LIBASS_CONF_OPTS += -Dlibunibreak=enabled
 else
-LIBASS_CONF_OPTS += --disable-libunibreak
+LIBASS_CONF_OPTS += -Dlibunibreak=disabled
 endif
 
-$(eval $(autotools-package))
+$(eval $(meson-package))
