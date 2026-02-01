@@ -14,5 +14,8 @@ LIBFRIBIDI_CPE_ID_PRODUCT = fribidi
 LIBFRIBIDI_INSTALL_STAGING = YES
 LIBFRIBIDI_DEPENDENCIES = host-pkgconf
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+LIBFRIBIDI_CONF_OPTS += -Ddocs=false -Dtests=false
+HOSR_LIBFRIBIDI_CONF_OPTS += -Ddocs=false -Dtests=false
+
+$(eval $(meson-package))
+$(eval $(host-meson-package))
