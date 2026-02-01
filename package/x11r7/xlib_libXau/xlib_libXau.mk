@@ -14,5 +14,5 @@ XLIB_LIBXAU_DEPENDENCIES = host-pkgconf xutil_util-macros xorgproto
 HOST_XLIB_LIBXAU_DEPENDENCIES = \
 	host-pkgconf host-xutil_util-macros host-xorgproto
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))

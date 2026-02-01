@@ -16,5 +16,5 @@ XLIB_LIBXFIXES_DEPENDENCIES =  xlib_libX11 xorgproto
 HOST_XLIB_LIBXFIXES_DEPENDENCIES = \
 	host-xlib_libX11 host-xorgproto
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))

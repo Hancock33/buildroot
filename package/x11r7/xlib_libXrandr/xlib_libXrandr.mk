@@ -13,6 +13,5 @@ XLIB_LIBXRANDR_CPE_ID_VENDOR = x.org
 XLIB_LIBXRANDR_CPE_ID_PRODUCT = libxrandr
 XLIB_LIBXRANDR_INSTALL_STAGING = YES
 XLIB_LIBXRANDR_DEPENDENCIES = xlib_libX11 xlib_libXext xlib_libXrender xorgproto
-XLIB_LIBXRANDR_CONF_OPTS = --disable-malloc0returnsnull
 
-$(eval $(autotools-package))
+$(eval $(meson-package))

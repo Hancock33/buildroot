@@ -12,4 +12,4 @@ XLIB_LIBXDAMAGE_LICENSE_FILES = COPYING
 XLIB_LIBXDAMAGE_INSTALL_STAGING = YES
 XLIB_LIBXDAMAGE_DEPENDENCIES = xlib_libX11 xlib_libXfixes xorgproto
 
-$(eval $(autotools-package))
+$(eval $(meson-package))

@@ -13,6 +13,5 @@ XLIB_LIBXXF86DGA_CPE_ID_VENDOR = x
 XLIB_LIBXXF86DGA_CPE_ID_PRODUCT = libxxf86dga
 XLIB_LIBXXF86DGA_INSTALL_STAGING = YES
 XLIB_LIBXXF86DGA_DEPENDENCIES = xlib_libX11 xlib_libXext xorgproto
-XLIB_LIBXXF86DGA_CONF_OPTS = --disable-malloc0returnsnull
 
-$(eval $(autotools-package))
+$(eval $(meson-package))

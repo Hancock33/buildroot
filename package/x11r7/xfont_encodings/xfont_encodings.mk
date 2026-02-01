@@ -14,5 +14,5 @@ XFONT_ENCODINGS_DEPENDENCIES = host-xapp_mkfontscale host-pkgconf xutil_util-mac
 HOST_XFONT_ENCODINGS_DEPENDENCIES = \
 	host-xapp_mkfontscale host-pkgconf host-xutil_util-macros
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))

@@ -13,6 +13,5 @@ XLIB_LIBXXF86VM_CPE_ID_VENDOR = x
 XLIB_LIBXXF86VM_CPE_ID_PRODUCT = libxxf86vm
 XLIB_LIBXXF86VM_INSTALL_STAGING = YES
 XLIB_LIBXXF86VM_DEPENDENCIES = xlib_libX11 xlib_libXext xorgproto
-XLIB_LIBXXF86VM_CONF_OPTS = --disable-malloc0returnsnull
 
-$(eval $(autotools-package))
+$(eval $(meson-package))

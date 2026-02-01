@@ -13,6 +13,5 @@ XLIB_LIBXINERAMA_CPE_ID_VENDOR = x
 XLIB_LIBXINERAMA_CPE_ID_PRODUCT = libxinerama
 XLIB_LIBXINERAMA_INSTALL_STAGING = YES
 XLIB_LIBXINERAMA_DEPENDENCIES = xlib_libX11 xlib_libXext xorgproto
-XLIB_LIBXINERAMA_CONF_OPTS = --disable-malloc0returnsnull
 
-$(eval $(autotools-package))
+$(eval $(meson-package))

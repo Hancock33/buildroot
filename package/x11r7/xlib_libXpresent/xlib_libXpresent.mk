@@ -18,4 +18,4 @@ XLIB_LIBXPRESENT_DEPENDENCIES = \
 	xlib_libXrandr \
 	xorgproto
 
-$(eval $(autotools-package))
+$(eval $(meson-package))

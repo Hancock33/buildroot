@@ -13,6 +13,5 @@ XLIB_LIBXRES_CPE_ID_VENDOR = x
 XLIB_LIBXRES_CPE_ID_PRODUCT = libxres
 XLIB_LIBXRES_INSTALL_STAGING = YES
 XLIB_LIBXRES_DEPENDENCIES = xlib_libX11 xlib_libXext xorgproto
-XLIB_LIBXRES_CONF_OPTS = --disable-malloc0returnsnull
 
-$(eval $(autotools-package))
+$(eval $(meson-package))
