@@ -77,6 +77,7 @@ HOST_GCC_COMMON_CONF_OPTS = \
 	--with-sysroot=$(STAGING_DIR) \
 	--enable-__cxa_atexit \
 	--with-gnu-ld \
+	--disable-checking \
 	--disable-libssp \
 	--disable-multilib \
 	--disable-decimal-float \
