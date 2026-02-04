@@ -1,3 +1,4 @@
+
 ################################################################################
 #
 # clang
@@ -102,6 +103,10 @@ CLANG_CONF_OPTS += -DLLVM_LINK_LLVM_DYLIB=ON
 # Prevent clang binaries from linking against LLVM static libs
 HOST_CLANG_CONF_OPTS += -DLLVM_DYLIB_COMPONENTS=all
 CLANG_CONF_OPTS += -DLLVM_DYLIB_COMPONENTS=all
+
+# host-python3 is a permanent dependency of clang, so we can build the
+# python bindings unconditionally:
+HOST_CLANG_CONF_OPTS += -DCLANG_PYTHON_BINDINGS_VERSIONS=$(PYTHON3_VERSION_MAJOR)
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
