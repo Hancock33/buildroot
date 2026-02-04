@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBXMLB_VERSION = 0.3.24
+LIBXMLB_VERSION = 0.3.25
 LIBXMLB_SITE = $(call github,hughsie,libxmlb,$(LIBXMLB_VERSION))
 LIBXMLB_LICENSE = LGPL-2.1+
 LIBXMLB_LICENSE_FILES = LICENSE
