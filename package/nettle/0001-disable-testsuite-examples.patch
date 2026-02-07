@@ -6,15 +6,15 @@ Also, they break for a shared-only build (but it's fixed in patch 0001).
 
 Signed-off-by:  "Yann E. MORIN" <yann.morin.1998@free.fr>
 
-diff -durN nettle-2.7.1.orig/Makefile.in nettle-2.7.1/Makefile.in
---- nettle-2.7.1.orig/Makefile.in	2013-05-28 16:21:54.000000000 +0200
-+++ nettle-2.7.1/Makefile.in	2014-12-12 19:57:12.499805574 +0100
-@@ -19,7 +19,7 @@
+diff --git a/Makefile.in b/Makefile.in
+index 93999850..484b5761 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -20,7 +20,7 @@ OPT_NETTLE_SOURCES = @OPT_NETTLE_SOURCES@
+ FAT_OVERRIDE_LIST = @FAT_OVERRIDE_LIST@
+ FAT_EMULATE_LIST = @FAT_EMULATE_LIST@
  
- FAT_TEST_LIST = @FAT_TEST_LIST@
- 
--SUBDIRS = tools testsuite examples
+-SUBDIRS = testsuite tools examples
 +SUBDIRS = tools
  
  include config.make
- 
