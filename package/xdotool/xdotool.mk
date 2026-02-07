@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XDOTOOL_VERSION = 3.20211022.1
+XDOTOOL_VERSION = 4.20251130.1
 XDOTOOL_SITE = https://github.com/jordansissel/xdotool/releases/download/v$(XDOTOOL_VERSION)
 XDOTOOL_LICENSE = BSD-3-Clause
 XDOTOOL_LICENSE_FILES = COPYRIGHT
