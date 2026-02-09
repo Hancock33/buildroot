@@ -88,7 +88,10 @@ endif
 
 # batocera - use Pipewire audio
 ifeq ($(BR2_PACKAGE_PIPEWIRE),y)
+SDL2_DEPENDENCIES += pipewire
 SDL2_CONF_OPTS += --enable-pipewire
+else
+SDL2_CONF_OPTS += --disable-pipewire
 endif
 
 # batocera - ensure mesa for riscv is built before sdl2
