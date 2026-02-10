@@ -116,6 +116,12 @@ PIPEWIRE_CONF_OPTS += -Dpipewire-jack=disabled -Djack=disabled
 endif
 
 # batocera
+ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_FDK_AAC),yy)
+PIPEWIRE_CONF_OPTS += -Dbluez5-codec-aac=enabled
+PIPEWIRE_DEPENDENCIES += bluez5_utils fdk-aac
+endif
+
+# batocera
 ifeq ($(BR2_PACKAGE_BLUEZ5_UTILS)$(BR2_PACKAGE_LIBFREEAPTX),yy)
 PIPEWIRE_CONF_OPTS += -Dbluez5-codec-aptx=enabled
 PIPEWIRE_DEPENDENCIES += bluez5_utils libfreeaptx
@@ -158,12 +164,17 @@ else
 PIPEWIRE_CONF_OPTS += -Dbluez5=disabled
 endif
 
-ifeq ($(BR2_PACKAGE_FFMPEG),y)
-PIPEWIRE_CONF_OPTS += -Dffmpeg=enabled -Dpw-cat-ffmpeg=enabled
-PIPEWIRE_DEPENDENCIES += ffmpeg
-else
+# batocera: handled in package pipewire-ffmpeg-plugins to break dependency
+# chain of sdl2 -> pipewire -> ffmpeg -> sdl2
+# Since pipewire is designed to have its plugins loaded dynamically and SDL2 isn't,
+# it's better to do this at the pipewire level rather than force everything to rebuild
+# against a new SDL2 with a new ABI
+# ifeq ($(BR2_PACKAGE_FFMPEG),y)
+# PIPEWIRE_CONF_OPTS += -Dffmpeg=enabled -Dpw-cat-ffmpeg=enabled
+# PIPEWIRE_DEPENDENCIES += ffmpeg
+# else
 PIPEWIRE_CONF_OPTS += -Dffmpeg=disabled -Dpw-cat-ffmpeg=disabled
-endif
+# endif
 
 ifeq ($(BR2_PACKAGE_NCURSES_WCHAR),y)
 PIPEWIRE_DEPENDENCIES += ncurses
