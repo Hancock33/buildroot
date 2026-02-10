@@ -1,5 +1,5 @@
 # From https://www.kernel.org/pub/linux/bluetooth/sha256sums.asc
-sha256  426633cabd7c798236443516dfa8335b47e004b0ef37ff107e0c7ead3299fcc2  sbc-2.1.tar.xz
+sha256  a1ada76ef35e5af9c2fbd063754dc9e37a8d989417c6eb1ecebb089b1383ae9e  sbc-2.2.tar.xz
 
 # sha256 locally computed
 sha256  b499eddebda05a8859e32b820a64577d91f1de2b52efa2a1575a2cb4000bc259  COPYING
