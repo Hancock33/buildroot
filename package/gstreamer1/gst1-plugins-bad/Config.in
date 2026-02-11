@@ -324,11 +324,6 @@ config BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_VIDEOSIGNAL
 config BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_VMNC
 	bool "vmnc"
 
-config BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_Y4M
-	bool "y4m"
-	help
-	  Demuxes/decodes YUV4MPEG streams
-
 comment "plugins with external dependencies"
 
 config BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_AES
