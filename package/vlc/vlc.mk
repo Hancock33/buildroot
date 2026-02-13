@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Jan 28, 2026
-VLC_VERSION = 3.0.23-2-199-ga7ee6a1ee895851b697cfc8e3ee7f033b3da2f30
+VLC_VERSION = 3.0.23-2-200-gf7035aa4ee6775b9786a1e00c616bd804c70225a
 VLC_SITE = https://code.videolan.org/videolan/vlc.git
 VLC_SITE_METHOD = git
 #VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
