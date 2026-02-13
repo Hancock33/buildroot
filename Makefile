@@ -749,8 +749,8 @@ target-finalize: $(PACKAGES) $(TARGET_DIR) host-finalize
 		$(TARGET_DIR)/usr/doc
 	find $(TARGET_DIR)/usr/{lib,share}/ -name '*.cmake' -print0 | xargs -0 -r rm -f
 	find $(TARGET_DIR)/lib/ $(TARGET_DIR)/usr/lib/ $(TARGET_DIR)/usr/libexec/ \
-		\( -name '*.a' -o -name '*.la' -o -name '*.prl' \) -print0 | xargs -0 -r rm -f \
-	find $(TARGET_DIR)/usr/lib/python*/ -name 'test*' -print0 | xargs -0 -r rm -f
+		\( -name '*.a' -o -name '*.la' -o -name '*.prl' \) -print0 | xargs -0 -r rm -f
+	find $(TARGET_DIR)/usr/lib/python*/ -name 'test*' -print0 | xargs -0 -r rm -rf
 ifneq ($(BR2_PACKAGE_RPM),y)
 	rm -rf $(TARGET_DIR)/usr/lib/rpm
 endif
