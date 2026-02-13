@@ -254,14 +254,16 @@ ifeq ($(BR2_PER_PACKAGE_DIRECTORIES),y)
 # $2: 'host' or 'target'
 # $3: destination directory
 # $4: literal "copy" or "hardlink" to copy or hardlink files from src to dest
+# batocera - we want to update new files if updated in another `per-package` folder
+# therefore we -au and remove tac
 define per-package-rsync
 	mkdir -p $(3)
 	$(if $(filter hardlink,$(4)), \
 		$(foreach pkg,$(1),\
-			rsync -a --hard-links --link-dest=$(PER_PACKAGE_DIR)/$(pkg)/$(2)/ \
+			rsync -au --hard-links --link-dest=$(PER_PACKAGE_DIR)/$(pkg)/$(2)/ \
 				$(PER_PACKAGE_DIR)/$(pkg)/$(2)/ $(3)$(sep)), \
-		printf "%s/$(2)/\n" $(1) | tac \
-			| rsync -a --hard-links --files-from=- --no-R -r $(PER_PACKAGE_DIR) $(3))
+		printf "%s/$(2)/\n" $(1) \
+			| rsync -au --hard-links --files-from=- --no-R -r $(PER_PACKAGE_DIR) $(3))
 endef
 
 # prepares the per-package HOST_DIR and TARGET_DIR of the current
