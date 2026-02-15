@@ -1,5 +1,5 @@
 # Locally calculated after vendoring
-sha256  dc608c1b7dbf3e1086306494943a73a86426b206c0f5db7d26fa41433db37af2  python-maturin-1.11.5-cargo4.tar.gz
+sha256  4db3812ba46dc6994527f4c2f9036205a9d96164823114806c868dc25cd09c3d  python-maturin-1.12.0-cargo4.tar.gz
 # Locally computed sha256 checksums
 sha256  a60eea817514531668d7e00765731449fe14d059d3249e0bc93b36de45f759f2  license-apache
 sha256  ea7882c559733766ad08343bde1d1ec80a4967c03a738fb8e0058ef6289f7b7c  license-mit
