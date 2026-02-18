@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBZLIB_VERSION = v1.3.1.2
+LIBZLIB_VERSION = v1.3.2
 LIBZLIB_SITE = $(call github,madler,zlib,$(LIBZLIB_VERSION))
 LIBZLIB_LICENSE = Zlib
 LIBZLIB_LICENSE_FILES = LICENSE
