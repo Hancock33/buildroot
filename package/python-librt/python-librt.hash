@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/librt/json
-md5  607583c8d2dc4f2ead89a4e89d5ef6ba  librt-0.8.0.tar.gz
-sha256  cb74cdcbc0103fc988e04e5c58b0b31e8e5dd2babb9182b6f9490488eb36324b  librt-0.8.0.tar.gz
+md5  977ea89f85bd73d2ec17f5149f165f71  librt-0.8.1.tar.gz
+sha256  be46a14693955b3bd96014ccbdb8339ee8c9346fbe11c1b78901b55125f14c73  librt-0.8.1.tar.gz
 # Locally computed sha256 checksums
 sha256  88f9e379c684580053c58e75e296ca2eb243b6edcc6e5357f247310e96eeef8a  LICENSE
