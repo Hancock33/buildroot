@@ -32,8 +32,6 @@ define LIBZLIB_CONFIGURE_CMDS
 	(cd $(@D); rm -rf config.cache; \
 		$(TARGET_CONFIGURE_ARGS) \
 		$(TARGET_CONFIGURE_OPTS) \
-		CC="$(HOSTCC_NOCCACHE)" \
-		CXX="$(HOSTCXX_NOCCACHE)" \
 		CFLAGS="$(TARGET_CFLAGS) $(LIBZLIB_PIC)" \
 		./configure \
 		$(LIBZLIB_SHARED) \
@@ -45,6 +43,8 @@ define HOST_LIBZLIB_CONFIGURE_CMDS
 	(cd $(@D); rm -rf config.cache; \
 		$(HOST_CONFIGURE_ARGS) \
 		$(HOST_CONFIGURE_OPTS) \
+		CC="$(HOSTCC_NOCCACHE)" \
+		CXX="$(HOSTCXX_NOCCACHE)" \
 		./configure \
 		--prefix="$(HOST_DIR)" \
 		--sysconfdir="$(HOST_DIR)/etc" \
