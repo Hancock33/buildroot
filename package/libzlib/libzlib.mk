@@ -4,17 +4,15 @@
 #
 ################################################################################
 
-LIBZLIB_VERSION = v1.3.2
-LIBZLIB_SITE = $(call github,madler,zlib,$(LIBZLIB_VERSION))
+LIBZLIB_VERSION = 1.3.2
+LIBZLIB_SOURCE = zlib-$(LIBZLIB_VERSION).tar.xz
+LIBZLIB_SITE = https://www.zlib.net
 LIBZLIB_LICENSE = Zlib
 LIBZLIB_LICENSE_FILES = LICENSE
 LIBZLIB_INSTALL_STAGING = YES
 LIBZLIB_PROVIDES = zlib
 LIBZLIB_CPE_ID_VENDOR = zlib
 LIBZLIB_CPE_ID_PRODUCT = zlib
-HOST_LIBZLIB_DEPENDENCIES = host-pkgconf
-# The package is a dependency to ccache so ccache cannot be a dependency
-HOST_LIBZLIB_ADD_CCACHE_DEPENDENCY = NO
 
 # It is not possible to build only a shared version of zlib, so we build both
 # shared and static, unless we only want the static libs, and we eventually
@@ -42,8 +40,6 @@ define HOST_LIBZLIB_CONFIGURE_CMDS
 	(cd $(@D); rm -rf config.cache; \
 		$(HOST_CONFIGURE_ARGS) \
 		$(HOST_CONFIGURE_OPTS) \
-		CC="$(HOSTCC_NOCCACHE)" \
-		CXX="$(HOSTCXX_NOCCACHE)" \
 		./configure \
 		--prefix="$(HOST_DIR)" \
 		--sysconfdir="$(HOST_DIR)/etc" \
