@@ -421,12 +421,6 @@ config BR2_PACKAGE_LIBDNET_PYTHON
 	  The libdnet Python module is no longer compatible with
 	  Python >= 3.13, so it had to be removed.
 
-config BR2_PACKAGE_LIBFREEIMAGE
-	bool "libfreeimage"
-	select BR2_LEGACY
-	help
-	  libfreeimage is unmaintained and has been removed
-
 config BR2_PACKAGE_OPENCV3
 	bool "opencv3"
 	select BR2_LEGACY
