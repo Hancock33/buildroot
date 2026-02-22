@@ -146,12 +146,11 @@ endif
 
 comment "Legacy options removed in 2026.02"
 
-config BR2_BINUTILS_VERSION_2_43_X
-	bool "binutils 2.43 has been removed"
+config BR2_PACKAGE_QEMU_TARGET_CRIS
+	bool "qemu cris support has been removed"
 	select BR2_LEGACY
 	help
-	  binutils 2.43 has been removed, select a newer version
-	  instead.
+	  CRIS support has been removed since Qemu 9.2.0.
 
 config BR2_PACKAGE_DVDRW_TOOLS
 	bool "dvdrw-tools removed"
@@ -422,8 +421,8 @@ config BR2_PACKAGE_LIBDNET_PYTHON
 	  The libdnet Python module is no longer compatible with
 	  Python >= 3.13, so it had to be removed.
 
-config BR2_PACKAGE_LIBFREEIMAGEBR
-	bool "libfreeimagebr"
+config BR2_PACKAGE_LIBFREEIMAGE
+	bool "libfreeimage"
 	select BR2_LEGACY
 	help
 	  libfreeimage is unmaintained and has been removed
