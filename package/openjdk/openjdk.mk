@@ -4,7 +4,11 @@
 #
 ################################################################################
 
-ifeq ($(BR2_PACKAGE_OPENJDK_VERSION_21),y)
+ifeq ($(BR2_PACKAGE_OPENJDK_VERSION_25),y)
+OPENJDK_VERSION_MAJOR = 25
+OPENJDK_VERSION_MINOR = 0.2
+OPENJDK_VERSION_BUILD = 10
+else ifeq ($(BR2_PACKAGE_OPENJDK_VERSION_21),y)
 OPENJDK_VERSION_MAJOR = 21
 OPENJDK_VERSION_MINOR = 0.10
 OPENJDK_VERSION_BUILD = 6
@@ -80,7 +84,6 @@ OPENJDK_CONF_ENV = \
 # Batocera remove --enable-headless-only for X11 build
 OPENJDK_CONF_OPTS = \
 	--disable-full-docs \
-	--disable-manpages \
 	--disable-warnings-as-errors \
 	--enable-openjdk-only \
 	--enable-unlimited-crypto \
@@ -90,7 +93,7 @@ OPENJDK_CONF_OPTS = \
 	--with-debug-level=release \
 	--with-devkit=$(HOST_DIR) \
 	--with-extra-cflags="$(TARGET_CFLAGS)" \
-	--with-extra-cxxflags="$(TARGET_CXXFLAGS)" \
+	--with-extra-cxxflags="$(TARGET_CXXFLAGS) -fpermissive" \
 	--with-extra-ldflags="-Wl,-rpath,$(OPENJDK_INSTALL_BASE)/lib,-rpath,$(OPENJDK_INSTALL_BASE)/lib/$(OPENJDK_JVM_VARIANT)" \
 	--with-giflib=system \
 	--with-jobs=$(PARALLEL_JOBS) \
