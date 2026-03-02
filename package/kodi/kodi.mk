@@ -56,22 +56,25 @@ KODI_DEPENDENCIES = \
 	zlib
 
 # taken from tools/depends/target/*/*-VERSION
+KODI_APACHE_GROOVY_VERSION = 4.0.26
+KODI_COMMONS_LANG3_VERSION = 3.17.0
+KODI_COMMONS_TEXT_VERSION = 1.13.0
 KODI_LIBDVDCSS_VERSION = 1.4.3-Next-Nexus-Alpha2-2
 KODI_LIBDVDNAV_VERSION = 6.1.1-Next-Nexus-Alpha2-2
 KODI_LIBDVDREAD_VERSION = 6.1.3-Next-Nexus-Alpha2-2
 KODI_EXTRA_DOWNLOADS += \
-	https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-4.0.26.zip \
-	https://archive.apache.org/dist/commons/lang/binaries/commons-lang3-3.17.0-bin.tar.gz \
-	https://archive.apache.org/dist/commons/text/binaries/commons-text-1.13.0-bin.tar.gz \
+	https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$(KODI_APACHE_GROOVY_VERSION).zip \
+	https://archive.apache.org/dist/commons/lang/binaries/commons-lang3-$(KODI_COMMONS_LANG3_VERSION)-bin.tar.gz \
+	https://archive.apache.org/dist/commons/text/binaries/commons-text-$(KODI_COMMONS_TEXT_VERSION)-bin.tar.gz \
 	$(call github,xbmc,libdvdcss,$(KODI_LIBDVDCSS_VERSION))/kodi-libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.gz \
 	$(call github,xbmc,libdvdnav,$(KODI_LIBDVDNAV_VERSION))/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
 	$(call github,xbmc,libdvdread,$(KODI_LIBDVDREAD_VERSION))/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
 
 define KODI_PROVIDE_JAVA_TARBALLS
 	mkdir -p $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/apache-groovy-binary-4.0.26.zip $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/commons-lang3-3.17.0-bin.tar.gz $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/commons-text-1.13.0-bin.tar.gz $(@D)/buildroot-build/build/download
+	cp $(KODI_DL_DIR)/apache-groovy-binary-$(KODI_APACHE_GROOVY_VERSION).zip $(@D)/buildroot-build/build/download
+	cp $(KODI_DL_DIR)/commons-lang3-$(KODI_COMMONS_LANG3_VERSION)-bin.tar.gz $(@D)/buildroot-build/build/download
+	cp $(KODI_DL_DIR)/commons-text-$(KODI_COMMONS_TEXT_VERSION)-bin.tar.gz $(@D)/buildroot-build/build/download
 endef
 KODI_POST_EXTRACT_HOOKS = KODI_PROVIDE_JAVA_TARBALLS
 
@@ -82,12 +85,9 @@ KODI_CONF_OPTS += \
 	-DENABLE_CCACHE=OFF \
 	-DENABLE_DVDCSS=ON \
 	-DENABLE_INTERNAL_CROSSGUID=OFF \
-	-DENABLE_INTERNAL_EXIV2=OFF \
-	-DENABLE_INTERNAL_FFMPEG=OFF \
-	-DWITH_FFMPEG=$(STAGING_DIR)/usr \
+	-DFFMPEG_PATH=$(STAGING_DIR)/usr \
 	-DENABLE_INTERNAL_FLATBUFFERS=OFF \
 	-DFLATBUFFERS_FLATC_EXECUTABLE=$(HOST_DIR)/bin/flatc \
-	-DENABLE_INTERNAL_MARIADBCLIENT=OFF \
 	-DENABLE_INTERNAL_SPDLOG=OFF \
 	-DKODI_DEPENDSBUILD=OFF \
 	-DENABLE_GOLD=OFF \
