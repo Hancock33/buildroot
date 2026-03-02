@@ -4,7 +4,7 @@
 #
 ################################################################################
 # Version: Commits on Feb 18, 2026
-SPIRV_LLVM_TRANSLATOR_VERSION = 567786558a00e8b7ec0457f1706504784e229150
+SPIRV_LLVM_TRANSLATOR_VERSION = v22.1.0
 SPIRV_LLVM_TRANSLATOR_SITE = $(call github,KhronosGroup,SPIRV-LLVM-Translator,$(SPIRV_LLVM_TRANSLATOR_VERSION))
 SPIRV_LLVM_TRANSLATOR_BRANCH = llvm_release_220
 SPIRV_LLVM_TRANSLATOR_LICENSE = NCSA
