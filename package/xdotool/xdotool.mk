@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-XDOTOOL_VERSION = 4.20251130.1
-XDOTOOL_SITE = https://github.com/jordansissel/xdotool/releases/download/v$(XDOTOOL_VERSION)
+XDOTOOL_VERSION = v4.20260303.1
+XDOTOOL_SITE =$(call github,jordansissel,xdotool,$(XDOTOOL_VERSION))
 XDOTOOL_LICENSE = BSD-3-Clause
 XDOTOOL_LICENSE_FILES = COPYRIGHT
 XDOTOOL_DEPENDENCIES = xlib_libXtst xlib_libXinerama libxkbcommon xlib_libX11
