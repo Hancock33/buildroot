@@ -1,4 +1,4 @@
 # https://lists.iana.org/hyperkitty/list/tz-announce@iana.org/thread/ASPLBE3A4BAEXIOQ3KZ6EJSJWBU6L53G/
-sha512  69a2ad3334ab1491ba349fcd5d3066a26b38ccb59031fec70ca19379cb0514fe2757af7bee31e796913c0cfc322134e2ba16f93ba07fa45cd4a415b9122b2f27  tzdata2026a.tar.gz
+sha512  69a2ad3334ab1491ba349fcd5d3066a26b38ccb59031fec70ca19379cb0514fe2757af7bee31e796913c0cfc322134e2ba16f93ba07fa45cd4a415b9122b2f27  tzcode2026a.tar.gz
 # Locally computed:
 sha256  0613408568889f5739e5ae252b722a2659c02002839ad970a63dc5e9174b27cf  LICENSE
