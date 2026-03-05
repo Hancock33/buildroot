@@ -7,9 +7,10 @@
 # Use the same VERSION and SITE as target glibc
 # As in glibc.mk, generate version string using:
 #   git describe --match 'glibc-*' --abbrev=40 origin/release/MAJOR.MINOR/master | cut -d '-' -f 2-
-LOCALEDEF_VERSION = 2.42-51-gcbf39c26b25801e9bc88499b4fd361ac172d4125
-LOCALEDEF_SOURCE = glibc-$(LOCALEDEF_VERSION).tar.gz
-LOCALEDEF_SITE = $(call github,sailfishos-mirror,glibc,$(LOCALEDEF_VERSION))
+LOCALEDEF_VERSION = $(GLIBC_VERSION)
+LOCALEDEF_SOURCE = glibc-$(GLIBC_VERSION)$(BR_FMT_VERSION_git).tar.gz
+LOCALEDEF_SITE = https://sourceware.org/git/glibc.git
+LOCALEDEF_SITE_METHOD = git
 HOST_LOCALEDEF_DL_SUBDIR = glibc
 
 HOST_LOCALEDEF_DEPENDENCIES = \
@@ -28,7 +29,7 @@ define HOST_LOCALEDEF_CONFIGURE_CMDS
 	# Do the configuration
 	(cd $(@D)/build; \
 		$(HOST_LOCALEDEF_CONF_ENV) \
-		$(HOST_CONFIGURE_OPTS) LD=/usr/bin/ld.bfd \
+		$(HOST_CONFIGURE_OPTS) \
 		$(SHELL) $(@D)/configure \
 		libc_cv_forced_unwind=yes \
 		libc_cv_ssp=no \
