@@ -4,19 +4,23 @@
 #
 ################################################################################
 
-# LLVM, Clang, libclc and lld should be version bumped together
 CLANG_VERSION_MAJOR = $(LLVM_PROJECT_VERSION_MAJOR)
 CLANG_VERSION = $(LLVM_PROJECT_VERSION)
 CLANG_SITE = $(LLVM_PROJECT_SITE)
-CLANG_SOURCE = clang-$(CLANG_VERSION).src.tar.xz
+CLANG_SOURCE = $(LLVM_PROJECT_SOURCE)
+CLANG_DL_SUBDIR = llvm-project
 CLANG_LICENSE = Apache-2.0 with exceptions
 CLANG_LICENSE_FILES = LICENSE.TXT
 CLANG_CPE_ID_VENDOR = llvm
+CLANG_SUBDIR = clang
 CLANG_SUPPORTS_IN_SOURCE_BUILD = NO
 CLANG_INSTALL_STAGING = YES
 
-HOST_CLANG_DEPENDENCIES = host-llvm host-libxml2
+HOST_CLANG_DEPENDENCIES = host-llvm host-libxml2 host-python3
 CLANG_DEPENDENCIES = llvm host-clang
+
+# since we have LLVM_ENABLE_LIBXML2=OFF, set CLANG_ENABLE_LIBXML2=OFF
+CLANG_CONF_OPTS += -DCLANG_ENABLE_LIBXML2=OFF
 
 # This option is needed, otherwise multiple shared libs
 # (libclangAST.so, libclangBasic.so, libclangFrontend.so, etc.) will
@@ -56,13 +60,17 @@ CLANG_CONF_OPTS += \
 	-DLLVM_INCLUDE_TESTS=OFF
 
 HOST_CLANG_CONF_OPTS += -DLLVM_DIR=$(HOST_DIR)/lib/cmake/llvm \
-	-DLLVM_COMMON_CMAKE_UTILS=$(HOST_DIR)/lib/cmake/llvm \
 	-DCLANG_DEFAULT_LINKER=$(TARGET_LD)
 CLANG_CONF_OPTS += -DLLVM_DIR=$(STAGING_DIR)/usr/lib/cmake/llvm \
-	-DLLVM_COMMON_CMAKE_UTILS=$(HOST_DIR)/lib/cmake/llvm \
 	-DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm \
 	-DCLANG_TABLEGEN:FILEPATH=$(HOST_DIR)/bin/clang-tblgen \
 	-DLLVM_TABLEGEN_EXE:FILEPATH=$(HOST_DIR)/bin/llvm-tblgen
+
+HOST_CLANG_CONF_OPTS += -DLLVM_COMMON_CMAKE_UTILS=$(HOST_DIR)/lib/cmake/llvm
+CLANG_CONF_OPTS += -DLLVM_COMMON_CMAKE_UTILS=$(HOST_DIR)/lib/cmake/llvm
+
+HOST_CLANG_CONF_OPTS += -DLLVM_MAIN_SRC_DIR=$(BUILD_DIR)/llvm-$(LLVM_PROJECT_VERSION)
+CLANG_CONF_OPTS += -DLLVM_MAIN_SRC_DIR=$(BUILD_DIR)/llvm-$(LLVM_PROJECT_VERSION)
 
 # Clang can't be used as compiler on the target since there are no
 # development files (headers) and other build tools. So remove clang

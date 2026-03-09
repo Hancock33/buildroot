@@ -6,15 +6,18 @@
 
 LLD_VERSION = $(LLVM_PROJECT_VERSION)
 LLD_SITE = $(LLVM_PROJECT_SITE)
-LLD_SOURCE = lld-$(LLD_VERSION).src.tar.xz
+LLD_SOURCE = $(LLVM_PROJECT_SOURCE)
+LLD_DL_SUBDIR = llvm-project
 LLD_LICENSE = Apache-2.0 with exceptions
 LLD_LICENSE_FILES = LICENSE.TXT
+LLD_SUBDIR = lld
 LLD_SUPPORTS_IN_SOURCE_BUILD = NO
 HOST_LLD_DEPENDENCIES = host-llvm host-llvm-libunwind host-clang
 
 # build as static libs as is done in llvm & clang
-HOST_LLD_CONF_OPTS += -DBUILD_SHARED_LIBS=OFF \
-	-DLLVM_COMMON_CMAKE_UTILS=$(HOST_DIR)/lib/cmake/llvm
+HOST_LLD_CONF_OPTS += -DBUILD_SHARED_LIBS=OFF
+
+HOST_LLD_CONF_OPTS += -DLLVM_COMMON_CMAKE_UTILS=$(HOST_DIR)/lib/cmake/llvm
 
 # GCC looks for tools in a different path from LLD's default installation path
 define HOST_LLD_CREATE_SYMLINKS

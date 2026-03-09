@@ -6,17 +6,17 @@
 
 LLVM_VERSION = $(LLVM_PROJECT_VERSION)
 LLVM_SITE = $(LLVM_PROJECT_SITE)
-LLVM_SOURCE = llvm-project-$(LLVM_VERSION).src.tar.xz
+LLVM_SOURCE = $(LLVM_PROJECT_SOURCE)
+LLVM_DL_SUBDIR = llvm-project
 LLVM_LICENSE = Apache-2.0 with exceptions
 LLVM_LICENSE_FILES = LICENSE.TXT
 LLVM_CPE_ID_VENDOR = llvm
 LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
-LLVM_INSTALL_STAGING = YES
-# Main CMakeLists.txt in llvm subfolder
 LLVM_SUBDIR = llvm
+LLVM_INSTALL_STAGING = YES
 
-HOST_LLVM_DEPENDENCIES =  host-binutils host-llvm-cmake host-python3
-LLVM_DEPENDENCIES = host-binutils host-llvm host-lld
+HOST_LLVM_DEPENDENCIES = host-python3 host-llvm-cmake
+LLVM_DEPENDENCIES = host-llvm
 
 # Path to cmake modules from host-llvm-cmake
 HOST_LLVM_CONF_OPTS += -DCMAKE_MODULE_PATH=$(HOST_DIR)/lib/cmake/llvm -DLLVM_BINUTILS_INCDIR=$(BUILD_DIR)/host-binutils-$(BINUTILS_VERSION)/include
@@ -30,6 +30,11 @@ LLVM_CONF_OPTS += -DCMAKE_CXX_FLAGS="-Os  $(subst ",,$(BR2_TARGET_OPTIMIZATION))
 # This flag assumes that projects are checked out side-by-side and not nested
 HOST_LLVM_CONF_OPTS += -DLLVM_ENABLE_PROJECTS=""
 LLVM_CONF_OPTS += -DLLVM_ENABLE_PROJECTS=""
+
+# LLVM_ENABLE_RUNTIMES for runtime components libcxx etc
+
+HOST_LLVM_CONF_OPTS += -DLLVM_ENABLE_RUNTIMES=""
+LLVM_CONF_OPTS += -DLLVM_ENABLE_RUNTIMES=""
 
 HOST_LLVM_CONF_OPTS += -DLLVM_CCACHE_BUILD=$(if $(BR2_CCACHE),ON,OFF)
 LLVM_CONF_OPTS += -DLLVM_CCACHE_BUILD=$(if $(BR2_CCACHE),ON,OFF)
