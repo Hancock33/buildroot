@@ -15,7 +15,7 @@ LLVM_SUPPORTS_IN_SOURCE_BUILD = NO
 LLVM_SUBDIR = llvm
 LLVM_INSTALL_STAGING = YES
 
-HOST_LLVM_DEPENDENCIES =  host-binutils host-llvm-cmake host-python3
+HOST_LLVM_DEPENDENCIES = host-binutils host-llvm-cmake host-python3
 LLVM_DEPENDENCIES = host-binutils host-llvm host-lld
 
 # Path to cmake modules from host-llvm-cmake
