@@ -8,33 +8,31 @@
 # If not, we do like other packages
 BINUTILS_VERSION = $(call qstrip,$(BR2_BINUTILS_VERSION))
 ifeq ($(BINUTILS_VERSION),)
-ifeq ($(BR2_arc),y)
-BINUTILS_VERSION = arc-2024.12-release
-else
-BINUTILS_VERSION = 2.45.1
-endif
+    ifeq ($(BR2_arc),y)
+        BINUTILS_VERSION = arc-2024.12-release
+    else
+        BINUTILS_VERSION = 2.45.1
+    endif
 endif # BINUTILS_VERSION
 
 ifeq ($(BINUTILS_VERSION),arc-2024.12-release)
-BINUTILS_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,binutils-gdb,$(BINUTILS_VERSION))
-BINUTILS_SOURCE = binutils-gdb-$(BINUTILS_VERSION).tar.gz
-BINUTILS_FROM_GIT = y
-endif
-
-ifeq ($(BR2_BINUTILS_VERSION_GIT),y)
-#git describe --abbrev=40 origin/binutils-2_44-branch | cut -d '-' -f 2-
-	BINUTILS_VERSION = 2_46-17-gfc43edcc3696d1c24d78434c35023d6e2629cad5
-	BINUTILS_SITE = $(call github,RTEMS,sourceware-mirror-binutils-gdb,$(BINUTILS_VERSION))
-	BINUTILS_SOURCE = binutils-$(BINUTILS_VERSION).tar.gz
-	BINUTILS_FROM_GIT = y
+    BINUTILS_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,binutils-gdb,$(BINUTILS_VERSION))
+    BINUTILS_SOURCE = binutils-gdb-$(BINUTILS_VERSION).tar.gz
+    BINUTILS_FROM_GIT = y
 endif
 
 BINUTILS_SITE ?= $(BR2_GNU_MIRROR)/binutils
-ifeq ($(BINUTILS_VERSION),2.40)
-BINUTILS_SOURCE ?= binutils-$(BINUTILS_VERSION).tar.bz2
-else
 BINUTILS_SOURCE ?= binutils-$(BINUTILS_VERSION).tar.xz
+
+ifeq ($(BR2_BINUTILS_VERSION_GIT),y)
+    # git describe --abbrev=40 origin/binutils-2_46-branch | cut -d '-' -f 2-
+    BINUTILS_VERSION = 2_46-17-gfc43edcc3696d1c24d78434c35023d6e2629cad5
+    BINUTILS_SITE = https://sourceware.org/git/binutils-gdb.git
+    BINUTILS_SITE_METHOD = git
+    BINUTILS_SOURCE = binutils-$(BINUTILS_VERSION).tar.gz
+    BINUTILS_FROM_GIT = y
 endif
+
 BINUTILS_EXTRA_CONFIG_OPTIONS = $(call qstrip,$(BR2_BINUTILS_EXTRA_CONFIG_OPTIONS))
 BINUTILS_INSTALL_STAGING = YES
 BINUTILS_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES)
