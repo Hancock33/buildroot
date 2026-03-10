@@ -9,16 +9,16 @@
 GCC_VERSION = $(call qstrip,$(BR2_GCC_VERSION))
 
 ifeq ($(BR2_GCC_VERSION_ARC),y)
-	GCC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,gcc,$(GCC_VERSION))
-	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
+    GCC_SITE = $(call github,foss-for-synopsys-dwc-arc-processors,gcc,$(GCC_VERSION))
+    GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else ifeq ($(BR2_GCC_VERSION_GIT),y)
-# git describe --abbrev=40 origin/releases/gcc-15 | cut -d '-' -f 2-
-	GCC_VERSION = 15.2.0-655-g8a0b0f28b36b429d630dac872997de9990e9663e
-	GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
-	GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
+    # git describe --abbrev=40 origin/releases/gcc-15 | cut -d '-' -f 2-
+    GCC_VERSION = 15.2.0-655-g8a0b0f28b36b429d630dac872997de9990e9663e
+    GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
+    GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else
-	GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
-	GCC_SOURCE = gcc-$(GCC_VERSION).tar.xz
+    GCC_SITE = $(BR2_GNU_MIRROR:/=)/gcc/gcc-$(GCC_VERSION)
+    GCC_SOURCE = gcc-$(GCC_VERSION).tar.xz
 endif
 
 HOST_GCC_LICENSE = GPL-2.0, GPL-3.0, LGPL-2.1, LGPL-3.0
@@ -81,8 +81,7 @@ HOST_GCC_COMMON_CONF_OPTS = \
 	--disable-libssp \
 	--disable-multilib \
 	--disable-decimal-float \
-	--with-linker-hash-style=gnu \
-	--enable-plugin \
+	--enable-plugins \
 	--enable-lto \
 	--enable-gold \
 	--with-gmp=$(HOST_DIR) \
@@ -301,11 +300,6 @@ endif
 ifeq ($(BR2_s390x),y)
 HOST_GCC_COMMON_CONF_OPTS += \
 	--with-long-double-128
-endif
-
-# semantic interposition
-ifeq ($(BR2_GCC_ENABLE_SEMANTIC_INTERPOSITION),y)
-HOST_GCC_COMMON_CONF_OPTS += --enable-default-semantic-interposition=no
 endif
 
 HOST_GCC_COMMON_TOOLCHAIN_WRAPPER_ARGS += -DBR_CROSS_PATH_SUFFIX='".br_real"'
