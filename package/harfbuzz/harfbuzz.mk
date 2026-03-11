@@ -24,12 +24,13 @@ HARFBUZZ_CONF_OPTS = \
 
 # freetype & glib2 support required by host-pango
 HOST_HARFBUZZ_DEPENDENCIES = \
+	host-cairo \
 	host-freetype \
 	host-libglib2
 HOST_HARFBUZZ_CONF_OPTS = \
 	-Dglib=enabled \
 	-Dgobject=disabled \
-	-Dcairo=disabled \
+	-Dcairo=enabled \
 	-Dicu=disabled \
 	-Dgraphite=disabled \
 	-Dfreetype=enabled \
