@@ -115,15 +115,8 @@ function apply_patch {
         echo "  to be applied  : ${path}/${patch}"
         exit 1
     fi
-    #batocera
-    #if ${uncomp} "${path}/$patch" | grep -q "^rename from" && \
-    #   ${uncomp} "${path}/$patch" | grep -q "^rename to" ; then
-    #    echo "Error: patch contains some renames, not supported by old patch versions"
-    #    exit 1
-    #fi
     echo "${path}/${patch}" >> ${builddir}/.applied_patches_list
-    #${uncomp} "${path}/$patch" | patch -g0 -p1 --no-backup-if-mismatch -d "${builddir}" -t -N $silent
-    # batocera: add --binary flag. fixes line endings nonsense
+    # batocera: add --binary flag. fixes line endings nonsense and remove fuzz -F0
     ${uncomp} "${path}/$patch" | patch -g0 --binary -p1 --no-backup-if-mismatch -d "${builddir}" -t -N $silent
     if [ $? != 0 ] ; then
         echo "Patch failed!  Please fix ${patch}!"
