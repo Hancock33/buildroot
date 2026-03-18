@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBRSVG_VERSION = 2.62.0
+LIBRSVG_VERSION = 2.62.1
 LIBRSVG_SITE = https://gitlab.gnome.org/GNOME/librsvg/-/archive/$(LIBRSVG_VERSION)
 LIBRSVG_INSTALL_STAGING = YES
 LIBRSVG_LICENSE = LGPL-2.1+
