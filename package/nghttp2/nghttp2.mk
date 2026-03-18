@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-NGHTTP2_VERSION = 1.68.0
+NGHTTP2_VERSION = 1.68.1
 NGHTTP2_SOURCE =  nghttp2-$(NGHTTP2_VERSION).tar.xz
 NGHTTP2_SITE = https://github.com/nghttp2/nghttp2/releases/download/v$(NGHTTP2_VERSION)
 NGHTTP2_LICENSE = MIT
@@ -12,7 +12,8 @@ NGHTTP2_LICENSE_FILES = COPYING
 NGHTTP2_INSTALL_STAGING = YES
 NGHTTP2_CPE_ID_VENDOR = nghttp2
 NGHTTP2_DEPENDENCIES = host-pkgconf
-NGHTTP2_CONF_OPTS = --enable-lib-only
+NGHTTP2_CONF_OPTS = -DENABLE_LIB_ONLY=ON
+NGHTTP2_CONF_OPTS = -DENABLE_DOC=OFF
 
 define NGHTTP2_INSTALL_CLEAN_HOOK
 	# Remove fetch-ocsp-response script unused by library
@@ -21,4 +22,4 @@ endef
 
 NGHTTP2_POST_INSTALL_TARGET_HOOKS += NGHTTP2_INSTALL_CLEAN_HOOK
 
-$(eval $(autotools-package))
+$(eval $(cmake-package))
