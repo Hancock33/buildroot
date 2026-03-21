@@ -1,5 +1,5 @@
 # Locally computed:
-sha256  4c1a28d6e97fa656ec70aa736185d72c9b31a6a4fa414f2fddacd61c7d9f47cf  sysvinit-3.15.tar.gz
+sha256  99538d3df47d51d262b2e9444c96bd8d65052b3a8e20eaf72bfea521bb8adbe6  sysvinit-3.16.tar.xz
 
 # Hash for license files:
 sha256  ab15fd526bd8dd18a9e77ebc139656bf4d33e97fc7238cd11bf60e2b9b8666c6  COPYING
