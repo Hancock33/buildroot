@@ -20,9 +20,9 @@ diff -Nura autoconf-2.69.orig/build-aux/git-version-gen autoconf-2.69/build-aux/
 @@ -210,7 +210,7 @@
        *) # Append the suffix only if there isn't one already.
            case $v in
-             *-dirty) ;;
--            *) v="$v-dirty" ;;
-+            #*) v="$v-dirty" ;;
+             *-dirty | *-modified) ;;
+-            *) v="$v-modified" ;;
++            #*) v="$v-modified" ;;
            esac ;;
    esac
  fi
