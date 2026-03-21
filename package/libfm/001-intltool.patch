@@ -1,0 +1,60 @@
+diff --git a/Makefile.am b/Makefile.am
+index 427edaeb..c2515b5f 100644
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -2,7 +2,7 @@ include $(top_srcdir)/Makefile.decl
+ 
+ NULL=
+ 
+-DIST_SUBDIRS = src po data
++DIST_SUBDIRS = src data
+ 
+ # a little trick against gtk-doc is here
+ SUBDIRS_DOCS = docs
+diff --git a/configure.ac b/configure.ac
+index 5d88da05..ab8c91dc 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -83,9 +83,6 @@ if test x"$largefile" = x"yes"; then
+ fi
+ 
+ 
+-# intltool
+-IT_PROG_INTLTOOL([0.40.0])
+-
+ dnl libgtk version
+ AC_ARG_WITH(gtk,
+     [AC_HELP_STRING([--with-gtk=VER],
+@@ -325,7 +322,6 @@ AC_CONFIG_FILES([
+     data/libfm-pref-apps.1
+     data/lxshortcut.1
+     data/ui/Makefile
+-    po/Makefile.in
+     docs/Makefile
+     docs/reference/Makefile
+     docs/reference/libfm/Makefile
+diff --git a/data/Makefile.am b/data/Makefile.am
+index 0d299011..aa1e971a 100644
+--- a/data/Makefile.am
++++ b/data/Makefile.am
+@@ -21,10 +21,9 @@ desktop_in_files= \
+ 	$(NULL)
+ desktop_files = $(desktop_in_files:.desktop.in=.desktop)
+ if ENABLE_GTK
+-desktopdir=$(datadir)/applications
+-desktop_DATA = $(desktop_files)
++#desktopdir=$(datadir)/applications
++#desktop_DATA = $(desktop_files)
+ endif
+-@INTLTOOL_DESKTOP_RULE@
+ 
+ libfmdatafilesdir = $(datadir)/libfm
+ libfmdatafiles_DATA = \
+@@ -46,7 +45,6 @@ EXTRA_DIST = \
+ 	$(man_files) \
+ 	$(mime_DATA) \
+ 	$(libfmdatafiles_DATA) \
+-	$(desktop_in_files) \
+ 	$(desktop_files) \
+ 	$(libfmimages_files) \
+ 	$(NULL)
