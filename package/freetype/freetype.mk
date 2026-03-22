@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-FREETYPE_VERSION = 2.14.2
+FREETYPE_VERSION = 2.14.3
 FREETYPE_SOURCE = freetype-$(FREETYPE_VERSION).tar.xz
-FREETYPE_SITE = https://download.savannah.gnu.org/releases/freetype
+FREETYPE_SITE = https://sourceforge.net/projects/freetype/files/freetype2/$(FREETYPE_VERSION)
 FREETYPE_INSTALL_STAGING = YES
 FREETYPE_MAKE_OPTS = CCexe="$(HOSTCC)"
 FREETYPE_LICENSE = FTL or GPL-2.0+
