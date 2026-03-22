@@ -1,4 +1,4 @@
 # From https://www.kernel.org/pub/linux/utils/raid/mdadm/sha256sums.asc
-sha256  9b488f35ed153df99924b5fe41eed380e8512de8f18a118628cacdd681b1d573  mdadm-4.4.tar.xz
+sha256  e89f24994f403cea90068d03f3c1ee49957303c7a092cc5b2ed2c603df9649a7  mdadm-4.6.tar.gz
 # Locally calculated
 sha256  8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  COPYING
