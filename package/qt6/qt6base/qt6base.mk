@@ -113,10 +113,10 @@ HOST_QT6BASE_CONF_OPTS = \
 	-DFEATURE_testlib=ON \
 	-DFEATURE_tslib=OFF \
 	-DFEATURE_vulkan=OFF \
+	-DFEATURE_wayland=OFF \
 	-DFEATURE_widgets=OFF \
 	-DFEATURE_xcb=OFF \
-	-DFEATURE_xml=ON \
-	-DINPUT_opengl=no
+	-DFEATURE_xml=ON
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 QT6BASE_CONF_OPTS += -DFEATURE_libudev=ON
