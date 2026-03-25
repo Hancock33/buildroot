@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SYSVINIT_VERSION = 3.16
+SYSVINIT_VERSION = 3.17
 SYSVINIT_SOURCE = sysvinit-$(SYSVINIT_VERSION).tar.xz
 SYSVINIT_SITE = https://codeberg.org/thejessesmith/sysvinit/releases/download/$(SYSVINIT_VERSION)
 SYSVINIT_LICENSE = GPL-2.0+
