@@ -1,8 +1,8 @@
 # Locally calculated after vendoring
-sha256  3c106dd3803ff930330bd380045b0948d77c3c8d7dfc6ac54ad54a906d8aa804  python-cryptography-46.0.5-cargo4.tar.gz
+sha256  1c7b203ddbd2e4bee7fdb6f4e7e7c2c6afee122ac457434ba97e90fc919ef538  python-cryptography-46.0.6-cargo4.tar.gz
 # md5, sha256 from https://pypi.org/pypi/cryptography/json
-md5  6868a503d9a78b7d59a4858a17b338a0  cryptography-46.0.5.tar.gz
-sha256  abace499247268e3757271b2f1e244b36b06f8515cf27c4d49468fc9eb16e93d  cryptography-46.0.5.tar.gz
+md5  ce01432ce5191b30190477289c940b08  cryptography-46.0.6.tar.gz
+sha256  27550628a518c5c6c903d84f637fbecf287f6cb9ced3804838a1295dc1fd0759  cryptography-46.0.6.tar.gz
 # Locally computed sha256 checksums
 sha256  3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb  LICENSE
 sha256  aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe  LICENSE.APACHE
