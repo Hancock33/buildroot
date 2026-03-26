@@ -22,5 +22,10 @@ endif
 HOST_LIBCAP_NG_CONF_ENV = ac_cv_prog_swig_found=no
 HOST_LIBCAP_NG_CONF_OPTS = --without-python3
 
+define LIBCAP_NG_AUTOCONFIG
+	cd $(@D) && touch NEWS && PATH=/usr/bin autoreconf -fiv
+endef
+LIBCAP_NG_POST_PATCH_HOOKS += LIBCAP_NG_AUTOCONFIG
+
 $(eval $(autotools-package))
 $(eval $(host-autotools-package))
