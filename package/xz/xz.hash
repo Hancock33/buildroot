@@ -1,6 +1,4 @@
-# Locally calculated after checking pgp signature
-# https://github.com/tukaani-project/xz/releases/download/v5.8.3/xz-5.8.3.tar.bz2.sig
-# using key 3690C240CE51B4670D30AD1C38EE757D69184620 Lasse Collin <lasse.collin@tukaani.org>
+# From https://github.com/tukaani-project/xz/releases/tag/v5.8.3
 sha256  33bf69c0d6c698e83a68f77e6c1f465778e418ca0b3d59860d3ab446f4ac99a6  xz-5.8.3.tar.bz2
 
 # Hash for license files
