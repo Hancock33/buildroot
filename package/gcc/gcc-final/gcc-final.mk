@@ -150,10 +150,10 @@ endif
 
 ifeq ($(BR2_TOOLCHAIN_BUILDROOT_FORTRAN),y)
 GCC_FINAL_USR_LIBS += libgfortran
-# fortran needs quadmath on x86 and x86_64
+endif
+
 ifeq ($(BR2_TOOLCHAIN_HAS_LIBQUADMATH),y)
 GCC_FINAL_USR_LIBS += libquadmath
-endif
 endif
 
 ifeq ($(BR2_GCC_ENABLE_OPENMP),y)
