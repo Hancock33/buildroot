@@ -27,3 +27,4 @@ LIBNL_CONF_OPTS += --disable-unit-tests
 endif
 
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
