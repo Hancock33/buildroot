@@ -6,7 +6,7 @@
 
 HEIMDAL_VERSION = 8c3c97bdf6c06200418f1a85aa22beaa441c6b23
 HEIMDAL_SITE = $(call github,heimdal,heimdal,$(HEIMDAL_VERSION))
-HOST_HEIMDAL_DEPENDENCIES = host-ncurses host-pkgconf host-flex host-bison
+HOST_HEIMDAL_DEPENDENCIES = host-ncurses host-pkgconf host-libxcrypt host-flex host-bison
 HOST_HEIMDAL_AUTORECONF = YES
 
 HOST_HEIMDAL_CONF_OPTS = \
@@ -26,7 +26,7 @@ HOST_HEIMDAL_CONF_OPTS = \
 	--disable-heimdal-documentation
 
 # Don't use compile_et from e2fsprogs as it raises a build failure with samba4
-HOST_HEIMDAL_CONF_ENV = ac_cv_prog_COMPILE_ET=no MAKEINFO=true
+HOST_HEIMDAL_CONF_ENV = ac_cv_prog_COMPILE_ET=no MAKEINFO=true LIBS=-lcrypt
 HEIMDAL_LICENSE = BSD-3-Clause
 HEIMDAL_LICENSE_FILES = LICENSE
 HEIMDAL_CPE_ID_VALID = YES
