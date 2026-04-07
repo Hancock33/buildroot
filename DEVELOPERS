@@ -1739,7 +1739,6 @@ F:	package/dawgdic/
 F:	package/libphidget/
 F:	package/phidgetwebservice/
 F:	package/rapidxml/
-F:	package/sphinxbase/
 
 N:	Joris Offouga <offougajoris@gmail.com>
 F:	package/python-colorlog/
@@ -3051,7 +3050,6 @@ F:	package/daq/
 F:	package/libgdiplus/
 F:	package/pimd/
 F:	package/sloci-image/
-F:	package/snort/
 F:	package/stella/
 F:	package/tio/
 F:	package/traceroute/
