@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-GIFLIB_VERSION = 6.1.2
-GIFLIB_SITE = https://sourceforge.net/projects/giflib/files/giflib-6.x
+GIFLIB_VERSION_MAJOR = 6
+GIFLIB_VERSION = $(GIFLIB_VERSION_MAJOR).1.2
+GIFLIB_SITE = https://sourceforge.net/projects/giflib/files/giflib-$(GIFLIB_VERSION_MAJOR).x
 GIFLIB_INSTALL_STAGING = YES
 GIFLIB_LICENSE = MIT
 GIFLIB_LICENSE_FILES = COPYING
