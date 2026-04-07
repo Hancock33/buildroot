@@ -1,0 +1,16 @@
+diff --git a/docs/reference/libfm/Makefile.am b/docs/reference/libfm/Makefile.am
+index 2abb3cc..3dcf503 100644
+--- a/docs/reference/libfm/Makefile.am
++++ b/docs/reference/libfm/Makefile.am
+@@ -135,7 +135,7 @@ include $(top_srcdir)/gtk-doc.make
+ 
+ # Other files to distribute
+ # e.g. EXTRA_DIST += version.xml.in
+-EXTRA_DIST +=
++EXTRA_DIST =
+ 
+ # Files not to distribute
+ # for --rebuild-types in $(SCAN_OPTIONS), e.g. $(DOC_MODULE).types
+diff --git a/gtk-doc.make b/gtk-doc.make
+new file mode 100644
+index 0000000..e69de29
