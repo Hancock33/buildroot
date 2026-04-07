@@ -33,3 +33,4 @@ define LIBXCRYPT_CONFIGURE_CMDS
 endef
 
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
