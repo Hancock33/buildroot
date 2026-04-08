@@ -19,9 +19,10 @@ WIRELESS_TOOLS_BUILD_TARGETS += libiw.so.$(WIRELESS_TOOLS_VERSION_MAJOR)
 WIRELESS_TOOLS_INSTALL_TARGETS += install-dynamic
 
 define WIRELESS_TOOLS_INSTALL_STAGING_CMDS
-	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) PREFIX="$(STAGING_DIR)" LDCONFIG=/bin/true \
-		install-dynamic
-	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) PREFIX="$(STAGING_DIR)/usr" install-hdr
+	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS)" PREFIX="$(STAGING_DIR)" \
+		LDCONFIG=/bin/true install-dynamic
+	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS)" PREFIX="$(STAGING_DIR)/usr" \
+		install-hdr
 endef
 
 endif
@@ -31,7 +32,8 @@ define WIRELESS_TOOLS_BUILD_CMDS
 endef
 
 define WIRELESS_TOOLS_INSTALL_TARGET_CMDS
-	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D) PREFIX="$(TARGET_DIR)" LDCONFIG=/bin/true install-bin
+	$(TARGET_MAKE_ENV) $(MAKE) -C $(@D)  CC="$(TARGET_CC)" CFLAGS="$(TARGET_CFLAGS)" \
+		PREFIX="$(TARGET_DIR)" LDCONFIG=/bin/true install-bin
 endef
 
 $(eval $(generic-package))
