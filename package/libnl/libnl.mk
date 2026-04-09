@@ -13,6 +13,8 @@ LIBNL_CPE_ID_VALID = YES
 LIBNL_INSTALL_STAGING = YES
 LIBNL_DEPENDENCIES = host-bison host-flex host-pkgconf
 
+HOST_LIBNL_DEPENDENCIES = host-bison host-flex host-pkgconf
+
 ifeq ($(BR2_PACKAGE_LIBNL_TOOLS),y)
 LIBNL_CONF_OPTS += --enable-cli
 else
