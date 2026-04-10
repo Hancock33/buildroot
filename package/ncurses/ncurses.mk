@@ -35,8 +35,7 @@ NCURSES_CONF_OPTS = \
 	--disable-stripping \
 	--with-pkg-config-libdir="/usr/lib/pkgconfig" \
 	$(if $(BR2_PACKAGE_NCURSES_TARGET_PROGS),,--without-progs) \
-	--without-manpages  \
-	--enable-sigwinch \
+	--without-manpages \
 	--with-termlib=tinfo
 
 ifeq ($(BR2_STATIC_LIBS),y)
@@ -102,8 +101,6 @@ define NCURSES_LINK_LIBS_SHARED
 	)
 	ln -sf libncurses$(NCURSES_LIB_SUFFIX).so \
 		$(STAGING_DIR)/usr/lib/libcurses.so
-	ln -sf libtinfo.so $(STAGING_DIR)/usr/lib/libtinfow.so
-	ln -sf libtinfo.so $(TARGET_DIR)/usr/lib/libtinfow.so
 endef
 
 define NCURSES_LINK_PC
@@ -124,8 +121,6 @@ NCURSES_CONF_OPTS += --enable-ext-colors
 NCURSES_POST_INSTALL_STAGING_HOOKS += NCURSES_LINK_STAGING_LIBS
 NCURSES_POST_INSTALL_STAGING_HOOKS += NCURSES_LINK_STAGING_PC
 
-else
-NCURSES_CONF_OPTS += --disable-widec
 endif # BR2_PACKAGE_NCURSES_WCHAR
 
 ifneq ($(BR2_ENABLE_DEBUG),y)
