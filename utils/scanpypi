@@ -727,8 +727,25 @@ class BuildrootPackage():
         """
         Fetch a package's metadata from the python package index
         """
+        # If a .mk file already exists for this package, try to extract the
+        # upstream PyPI name from the _SOURCE variable. This handles cases
+        # where the Buildroot package name differs from the PyPI project name
+        # (e.g. smmap2 buildroot package is smmap on PyPI).
+        buildroot_package_folder = os.path.join('package', self.buildroot_name)
+        pypi_name = self.real_name
+        mk_file = os.path.join(buildroot_package_folder, self.buildroot_name + '.mk')
+        if os.path.isfile(mk_file):
+            source_re = re.compile(r'^' + self.mk_name + r'_SOURCE\s*=\s*(.+)$')
+            with open(mk_file) as mk_fh:
+                for line in mk_fh:
+                    match = source_re.match(line)
+                    if match:
+                        value = match.group(1).strip()
+                        if '-$(' in value:
+                            pypi_name = value.split('-$(')[0]
+                            break
         self.metadata_url = 'https://pypi.org/pypi/{pkg}/json'.format(
-            pkg=self.real_name)
+            pkg=pypi_name)
         try:
             pkg_json = urllib.request.urlopen(self.metadata_url).read().decode()
         except urllib.error.HTTPError as error:
@@ -736,13 +753,13 @@ class BuildrootPackage():
             print('ERROR: Could not find package {pkg}.\n'
                   'Check syntax inside the python package index:\n'
                   'https://pypi.python.org/pypi/ '
-                  .format(pkg=self.real_name))
+                  .format(pkg=pypi_name))
             raise
         except urllib.error.URLError:
             print('ERROR: Could not find package {pkg}.\n'
                   'Check syntax inside the python package index:\n'
                   'https://pypi.python.org/pypi/ '
-                  .format(pkg=self.real_name))
+                  .format(pkg=pypi_name))
             raise
         self.metadata = json.loads(pkg_json)
         self.version = self.metadata['info']['version']
