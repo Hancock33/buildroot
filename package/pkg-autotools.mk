@@ -171,7 +171,7 @@ define $(2)_CONFIGURE_CMDS
 	$$($$(PKG)_CONF_ENV) \
 	SSL_CERT_DIR=/etc/ssl/certs \
 	CONFIG_SITE=/dev/null \
-	./configure -q \
+	./configure \
 		--target=$$(GNU_TARGET_NAME) \
 		--host=$$(GNU_TARGET_NAME) \
 		--build=$$(GNU_HOST_NAME) \
@@ -207,7 +207,7 @@ define $(2)_CONFIGURE_CMDS
 	$$($$(PKG)_CONF_ENV) \
 	SSL_CERT_DIR=/etc/ssl/certs \
 	CONFIG_SITE=/dev/null \
-	./configure -q \
+	./configure \
 		--prefix="$$(HOST_DIR)" \
 		--sysconfdir="$$(HOST_DIR)/etc" \
 		--localstatedir="$$(HOST_DIR)/var" \
