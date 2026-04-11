@@ -385,15 +385,6 @@ $(BUILD_DIR)/%/.stamp_installed:
 	@$(call pkg_size_after,$(HOST_DIR),-host)
 	@$(call check_bin_arch)
 	$(Q)touch $@
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),@$(call MESSAGE,"Removing package sources to save space"))
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -depth -type d -name ".deps" -exec rm -rf {} \;)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -depth -type d -name "build" -exec rm -rf {} \;)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -depth -type d -name "buildroot-build" -exec rm -rf {} \;)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -depth -type d -name "obj" -exec rm -rf {} \;)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -type f -name "*.a" -exec rm {} \;)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -type f -name "*.d" -exec rm {} \;)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -type f -name "*.o" -exec rm {} \;)
-	$(if $(BR2_REMOVE_SOURCE_AFTER_COMPILE),$(Q)find $(@D) -type f -name "*.lo" -exec rm {} \;)
 
 # Remove package sources
 $(BUILD_DIR)/%/.stamp_dircleaned:
