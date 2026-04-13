@@ -40,6 +40,7 @@ define HOST_RUST_CONFIGURE_CMDS
 		echo 'compiler-docs = false'; \
 		echo 'docs = false'; \
 		echo 'verbose = $(HOST_RUST_VERBOSITY)'; \
+		echo 'local-rebuild = true'; \
 		echo '[install]'; \
 		echo 'prefix = "$(HOST_DIR)"'; \
 		echo 'sysconfdir = "$(HOST_DIR)/etc"'; \
