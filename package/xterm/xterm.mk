@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-XTERM_VERSION = 407
+XTERM_VERSION = 408
 XTERM_SOURCE = xterm-$(XTERM_VERSION).tgz
 XTERM_SITE = http://invisible-mirror.net/archives/xterm
 XTERM_DEPENDENCIES = ncurses xlib_libXaw host-pkgconf
