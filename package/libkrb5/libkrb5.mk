@@ -3,11 +3,10 @@
 # libkrb5
 #
 ################################################################################
-
-LIBKRB5_VERSION_MAJOR = 1.22
-LIBKRB5_VERSION = $(LIBKRB5_VERSION_MAJOR).2
-LIBKRB5_SITE = https://web.mit.edu/kerberos/dist/krb5/$(LIBKRB5_VERSION_MAJOR)
-LIBKRB5_SOURCE = krb5-$(LIBKRB5_VERSION).tar.gz
+# Version: Commits on Feb 17, 2026
+LIBKRB5_VERSION = b7290e0cab5b7e39cd4aa7c098beb18a886d4a1d
+LIBKRB5_SITE = $(call github,krb5,krb5,$(LIBKRB5_VERSION))
+#LIBKRB5_SOURCE = krb5-$(LIBKRB5_VERSION).tar.gz
 LIBKRB5_SUBDIR = src
 LIBKRB5_LICENSE = MIT, BSD-2-Clause, BSD-3-Clause, BSD-4-Clause, others
 LIBKRB5_LICENSE_FILES = NOTICE
@@ -15,6 +14,7 @@ LIBKRB5_CPE_ID_VENDOR = mit
 LIBKRB5_CPE_ID_PRODUCT = kerberos_5
 LIBKRB5_DEPENDENCIES = host-bison $(TARGET_NLS_DEPENDENCIES)
 LIBKRB5_INSTALL_STAGING = YES
+LIBKRB5_AUTORECONF = YES
 
 LIBKRB5_CFLAGS = $(TARGET_CFLAGS)
 
