@@ -1,4 +1,4 @@
-# From https://github.com/mesonbuild/meson/releases/tag/1.11.0
-sha256  dffdd0915ceb028541fe3bed77d63ba35e78514591c043736b450d62634eeb31  meson-1.11.0.tar.gz
+# From https://github.com/mesonbuild/meson/releases/tag/1.10.2
+sha256  7890287d911dd4ee1ebd0efb61ed0321bfcd87c725df923a837cf90c6508f96b  meson-1.10.2.tar.gz
 # Locally computed
 sha256  cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30  COPYING
