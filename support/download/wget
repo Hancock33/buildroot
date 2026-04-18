@@ -48,5 +48,3 @@ _plain_wget() {
 [ -n "${encode}" ] && filename=${filename//\?/%3F}
 
 _wget ${quiet} "${@}" -O "'${output}'" "'${url}/${filename}'"
-# Curl
-#_wget ${quiet} "${@}" -o "'${output}'" -L "'${url}/${filename}'"
