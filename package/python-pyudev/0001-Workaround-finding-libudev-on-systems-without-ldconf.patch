@@ -22,7 +22,7 @@ Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/src/pyudev/_ctypeslib/utils.py b/src/pyudev/_ctypeslib/utils.py
-index f3bc10f..5e789d3 100644
+index 9dffb3c..aa9942f 100644
 --- a/src/pyudev/_ctypeslib/utils.py
 +++ b/src/pyudev/_ctypeslib/utils.py
 @@ -24,7 +24,7 @@
