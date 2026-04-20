@@ -17,55 +17,43 @@ FREETYPE_CONFIG_SCRIPTS = freetype-config
 
 # harfbuzz already depends on freetype so disable harfbuzz in freetype to avoid
 # a circular dependency
-FREETYPE_CONF_OPTS = --without-harfbuzz
+FREETYPE_CONF_OPTS = -Dharfbuzz=disabled
 
 HOST_FREETYPE_DEPENDENCIES = host-pkgconf
 HOST_FREETYPE_CONF_OPTS = \
-	--without-brotli \
-	--without-bzip2 \
-	--without-harfbuzz \
-	--without-png \
-	--without-zlib
-
-# since 2.9.1 needed for freetype-config install
-FREETYPE_CONF_OPTS += --enable-freetype-config
-HOST_FREETYPE_CONF_OPTS += --enable-freetype-config
+	-Dbrotli=disabled \
+	-Dbzip2=disabled \
+	-Dharfbuzz=disabled \
+	-Dpng=disabled \
+	-Dzlib=disabled
 
 ifeq ($(BR2_PACKAGE_ZLIB),y)
 FREETYPE_DEPENDENCIES += zlib
-FREETYPE_CONF_OPTS += --with-zlib
+FREETYPE_CONF_OPTS += -Dzlib=enabled
 else
-FREETYPE_CONF_OPTS += --without-zlib
+FREETYPE_CONF_OPTS += -Dzlib=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_BROTLI),y)
 FREETYPE_DEPENDENCIES += brotli
-FREETYPE_CONF_OPTS += --with-brotli
+FREETYPE_CONF_OPTS += -Dbrotli=enabled
 else
-FREETYPE_CONF_OPTS += --without-brotli
+FREETYPE_CONF_OPTS += -Dbrotli=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_BZIP2),y)
 FREETYPE_DEPENDENCIES += bzip2
-FREETYPE_CONF_OPTS += --with-bzip2
+FREETYPE_CONF_OPTS += -Dbzip2=enabled
 else
-FREETYPE_CONF_OPTS += --without-bzip2
+FREETYPE_CONF_OPTS += -Dbzip2=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_LIBPNG),y)
 FREETYPE_DEPENDENCIES += libpng
-FREETYPE_CONF_OPTS += --with-png
+FREETYPE_CONF_OPTS += -Dpng=enabled
 else
-FREETYPE_CONF_OPTS += --without-png
+FREETYPE_CONF_OPTS += -Dpng=disabled
 endif
 
-# Extra fixing since includedir and libdir are expanded from configure values
-define FREETYPE_FIX_CONFIG_FILE
-	$(SED) 's:^includedir=.*:includedir="$${prefix}/include":' \
-		-e 's:^libdir=.*:libdir="$${exec_prefix}/lib":' \
-		$(STAGING_DIR)/usr/bin/freetype-config
-endef
-FREETYPE_POST_INSTALL_STAGING_HOOKS += FREETYPE_FIX_CONFIG_FILE
-
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))
