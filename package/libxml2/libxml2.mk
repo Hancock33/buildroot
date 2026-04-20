@@ -14,62 +14,53 @@ LIBXML2_LICENSE = MIT
 LIBXML2_LICENSE_FILES = Copyright
 LIBXML2_CPE_ID_VENDOR = xmlsoft
 LIBXML2_CONFIG_SCRIPTS = xml2-config
-# 0001-Revert-cmake-Fix-installation-directories-in-libxml2.patch
-LIBXML2_AUTORECONF = YES
 
 # relocation truncated to fit: R_68K_GOT16O
 ifeq ($(BR2_m68k_cf),y)
 LIBXML2_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -mxgot"
 endif
 
-LIBXML2_CONF_OPTS = --with-http --with-gnu-ld --without-debug
+LIBXML2_CONF_OPTS = -Dhttp=enabled
 
 HOST_LIBXML2_DEPENDENCIES = host-pkgconf
 LIBXML2_DEPENDENCIES = host-pkgconf
 
-HOST_LIBXML2_CONF_OPTS = --without-zlib --without-lzma
+HOST_LIBXML2_CONF_OPTS = -Dzlib=disabled
 
 ifeq ($(BR2_PACKAGE_PYTHON3),y)
 LIBXML2_DEPENDENCIES += python3
-LIBXML2_CONF_OPTS += --with-python
+LIBXML2_CONF_OPTS += -Dpython=enabled
 else
-LIBXML2_CONF_OPTS += --without-python
+LIBXML2_CONF_OPTS += -Dpython=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_HOST_PYTHON3),y)
 HOST_LIBXML2_DEPENDENCIES += host-python3
-HOST_LIBXML2_CONF_OPTS += --with-python
+HOST_LIBXML2_CONF_OPTS += -Dpython=enabled
 else
-HOST_LIBXML2_CONF_OPTS += --without-python
+HOST_LIBXML2_CONF_OPTS += -Dpython=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_ICU),y)
 LIBXML2_DEPENDENCIES += icu
-LIBXML2_CONF_OPTS += --with-icu
+LIBXML2_CONF_OPTS += -Dicu=enabled
 else
-LIBXML2_CONF_OPTS += --without-icu
+LIBXML2_CONF_OPTS += -Dicu=disabled
 endif
 
 ifeq ($(BR2_PACKAGE_ZLIB),y)
 LIBXML2_DEPENDENCIES += zlib
-LIBXML2_CONF_OPTS += --with-zlib=$(STAGING_DIR)/usr
+LIBXML2_CONF_OPTS += -Dzlib=enabled
 else
-LIBXML2_CONF_OPTS += --without-zlib
-endif
-
-ifeq ($(BR2_PACKAGE_XZ),y)
-LIBXML2_DEPENDENCIES += xz
-LIBXML2_CONF_OPTS += --with-lzma
-else
-LIBXML2_CONF_OPTS += --without-lzma
+LIBXML2_CONF_OPTS += -Dzlib=disabled
 endif
 
 LIBXML2_DEPENDENCIES += $(if $(BR2_PACKAGE_LIBICONV),libiconv)
 
 ifeq ($(BR2_ENABLE_LOCALE)$(BR2_PACKAGE_LIBICONV),y)
-LIBXML2_CONF_OPTS += --with-iconv
+LIBXML2_CONF_OPTS += -Diconv=enabled
 else
-LIBXML2_CONF_OPTS += --without-iconv
+LIBXML2_CONF_OPTS += -Diconv=disabled
 endif
 
 define LIBXML2_CLEANUP_XML2CONF
@@ -77,8 +68,8 @@ define LIBXML2_CLEANUP_XML2CONF
 endef
 LIBXML2_POST_INSTALL_TARGET_HOOKS += LIBXML2_CLEANUP_XML2CONF
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))
 
 # libxml2 for the host
 LIBXML2_HOST_BINARY = $(HOST_DIR)/bin/xmllint

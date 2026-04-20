@@ -11,12 +11,11 @@ LIBXSLT_INSTALL_STAGING = YES
 LIBXSLT_LICENSE = MIT
 LIBXSLT_LICENSE_FILES = Copyright
 LIBXSLT_CPE_ID_VENDOR = xmlsoft
+LIBXSLT_SUPPORTS_IN_SOURCE_BUILD = NO
 
 LIBXSLT_CONF_OPTS = \
-	--with-gnu-ld \
-	--without-debug \
-	--without-python \
-	--with-libxml-prefix=$(STAGING_DIR)/usr
+	-DLIBXSLT_WITH_PYTHON=OFF \
+	-DLIBXSLT_WITH_TESTS=OFF
 LIBXSLT_CONFIG_SCRIPTS = xslt-config
 LIBXSLT_DEPENDENCIES = host-pkgconf libxml2
 
@@ -24,13 +23,11 @@ LIBXSLT_DEPENDENCIES = host-pkgconf libxml2
 ifeq ($(BR2_PACKAGE_LIBGCRYPT),y)
 LIBXSLT_DEPENDENCIES += libgcrypt
 LIBXSLT_CONF_ENV += LIBGCRYPT_CONFIG=$(STAGING_DIR)/usr/bin/libgcrypt-config
-else
-LIBXSLT_CONF_OPTS += --without-crypto
 endif
 
-HOST_LIBXSLT_CONF_OPTS = --without-debug --without-python --without-crypto
+HOST_LIBXSLT_CONF_OPTS = -DLIBXSLT_WITH_PYTHON=OFF -DLIBXSLT_WITH_TESTS=OFF
 
 HOST_LIBXSLT_DEPENDENCIES = host-pkgconf host-libxml2
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(cmake-package))
+$(eval $(host-cmake-package))
