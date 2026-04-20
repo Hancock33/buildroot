@@ -24,5 +24,5 @@ ifeq ($(BR2_sparc_v8)$(BR2_sparc_leon3),y)
 LIBATOMIC_OPS_CONF_ENV = CFLAGS="$(TARGET_CFLAGS) -DAO_NO_SPARC_V9"
 endif
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(cmake-package))
+$(eval $(host-cmake-package))
