@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBFTDI1_VERSION = v1.5-65-geaf42c00bfab5d6bbd8106b11a697ff4f2d7659f
+LIBFTDI1_VERSION = v1.6rc1-2-g92d657bcb543a9622947d984d4a8e725fb680e8c
 LIBFTDI1_SITE = git://developer.intra2net.com/libftdi
 LIBFTDI1_INSTALL_STAGING = YES
 LIBFTDI1_DEPENDENCIES = host-pkgconf libusb
