@@ -14,14 +14,13 @@ FLAC_LICENSE_FILES = COPYING.Xiph COPYING.GPL COPYING.LGPL
 FLAC_CPE_ID_VALID = YES
 
 FLAC_CONF_OPTS = \
-	$(if $(BR2_INSTALL_LIBSTDCPP),--enable-cpplibs,--disable-cpplibs) \
-	--disable-stack-smash-protection
+	$(if $(BR2_INSTALL_LIBSTDCPP),-DBUILD_CXXLIBS=ON,-DBUILD_CXXLIBS=OFF)
 
 ifeq ($(BR2_PACKAGE_LIBOGG),y)
-FLAC_CONF_OPTS += --with-ogg=$(STAGING_DIR)/usr
+FLAC_CONF_OPTS += -DWITH_OGG=ON
 FLAC_DEPENDENCIES += libogg
 else
-FLAC_CONF_OPTS += --disable-ogg
+FLAC_CONF_OPTS += -DWITH_OGG=OFF
 endif
 
-$(eval $(autotools-package))
+$(eval $(cmake-package))
