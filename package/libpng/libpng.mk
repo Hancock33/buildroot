@@ -15,24 +15,26 @@ LIBPNG_INSTALL_STAGING = YES
 LIBPNG_DEPENDENCIES = host-pkgconf zlib
 HOST_LIBPNG_DEPENDENCIES = host-pkgconf host-zlib
 LIBPNG_CONFIG_SCRIPTS = libpng$(LIBPNG_SERIES)-config libpng-config
-
-LIBPNG_CONF_OPTS += -DPNG_TESTS=OFF -DPNG_TOOLS=OFF
-HOST_LIBPNG_CONF_OPTS = -DPNG_TESTS=OFF -DPNG_TOOLS=OFF
-
-ifeq ($(BR2_X86_CPU_HAS_SSE2),y)
-LIBPNG_CONF_OPTS += -DPNG_INTEL_SSE=on
-else
-LIBPNG_CONF_OPTS += -DPNG_INTEL_SSE=off
-endif
+LIBPNG_CONF_OPTS = --disable-tools
+LIBPNG_CFLAGS = $(TARGET_CFLAGS)
 
 ifeq ($(BR2_aarch64),y)
-LIBPNG_CONF_OPTS += -DPNG_ARM_NEON=on
+LIBPNG_CONF_OPTS += --enable-arm-neon
 else ifeq ($(BR2_ARM_CPU_HAS_NEON):$(BR2_ARM_SOFT_FLOAT),y:)
 LIBPNG_CFLAGS += -mfpu=neon
-LIBPNG_CONF_OPTS += -DPNG_ARM_NEON=on
+LIBPNG_CONF_OPTS += --enable-arm-neon
 else
-LIBPNG_CONF_OPTS += -DPNG_ARM_NEON=off
+LIBPNG_CONF_OPTS += --disable-arm-neon
 endif
 
-$(eval $(cmake-package))
-$(eval $(host-cmake-package))
+ifeq ($(BR2_X86_CPU_HAS_SSE2),y)
+LIBPNG_CONF_OPTS += --enable-intel-sse
+else
+LIBPNG_CONF_OPTS += --disable-intel-sse
+endif
+
+LIBPNG_CONF_ENV = \
+	CFLAGS="$(LIBPNG_CFLAGS)"
+
+$(eval $(autotools-package))
+$(eval $(host-autotools-package))
