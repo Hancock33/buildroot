@@ -13,7 +13,6 @@ FREETYPE_LICENSE = FTL or GPL-2.0+
 FREETYPE_LICENSE_FILES = LICENSE.TXT docs/FTL.TXT docs/GPLv2.TXT
 FREETYPE_CPE_ID_VENDOR = freetype
 FREETYPE_DEPENDENCIES = host-pkgconf
-FREETYPE_CONFIG_SCRIPTS = freetype-config
 
 # harfbuzz already depends on freetype so disable harfbuzz in freetype to avoid
 # a circular dependency
@@ -54,15 +53,6 @@ FREETYPE_CONF_OPTS += -Dpng=enabled
 else
 FREETYPE_CONF_OPTS += -Dpng=disabled
 endif
-
-# Extra fixing since includedir and libdir are expanded from configure values
-define FREETYPE_FIX_CONFIG_FILE
-	cp -av $(@D)/builds/unix/freetype-config $(STAGING_DIR)/usr/bin/freetype-config
-	$(SED) 's:^includedir=.*:includedir="$${prefix}/include":' \
-		-e 's:^libdir=.*:libdir="$${exec_prefix}/lib":' \
-		$(STAGING_DIR)/usr/bin/freetype-config
-endef
-#FREETYPE_POST_INSTALL_STAGING_HOOKS += FREETYPE_FIX_CONFIG_FILE
 
 $(eval $(meson-package))
 $(eval $(host-meson-package))
