@@ -62,7 +62,7 @@ define FREETYPE_FIX_CONFIG_FILE
 		-e 's:^libdir=.*:libdir="$${exec_prefix}/lib":' \
 		$(STAGING_DIR)/usr/bin/freetype-config
 endef
-FREETYPE_POST_INSTALL_STAGING_HOOKS += FREETYPE_FIX_CONFIG_FILE
+#FREETYPE_POST_INSTALL_STAGING_HOOKS += FREETYPE_FIX_CONFIG_FILE
 
 $(eval $(meson-package))
 $(eval $(host-meson-package))
