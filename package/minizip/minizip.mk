@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-MINIZIP_VERSION = 4.1.0
+MINIZIP_VERSION = 4.1.1
 MINIZIP_SITE = $(call github,zlib-ng,minizip-ng,$(MINIZIP_VERSION))
 MINIZIP_DEPENDENCIES = host-pkgconf
 MINIZIP_INSTALL_STAGING = YES
