@@ -1,4 +1,4 @@
 # From https://github.com/libexpat/libexpat/releases/tag/R_2_8_0
-sha256  c7cec5f60ea3a42e7780781c6745255c19aa3dbfeeae58646b7132f88dc24780  expat-2.8.0.tar.xz
+sha256  a37bfae0aa9775bd8521ebd85dc456d486f0ff31138f6c91fd902ea732624542  expat-2.8.0.tar.xz
 # Locally calculated
 sha256  31b15de82aa19a845156169a17a5488bf597e561b2c318d159ed583139b25e87  COPYING
