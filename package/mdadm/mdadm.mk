@@ -5,13 +5,12 @@
 ################################################################################
 
 MDADM_VERSION = 4.6
-MDADM_SOURCE = mdadm-$(MDADM_VERSION).tar.gz
-MDADM_SITE = https://git.kernel.org/pub/scm/utils/mdadm/mdadm.git/snapshot
+MDADM_SITE = https://github.com/md-raid-utilities/mdadm/archive/refs/tags
 MDADM_LICENSE = GPL-2.0+
 MDADM_LICENSE_FILES = COPYING
 MDADM_CPE_ID_VALID = YES
 
-MDADM_CXFLAGS = $(TARGET_CFLAGS) -fPIE
+MDADM_CXFLAGS = $(TARGET_CFLAGS)
 
 MDADM_BUILD_OPTS = \
 	CC=$(TARGET_CC) \
