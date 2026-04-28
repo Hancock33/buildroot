@@ -6,7 +6,7 @@
 
 # When updating the version, please check at runtime if the version in
 # syslog-ng.conf header needs to be updated
-SYSLOG_NG_VERSION = 4.9.0
+SYSLOG_NG_VERSION = 4.11.0
 SYSLOG_NG_SITE = https://github.com/balabit/syslog-ng/releases/download/syslog-ng-$(SYSLOG_NG_VERSION)
 SYSLOG_NG_LICENSE = LGPL-2.1+ (syslog-ng core), GPL-2.0+ (modules)
 SYSLOG_NG_LICENSE_FILES = COPYING GPL.txt LGPL.txt
@@ -65,7 +65,7 @@ ifeq ($(BR2_PACKAGE_LIBCURL),y)
 SYSLOG_NG_DEPENDENCIES += libcurl
 SYSLOG_NG_CONF_OPTS += --enable-http
 SYSLOG_NG_CONF_OPTS += --with-libcurl="$(STAGING_DIR)/usr"
-ifeq ($(BR2_INSTALL_LIBSTDCPP):$(BR2_PACKAGE_LIBRESSL),y:)
+ifeq ($(BR2_INSTALL_LIBSTDCPP),y)
 SYSLOG_NG_CONF_OPTS += --enable-cloud-auth
 else
 SYSLOG_NG_CONF_OPTS += --disable-cloud-auth
