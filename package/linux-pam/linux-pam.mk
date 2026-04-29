@@ -9,11 +9,10 @@ LINUX_PAM_SOURCE = Linux-PAM-$(LINUX_PAM_VERSION).tar.xz
 LINUX_PAM_SITE = https://github.com/linux-pam/linux-pam/releases/download/v$(LINUX_PAM_VERSION)
 LINUX_PAM_INSTALL_STAGING = YES
 LINUX_PAM_CONF_OPTS = \
+	-Disadir=disabled \
 	-Dnis=disabled \
 	-Dpam_userdb=disabled \
-	-Ddocs=disabled \
-	-Dsecuredir=/lib/security \
-	--libdir=/lib
+	-Ddocs=disabled
 LINUX_PAM_DEPENDENCIES = host-flex host-pkgconf \
 	$(if $(BR2_PACKAGE_LIBXCRYPT),libxcrypt) \
 	$(TARGET_NLS_DEPENDENCIES)
@@ -22,9 +21,6 @@ LINUX_PAM_LICENSE_FILES = Copyright
 LINUX_PAM_LIBS = $(TARGET_NLS_LIBS)
 LINUX_PAM_MAKE_OPTS += LIBS="$(LINUX_PAM_LIBS)"
 LINUX_PAM_CPE_ID_VENDOR = linux-pam
-
-# 0002-pam_access-rework-resolving-of-tokens-as-hostname.patch
-LINUX_PAM_IGNORE_CVES += CVE-2024-10963
 
 ifeq ($(BR2_TOOLCHAIN_HAS_LIBATOMIC),y)
 LINUX_PAM_LIBS += -latomic
@@ -35,7 +31,7 @@ LINUX_PAM_CONF_OPTS += -Dselinux=enabled
 LINUX_PAM_DEPENDENCIES += libselinux
 define LINUX_PAM_SELINUX_PAMFILE_TWEAK
 	$(SED) 's/^# \(.*pam_selinux.so.*\)$$/\1/' \
-		$(TARGET_DIR)/etc/pam.d/login
+		$(TARGET_DIR)/usr/lib/pam.d/login
 endef
 else
 LINUX_PAM_CONF_OPTS += -Dselinux=disabled
@@ -59,7 +55,7 @@ ifeq ($(BR2_PACKAGE_LINUX_PAM_LASTLOG),y)
 LINUX_PAM_CONF_OPTS += -Dpam_lastlog=enabled
 define LINUX_PAM_LASTLOG_PAMFILE_TWEAK
 	$(SED) 's/^# \(.*pam_lastlog.so.*\)$$/\1/' \
-		$(TARGET_DIR)/etc/pam.d/login
+		$(TARGET_DIR)/usr/lib/pam.d/login
 endef
 else
 LINUX_PAM_CONF_OPTS += -Dpam_lastlog=disabled
@@ -67,10 +63,10 @@ endif
 
 # Install default pam config (deny everything except login)
 define LINUX_PAM_INSTALL_CONFIG
-	$(INSTALL) -m 0644 -D package/linux-pam/login.pam \
-		$(TARGET_DIR)/etc/pam.d/login
-	$(INSTALL) -m 0644 -D package/linux-pam/other.pam \
-		$(TARGET_DIR)/etc/pam.d/other
+	$(INSTALL) -m 0644 -D $(LINUX_PAM_PKGDIR)/login.pam \
+		$(TARGET_DIR)/usr/lib/pam.d/login
+	$(INSTALL) -m 0644 -D $(LINUX_PAM_PKGDIR)/other.pam \
+		$(TARGET_DIR)/usr/lib/pam.d/other
 	$(LINUX_PAM_LASTLOG_PAMFILE_TWEAK)
 	$(LINUX_PAM_SELINUX_PAMFILE_TWEAK)
 endef
