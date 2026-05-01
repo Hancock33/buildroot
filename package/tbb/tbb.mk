@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-TBB_VERSION = 2022.3.0
-TBB_SITE = $(call github,01org,tbb,v$(TBB_VERSION))
+TBB_VERSION = 2023.0.0
+TBB_SITE = $(call github,uxlfoundation,oneTBB,v$(TBB_VERSION))
 TBB_INSTALL_STAGING = YES
 TBB_LICENSE = Apache-2.0
 TBB_LICENSE_FILES = LICENSE.txt
