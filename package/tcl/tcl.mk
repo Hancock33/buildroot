@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-TCL_VERSION_MAJOR = 8.6
-TCL_VERSION = $(TCL_VERSION_MAJOR).17
+TCL_VERSION_MAJOR = 9.0
+TCL_VERSION = $(TCL_VERSION_MAJOR).3
 TCL_SOURCE = tcl$(TCL_VERSION)-src.tar.gz
 TCL_SITE = http://downloads.sourceforge.net/project/tcl/Tcl/$(TCL_VERSION)
 TCL_LICENSE = TCL
@@ -28,17 +28,19 @@ HOST_TCL_CONF_OPTS = \
 # I haven't found a good way to force pkgs to not build
 # or configure without just removing the entire pkg directory.
 define HOST_TCL_REMOVE_PACKAGES
-	rm -fr $(@D)/pkgs/sqlite3* $(@D)/pkgs/tdbc*
+	rm -fr $(@D)/pkgs/itcl* $(@D)/pkgs/sqlite3* $(@D)/pkgs/tdbc* $(@D)/pkgs/thread*
 endef
 HOST_TCL_PRE_CONFIGURE_HOOKS += HOST_TCL_REMOVE_PACKAGES
 
 # We remove the bundled sqlite as we prefer to not use bundled stuff at all.
 define TCL_REMOVE_PACKAGES
-	rm -fr $(@D)/pkgs/sqlite3* \
+	rm -fr $(@D)/pkgs/itcl* \
+		$(@D)/pkgs/sqlite3* \
 		$(if $(BR2_PACKAGE_MARIADB),,$(@D)/pkgs/tdbcmysql*) \
 		$(@D)/pkgs/tdbcodbc* \
 		$(if $(BR2_PACKAGE_POSTGRESQL),,$(@D)/pkgs/tdbcpostgres*) \
-		$(if $(BR2_PACKAGE_SQLITE),,$(@D)/pkgs/tdbcsqlite3*)
+		$(if $(BR2_PACKAGE_SQLITE),,$(@D)/pkgs/tdbcsqlite3*) \
+		$(@D)/pkgs/thread*
 endef
 TCL_PRE_CONFIGURE_HOOKS += TCL_REMOVE_PACKAGES
 
