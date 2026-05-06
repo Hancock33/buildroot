@@ -3,9 +3,9 @@
 # rng-tools
 #
 ################################################################################
-
-RNG_TOOLS_VERSION = 6.17
-RNG_TOOLS_SITE = $(call github,nhorman,rng-tools,v$(RNG_TOOLS_VERSION))
+# Version: Commits on Feb 25, 2026
+RNG_TOOLS_VERSION = e8da3cdc8e0bc9faed24aca7c9a8129ae75d993c
+RNG_TOOLS_SITE = $(call github,nhorman,rng-tools,$(RNG_TOOLS_VERSION))
 RNG_TOOLS_LICENSE = GPL-2.0
 RNG_TOOLS_LICENSE_FILES = COPYING
 RNG_TOOLS_CPE_ID_VALID = YES
@@ -31,12 +31,12 @@ else
 RNG_TOOLS_CONF_OPTS += --without-rtlsdr
 endif
 
-ifeq ($(BR2_PACKAGE_RNG_TOOLS_JITTERENTROPY_LIBRARY),y)
-RNG_TOOLS_DEPENDENCIES += jitterentropy-library
-RNG_TOOLS_CONF_OPTS += --enable-jitterentropy
-else
+#ifeq ($(BR2_PACKAGE_RNG_TOOLS_JITTERENTROPY_LIBRARY),y)
+#RNG_TOOLS_DEPENDENCIES += jitterentropy-library
+#RNG_TOOLS_CONF_OPTS += --enable-jitterentropy
+#else
 RNG_TOOLS_CONF_OPTS += --disable-jitterentropy
-endif
+#endif
 
 ifeq ($(BR2_PACKAGE_RNG_TOOLS_NISTBEACON),y)
 RNG_TOOLS_DEPENDENCIES += jansson libcurl libxml2
