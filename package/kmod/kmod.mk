@@ -17,47 +17,43 @@ KMOD_LICENSE_FILES = libkmod/COPYING
 
 KMOD_CPE_ID_VENDOR = kernel
 
-KMOD_CONF_OPTS = -Dmanpages=false
-HOST_KMOD_CONF_OPTS = -Dmanpages=false
+# static linking not supported, see
+# https://git.kernel.org/cgit/utils/kernel/kmod/kmod.git/commit/?id=b7016153ec8
+KMOD_CONF_OPTS = --disable-static --enable-shared
+
+KMOD_CONF_OPTS += --disable-manpages
+HOST_KMOD_CONF_OPTS = --disable-manpages
 
 ifeq ($(BR2_PACKAGE_BASH_COMPLETION),y)
-KMOD_CONF_OPTS += -Dbashcompletiondir=/usr/share/bash-completion/completions
-else
-KMOD_CONF_OPTS += -Dbashcompletiondir=no
+KMOD_CONF_OPTS += --with-bashcompletiondir=/usr/share/bash-completion/completions
 endif
-
-KMOD_CONF_OPTS += -Dfishcompletiondir=no -Dzshcompletiondir=no
-
-# load compression libraries (if any are enabled below) as needed
-# using dlopen()
-KMOD_CONF_OPTS += -Ddlopen=all
 
 ifeq ($(BR2_PACKAGE_ZLIB),y)
 KMOD_DEPENDENCIES += zlib
-KMOD_CONF_OPTS += -Dzlib=enabled
+KMOD_CONF_OPTS += --with-zlib
 else
-KMOD_CONF_OPTS += -Dzlib=disabled
+KMOD_CONF_OPTS += --without-zlib
 endif
 
 ifeq ($(BR2_PACKAGE_ZSTD),y)
 KMOD_DEPENDENCIES += zstd
-KMOD_CONF_OPTS += -Dzstd=enabled
+KMOD_CONF_OPTS += --with-zstd
 else
-KMOD_CONF_OPTS += -Dzstd=disabled
+KMOD_CONF_OPTS += --without-zstd
 endif
 
 ifeq ($(BR2_PACKAGE_XZ),y)
 KMOD_DEPENDENCIES += xz
-KMOD_CONF_OPTS += -Dxz=enabled
+KMOD_CONF_OPTS += --with-xz
 else
-KMOD_CONF_OPTS += -Dxz=disabled
+KMOD_CONF_OPTS += --without-xz
 endif
 
 ifeq ($(BR2_PACKAGE_OPENSSL),y)
 KMOD_DEPENDENCIES += openssl
-KMOD_CONF_OPTS += -Dopenssl=enabled
+KMOD_CONF_OPTS += --with-openssl
 else
-KMOD_CONF_OPTS += -Dopenssl=disabled
+KMOD_CONF_OPTS += --without-openssl
 endif
 
 ifeq ($(BR2_PACKAGE_KMOD_TOOLS),y)
@@ -66,39 +62,61 @@ ifeq ($(BR2_PACKAGE_KMOD_TOOLS),y)
 KMOD_LICENSE += , GPL-2.0+ (tools)
 KMOD_LICENSE_FILES += COPYING
 
-ifeq ($(BR2_ROOTFS_MERGED_USR),)
-# Busybox would install its modutils symlinks to /sbin, so kmod needs
-# to do the same to take priority (Busybox won't overwrite them, see
-# its install-noclobber).
-KMOD_CONF_OPTS += -Dsbindir=/sbin
+# /sbin is really /usr/sbin with merged /usr, and /usr/sbin is
+# really /usr/bin with merged-bin, so adjust relative symlink
+ifeq ($(BR2_ROOTFS_MERGED_USR),y)
+ifeq ($(BR2_ROOTFS_MERGED_BIN),y)
+KMOD_BIN_PATH = kmod
+KMOD_SBIN_DIR = bin
+else
+KMOD_BIN_PATH = ../bin/kmod
+KMOD_SBIN_DIR = sbin
+endif
+else
+KMOD_BIN_PATH = ../usr/bin/kmod
+KMOD_SBIN_DIR = sbin
 endif
 
+define KMOD_INSTALL_TOOLS
+	for i in depmod insmod lsmod modinfo modprobe rmmod; do \
+		ln -sf $(KMOD_BIN_PATH) $(TARGET_DIR)/$(KMOD_SBIN_DIR)/$$i; \
+	done
+endef
+
+KMOD_POST_INSTALL_TARGET_HOOKS += KMOD_INSTALL_TOOLS
 else
-KMOD_CONF_OPTS += -Dtools=false
+KMOD_CONF_OPTS += --disable-tools
 endif
 
 ifeq ($(BR2_PACKAGE_HOST_KMOD_GZ),y)
 HOST_KMOD_DEPENDENCIES += host-zlib
-HOST_KMOD_CONF_OPTS += -Dzlib=enabled
+HOST_KMOD_CONF_OPTS += --with-zlib
 else
-HOST_KMOD_CONF_OPTS += -Dzlib=disabled
+HOST_KMOD_CONF_OPTS += --without-zlib
 endif
 
 ifeq ($(BR2_PACKAGE_HOST_KMOD_ZSTD),y)
 HOST_KMOD_DEPENDENCIES += host-zstd
-HOST_KMOD_CONF_OPTS += -Dzstd=enabled
+HOST_KMOD_CONF_OPTS += --with-zstd
 else
-HOST_KMOD_CONF_OPTS += -Dzstd=disabled
+HOST_KMOD_CONF_OPTS += --without-zstd
 endif
 
 ifeq ($(BR2_PACKAGE_HOST_KMOD_XZ),y)
 HOST_KMOD_DEPENDENCIES += host-xz
-HOST_KMOD_CONF_OPTS += -Dxz=enabled
+HOST_KMOD_CONF_OPTS += --with-xz
 else
-HOST_KMOD_CONF_OPTS += -Dxz=disabled
+HOST_KMOD_CONF_OPTS += --without-xz
 endif
 
-HOST_KMOD_CONF_OPTS += -Dopenssl=disabled
+# We only install depmod, since that's the only tool used for the
+# host.
+define HOST_KMOD_INSTALL_TOOLS
+	mkdir -p $(HOST_DIR)/sbin/
+	ln -sf ../bin/kmod $(HOST_DIR)/sbin/depmod
+endef
 
-$(eval $(meson-package))
-$(eval $(host-meson-package))
+HOST_KMOD_POST_INSTALL_HOOKS += HOST_KMOD_INSTALL_TOOLS
+
+$(eval $(autotools-package))
+$(eval $(host-autotools-package))
