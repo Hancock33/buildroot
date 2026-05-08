@@ -15,7 +15,7 @@ if BR2_PACKAGE_RNG_TOOLS
 
 config BR2_PACKAGE_RNG_TOOLS_JITTERENTROPY_LIBRARY
 	bool "Jitterentropy Library support"
-	default y
+	default n
 	select BR2_PACKAGE_JITTERENTROPY_LIBRARY
 	help
 	  Enable Jitterentropy Library support.

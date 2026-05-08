@@ -31,12 +31,12 @@ else
 RNG_TOOLS_CONF_OPTS += --without-rtlsdr
 endif
 
-#ifeq ($(BR2_PACKAGE_RNG_TOOLS_JITTERENTROPY_LIBRARY),y)
-#RNG_TOOLS_DEPENDENCIES += jitterentropy-library
-#RNG_TOOLS_CONF_OPTS += --enable-jitterentropy
-#else
+ifeq ($(BR2_PACKAGE_RNG_TOOLS_JITTERENTROPY_LIBRARY),y)
+RNG_TOOLS_DEPENDENCIES += jitterentropy-library
+RNG_TOOLS_CONF_OPTS += --enable-jitterentropy
+else
 RNG_TOOLS_CONF_OPTS += --disable-jitterentropy
-#endif
+endif
 
 ifeq ($(BR2_PACKAGE_RNG_TOOLS_NISTBEACON),y)
 RNG_TOOLS_DEPENDENCIES += jansson libcurl libxml2
