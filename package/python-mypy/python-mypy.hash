@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/mypy/json
-md5  e52585fba0f87f7d4f3923b421f44e91  mypy-2.0.0.tar.gz
-sha256  1a9e3900ac5c40f1fe813506c7739da6e6f0eab2729067ebd94bfb0bbba53532  mypy-2.0.0.tar.gz
+md5  a23b930a86aa298a97b72da06ee84084  mypy-1.19.1.tar.gz
+sha256  19d88bb05303fe63f71dd2c6270daca27cb9401c4ca8255fe50d1d920e0eb9ba  mypy-1.19.1.tar.gz
 # Locally computed sha256 checksums
 sha256  fdf1cd17f50e1305ed8cfd37467312d27a984648dba622cef70573b5512e4e1b  LICENSE
