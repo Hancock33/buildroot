@@ -4,8 +4,9 @@
 #
 ################################################################################
 
-LCMS2_VERSION = 2.19
-LCMS2_SITE = https://downloads.sourceforge.net/project/lcms/lcms/$(LCMS2_VERSION)
+LCMS2_VERSION = 2.19.1
+LCMS2_SOURCE = lcms2-$(LCMS2_VERSION).tar.gz
+LCMS2_SITE = https://github.com/mm2/Little-CMS/releases/download/lcms$(LCMS2_VERSION)
 LCMS2_LICENSE = MIT
 LCMS2_LICENSE_FILES = LICENSE
 LCMS2_CPE_ID_VENDOR = littlecms
