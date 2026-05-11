@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/idna/json
-md5  98ba54244976fa6cff886ae4e7075ccf  idna-3.13.tar.gz
-sha256  585ea8fe5d69b9181ec1afba340451fba6ba764af97026f92a91d4eef164a242  idna-3.13.tar.gz
+md5  27a2de858cd349fec814971a40a6eef5  idna-3.14.tar.gz
+sha256  466d810d7a2cc1022bea9b037c39728d51ae7dad40d480fc9b7d7ecf98ba8ee3  idna-3.14.tar.gz
 # Locally computed sha256 checksums
 sha256  1a9a4f0e3d479a27240ddd59a9137a66ab4a0f9dfdc8ca6188cc0bfd85187f04  LICENSE.md
