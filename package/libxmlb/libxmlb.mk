@@ -5,13 +5,13 @@
 ################################################################################
 
 LIBXMLB_VERSION = 0.3.26
-LIBXMLB_SITE = $(call github,hughsie,libxmlb,$(LIBXMLB_VERSION))
+LIBXMLB_SITE = https://github.com/hughsie/libxmlb/releases/download/$(LIBXMLB_VERSION)
+LIBXMLB_SOURCE = libxmlb-$(LIBXMLB_VERSION).tar.xz
 LIBXMLB_LICENSE = LGPL-2.1+
 LIBXMLB_LICENSE_FILES = LICENSE
 LIBXMLB_INSTALL_STAGING = YES
 LIBXMLB_DEPENDENCIES = libglib2
 LIBXMLB_CONF_OPTS = -Dgtkdoc=false -Dtests=false
-HOST_LIBXMLB_CONF_OPTS = -Dgtkdoc=false -Dtests=false
 
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
 LIBXMLB_CONF_OPTS += -Dintrospection=true
@@ -35,4 +35,3 @@ LIBXMLB_CONF_OPTS += -Dlzma=disabled
 endif
 
 $(eval $(meson-package))
-$(eval $(host-meson-package))
