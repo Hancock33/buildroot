@@ -14,3 +14,4 @@ PYTHON_PYCARES_DEPENDENCIES = c-ares host-python-cffi
 PYTHON_PYCARES_ENV = PYCARES_USE_SYSTEM_LIB=1
 
 $(eval $(python-package))
+$(eval $(host-python-package))
