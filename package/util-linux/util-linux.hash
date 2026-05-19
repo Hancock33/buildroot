@@ -1,5 +1,5 @@
-# From https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.42/sha256sums.asc
-sha256  3452b260bbaa775d6e749ac3bb22111785003fc1f444970025c8da26dfa758e9  util-linux-2.42.tar.xz
+# From https://www.kernel.org/pub/linux/utils/util-linux/v2.42/sha256sums.asc
+sha256  82e9158eb12a9b0b569d84e1687fed9dd18fe89ccd8ef5ac3427218a7c0d7f7f  util-linux-2.42.1.tar.xz
 # License files, locally calculated
 sha256  4c2db318192bda62f3f8fcf71488bb5e602ae4385eba281d711b46cc13a40bb3  README.licensing
 sha256  527f738966ca396cd5a68c1509390de2a780c6b614d9ee57f7544a6161938ed1  Documentation/licenses/COPYING.BSD-2-Clause
