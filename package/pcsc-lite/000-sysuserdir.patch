@@ -1,0 +1,13 @@
+diff --git a/meson.build b/meson.build
+index 34870db2..9387b1da 100644
+--- a/meson.build
++++ b/meson.build
+@@ -139,7 +139,7 @@ if get_option('libsystemd')
+   sysusersdir = systemd.get_variable(pkgconfig : 'sysusersdir')
+ else
+   systemdsystemunitdir = get_option('prefix') / 'lib' / 'systemd' / systemdunit
+-  sysusersdir = get_option('prefix') / 'sysusers.d'
++  sysusersdir = '/etc/sysusers.d'
+ endif
+ 
+ # architecture
