@@ -4,7 +4,7 @@ index 0cf2b3e0..55907b86 100644
 +++ b/meson.build
 @@ -1,6 +1,6 @@
 -project('fontconfig', 'c',
-+pproject('fontconfig', 'c',
++project('fontconfig', 'c',
    version: '2.18.0',
 -  meson_version : '>= 1.11.0',
 +  meson_version : '>= 1.10.0',
