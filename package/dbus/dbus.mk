@@ -9,8 +9,19 @@
 DBUS_VERSION = 1.16.2
 DBUS_SOURCE = dbus-$(DBUS_VERSION).tar.xz
 DBUS_SITE = https://dbus.freedesktop.org/releases/dbus
-DBUS_LICENSE = AFL-2.1 or GPL-2.0+ (library, tools), GPL-2.0+ (tools)
-DBUS_LICENSE_FILES = COPYING
+DBUS_LICENSE = \
+	AFL-2.0 or GPL-2.0+ (dbus-arch-deps.h), \
+	AFL-2.1 or GPL-2.0+ (library, daemon, some tools), \
+	GPL-2.0+ (some tools), MIT (some files), \
+	Public Domain (dbus-sha), TCL (dbus-hash)
+DBUS_LICENSE_FILES = \
+	COPYING \
+	LICENSES/AFL-2.0.txt \
+	LICENSES/AFL-2.1.txt \
+	LICENSES/GPL-2.0-or-later.txt \
+	LICENSES/LicenseRef-pycrypto-orig.txt \
+	LICENSES/MIT.txt \
+	LICENSES/TCL.txt
 DBUS_CPE_ID_VENDOR = freedesktop
 DBUS_INSTALL_STAGING = YES
 
@@ -27,18 +38,22 @@ DBUS_DEPENDENCIES = host-pkgconf expat
 DBUS_SELINUX_MODULES = dbus
 
 DBUS_CONF_OPTS = \
-	-Ddbus_user=dbus \
+	-Dapparmor=disabled \
 	-Dasserts=false \
-	-Dxml_docs=disabled \
-	-Ddoxygen_docs=disabled\
-	-Dsystem_socket=/run/dbus/system_bus_socket \
-	-Dsystem_pid_file=/run/dbus-daemon.pid \
+	-Ddbus_user=dbus \
+	-Ddoxygen_docs=disabled \
+	-Dducktype_docs=disabled \
+	-Dinstalled_tests=false \
+	-Dintrusive_tests=false \
+	-Dlaunchd=disabled \
+	-Dmodular_tests=disabled \
+	-Dqt_help=disabled \
+	-Druntime_dir=/run \
 	-Dsession_socket_dir=/tmp \
-	-Druntime_dir=/run
-
-ifeq ($(BR2_STATIC_LIBS),y)
-DBUS_CONF_OPTS += LIBS='-pthread'
-endif
+	-Dsystem_pid_file=/run/dbus-daemon.pid \
+	-Dsystem_socket=/run/dbus/system_bus_socket \
+	-Duser_session=false \
+	-Dxml_docs=disabled
 
 ifeq ($(BR2_microblaze),y)
 # microblaze toolchain doesn't provide inotify_rm_* but does have sys/inotify.h
@@ -62,9 +77,6 @@ endif
 ifeq ($(BR2_PACKAGE_XLIB_LIBX11),y)
 DBUS_CONF_OPTS += -Dx11_autolaunch=enabled
 DBUS_DEPENDENCIES += xlib_libX11
-ifeq ($(BR2_PACKAGE_XLIB_LIBSM),y)
-DBUS_DEPENDENCIES += xlib_libSM
-endif
 else
 DBUS_CONF_OPTS += -Dx11_autolaunch=disabled
 endif
@@ -121,15 +133,22 @@ endef
 
 HOST_DBUS_DEPENDENCIES = host-pkgconf host-expat
 HOST_DBUS_CONF_OPTS = \
-	-Ddbus_user=dbus \
+	-Dapparmor=disabled \
 	-Dasserts=false \
+	-Ddbus_user=dbus \
+	-Ddoxygen_docs=disabled \
+	-Dducktype_docs=disabled \
+	-Dinstalled_tests=false \
+	-Dintrusive_tests=false \
+	-Dlaunchd=disabled \
+	-Dlibaudit=disabled \
+	-Dmodular_tests=disabled \
+	-Dqt_help=disabled \
 	-Dselinux=disabled \
-	-Dxml_docs=disabled \
-	-Ddoxygen_docs=disabled\
 	-Dsystemd=disabled \
-	-Dx11_autolaunch=disabled
-
-	
+	-Duser_session=false \
+	-Dx11_autolaunch=disabled \
+	-Dxml_docs=disabled
 
 # dbus for the host
 DBUS_HOST_INTROSPECT = $(HOST_DBUS_DIR)/introspect.xml
