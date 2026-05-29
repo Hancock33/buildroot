@@ -1,8 +1,8 @@
 diff --git a/configure.ac b/configure.ac
-index a3aa55b331..4ac7dc204b 100644
+index 8d0b416955..5cc35eac53 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -2862,14 +2862,7 @@ PKG_ENABLE_MODULES_VLC([VORBIS], [], [ogg vorbis >= 1.1 vorbisenc >= 1.1], [Vorb
+@@ -2879,14 +2879,7 @@ PKG_ENABLE_MODULES_VLC([VORBIS], [], [ogg vorbis >= 1.1 vorbisenc >= 1.1], [Vorb
  dnl
  dnl  Tremor plugin
  dnl
@@ -19,10 +19,10 @@ index a3aa55b331..4ac7dc204b 100644
  dnl
  dnl  Speex plugins
 diff --git a/modules/codec/Makefile.am b/modules/codec/Makefile.am
-index dd04391c1b..bdbd94880e 100644
+index 9a92c6ea28..07e0f329c8 100644
 --- a/modules/codec/Makefile.am
 +++ b/modules/codec/Makefile.am
-@@ -324,7 +324,7 @@ codec_LTLIBRARIES += $(LTLIBdaala)
+@@ -332,7 +332,7 @@ codec_LTLIBRARIES += $(LTLIBdaala)
  libtremor_plugin_la_SOURCES = codec/vorbis.c
  libtremor_plugin_la_CPPFLAGS = $(AM_CPPFLAGS) -DMODULE_NAME_IS_tremor
  libtremor_plugin_la_LDFLAGS = $(AM_LDFLAGS) -rpath '$(codecdir)'

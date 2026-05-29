@@ -1,46 +1,20 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Yann Lochet <yann@l0chet.fr>
-Date: Fri, 25 Nov 2022 16:20:45 +0100
-Subject: [PATCH] configure: make it possible to override wayland-scanner
-
-When cross-compiling, PKG_CONFIG might pick up the wayland-scanner
-from the sysroot.
-
-Upstream: https://code.videolan.org/videolan/vlc/-/commit/75e52f617bf3273f4883b56c4175d68211e02d14
-
-[Bernd: rebased for 3.0.23]
-Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
----
- configure.ac | 2 ++
- 1 file changed, 2 insertions(+)
-
 diff --git a/configure.ac b/configure.ac
-index 3e15b4d68d..3edc4c97e4 100644
+index 420421d8aa..efad51ad31 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3276,14 +3276,17 @@ AS_IF([test "${enable_wayland}" = "yes"], [
-       AC_MSG_ERROR([$(${PKG_CONFIG} --print-errors 'wayland-protocols >= 1.4')])
+@@ -3308,6 +3308,7 @@ AS_IF([test "${enable_wayland}" = "yes"], [
      ])
  
--    AC_MSG_CHECKING([for the Wayland scanner])
--    PKG_CHECK_EXISTS([wayland-scanner], [
--      WAYLAND_SCANNER="$(${PKG_CONFIG} wayland-scanner --variable wayland_scanner)"
--      AC_MSG_RESULT([${WAYLAND_SCANNER}])
--    ], [
--      AC_MSG_RESULT([not found])
--      AC_MSG_ERROR([$(${PKG_CONFIG} --print-errors wayland-scanner)])
--    ])
-+    AC_PATH_PROG([WAYLAND_SCANNER], [wayland-scanner])
-+    if test "x$WAYLAND_SCANNER" = x; then
-+        AC_MSG_CHECKING([for the Wayland scanner])
-+        PKG_CHECK_EXISTS([wayland-scanner], [
-+          WAYLAND_SCANNER="$(${PKG_CONFIG} wayland-scanner --variable wayland_scanner)"
-+          AC_MSG_RESULT([${WAYLAND_SCANNER}])
-+        ], [
-+          AC_MSG_RESULT([not found])
-+          AC_MSG_ERROR([$(${PKG_CONFIG} --print-errors wayland-scanner)])
-+        ])
-+    fi
+     AC_MSG_CHECKING([for the Wayland scanner])
++    AS_VAR_SET_IF(WAYLAND_SCANNER, [],[
+     PKG_CHECK_EXISTS([wayland-scanner], [
+       WAYLAND_SCANNER="$(${PKG_CONFIG} wayland-scanner --variable wayland_scanner)"
+       AC_MSG_RESULT([${WAYLAND_SCANNER}])
+@@ -3315,6 +3316,7 @@ AS_IF([test "${enable_wayland}" = "yes"], [
+       AC_MSG_RESULT([not found])
+       AC_MSG_ERROR([$(${PKG_CONFIG} --print-errors wayland-scanner)])
+     ])
++    ])
  
      have_wayland="yes"
  

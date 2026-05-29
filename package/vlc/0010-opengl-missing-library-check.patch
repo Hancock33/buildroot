@@ -1,8 +1,8 @@
 diff --git a/configure.ac b/configure.ac
-index 3edc4c97e4..9db4591515 100644
+index efad51ad31..5962acc6d0 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -3138,7 +3138,6 @@ have_gl="no"
+@@ -3169,7 +3169,6 @@ have_gl="no"
  PKG_CHECK_MODULES([GL], [gl], [
    have_gl="yes"
  ], [
@@ -10,7 +10,7 @@ index 3edc4c97e4..9db4591515 100644
    AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
  #ifdef _WIN32
  # include <GL/glew.h>
-@@ -3148,13 +3147,17 @@ PKG_CHECK_MODULES([GL], [gl], [
+@@ -3179,13 +3178,17 @@ PKG_CHECK_MODULES([GL], [gl], [
      [int t0 = GL_TEXTURE0;]])
    ], [
      GL_CFLAGS=""
