@@ -428,6 +428,7 @@ F:	package/libfribidi/
 F:	package/libg7221/
 F:	package/libglew/
 F:	package/libglu/
+F:	package/libhdhomerun/
 F:	package/libheif/
 F:	package/libid3tag/
 F:	package/libilbc/
@@ -756,6 +757,7 @@ F:	package/pangomm2_46/
 F:	package/sam-ba/
 
 N:	Damien Lanson <damien@kal-host.com>
+F:	package/libvdpau/
 F:	package/log4cpp/
 
 N:	Damien Le Moal <dlemoal@kernel.org>
@@ -1105,6 +1107,7 @@ F:	package/tinycbor/
 F:	package/tinydtls/
 F:	package/whois/
 F:	package/x11r7/xlib_libXpresent/
+F:	package/zeek/
 
 N:	Fabrice Goucem <fabrice.goucem@oss.nxp.com>
 F:	board/freescale/imx6ullevk/
@@ -1359,6 +1362,7 @@ F:	fs/f2fs/
 F:	package/bluez5_utils-headers/
 F:	package/f2fs-tools/
 F:	package/graphicsmagick/
+F:	package/pigpio/
 F:	package/python-aioblescan/
 F:	package/python-bluezero/
 F:	package/python-crontab/
@@ -1713,6 +1717,10 @@ F:	package/nginx-dav-ext/
 N:	John Stile <johns@msli.com>
 F:	package/dhcpcd/
 
+N:	John Faith <jfaith@impinj.com>
+F:	package/python-inflection/
+F:	package/sdbusplus/
+
 N:	Jon Ringle <jringle@gridpoint.com>
 F:	package/mbpoll/
 
@@ -1723,6 +1731,8 @@ N:	Jonathan Ben Avraham <yba@tkos.co.il>
 F:	arch/Config.in.xtensa
 F:	package/autofs/
 F:	package/dawgdic/
+F:	package/libphidget/
+F:	package/phidgetwebservice/
 F:	package/rapidxml/
 
 N:	Joris Offouga <offougajoris@gmail.com>
@@ -1892,7 +1902,6 @@ F:	support/testing/tests/package/test_fluidsynth.py
 F:	support/testing/tests/package/test_fluidsynth/
 F:	support/testing/tests/package/test_fping.py
 F:	support/testing/tests/package/test_fwts.py
-F:	support/testing/tests/package/test_fwts/
 F:	support/testing/tests/package/test_gawk.py
 F:	support/testing/tests/package/test_ghostscript.py
 F:	support/testing/tests/package/test_ghostscript/
@@ -2365,6 +2374,26 @@ F:	package/gtkiostream/
 
 N:	Matt Silva <dev@matt-silva.com>
 F:	package/rlwrap/
+
+N:	Mauro Condarelli <mc5686@mclink.it>
+F:	package/mc/
+F:	package/python-autobahn/
+F:	package/python-cbor/
+F:	package/python-characteristic/
+F:	package/python-click/
+F:	package/python-lmdb/
+F:	package/python-mistune/
+F:	package/python-netaddr/
+F:	package/python-pygments/
+F:	package/python-pynacl/
+F:	package/python-pytrie/
+F:	package/python-service-identity/
+F:	package/python-setproctitle/
+F:	package/python-shutilwhich/
+F:	package/python-treq/
+F:	package/python-txaio/
+F:	package/python-ujson/
+F:	package/python-wsaccel/
 
 N:	Maksim Kiselev <bigunclemax@gmail.com>
 F:	package/ledmon/
@@ -3013,6 +3042,7 @@ F:	package/aoetools/
 F:	package/asn1c/
 F:	package/azure-iot-sdk-c/
 F:	package/curlpp/
+F:	package/daq/
 F:	package/libgdiplus/
 F:	package/pimd/
 F:	package/sloci-image/
@@ -3026,12 +3056,10 @@ F:	package/wolfssl/
 N:	Shubham Chakraborty <chakrabortyshubham66@gmail.com>
 F:	package/ccache/
 F:	package/dos2unix/
-F:	package/htop/
+F:	package/font-awesome/
 F:	package/hyperfine/
 F:	package/libenca/
 F:	package/pv/
-F:	package/unrar/
-F:	package/xterm/
 
 N:	Simon Dawson <spdawson@gmail.com>
 F:	boot/at91bootstrap3/
@@ -3324,8 +3352,7 @@ F:	package/llvm-project/llvm/
 N:	Vanya Sergeev <vsergeev@gmail.com>
 F:	package/lua-periphery/
 
-N:	Viacheslav Bocharov <v@baodeep.com>
-F:	package/amlogic-boot-fip/
+N:	Viacheslav Bocharov <adeep@lexina.in>
 F:	package/rtl8822cs/
 
 N:	Victor Huesca <victor.huesca@bootlin.com>
@@ -3343,6 +3370,7 @@ F:	package/libecoli/
 F:	package/libnss-ato/
 F:	package/libyang-cpp/
 F:	package/python-libyang/
+F:	package/python-sysv-ipc/
 F:	package/sysrepo-cpp/
 
 N:	Vincent Prince <vincent.prince.fr@gmail.com>
