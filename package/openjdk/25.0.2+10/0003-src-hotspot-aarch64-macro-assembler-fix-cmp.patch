@@ -1,7 +1,7 @@
 From ac1110be8a65b230a3413890c77565cead5fa44f Mon Sep 17 00:00:00 2001
 From: Thomas Devoogdt <thomas@devoogdt.com>
 Date: Sat, 21 Feb 2026 15:45:42 +0100
-Subject: [PATCH] src: hotspot: aarch64: macro assembler: fix cmp
+Subject: [PATCH 3/4] src: hotspot: aarch64: macro assembler: fix cmp
 
 Older GCC versions (e.g., GCC 6.x from bootlin toolchains) cannot
 resolve the overload ambiguity when passing an InstanceKlass::ClassState
