@@ -59,7 +59,6 @@ VLC_CONF_OPTS += \
 	--disable-dsm \
 	--disable-dv1394 \
 	--disable-fluidlite \
-	--disable-freerdp \
 	--disable-gme \
 	--disable-goom \
 	--disable-jack \
@@ -181,6 +180,13 @@ VLC_CONF_OPTS += --enable-fluidsynth
 VLC_DEPENDENCIES += fluidsynth
 else
 VLC_CONF_OPTS += --disable-fluidsynth
+endif
+
+ifeq ($(BR2_PACKAGE_FREERDP),y)
+VLC_CONF_OPTS += --enable-freerdp
+VLC_DEPENDENCIES += freerdp
+else
+VLC_CONF_OPTS += --disable-freerdp
 endif
 
 ifeq ($(BR2_PACKAGE_GST1_PLUGINS_BASE),y)

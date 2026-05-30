@@ -37,6 +37,13 @@ UTIL_LINUX_LICENSE_FILES = README.licensing \
 
 UTIL_LINUX_CPE_ID_VENDOR = kernel
 
+define UTIL_LINUX_POST_EXTRACT_FIXUP
+	$(SED) 's/-lpthread//' $(@D)/libuuid/uuid.pc.in
+endef
+ifneq ($(BR2_TOOLCHAIN_HAS_THREADS),y)
+UTIL_LINUX_POST_EXTRACT_HOOKS += UTIL_LINUX_POST_EXTRACT_FIXUP
+endif
+
 UTIL_LINUX_INSTALL_STAGING = YES
 UTIL_LINUX_DEPENDENCIES = \
 	host-pkgconf \
@@ -52,6 +59,11 @@ UTIL_LINUX_CONF_OPTS += \
 	--disable-poman \
 	--disable-rpath \
 	--disable-year2038
+
+# pthread support uses pthread_atfork, which is not available on nommu
+ifneq ($(BR2_USE_MMU),y)
+UTIL_LINUX_CONF_ENV += ac_cv_lib_pthread_pthread_atfork=no
+endif
 
 UTIL_LINUX_LINK_LIBS = $(TARGET_NLS_LIBS)
 

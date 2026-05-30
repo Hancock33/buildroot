@@ -1,6 +1,6 @@
-# From https://lists.freedesktop.org/archives/dri-devel/2026-April/563811.html
-sha256  fc68f9d0ba2ea63c9432a299e14fea09fad7a8a66e8039fcd7802ca59f77b4f5  libdrm-2.4.133.tar.xz
-sha512  2b8016f64d2553c6cec4870b01820c48eb3985cadc4e39846bcc54db6bcec9435f65ba7749fc8271020317489bc05625e991383569cba803cca85c686d1f4568  libdrm-2.4.133.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2026-May/003701.html
+sha256  ac5e74d157830eb8bee44c6a6bf3ad49774ef0dd2a72bdad74a8f20308b52a95  libdrm-2.4.134.tar.xz
+sha512  ef2abddea59d1e93c83a48de920431b839ab50d6071ef4da3cf126e7d64ba7b235f2e34e1169d49ad9de2937a0a18acd66bb8d324b067239b1136e0ddbe792a1  libdrm-2.4.134.tar.xz
 
 # Hash for license file
 sha256  d0a616a9020dc0271e36e6dd4bad174b4e2c2a42636f13785f8e18dd5f85fd83  data/meson.build
