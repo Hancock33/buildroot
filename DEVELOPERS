@@ -427,7 +427,6 @@ F:	package/libfribidi/
 F:	package/libg7221/
 F:	package/libglew/
 F:	package/libglu/
-F:	package/libhdhomerun/
 F:	package/libheif/
 F:	package/libid3tag/
 F:	package/libilbc/
@@ -3027,6 +3026,8 @@ F:	package/htop/
 F:	package/hyperfine/
 F:	package/libenca/
 F:	package/pv/
+F:	package/unrar/
+F:	package/xterm/
 
 N:	Simon Dawson <spdawson@gmail.com>
 F:	boot/at91bootstrap3/

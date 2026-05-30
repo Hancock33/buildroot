@@ -14,6 +14,7 @@ Fixes CVE-2025-64524
 
 Upstream: https://github.com/OpenPrinting/cups-filters/commit/b03866fd2e251a6d822a5e8c807c8d47b4d2dce2
 
+CVE: CVE-2025-64524
 Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
 ---
  filter/rastertopclx.c | 25 +++++++++++++++++++++++--
