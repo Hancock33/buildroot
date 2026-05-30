@@ -243,6 +243,7 @@ F:	package/python-pillow/
 F:	package/python-pydal/
 F:	package/python-spidev/
 F:	package/python-web2py/
+F:	package/qpdf/
 F:	package/qt5/qt5coap/
 F:	package/qt5/qt5knx/
 F:	package/qt5/qt5mqtt/
@@ -702,6 +703,9 @@ F:	package/perl-sys-meminfo/
 F:	package/perl-sys-mmap/
 F:	package/perl-time-parsedate/
 F:	package/perl-x10/
+
+N:	Christopher Obbard <obbardc@gmail.com>
+F:	package/dtui/
 
 N:	Colin Foster <colin.foster@in-advantage.com>
 F:	package/python-tftpy/
@@ -3338,6 +3342,7 @@ F:	package/dpdk/
 F:	package/libecoli/
 F:	package/libnss-ato/
 F:	package/libyang-cpp/
+F:	package/python-libyang/
 F:	package/sysrepo-cpp/
 
 N:	Vincent Prince <vincent.prince.fr@gmail.com>
