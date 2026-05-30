@@ -3049,6 +3049,7 @@ F:	package/ccache/
 F:	package/dos2unix/
 F:	package/htop/
 F:	package/hyperfine/
+F:	package/libenca/
 F:	package/pv/
 
 N:	Simon Dawson <spdawson@gmail.com>
