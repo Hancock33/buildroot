@@ -9,8 +9,7 @@
 
 
 import argparse
-import bz2
-import gzip
+import importlib.util
 import json
 import os
 from pathlib import Path
@@ -46,9 +45,19 @@ VULN_WITH_PEDIGREE = set()
 SPDX_LICENSES = []
 
 if not SPDX_SCHEMA_PATH.exists():
+    if not importlib.util.find_spec("_ssl"):
+        print(f"ssl module required for downloading {SPDX_SCHEMA_URL}. Try enabling BR2_PACKAGE_HOST_PYTHON3_SSL.",
+              file=sys.stderr)
+        exit(1)
+
     # Download the CycloneDX SPDX schema JSON, and cache it locally
     cyclonedxpath.mkdir(parents=True, exist_ok=True)
-    urllib.request.urlretrieve(SPDX_SCHEMA_URL, SPDX_SCHEMA_PATH)
+    try:
+        urllib.request.urlretrieve(SPDX_SCHEMA_URL, SPDX_SCHEMA_PATH)
+    except urllib.error.URLError as e:
+        if "CERTIFICATE_VERIFY_FAILED" in str(e.reason):
+            raise Exception("Couldn't verify certificate. Try enabling BR2_PACKAGE_HOST_CA_CERTIFICATES.")
+        raise e
 
 try:
     with SPDX_SCHEMA_PATH.open() as f:
@@ -179,7 +188,7 @@ def patch_retrieve_header(content: str) -> str:
 
 
 def read_patch_file(patch_path: Path) -> str:
-    """Read the content of a patch file, handling compression.
+    """Read the content of a patch file.
 
     Args:
         patch_path (Path): Patch path.
@@ -187,16 +196,8 @@ def read_patch_file(patch_path: Path) -> str:
     Returns:
         str: Patch content.
     """
-    if patch_path.suffix == ".gz":
-        f = gzip.open(patch_path, mode="rt")
-    elif patch_path.suffix == ".bz":
-        f = bz2.open(patch_path, mode="rt")
-    else:
-        f = open(patch_path)
-
-    content = f.read()
-    f.close()
-    return content
+    with open(patch_path) as f:
+        return f.read()
 
 
 def cyclonedx_patches(patch_list: list[str]):
