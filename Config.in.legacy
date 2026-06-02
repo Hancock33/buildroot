@@ -163,6 +163,13 @@ config BR2_PACKAGE_QEMU_TARGET_MICROBLAZEEL
 
 comment "Legacy options removed in 2026.05"
 
+config BR2_PACKAGE_PTPD2
+	bool "ptpd2 removed"
+	select BR2_LEGACY
+	help
+	  ptpd2 was no longer maintained upstream, so it has been
+	  dropped.
+
 config BR2_PACKAGE_LIBHDHOMERUN
 	bool "libhdhomerun"
 	select BR2_LEGACY
