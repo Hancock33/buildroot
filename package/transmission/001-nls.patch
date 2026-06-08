@@ -1,0 +1,16 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 22a8211aa..73521be4a 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -406,9 +406,9 @@ if(ENABLE_QT)
+         Gui
+         Widgets
+         Network
+-        Svg
+-        LinguistTools)
++        Svg)
+     set(QT_OPTIONAL_MODULES
++        LinguistTools
+         DBus
+         AxContainer
+         AxServer)
