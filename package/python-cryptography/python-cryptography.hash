@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/cryptography/json
-sha256  542c57345068207fe1a135e67d1c6eeabad6c583875b9b2946854d358c0e40d4  python-cryptography-48.0.1-cargo5.tar.gz
+sha256  89ba35cd69c051c4a0f6618c5c1a8b200551238b9302114f1d881667bc6e3864  python-cryptography-49.0.0-cargo5.tar.gz
 # Locally computed sha256 checksums
 sha256  3e0c7c091a948b82533ba98fd7cbb40432d6f1a9acbf85f5922d2f99a93ae6bb  LICENSE
 sha256  aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe  LICENSE.APACHE
