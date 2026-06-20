@@ -17,7 +17,6 @@ NET_TOOLS_CPE_ID_VALID = YES
 NET_TOOLS_IGNORE_CVES += CVE-2025-46836
 
 define NET_TOOLS_CONFIGURE_CMDS
-	$(SED) 's:ROSE y:ROSE n:' $(@D)/config.in
 	(cd $(@D); yes "" | ./configure.sh config.in )
 endef
 
