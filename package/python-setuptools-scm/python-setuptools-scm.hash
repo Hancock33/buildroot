@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/setuptools-scm/json
-md5  fb563fec1b3a590230b2b9a10c73e2c5  setuptools_scm-10.0.5.tar.gz
-sha256  bbba8fe754516cdefd017f4456721775e6ef9662bd7887fb52ae26813d4838c3  setuptools_scm-10.0.5.tar.gz
+md5  fc7dfeae0b61636e3705547acc9f3276  setuptools_scm-10.1.2.tar.gz
+sha256  24079818acc46e99aae0d65b8d511fafe965970d9cbd060c7b9f7275ded520fb  setuptools_scm-10.1.2.tar.gz
 # Locally computed sha256 checksums
 sha256  89807acf2309bd285f033404ee78581602f3cd9b819a16ac2f0e5f60ff4a473e  LICENSE
