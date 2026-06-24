@@ -11,21 +11,16 @@ LZ4_LICENSE = BSD-2-Clause (library), GPL-2.0+ (programs)
 LZ4_LICENSE_FILES = lib/LICENSE programs/COPYING
 LZ4_CPE_ID_VALID = YES
 
+# batocera: use CMake build system instead of Makefile for host build
+# so that CMake based packages can find lz4 library and headers in host build
+LZ4_SUPPORTS_IN_SOURCE_BUILD = NO
+HOST_LZ4_SUBDIR = build/cmake
+
 ifeq ($(BR2_STATIC_LIBS),y)
 LZ4_MAKE_OPTS += BUILD_SHARED=no
 else ifeq ($(BR2_SHARED_LIBS),y)
 LZ4_MAKE_OPTS += BUILD_STATIC=no
 endif
-
-define HOST_LZ4_BUILD_CMDS
-	$(HOST_MAKE_ENV) $(HOST_CONFIGURE_OPTS) $(MAKE) -C $(@D) lib
-	$(HOST_MAKE_ENV) $(HOST_CONFIGURE_OPTS) $(MAKE) -C $(@D) lz4
-endef
-
-define HOST_LZ4_INSTALL_CMDS
-	$(HOST_MAKE_ENV) $(HOST_CONFIGURE_OPTS) $(MAKE) PREFIX=$(HOST_DIR) \
-		install -C $(@D)
-endef
 
 LZ4_DIRS = lib
 
@@ -55,4 +50,4 @@ define LZ4_INSTALL_TARGET_CMDS
 endef
 
 $(eval $(generic-package))
-$(eval $(host-generic-package))
+$(eval $(host-cmake-package))
