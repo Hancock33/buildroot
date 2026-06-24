@@ -11,3 +11,4 @@ VULKAN_HEADERS_LICENSE_FILES = LICENSE.md
 VULKAN_HEADERS_INSTALL_STAGING = YES
 
 $(eval $(cmake-package))
+$(eval $(host-cmake-package))
