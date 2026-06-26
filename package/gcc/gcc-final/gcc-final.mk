@@ -61,7 +61,6 @@ define HOST_GCC_FINAL_CONFIGURE_CMDS
 		--prefix="$(HOST_DIR)" \
 		--sysconfdir="$(HOST_DIR)/etc" \
 		--enable-static \
-		--disable-checking \
 		$(QUIET) $(HOST_GCC_FINAL_CONF_OPTS) \
 	)
 endef
