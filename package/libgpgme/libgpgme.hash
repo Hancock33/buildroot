@@ -1,5 +1,5 @@
 # From https://www.gnupg.org/download/integrity_check.html
-sha1  80a99973a6c4e4449174cfff43c8e2db6f3f3b25  gpgme-2.1.0.tar.bz2
-sha256  841c5ea53fc26259f4fbf0e8bde982dea1b8a1ca0cb77e681c82b050566bf92b  gpgme-2.1.0.tar.bz2
+sha1  780ccb1f2ca01e2f246c21be7670dec3a072e200  gpgme-2.1.1.tar.bz2
+sha256  6d7ee12b209d7dce75468db53f72a90e1ad3d21f4c304ef2c002612a52f5333a  gpgme-2.1.1.tar.bz2
 # Locally calculated
 sha256  ca0061fc1381a3ab242310e4b3f56389f28e3d460eb2fd822ed7a21c6f030532  COPYING.LESSER
