@@ -15,7 +15,8 @@ MESA3D_DEMOS_CONF_OPTS += \
 	-Dosmesa=disabled  # BR2_PACKAGE_MESA3D_OSMESA_GALLIUM removed in mesa 25.1
 
 ifeq ($(BR2_PACKAGE_XORG7)$(BR2_PACKAGE_HAS_LIBGL),yy)
-MESA3D_DEMOS_DEPENDENCIES += libgl libglew libglu xlib_libX11 xlib_libXext
+# batocera - add libxcb libxkbcommon
+MESA3D_DEMOS_DEPENDENCIES += libgl libglew libglu xlib_libX11 xlib_libXext libxcb libxkbcommon
 MESA3D_DEMOS_CONF_OPTS += -Dgl=enabled -Dx11=enabled
 else
 MESA3D_DEMOS_CONF_OPTS += -Dgl=disabled -Dx11=disabled
@@ -62,8 +63,9 @@ else
 MESA3D_DEMOS_CONF_OPTS += -Dwayland=disabled
 endif
 
+# batocera - add host-glslang
 ifeq ($(BR2_PACKAGE_VULKAN_LOADER),y)
-MESA3D_DEMOS_DEPENDENCIES += vulkan-loader
+MESA3D_DEMOS_DEPENDENCIES += vulkan-loader host-glslang
 MESA3D_DEMOS_CONF_OPTS += -Dvulkan=enabled
 else
 MESA3D_DEMOS_CONF_OPTS += -Dvulkan=disabled

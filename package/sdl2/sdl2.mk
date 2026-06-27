@@ -3,7 +3,7 @@
 # sdl2
 #
 ################################################################################
-# git describe --tags --abbrev=40 origin/release-2.30.x | cut -d '-' -f 2-
+# git describe --tags --abbrev=40 origin/release-2.32.x | cut -d '-' -f 2-
 SDL2_VERSION = 2.32.10-88-g2e5b9a860e69afc9fa5259c7b1f0bd52857d475e
 SDL2_SITE = $(call github,libsdl-org,SDL,$(SDL2_VERSION))
 SDL2_LICENSE = Zlib
@@ -75,11 +75,6 @@ SDL2_CONF_OPTS += --enable-static
 
 # batocera - disable hidapi
 SDL2_CONF_OPTS += --disable-hidapi
-
-# batocera - sdl2 set the rpi video output from the host name
-ifeq ($(BR2_PACKAGE_RPI_USERLAND),y)
-SDL2_CONF_OPTS += --host=arm-raspberry-linux-gnueabihf
-endif
 
 # batocera - Used in screen rotation (SDL and Retroarch)
 ifeq ($(BR2_PACKAGE_ROCKCHIP_RGA),y)
@@ -172,6 +167,13 @@ else
 SDL2_CONF_OPTS += --disable-video-x11 --without-x
 endif
 
+ifeq ($(BR2_PACKAGE_SDL2_WAYLAND),y)
+SDL2_DEPENDENCIES += libegl libxkbcommon wayland wayland-protocols
+SDL2_CONF_OPTS += --enable-video-wayland
+else
+SDL2_CONF_OPTS += --disable-video-wayland
+endif
+
 ifeq ($(BR2_PACKAGE_SDL2_OPENGL),y)
 SDL2_CONF_OPTS += --enable-video-opengl
 SDL2_DEPENDENCIES += libgl
@@ -213,13 +215,6 @@ else
 SDL2_CONF_OPTS += --disable-video-kmsdrm
 endif
 
-# batocera - enable/disable Wayland video driver
-ifeq ($(BR2_PACKAGE_SDL2_WAYLAND),y)
-SDL2_DEPENDENCIES += wayland wayland-protocols libxkbcommon
-SDL2_CONF_OPTS += --enable-video-wayland
-else
-SDL2_CONF_OPTS += --disable-video-wayland
-endif
 
 # batocera - libdecor
 ifeq ($(BR2_PACKAGE_LIBDECOR),y)
@@ -227,8 +222,8 @@ SDL2_DEPENDENCIES += libdecor
 endif
 
 # batocera - enable/disable Vulkan support
-ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
-SDL2_DEPENDENCIES += vulkan-headers vulkan-loader
+ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER)$(BR2_PACKAGE_VULKAN_LOADER),yy)
+SDL2_DEPENDENCIES += mesa3d vulkan-loader
 SDL2_CONF_OPTS += --enable-video-vulkan
 else
 SDL2_CONF_OPTS += --disable-video-vulkan

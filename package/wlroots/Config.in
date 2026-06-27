@@ -20,17 +20,13 @@ config BR2_PACKAGE_WLROOTS
 	select BR2_PACKAGE_HWDATA_PNP_IDS
 	select BR2_PACKAGE_LIBDISPLAY_INFO
 	select BR2_PACKAGE_LIBDRM
-	select BR2_PACKAGE_LIBDISPLAY_INFO
 	select BR2_PACKAGE_LIBINPUT
 	select BR2_PACKAGE_LIBXKBCOMMON
 	select BR2_PACKAGE_PIXMAN
 	select BR2_PACKAGE_SEATD
-    select BR2_PACKAGE_HWDATA
-    select BR2_PACKAGE_HWDATA_PNP_IDS
-    select BR2_PACKAGE_LIBDISPLAY_INFO
-    select BR2_PACKAGE_LIBLIFTOFF
 	select BR2_PACKAGE_WAYLAND
 	select BR2_PACKAGE_WAYLAND_PROTOCOLS
+	select BR2_PACKAGE_LCMS2 # batocera
 	help
 	  wlroots is a modular Wayland library for building compositors
 	  which implements many of their common features.

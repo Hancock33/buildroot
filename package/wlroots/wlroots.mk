@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-WLROOTS_VERSION = 0.20.0
+WLROOTS_VERSION = 0.20.1
 WLROOTS_SITE = https://gitlab.freedesktop.org/wlroots/wlroots/-/releases/$(WLROOTS_VERSION)/downloads
 WLROOTS_LICENSE = MIT
 WLROOTS_LICENSE_FILES = LICENSE
@@ -23,21 +23,15 @@ WLROOTS_DEPENDENCIES = \
 	pixman \
 	seatd \
 	udev \
-    hwdata \
-    libdisplay-info \
-    libliftoff \
 	wayland \
-	wayland-protocols
+	wayland-protocols \
+	host-glslang \
+	lcms2 # batocera, add host-glslang & lcms2
 
 WLROOTS_CONF_OPTS = -Dexamples=false -Dxcb-errors=disabled -Dlibliftoff=disabled
 
 WLROOTS_RENDERERS = gles2
 WLROOTS_BACKENDS = libinput drm
-
-# batocera
-ifeq ($(BR2_PACKAGE_HAS_LIBGBM),y)
-WLROOTS_CONF_OPTS += -Dallocators=gbm
-endif
 
 ifeq ($(BR2_PACKAGE_WLROOTS_X11),y)
 WLROOTS_BACKENDS += x11
@@ -51,12 +45,7 @@ else
 WLROOTS_CONF_OPTS += -Dxwayland=disabled
 endif
 
-# batocera - add vulkan build dependency
-ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER),yy)
-    WLROOTS_DEPENDENCIES +=  vulkan-headers vulkan-loader host-glslang
-endif
-
-ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER),y)
+ifeq ($(BR2_PACKAGE_MESA3D_VULKAN_DRIVER)$(BR2_PACKAGE_VULKAN_LOADER),yy)
 WLROOTS_RENDERERS += vulkan
 WLROOTS_DEPENDENCIES += mesa3d vulkan-loader
 endif

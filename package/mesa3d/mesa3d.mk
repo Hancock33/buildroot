@@ -138,6 +138,7 @@ MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_BROADCOM)  += broadcom
 MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_FREEDRENO) += freedreno
 MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_IMAGINATION) += imagination
 MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_INTEL)     += intel
+MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_HASWELL)   += intel_hasvk
 MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_PANFROST)  += panfrost
 HOST_MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_PANFROST) += panfrost
 MESA3D_VULKAN_DRIVERS-$(BR2_PACKAGE_MESA3D_VULKAN_DRIVER_SWRAST)    += swrast
@@ -311,13 +312,17 @@ MESA3D_CFLAGS = -O2 "$(BR2_TARGET_OPTIMIZATION)"
 
 # batocera icd.@0@.json vulkan files
 define MESA3D_VULKANJSON_X86_64
-        $(SED) s+"host_machine.cpu()"+"'x86_64'"+ $(@D)/src/intel/vulkan/meson.build \
-		    $(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
+	$(SED) "s/format(host_machine.cpu())/format('x86_64')/g" $(@D)/src/intel/vulkan/meson.build \
+		$(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
+	$(SED) "s/icd.' + vulkan_manifest_suffix/icd.x86_64' + vulkan_manifest_suffix/g" $(@D)/src/intel/vulkan/meson.build \
+		$(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
 endef
 
 define MESA3D_VULKANJSON_X86
-        $(SED) s+"host_machine.cpu()"+"'i686'"+ $(@D)/src/intel/vulkan/meson.build \
-		    $(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
+	$(SED) "s/format(host_machine.cpu())/format('i686')/g" $(@D)/src/intel/vulkan/meson.build \
+		$(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
+	$(SED) "s/icd.' + vulkan_manifest_suffix/icd.i686' + vulkan_manifest_suffix/g" $(@D)/src/intel/vulkan/meson.build \
+		$(@D)/src/intel/vulkan_hasvk/meson.build $(@D)/src/amd/vulkan/meson.build
 endef
 
 ifeq ($(BR2_x86_64),y)

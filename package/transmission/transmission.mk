@@ -58,10 +58,11 @@ define TRANSMISSION_USERS
 	transmission -1 transmission -1 * /var/lib/transmission - transmission Transmission Daemon
 endef
 
-define TRANSMISSION_INSTALL_INIT_SYSV
-	$(INSTALL) -m 0755 -D package/transmission/S92transmission \
-		$(TARGET_DIR)/etc/init.d/S92transmission
-endef
+# batocera
+#define TRANSMISSION_INSTALL_INIT_SYSV
+#	$(INSTALL) -m 0755 -D package/transmission/S92transmission \
+#		$(TARGET_DIR)/etc/init.d/S92transmission
+#endef
 
 define TRANSMISSION_INSTALL_INIT_SYSTEMD
 	$(INSTALL) -D -m 0644 $(@D)/daemon/transmission-daemon.service \

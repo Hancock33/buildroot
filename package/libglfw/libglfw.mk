@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBGLFW_VERSION = b00e6a8a88ad1b60c0a045e696301deb92c9a13e
+LIBGLFW_VERSION = ed6452b13c76f7b4da216a9952bc7837aeb0f031
 LIBGLFW_SITE = $(call github,glfw,glfw,$(LIBGLFW_VERSION))
 LIBGLFW_INSTALL_STAGING = YES
 LIBGLFW_LICENSE = Zlib
@@ -31,9 +31,14 @@ ifeq ($(BR2_PACKAGE_HAS_LIBGLES),y)
 LIBGLFW_DEPENDENCIES += libgles
 endif
 
+# batocera - don't add wayland for xorg
 ifeq ($(BR2_PACKAGE_WAYLAND),y)
-LIBGLFW_CONF_OPTS += -DGLFW_BUILD_WAYLAND=ON
-LIBGLFW_DEPENDENCIES += libxkbcommon wayland
+    ifneq ($(BR2_PACKAGE_batocera_TARGET_X86_64_ANY)$(BR2_PACKAGE_batocera_XWAYLAND),y)
+        LIBGLFW_DEPENDENCIES += libxkbcommon wayland
+        LIBGLFW_CONF_OPTS += -DGLFW_BUILD_WAYLAND=ON
+    else
+        LIBGLFW_CONF_OPTS += -DGLFW_BUILD_WAYLAND=OFF
+	endif
 else
 LIBGLFW_CONF_OPTS += -DGLFW_BUILD_WAYLAND=OFF
 endif
