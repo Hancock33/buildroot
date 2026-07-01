@@ -10,5 +10,6 @@ PYTHON_AIODNS_SITE = https://files.pythonhosted.org/packages/9b/22/a2d928e0e42ba
 PYTHON_AIODNS_SETUP_TYPE = setuptools
 PYTHON_AIODNS_LICENSE = MIT
 PYTHON_AIODNS_LICENSE_FILES = LICENSE
+PYTHON_AIODNS_DEPENDENCIES = host-python-pycares python-pycares
 
 $(eval $(python-package))
