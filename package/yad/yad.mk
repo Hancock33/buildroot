@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-YAD_VERSION = 14.2
+YAD_VERSION = 15.0
 YAD_SOURCE = yad-$(YAD_VERSION).tar.xz
 YAD_SITE = https://github.com/v1cont/yad/releases/download/v$(YAD_VERSION)
 YAD_LICENSE = GPL-3.0
