@@ -4,9 +4,9 @@
 #
 ################################################################################
 
-PYTHON_NUMPY_VERSION = 2.4.0
+PYTHON_NUMPY_VERSION = 2.5.0
 PYTHON_NUMPY_SOURCE = numpy-$(PYTHON_NUMPY_VERSION).tar.gz
-PYTHON_NUMPY_SITE = https://files.pythonhosted.org/packages/a4/7a/6a3d14e205d292b738db449d0de649b373a59edb0d0b4493821d0a3e8718
+PYTHON_NUMPY_SITE = https://files.pythonhosted.org/packages/e7/05/3d27272d30698dc0ecb7fdfaa41ad70303b444f81722bb99bce1d818638a
 PYTHON_NUMPY_LICENSE = BSD-3-Clause, MIT, Zlib
 PYTHON_NUMPY_LICENSE_FILES = \
 	LICENSE.txt \
@@ -97,18 +97,6 @@ HOST_PYTHON_NUMPY_NINJA_ENV += \
 # Rather than add a host-blas or host-lapack dependencies, just use unoptimized,
 # in-tree code.
 HOST_PYTHON_NUMPY_CONF_OPTS = -Dblas="" -Dlapack=""
-
-# Fixup the npymath.ini prefix path with actual target staging area where
-# numpy core was built. Without this, target builds using numpy distutils
-# extensions like python-scipy, python-numba cannot find -lnpymath since
-# it uses host libraries (like libnpymath.a).
-# So, the numpy distutils extension packages would explicitly link this
-# config path for their package environment.
-define PYTHON_NUMPY_FIXUP_NPY_PKG_CONFIG_FILES
-	$(SED) '/^pkgdir=/d;/^prefix=/i pkgdir=$(PYTHON3_PATH)/site-packages/numpy/core' \
-		$(PYTHON3_PATH)/site-packages/numpy/_core/lib/npy-pkg-config/npymath.ini
-endef
-PYTHON_NUMPY_POST_INSTALL_STAGING_HOOKS += PYTHON_NUMPY_FIXUP_NPY_PKG_CONFIG_FILES
 
 # Some package may include few headers from NumPy, so let's install it
 # in the staging area.
