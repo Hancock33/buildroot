@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SHARED_MIME_INFO_VERSION = 2.4
+SHARED_MIME_INFO_VERSION = 2.5.1
 SHARED_MIME_INFO_SOURCE = shared-mime-info-$(SHARED_MIME_INFO_VERSION).tar.gz
 SHARED_MIME_INFO_SITE = https://gitlab.freedesktop.org/xdg/shared-mime-info/-/archive/$(SHARED_MIME_INFO_VERSION)
 SHARED_MIME_INFO_INSTALL_STAGING = YES
@@ -16,6 +16,9 @@ SHARED_MIME_INFO_LICENSE_FILES = COPYING
 
 HOST_SHARED_MIME_INFO_DEPENDENCIES = \
 	host-pkgconf host-intltool host-libxml2 host-libglib2
+
+SHARED_MIME_INFO_CONF_OPTS = -Dbuild-spec=false -Dbuild-tests=false
+HOST_SHARED_MIME_INFO_CONF_OPTS = -Dbuild-spec=false -Dbuild-tests=false
 
 define SHARED_MIME_INFO_INSTALL_TARGET_CMDS
 	$(HOST_MAKE_ENV) $(SHARED_MIME_INFO_HOST_BINARY) $(STAGING_DIR)/usr/share/mime
