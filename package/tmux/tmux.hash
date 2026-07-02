@@ -1,4 +1,4 @@
-# From https://github.com/tmux/tmux/releases/tag/3.7a
-sha256  8ee44ce951182845fd57ad12dd6f27fb677b1afb900e2e84df4798112ed0dbf0  tmux-3.7a.tar.gz
+# From https://github.com/tmux/tmux/releases/tag/3.7b
+sha256  87f2e99e3b685973f2ca002ffd6ed7e51a5744f7009daae5a15670b6d532db96  tmux-3.7b.tar.gz
 # Locally computed:
 sha256  c031bd37f464c534277814f6aa38686fa023d094261d57fd2545ad592bb53ccd  COPYING
