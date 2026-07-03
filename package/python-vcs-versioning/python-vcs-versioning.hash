@@ -1,0 +1,5 @@
+# md5, sha256 from https://pypi.org/pypi/vcs-versioning/json
+md5  e0a06819d3cf9d5e63a9a3ec8563c13a  vcs_versioning-2.2.2.tar.gz
+sha256  4ac4ded78720cdb4d0291ae58ace87e1e9201912e1023f3029c6cce5c9152cfb  vcs_versioning-2.2.2.tar.gz
+# Locally computed sha256 checksums
+sha256  f52f6085a2f4acdb7f425fac78d4bb013b2d723616792fb173a9f8aea191d8f0  LICENSE.txt

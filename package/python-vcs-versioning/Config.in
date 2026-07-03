@@ -1,0 +1,7 @@
+config BR2_PACKAGE_PYTHON_VCS_VERSIONING
+	bool "python-vcs-versioning"
+	select BR2_PACKAGE_PYTHON_PACKAGING # runtime
+	select BR2_PACKAGE_PYTHON_TOMLI # runtime
+	select BR2_PACKAGE_PYTHON_TYPING_EXTENSIONS # runtime
+	help
+	  the blessed package to manage your versions by vcs metadata.
