@@ -46,6 +46,15 @@ GLIBC_IGNORE_CVES += CVE-2026-5928
 # Fixed by glibc-2.43-27-g4070d808bea1c077eb7e7d52b52b91cae98205d5
 GLIBC_IGNORE_CVES += CVE-2026-5450
 
+# Fixed by glibc-2.43-42-ge64ae5a591f0604b7504df4df631857bb11cc78b
+GLIBC_IGNORE_CVES += CVE-2026-5435
+
+# Fixed by glibc-2.43-43-g3a418da6a3938756763980541e440dbdd46900fb
+GLIBC_IGNORE_CVES += CVE-2026-6238
+
+# Fixed by glibc-2.43-45-gdae425b554207f7c4599c7fac707ad4c08545674
+GLIBC_IGNORE_CVES += CVE-2026-6791
+
 # This CVE is considered as not being security issues by
 # upstream glibc:
 #  https://security-tracker.debian.org/tracker/CVE-2010-4756
