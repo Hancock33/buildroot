@@ -39,3 +39,6 @@ endif
 
 comment "gnutls needs a toolchain w/ wchar, dynamic library"
 	depends on !BR2_USE_WCHAR || BR2_STATIC_LIBS
+
+config BR2_PACKAGE_HOST_GNUTLS_P11_KIT
+	bool

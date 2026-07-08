@@ -45,3 +45,4 @@ P11_KIT_CONF_OPTS += \
 endif
 
 $(eval $(autotools-package))
+$(eval $(host-autotools-package))
