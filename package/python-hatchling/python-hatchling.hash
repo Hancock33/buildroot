@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/hatchling/json
-md5  b29946ca72c03b9981775388e7723b60  hatchling-1.30.1.tar.gz
-sha256  eee4fd45357f72ebb3d7a42e5d72cfb5e29ed426d79e8836288926c4258d5f2e  hatchling-1.30.1.tar.gz
+md5  78f623663c87f0c729e3e480d1d01894  hatchling-1.31.0.tar.gz
+sha256  6b48ad4068a482ed7239b3a8215bc55b47aad3345d58dfc94e553c5d2d46211b  hatchling-1.31.0.tar.gz
 # Locally computed sha256 checksums
 sha256  7f143a8127ad4873862d70854b5bd2abd0085aa73e64fd2b08704a3b9f5c07fc  LICENSE.txt
