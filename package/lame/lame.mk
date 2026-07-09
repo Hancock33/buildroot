@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LAME_VERSION = 3.100
+LAME_VERSION = 3.101
 LAME_SITE = http://downloads.sourceforge.net/project/lame/lame/$(LAME_VERSION)
 LAME_DEPENDENCIES = host-pkgconf
 LAME_INSTALL_STAGING = YES
