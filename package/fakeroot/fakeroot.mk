@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FAKEROOT_VERSION = 2.1.3
+FAKEROOT_VERSION = 2.1.4
 FAKEROOT_SOURCE = fakeroot_$(FAKEROOT_VERSION).orig.tar.xz
 FAKEROOT_SITE = https://deb.debian.org/debian/pool/main/f/fakeroot
 HOST_FAKEROOT_AUTORECONF = YES
