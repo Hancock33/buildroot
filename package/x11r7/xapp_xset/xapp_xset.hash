@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2022-December/003271.html
-sha256  9f692d55635b3862cd63633b1222a87680ec283c7a8e8ed6dd698a3147f75e2f  xset-1.2.5.tar.xz
-sha512  12b53d7cd6b7ccf6515c03f68151490fce6b2629e99b8d85ac5d760f4ed93394a457213c3947533809fbbb04acd1ed260aeea1256099a10397660eef3088150d  xset-1.2.5.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2026-July/003721.html
+sha256  623837349ea887bc003f01ee2e4b6b8ddd9c2774f632c6d70eead1b56306b695  xset-1.2.6.tar.xz
+sha512 5031166960eea0588b9ef643677d5aef44c83c6d6070234a68f247ea947b94818d94c6958d9abe05cfa99ceee98ad3c95443f5f0c54cf0d086407ffe816d19ca  xset-1.2.6.tar.xz
 # Locally computed
 sha256  6bfc619b6d37dd0e6ca575edcb3a05194136e04d1d9989b8e14e6f7850587382  COPYING
