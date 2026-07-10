@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2023-June/003401.html
-sha256  31f5fcab231b38f255b00b066cf7ea3b496df712c9eb2d0d50c670b63e5033f4  xrdb-1.2.2.tar.xz
-sha512  c8a6fc94e270e9cb5602e055150553de103d545298285157ecd8924f163a10ebeb9acfff56d1fafbf48d339809c76340213792478cdf3270012d3cd05486001c  xrdb-1.2.2.tar.xz
+# From https://lists.x.org/archives/xorg-announce/2026-July/003719.html
+sha256  c88f560243278c896ce4fc92ae5a45a2b505a316ffa427fe55b02e5d5914c4e4  xrdb-1.2.3.tar.xz
+sha512 4dbbfd38afc9c795de3671a37e377247dc598b9c1352f6f07158fb716437f0465fb5db4eee22d74ebee93dff4a3ef1c1e4268f333cea0d8f02d1fa10104ac748  xrdb-1.2.3.tar.xz
 # Locally computed
 sha256  ca1b3e2f9f37c35876b69a9c1c5a7860fae59b7ba87a1d2dc541b722e29b1ecc  COPYING
