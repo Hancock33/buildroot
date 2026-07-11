@@ -43,7 +43,8 @@ GNUTLS_CONF_ENV = gl_cv_socket_ipv6=yes \
 	gl_cv_func_gettimeofday_clobber=no
 GNUTLS_INSTALL_STAGING = YES
 
-HOST_GNUTLS_DEPENDENCIES = host-pkgconf host-libtasn1 host-libunistring host-nettle
+HOST_GNUTLS_DEPENDENCIES = host-pkgconf host-libtasn1 host-libunistring \
+	host-nettle host-p11-kit
 HOST_GNUTLS_CONF_OPTS = \
 	--disable-doc \
 	--disable-libdane \
@@ -64,6 +65,7 @@ HOST_GNUTLS_CONF_OPTS = \
 	--disable-openssl-compatibility \
 	--without-brotli \
 	--without-idn \
+	--with-p11-kit \
 	--without-zlib \
 	--without-zstd
 
