@@ -69,12 +69,6 @@ HOST_GNUTLS_CONF_OPTS = \
 	--without-zlib \
 	--without-zstd
 
-ifeq ($(BR2_PACKAGE_HOST_GNUTLS_P11_KIT),y)
-HOST_GNUTLS_DEPENDENCIES += host-p11-kit
-else
-HOST_GNUTLS_CONF_OPTS += --without-p11-kit
-endif
-
 ifeq ($(BR2_PACKAGE_GNUTLS_OPENSSL),y)
 GNUTLS_LICENSE += , GPL-3.0+ (gnutls-openssl library)
 GNUTLS_LICENSE_FILES += COPYING
