@@ -1,6 +1,6 @@
-# From https://lore.freedesktop.org/wayland-devel/Xc5mzCaUxqhO0w-Dls241-PmLXWdFT2DLLkz0Lhr4LAhDTZxiZfrDZeq9lCGGn2V8nxqcMZDTn6vSCdClRYkQ7vCUMPKwQokYhCjf93xRx4=@emersion.fr/T/#u
-sha256  c065f040afdff3177680600f249727e41a1afc22fccf27222f15f5306faa1f03  wayland-1.25.0.tar.xz
-sha512  20ae71ecc8b6d61b3e111171260911469cc7c3470048629db28eb4115415124e5a9392e1d9be84adb324cf1a29e557ae8e033e17c51fbab2fc80d9c6b9aad82c  wayland-1.25.0.tar.xz
+# From https://lore.freedesktop.org/wayland-devel/5On45eE2mxDczYfK0kAKrM_Bf7fI0NV07MXCBmsfDLplHSIU3cn-8JoaUj6zURfuWVB7pHDaBIPSXKenUGUdQeAZ51wpzMtGf_W-BdLgNC0=@emersion.fr/T/#u
+sha256  64176eaa46e4969903e286f8e5ef8331affc17fdf03ac9b58381d2b23162b7a3  wayland-1.26.0.tar.xz
+sha512  50861b0c40cedec5f31b49ff1e99fc135a299fa4a8e2ff50ff4bac3f42e2f3f7be38271929fd2f6e58d83d5df516f643946ceba7937cc199581487c082c7ec31  wayland-1.26.0.tar.xz
 
 # Locally calculated
 sha256  6eefcb023622a463168a5c20add95fd24a38c7482622a9254a23b99b7c153061  COPYING
