@@ -533,6 +533,7 @@ F:	package/unixodbc/
 F:	package/utfcpp/
 F:	package/vlc/
 F:	package/wget/
+F:	package/wget2/
 F:	package/wireless-regdb/
 F:	package/wireless_tools/
 F:	package/x264/
@@ -3487,6 +3488,9 @@ F:	package/tpm2-pkcs11/
 
 N:	Yann E. MORIN <yann.morin@orange.com>
 F:	.editorconfig
+F:	package/amazon-ecr-credential-helper/
+F:	package/docker-credential-acr-env/
+F:	package/docker-credential-gcr/
 F:	package/gpsd/
 F:	package/mosquitto/
 F:	package/python-humanfriendly/
