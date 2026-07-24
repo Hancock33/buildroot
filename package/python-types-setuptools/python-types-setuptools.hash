@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/types_setuptools/json
-md5  08499db028747e86a959bf613424c1b6  types_setuptools-83.0.0.20260716.tar.gz
-sha256  a36ad71a57919b80db314e6104478ee75376a34abea88ba0f3d28db4d10006d7  types_setuptools-83.0.0.20260716.tar.gz
+md5  7c605b842c771f4c6d7b51db5f389ecd  types_setuptools-83.0.0.20260724.tar.gz
+sha256  fe2801176b667f1e8209f8571b0839ca6c34318d743825aeacf3f29970c8d46f  types_setuptools-83.0.0.20260724.tar.gz
 # Locally computed sha256 checksums
 sha256  295f8538c94ae5c3043301cf7cff1c852dab6a786a8ddee471e061b40d5ecabe  LICENSE
