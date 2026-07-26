@@ -679,7 +679,7 @@ STRIP_FIND_SPECIAL_LIBS_CMD = \
 ifeq ($(BR2_TOOLCHAIN_USES_GLIBC),y)
 GLIBC_GENERATE_LOCALES = $(call qstrip,$(BR2_GENERATE_LOCALE))
 ifneq ($(GLIBC_GENERATE_LOCALES),)
-PACKAGES += host-localedef
+#PACKAGES += host-localedef
 
 define GENERATE_GLIBC_LOCALES
 	+$(MAKE) -f support/misc/gen-glibc-locales.mk \

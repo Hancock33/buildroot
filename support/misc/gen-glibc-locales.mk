@@ -12,7 +12,7 @@ $(TARGET_DIR)/usr/lib/locale/locale-archive: $(LOCALES)
 	$(Q)find $(TARGET_DIR)/usr/lib/locale/ -maxdepth 1 -mindepth 1 -type d -print0 \
 	| sort -z \
 	| xargs -0 \
-		$(HOST_DIR)/bin/localedef \
+		localedef \
 			--prefix=$(TARGET_DIR) \
 			--$(ENDIAN)-endian \
 			--add-to-archive
@@ -27,7 +27,7 @@ $(TARGET_DIR)/usr/lib/locale/locale-archive: $(LOCALES)
 $(LOCALES): | $(TARGET_DIR)/usr/lib/locale/
 	$(Q)echo "Generating locale $(@)"
 	$(Q)I18NPATH=$(STAGING_DIR)/usr/share/i18n:/usr/share/i18n \
-	$(HOST_DIR)/bin/localedef \
+	localedef \
 		--prefix=$(TARGET_DIR) \
 		--$(ENDIAN)-endian \
 		--no-archive \
