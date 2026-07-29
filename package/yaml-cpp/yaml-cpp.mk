@@ -3,9 +3,8 @@
 # yaml-cpp
 #
 ################################################################################
-# Version: Commits on Feb 04, 2026
+
 YAML_CPP_VERSION = 0.9.0
-YAML_CPP_SOURCE =  yaml-cpp-0.9.0.tar.gz
 YAML_CPP_SITE = $(call github,jbeder,yaml-cpp,yaml-cpp-$(YAML_CPP_VERSION))
 YAML_CPP_INSTALL_STAGING = YES
 YAML_CPP_LICENSE = MIT
