@@ -146,6 +146,13 @@ endif
 
 comment "Legacy options removed in 2026.08"
 
+config BR2_PACKAGE_LIBPLATFORM
+	bool "libplatform removed"
+	select BR2_LEGACY
+	help
+	  libplatform was no longer maintained upstream, so it has
+	  been dropped.
+
 config BR2_KERNEL_HEADERS_7_0
 	bool "kernel headers version 7.0.x are no longer supported"
 	select BR2_LEGACY
