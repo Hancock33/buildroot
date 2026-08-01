@@ -87,7 +87,8 @@ HOST_GCC_COMMON_CONF_OPTS = \
 	--with-mpfr=$(HOST_DIR) \
 	--with-pkgversion="Buildroot $(BR2_VERSION_FULL)" \
 	--with-bugurl="https://gitlab.com/buildroot.org/buildroot/-/issues" \
-	--without-zstd
+	--without-zstd \
+	--enable_checking=no
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 HOST_GCC_COMMON_CONF_OPTS += --with-debug-prefix-map=$(BASE_DIR)=buildroot

@@ -61,6 +61,7 @@ define HOST_GCC_FINAL_CONFIGURE_CMDS
 		--prefix="$(HOST_DIR)" \
 		--sysconfdir="$(HOST_DIR)/etc" \
 		--enable-static \
+		--with-build-config='bootstrap-native bootstrap-lto bootstrap-O3' \
 		$(QUIET) $(HOST_GCC_FINAL_CONF_OPTS) \
 	)
 endef
