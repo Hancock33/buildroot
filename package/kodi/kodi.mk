@@ -6,7 +6,7 @@
 
 KODI_VERSION_MAJOR = 22.0b1
 KODI_VERSION_NAME = Piers
-KODI_VERSION = 22.0b1-Piers-399-g9d28f58fbbeb0001ba321e44b1e2d911cccb0b1b
+KODI_VERSION = 22.0b1-Piers-408-g684fc586128348cbac92bd89b8a7b7d0df18cf2e
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
@@ -66,10 +66,7 @@ KODI_LIBDVDREAD_VERSION = 6.1.3-Next-Nexus-Alpha2-2
 KODI_EXTRA_DOWNLOADS += \
 	https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$(KODI_APACHE_GROOVY_VERSION).zip \
 	https://archive.apache.org/dist/commons/lang/binaries/commons-lang3-$(KODI_COMMONS_LANG3_VERSION)-bin.tar.gz \
-	https://archive.apache.org/dist/commons/text/binaries/commons-text-$(KODI_COMMONS_TEXT_VERSION)-bin.tar.gz \
-	$(call github,xbmc,libdvdcss,$(KODI_LIBDVDCSS_VERSION))/kodi-libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.gz \
-	$(call github,xbmc,libdvdnav,$(KODI_LIBDVDNAV_VERSION))/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
-	$(call github,xbmc,libdvdread,$(KODI_LIBDVDREAD_VERSION))/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
+	https://archive.apache.org/dist/commons/text/binaries/commons-text-$(KODI_COMMONS_TEXT_VERSION)-bin.tar.gz
 
 define KODI_PROVIDE_JAVA_TARBALLS
 	mkdir -p $(@D)/buildroot-build/build/download
@@ -107,10 +104,7 @@ KODI_CONF_OPTS += \
 	-DWITH_JSONSCHEMABUILDER=$(HOST_DIR)/bin/ \
 	-DJSONSCHEMABUILDER_EXECUTABLE=$(HOST_DIR)/bin/kodi-JsonSchemaBuilder \
 	-DWITH_TEXTUREPACKER=$(HOST_DIR)/bin/ \
-	-DTEXTUREPACKER_EXECUTABLE=$(HOST_DIR)/bin/kodi-TexturePacker \
-	-DLIBDVDCSS_URL=$(KODI_DL_DIR)/kodi-libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.gz \
-	-DLIBDVDNAV_URL=$(KODI_DL_DIR)/kodi-libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.gz \
-	-DLIBDVDREAD_URL=$(KODI_DL_DIR)/kodi-libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.gz
+	-DTEXTUREPACKER_EXECUTABLE=$(HOST_DIR)/bin/kodi-TexturePacker
 
 # batocera
 KODI_CONF_OPTS += -DADDONS_CONFIGURE_AT_STARTUP=OFF
