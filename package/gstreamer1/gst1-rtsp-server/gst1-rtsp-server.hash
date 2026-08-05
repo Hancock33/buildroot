@@ -1,4 +1,4 @@
-# From https://gstreamer.freedesktop.org/src/gst-rtsp-server/gst-rtsp-server-1.28.5.tar.xz.sha256sum
-sha256  7e19fddeb1261bebc3ec397857fedd5c77129b66ab52788fdadad05117566225  gst-rtsp-server-1.28.5.tar.xz
+# From https://gstreamer.freedesktop.org/src/gst-rtsp-server/gst-rtsp-server-1.28.6.tar.xz.sha256sum
+sha256  0cb725b1351f75e88803c55dddea1f27be09523ddcd7f29ab18270e182a2a463  gst-rtsp-server-1.28.6.tar.xz
 sha256  ad2eec519ebd4b5df86ea84dff24ae3bfa2edea846a703b58902dd221ae375db  COPYING
 sha256  ad2eec519ebd4b5df86ea84dff24ae3bfa2edea846a703b58902dd221ae375db  COPYING.LIB
