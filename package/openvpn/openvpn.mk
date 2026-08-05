@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-OPENVPN_VERSION = 2.7.5
-OPENVPN_SITE = https://swupdate.openvpn.net/community/releases
+OPENVPN_VERSION = 2.7.6
+OPENVPN_SITE = https://build.openvpn.net/downloads/releases
 OPENVPN_DEPENDENCIES = host-pkgconf libcap-ng
 OPENVPN_LICENSE = GPL-2.0
 OPENVPN_LICENSE_FILES = COPYRIGHT.GPL
