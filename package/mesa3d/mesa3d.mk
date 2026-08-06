@@ -51,7 +51,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_OPENCL),y)
 MESA3D_PROVIDES += libopencl
-MESA3D_DEPENDENCIES += host-clang host-libclc
+MESA3D_DEPENDENCIES += host-clang
 endif
 
 ifeq ($(BR2_PACKAGE_MESA3D_RUSTICL),y)
@@ -373,7 +373,6 @@ HOST_MESA3D_CONF_OPTS = \
 	-Dvulkan-drivers=""
 
 HOST_MESA3D_DEPENDENCIES = \
-	host-libclc \
 	host-libdrm \
 	host-llvm \
 	host-python-mako \
