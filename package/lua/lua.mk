@@ -4,8 +4,10 @@
 #
 ################################################################################
 
-ifeq ($(BR2_PACKAGE_LUA_5_4),y)
-LUA_VERSION = 5.4.8
+ifeq ($(BR2_PACKAGE_LUA_5_5),y)
+LUA_VERSION = 5.5.1
+else ifeq ($(BR2_PACKAGE_LUA_5_4),y)
+LUA_VERSION = 5.5.1
 else ifeq ($(BR2_PACKAGE_LUA_5_3),y)
 LUA_VERSION = 5.3.6
 else
@@ -14,7 +16,7 @@ endif
 LUA_SITE = https://www.lua.org/ftp
 LUA_INSTALL_STAGING = YES
 LUA_LICENSE = MIT
-ifeq ($(BR2_PACKAGE_LUA_5_3)$(BR2_PACKAGE_LUA_5_4),y)
+ifeq ($(BR2_PACKAGE_LUA_5_3)$(BR2_PACKAGE_LUA_5_4)$(BR2_PACKAGE_LUA_5_5),y)
 LUA_LICENSE_FILES = doc/readme.html
 else
 LUA_LICENSE_FILES = COPYRIGHT
@@ -31,7 +33,9 @@ LUA_PROVIDES = luainterpreter
 
 LUA_CFLAGS = -Wall -fPIC -DLUA_USE_POSIX
 
-ifeq ($(BR2_PACKAGE_LUA_5_4),y)
+ifeq ($(BR2_PACKAGE_LUA_5_5),y)
+LUA_CFLAGS += -DLUA_COMPAT_5_4
+else ifeq ($(BR2_PACKAGE_LUA_5_4),y)
 LUA_CFLAGS += -DLUA_COMPAT_5_3
 else ifeq ($(BR2_PACKAGE_LUA_5_3),y)
 LUA_CFLAGS += -DLUA_COMPAT_5_2
