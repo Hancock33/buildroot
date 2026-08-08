@@ -7,7 +7,7 @@
 # Generate version string using:
 #   git describe --match 'glibc-*' --abbrev=40 origin/release/MAJOR.MINOR/master | cut -d '-' -f 2-
 # When updating the version, please also update localedef
-GLIBC_VERSION = 2.44-8-g58da792d8a2d8f2fe711318836e853fcddfd7cd8
+GLIBC_VERSION = 2.44-23-g11ac3d78fc5e4f7f2846002e099f773ad8ff82fc
 GLIBC_SITE = https://github.com/sailfishos-mirror/glibc.git
 GLIBC_SITE_METHOD = git
 
