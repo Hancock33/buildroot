@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-LUAFILESYSTEM_VERSION = ff2cbc21f1a2fd34d30c0840ff2abb0121d46131
-LUAFILESYSTEM_SITE = $(call github,lunarmodules,luafilesystem,$(LUAFILESYSTEM_VERSION))
+LUAFILESYSTEM_VERSION = 1_9_0
+LUAFILESYSTEM_SITE = $(call github,lunarmodules,luafilesystem,v$(LUAFILESYSTEM_VERSION))
 LUAFILESYSTEM_LICENSE = MIT
 LUAFILESYSTEM_DEPENDENCIES = lua
 LUAFILESYSTEM_INSTALL_STAGING = YES
