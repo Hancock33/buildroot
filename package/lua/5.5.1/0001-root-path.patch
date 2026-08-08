@@ -1,12 +1,11 @@
-diff --git a/src/luaconf.h b/src/luaconf.h
-index bdac085c..044fc3b5 100644
---- a/src/luaconf.h
-+++ b/src/luaconf.h
+diff -Naur lua-5.5.1.oirg/src/luaconf.h lua-5.5.1/src/luaconf.h
+--- lua-5.5.1.oirg/src/luaconf.h	2026-07-24 11:23:07.000000000 +0100
++++ lua-5.5.1/src/luaconf.h	2026-08-08 18:46:27.688326647 +0100
 @@ -241,7 +241,7 @@
  
- #else                  /* }{ */
+ #else			/* }{ */
  
--#define LUA_ROOT       "/usr/local/"
-+#define LUA_ROOT       "/usr/"
- #define LUA_LDIR       LUA_ROOT "share/lua/" LUA_VDIR "/"
- #define LUA_CDIR       LUA_ROOT "lib/lua/" LUA_VDIR "/"
+-#define LUA_ROOT	"/usr/local/"
++#define LUA_ROOT	"/usr/"
+ #define LUA_LDIR	LUA_ROOT "share/lua/" LUA_VDIR "/"
+ #define LUA_CDIR	LUA_ROOT "lib/lua/" LUA_VDIR "/"
