@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FFMPEG_VERSION = 8.1.2
+FFMPEG_VERSION = 9.0
 FFMPEG_SOURCE = ffmpeg-$(FFMPEG_VERSION).tar.xz
 FFMPEG_SITE = https://ffmpeg.org/releases
 FFMPEG_INSTALL_STAGING = YES
@@ -49,9 +49,7 @@ FFMPEG_CONF_OPTS = \
 	--disable-libvo-amrwbenc \
 	--disable-symver \
 	--disable-doc \
-	--disable-mmal \
-	--disable-omx \
-	--disable-omx-rpi
+	--disable-mmal
 
 # batocera - force dash demuxer & libxml2 for Kodi
 FFMPEG_CONF_OPTS += --enable-demuxer=dash
@@ -551,8 +549,8 @@ endif
 
 # batocera
 ifeq ($(BR2_PACKAGE_VULKAN_HEADERS)$(BR2_PACKAGE_VULKAN_LOADER)$(BR2_PACKAGE_SHADERC),yyy)
-FFMPEG_CONF_OPTS += --enable-vulkan --enable-libshaderc
-FFMPEG_DEPENDENCIES += vulkan-headers vulkan-loader shaderc
+FFMPEG_CONF_OPTS += --enable-vulkan
+FFMPEG_DEPENDENCIES += vulkan-headers vulkan-loader
 else
 FFMPEG_CONF_OPTS += --disable-vulkan
 endif
