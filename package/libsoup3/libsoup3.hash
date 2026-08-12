@@ -1,4 +1,4 @@
-# From https://download.gnome.org/sources/libsoup/3.7/libsoup-3.7.1.sha256sum
-sha256  9c96e11bb91641fe21948013499ca716393c9e9336562f9ff849c41d4edab80e  libsoup-3.7.1.tar.xz
+# From https://download.gnome.org/sources/libsoup/3.7/libsoup-3.7.2.sha256sum
+sha256  03b7085df85645228c6490b6bbfda8c2ce5394d0cd7184005f550a81225ac4aa  libsoup-3.7.2.tar.xz
 # Locally calculated
 sha256  b7993225104d90ddd8024fd838faf300bea5e83d91203eab98e29512acebd69c  COPYING
