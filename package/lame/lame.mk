@@ -4,15 +4,16 @@
 #
 ################################################################################
 
-LAME_VERSION = 3.100
+LAME_VERSION = 4.0
 LAME_SITE = http://downloads.sourceforge.net/project/lame/lame/$(LAME_VERSION)
 LAME_DEPENDENCIES = host-pkgconf
 LAME_INSTALL_STAGING = YES
 LAME_CONF_ENV = GTK_CONFIG=/bin/false
-LAME_CONF_OPTS = --enable-dynamic-frontends
+LAME_CONF_OPTS = --enable-dynamic-frontends --disable-decoder
 LAME_LICENSE = LGPL-2.0+
 LAME_LICENSE_FILES = COPYING
 LAME_CPE_ID_VALID = YES
+LAME_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) -Wno-implicit-function-declaration -Wno-incompatible-pointer-types"
 
 ifeq ($(BR2_PACKAGE_LIBSNDFILE),y)
 LAME_DEPENDENCIES += libsndfile
@@ -22,7 +23,7 @@ endif
 ifeq ($(BR2_PACKAGE_NCURSES),y)
 LAME_DEPENDENCIES += ncurses
 # batocera
-LAME_CONF_ENV = LIBS="-ltinfo"
+LAME_CONF_ENV += LIBS="-ltinfo"
 endif
 
 ifeq ($(BR2_ENDIAN),"BIG")
