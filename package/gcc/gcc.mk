@@ -13,7 +13,7 @@ ifeq ($(BR2_GCC_VERSION_ARC),y)
     GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else ifeq ($(BR2_GCC_VERSION_GIT),y)
     # git describe --abbrev=40 origin/releases/gcc-15 | cut -d '-' -f 2-
-    GCC_VERSION = 16.2.0-17-g887a62fd0fd79cea79c5f292764aa79b1b039859
+    GCC_VERSION = 16.2.0-31-g4d671ef9247d1752bce4f0edcf0a78b4ef82c46f
     GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
     GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 else
