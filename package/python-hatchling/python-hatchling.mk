@@ -14,6 +14,7 @@ HOST_PYTHON_HATCHLING_DEPENDENCIES = \
 	host-python-packaging \
 	host-python-pathspec \
 	host-python-pluggy \
+	host-python-tomlkit \
 	host-python-trove-classifiers
 
 $(eval $(host-python-package))
