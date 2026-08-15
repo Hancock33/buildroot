@@ -1,5 +1,5 @@
-# From https://github.com/rockdaboot/libpsl/releases/tag/0.23.2
-sha256  f2ea0e59bffb36597a872f6ef89893ffa4c30196c87eff7aeb2c47e4e8c98133  libpsl-0.23.2.tar.gz
+# From https://github.com/rockdaboot/libpsl/releases/tag/0.23.3
+sha256  93941f85a1e7bd593fa94f299233cb5dfc91cd144fd9a78a6ceb75001c5b03be  libpsl-0.23.3.tar.gz
 
 # Hashes for license files:
 sha256  322392e6001b2b3b0fca705dc9f11f26e12441188ecde50eb1d22909980b2925  COPYING
