@@ -18,6 +18,13 @@ LIBGPIOD2_CONF_OPTS = \
 	-Dexamples=disabled \
 	-Dtests=disabled
 
+ifeq ($(BR2_PACKAGE_LIBGPIOD2_DBUS),y)
+LIBGPIOD2_CONF_OPTS += -Ddbus=enabled
+LIBGPIOD2_DEPENDENCIES += libgudev
+else
+LIBGPIOD2_CONF_OPTS += -Ddbus=disabled
+endif
+
 ifeq ($(BR2_PACKAGE_LIBGPIOD2_TOOLS),y)
 LIBGPIOD2_CONF_OPTS += -Dtools=enabled
 else
