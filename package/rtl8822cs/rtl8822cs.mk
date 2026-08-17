@@ -3,8 +3,8 @@
 # rtl8822cs
 #
 ################################################################################
-# Version: Commits on May 05, 2026
-RTL8822CS_VERSION = 55971663534233fd8d80363ddcb2fec1c01c473c
+# Version: Commits on Jun 30, 2026
+RTL8822CS_VERSION = 4741c414b87be0a9cf8b7e53ef822403a495f995
 RTL8822CS_SITE = $(call github,jethome-iot,rtl88x2cs,$(RTL8822CS_VERSION))
 RTL8822CS_LICENSE = GPL-2.0
 
