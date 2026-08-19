@@ -1,4 +1,4 @@
-# From https://deb.debian.org/debian/pool/main/f/fakeroot/fakeroot_2.1.4-1.dsc
+# From https://snapshot.debian.org/archive/debian/20260711T202405Z/pool/main/f/fakeroot/fakeroot_2.1.4-1.dsc
 sha1  9d55e62a34612316058166f7c528d9fc2f30c719  fakeroot_2.1.4.orig.tar.xz
 sha256  0822bd5a9f0cf19d2ba0546b88b0432d4d3d9917db62c57b74044ccadba06e49  fakeroot_2.1.4.orig.tar.xz
 # License files, locally calculated
