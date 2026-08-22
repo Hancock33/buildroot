@@ -13,6 +13,9 @@ NFS_UTILS_DEPENDENCIES = host-nfs-utils host-pkgconf libevent libnl libtirpc sql
 NFS_UTILS_CPE_ID_VENDOR = linux-nfs
 NFS_UTILS_AUTORECONF = YES
 
+# 0003-exportfs-link-failure-with-disable-nfsdctl.patch
+NFS_UTILS_AUTORECONF = YES
+
 NFS_UTILS_CONF_ENV = knfsd_cv_bsd_signals=no
 
 NFS_UTILS_CONF_OPTS = \
