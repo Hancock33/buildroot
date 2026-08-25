@@ -11,45 +11,31 @@ OPUS_LICENSE_FILES = COPYING
 OPUS_CPE_ID_VENDOR = opus-codec
 OPUS_INSTALL_STAGING = YES
 
-OPUS_CFLAGS = $(TARGET_CFLAGS)
-
-# opus has ARM assembly optimizations not compatible with thumb1:
-# Error: selected processor does not support `smull r6,ip,r5,r0' in Thumb mode
-# so force ARM mode
-ifeq ($(BR2_ARM_INSTRUCTIONS_THUMB),y)
-OPUS_CFLAGS += -marm
-endif
-
-ifeq ($(BR2_TOOLCHAIN_HAS_GCC_BUG_85180),y)
-OPUS_CFLAGS += -O0
-endif
-
 OPUS_CONF_ENV = CFLAGS="$(OPUS_CFLAGS)"
-OPUS_CONF_OPTS = -Dcustom-modes=true
+OPUS_CONF_OPTS = -DOPUS_CUSTOM_MODES=ON
 
 ifeq ($(BR2_PACKAGE_OPUS_FIXED_POINT),y)
-OPUS_CONF_OPTS += -Dfloat-approx=true
+OPUS_CONF_OPTS += -DOPUS_FLOAT_APPROX=ON
 endif
 
 ifeq ($(BR2_OPTIMIZE_FAST),y)
 OPUS_CONF_OPTS += --enable-float-approx
 endif
 
-# When we're on ARM, but we don't have ARM instructions (only
-# Thumb-2), disable the usage of assembly as it is not Thumb-ready.
-ifeq ($(BR2_arm)$(BR2_armeb):$(BR2_ARM_CPU_HAS_ARM),y:)
-OPUS_CONF_OPTS += -Dasm=disabled
+
+ifeq ($(BR2_X86_CPU_HAS_MMX),y)
+OPUS_CONF_OPTS += -DOPUS_CHECK_ASM=ON
 endif
 
 # We also disable assembly in case we have a soft-float ABI (opus has
 # NEON instructions which are not available in that case).
 ifeq ($(BR2_arm),y)
-OPUS_CONF_OPTS += -Dintrinsics=disabled
+OPUS_CONF_OPTS += -DOPUS_DISABLE_INTRINSICS=ON
 endif
 
 # batocera workaround rk3288 test programs build failure
 ifeq ($(BR2_cortex_a17),y)
-OPUS_CONF_OPTS += -Dextra-programs=disabled
+OPUS_CONF_OPTS += -DOPUS_BUILD_PROGRAMS=OFF
 endif
 
-$(eval $(meson-package))
+$(eval $(cmake-package))
