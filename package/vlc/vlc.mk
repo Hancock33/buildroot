@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-VLC_VERSION = 3.0.23-2-1053-g41448053ceb488b94412206ac3b88af7454274fe
+VLC_VERSION = 3.0.23-2-1103-gf6c661721ca8b47058f24b213b8f05615a92eadf
 VLC_SITE = https://code.videolan.org/videolan/vlc.git
 VLC_SITE_METHOD = git
 #VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
