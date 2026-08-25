@@ -15,13 +15,27 @@ SDL3_TTF_DEPENDENCIES = sdl3 freetype host-pkgconf
 
 SDL3_TTF_CONF_OPTS = \
 	-DSDLTTF_VENDORED=OFF \
-	-DSDLTTF_HARFBUZZ=OFF
+	-DSDLTTF_STRICT=ON \
+	-DSDLTTF_SAMPLES=OFF \
+	-DSDLTTF_INSTALL_MAN=OFF
 
 ifeq ($(BR2_PACKAGE_HARFBUZZ),y)
 SDL3_TTF_DEPENDENCIES += harfbuzz
 SDL3_TTF_CONF_OPTS += -DSDLTTF_HARFBUZZ=ON
+else
+SDL3_TTF_CONF_OPTS += -DSDLTTF_HARFBUZZ=OFF
 endif
 
+ifeq ($(BR2_PACKAGE_PLUTOSVG),y)
+SDL3_TTF_DEPENDENCIES += plutosvg
+SDL3_TTF_CONF_OPTS += -DSDLTTF_PLUTOSVG=ON
+else
+SDL3_TTF_CONF_OPTS += -DSDLTTF_PLUTOSVG=OFF
+endif
+
+# plutosvg renders the SVG glyphs in a colour emoji font, through the
+# FreeType OpenType-SVG hooks. Without it those glyphs are skipped and the
+# rest of the font still renders.
 ifeq ($(BR2_PACKAGE_PLUTOSVG),y)
 SDL3_TTF_DEPENDENCIES += plutosvg
 SDL3_TTF_CONF_OPTS += -DSDLTTF_PLUTOSVG=ON
