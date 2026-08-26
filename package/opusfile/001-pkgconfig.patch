@@ -1,0 +1,62 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 317bd33..4ea0403 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -36,6 +36,17 @@ endif()
+ check_symbol_exists(lrintf "math.h" OP_HAVE_LRINTF)
+ cmake_pop_check_state()
+ 
++# Helper function to configure pkg-config files
++function(configure_pkg_config_file pkg_config_file_in)
++    set(prefix ${CMAKE_INSTALL_PREFIX})
++    set(exec_prefix ${CMAKE_INSTALL_FULL_BINDIR})
++    set(libdir ${CMAKE_INSTALL_FULL_LIBDIR})
++    set(includedir ${CMAKE_INSTALL_FULL_INCLUDEDIR})
++    set(VERSION ${PROJECT_VERSION})
++    string(REPLACE ".in" "" pkg_config_file ${pkg_config_file_in})
++    configure_file(${pkg_config_file_in} ${pkg_config_file} @ONLY)
++endfunction()
++
+ add_library(opusfile
+   "${CMAKE_CURRENT_SOURCE_DIR}/include/opusfile.h"
+   "${CMAKE_CURRENT_SOURCE_DIR}/src/info.c"
+@@ -83,6 +94,10 @@ target_compile_definitions(opusfile
+     $<$<BOOL:${OP_ENABLE_ASSERTIONS}>:OP_ENABLE_ASSERTIONS>
+     $<$<BOOL:${OP_HAVE_LRINTF}>:OP_HAVE_LRINTF>
+ )
++if(OP_HAVE_LIBM)
++  set(lrintf_lib "-lm")
++endif()
++configure_pkg_config_file(opusfile.pc.in)
+ install(TARGETS opusfile
+   EXPORT OpusFileTargets
+   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+@@ -91,6 +106,9 @@ install(TARGETS opusfile
+   INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/opus"
+   PUBLIC_HEADER DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}/opus"
+ )
++install(FILES ${CMAKE_CURRENT_BINARY_DIR}/opusfile.pc
++  DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
++)
+ 
+ if(NOT OP_DISABLE_HTTP)
+   find_package(OpenSSL REQUIRED)
+@@ -141,6 +159,9 @@ if(WIN32)
+     "${CMAKE_CURRENT_SOURCE_DIR}/src/wincerts.c"
+     "${CMAKE_CURRENT_SOURCE_DIR}/src/winerrno.h"
+   )
++  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/opusurl.pc
++    DESTINATION ${CMAKE_INSTALL_LIBDIR}/pkgconfig
++  )
+ endif()
+ set_target_properties(opusurl PROPERTIES
+   PUBLIC_HEADER "${CMAKE_CURRENT_SOURCE_DIR}/include/opusfile.h"
+@@ -186,6 +207,8 @@ target_compile_options(opusurl
+     $<$<C_COMPILER_ID:Clang,GNU>:-Wno-long-long>
+     $<$<C_COMPILER_ID:Clang,GNU>:-fvisibility=hidden>
+ )
++set(openssl "openssl")
++configure_pkg_config_file(opusurl.pc.in)
+ install(TARGETS opusurl
+   EXPORT OpusFileTargets
+   RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
