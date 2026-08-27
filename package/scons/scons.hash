@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/scons/json
-md5  79b7933616d960a1dd4d79019d536116  scons-4.11.0.tar.gz
-sha256  5ba48f9e2eb6b9178cabdc9893792418e6970c84f43f4b027e4468e20616a89c  scons-4.11.0.tar.gz
+md5  c382470963a5a836e45972e61f0f038d  scons-4.11.1.tar.gz
+sha256  4210d1a80a62e986029208117991b6347ccaaaab37b67463a3ff31ee065dc487  scons-4.11.1.tar.gz
 # Locally computed sha256 checksums
 sha256  2f6ac9a1fc98394d18b80dba9bedb9d5626006d44db3fecf7cf3e21cff7e8b1c  LICENSE
