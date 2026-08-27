@@ -5,7 +5,7 @@
 ################################################################################
 
 GVFS_VERSION_MAJOR = 1.61
-GVFS_VERSION = $(GVFS_VERSION_MAJOR).90
+GVFS_VERSION = $(GVFS_VERSION_MAJOR).91
 GVFS_SOURCE = gvfs-$(GVFS_VERSION).tar.xz
 GVFS_SITE = https://download.gnome.org/sources/gvfs/$(GVFS_VERSION_MAJOR)
 GVFS_INSTALL_STAGING = YES
