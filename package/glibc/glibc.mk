@@ -25,6 +25,18 @@ GLIBC_CPE_ID_VENDOR = gnu
 # allow proper matching with the CPE database.
 GLIBC_CPE_ID_VERSION = $(word 1, $(subst -,$(space),$(GLIBC_VERSION)))
 
+# Fixed by 2.44-26-gd6ff274313d79feb864cc10eb775b91c817a67e9
+GLIBC_IGNORE_CVES += CVE-2026-19542
+
+# Fixed by 2.44-29-g63b53df549451a5d69fcba6d7612ea99f517e8e3
+GLIBC_IGNORE_CVES += CVE-2026-19499
+
+# Fixed by 2.44-30-g6f9b2bfa500bf5d1cff5d990adfff4b71298dadd
+GLIBC_IGNORE_CVES += CVE-2026-77117
+
+# Fixed by 2.44-31-gcb61572ea3f773e1e1978f6c412cc36a30acdb0c
+GLIBC_IGNORE_CVES += CVE-2026-80489
+
 # This CVE is considered as not being security issues by
 # upstream glibc:
 #  https://security-tracker.debian.org/tracker/CVE-2010-4756
