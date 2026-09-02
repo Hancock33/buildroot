@@ -76,7 +76,6 @@ HOST_GCC_COMMON_CONF_OPTS = \
 	--with-gnu-ld \
 	--disable-libssp \
 	--disable-multilib \
-	--disable-decimal-float \
 	--enable-plugins \
 	--enable-lto \
 	--with-gmp=$(HOST_DIR) \
@@ -86,6 +85,15 @@ HOST_GCC_COMMON_CONF_OPTS = \
 	--with-bugurl="https://gitlab.com/buildroot.org/buildroot/-/issues" \
 	--without-zstd \
 	--enable-checking=no
+
+# https://gcc.gnu.org/gcc-16/changes.html#s390
+# Floating-point type _Float16 added in gcc-16 on s390 now requires
+# decimal float support enabled in the toolchain.
+ifeq ($(BR2_s390x)$(BR2_TOOLCHAIN_GCC_AT_LEAST_16),yy)
+HOST_GCC_COMMON_CONF_OPTS += --enable-decimal-float
+else
+HOST_GCC_COMMON_CONF_OPTS += --disable-decimal-float
+endif
 
 ifeq ($(BR2_REPRODUCIBLE),y)
 HOST_GCC_COMMON_CONF_OPTS += --with-debug-prefix-map=$(BASE_DIR)=buildroot
