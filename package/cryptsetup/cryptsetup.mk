@@ -5,7 +5,7 @@
 ################################################################################
 
 CRYPTSETUP_VERSION_MAJOR = 2.8
-CRYPTSETUP_VERSION = $(CRYPTSETUP_VERSION_MAJOR).7
+CRYPTSETUP_VERSION = $(CRYPTSETUP_VERSION_MAJOR).8
 CRYPTSETUP_SOURCE = cryptsetup-$(CRYPTSETUP_VERSION).tar.xz
 CRYPTSETUP_SITE = $(BR2_KERNEL_MIRROR)/linux/utils/cryptsetup/v$(CRYPTSETUP_VERSION_MAJOR)
 CRYPTSETUP_DEPENDENCIES = \
@@ -23,45 +23,45 @@ CRYPTSETUP_CPE_ID_VALID = YES
 CRYPTSETUP_INSTALL_STAGING = YES
 
 CRYPTSETUP_CONF_ENV += LDFLAGS="$(TARGET_LDFLAGS) $(TARGET_NLS_LIBS)"
-CRYPTSETUP_CONF_OPTS += --enable-blkid --enable-libargon2 --disable-asciidoc
+CRYPTSETUP_CONF_OPTS += -Dblkid=true -Dargon-implementation=internal -Dasciidoc=disabled
 
 # cryptsetup uses OpenSSL by default, but can be configured to use libgcrypt,
 # nettle, libnss or kernel crypto modules instead
 ifeq ($(BR2_PACKAGE_OPENSSL),y)
 CRYPTSETUP_DEPENDENCIES += openssl
-CRYPTSETUP_CONF_OPTS += --with-crypto_backend=openssl
+CRYPTSETUP_CONF_OPTS += -Dcrypto-backend=openssl
 else ifeq ($(BR2_PACKAGE_LIBGCRYPT),y)
 CRYPTSETUP_DEPENDENCIES += libgcrypt
 CRYPTSETUP_CONF_ENV += LIBGCRYPT_CONFIG=$(STAGING_DIR)/usr/bin/libgcrypt-config
-CRYPTSETUP_CONF_OPTS += --with-crypto_backend=gcrypt
+CRYPTSETUP_CONF_OPTS += -Dcrypto-backend=gcrypt
 else ifeq ($(BR2_PACKAGE_NETTLE),y)
 CRYPTSETUP_DEPENDENCIES += nettle
-CRYPTSETUP_CONF_OPTS += --with-crypto_backend=nettle
+CRYPTSETUP_CONF_OPTS += -Dcrypto-backend=nettle
 else ifeq ($(BR2_PACKAGE_LIBNSS),y)
 CRYPTSETUP_DEPENDENCIES += libnss
-CRYPTSETUP_CONF_OPTS += --with-crypto_backend=nss
+CRYPTSETUP_CONF_OPTS += -Dcrypto-backend=nss
 else ifeq ($(BR2_PACKAGE_MBEDTLS),y)
 CRYPTSETUP_DEPENDENCIES += mbedtls
-CRYPTSETUP_CONF_OPTS += --with-crypto_backend=mbedtls
+CRYPTSETUP_CONF_OPTS += -Dcrypto-backend=mbedtls
 else
-CRYPTSETUP_CONF_OPTS += --with-crypto_backend=kernel
+CRYPTSETUP_CONF_OPTS += -Dcrypto-backend=kernel
 endif
 
 ifeq ($(BR2_PACKAGE_LIBSSH),y)
 CRYPTSETUP_DEPENDENCIES += \
 	$(if $(BR2_PACKAGE_ARGP_STANDALONE),argp-standalone) \
 	libssh
-CRYPTSETUP_CONF_OPTS += --enable-ssh-token
+CRYPTSETUP_CONF_OPTS += -Dssh-token=true
 else
-CRYPTSETUP_CONF_OPTS += --disable-ssh-token
+CRYPTSETUP_CONF_OPTS += -Dssh-token=false
 endif
 
 ifeq ($(BR2_PACKAGE_SYSTEMD),y)
-CRYPTSETUP_CONF_OPTS += --with-tmpfilesdir=/usr/lib/tmpfiles.d
+CRYPTSETUP_CONF_OPTS += -Dtmpfilesdir=/usr/lib/tmpfiles.d
 endif
 
 ifeq ($(BR2_STATIC_LIBS),y)
-CRYPTSETUP_CONF_OPTS += --disable-external-tokens
+CRYPTSETUP_CONF_OPTS += -Dexternal-tokens=false
 endif
 
 HOST_CRYPTSETUP_DEPENDENCIES = \
@@ -72,12 +72,11 @@ HOST_CRYPTSETUP_DEPENDENCIES = \
 	host-json-c \
 	host-openssl
 
-HOST_CRYPTSETUP_CONF_OPTS = --with-crypto_backend=openssl \
-	--disable-kernel_crypto \
-	--disable-ssh-token \
-	--enable-blkid \
-	--with-tmpfilesdir=no \
-	--disable-asciidoc
+HOST_CRYPTSETUP_CONF_OPTS = -Dcrypto-backend=openssl \
+	-Dkernel_crypto=false\
+	-Dssh-token=false \
+	-Dblkid=true \
+	-Dasciidoc=disabled
 
-$(eval $(autotools-package))
-$(eval $(host-autotools-package))
+$(eval $(meson-package))
+$(eval $(host-meson-package))
