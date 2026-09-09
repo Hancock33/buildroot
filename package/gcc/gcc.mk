@@ -16,7 +16,7 @@ HOST_GCC_LICENSE_FILES = COPYING COPYING3 COPYING.LIB COPYING3.LIB
 
 ifeq ($(BR2_GCC_VERSION_GIT),y)
     # git describe --abbrev=40 origin/releases/gcc-15 | cut -d '-' -f 2-
-    GCC_VERSION = 16.2.0-133-gf91449daed2c83ef4c0d69430216dc6bfddd56bc
+    GCC_VERSION = 16.2.0-142-g716f95e4027e069bf185b2039ac063a3215dbba7
     GCC_SITE = $(call github,gcc-mirror,gcc,$(GCC_VERSION))
     GCC_SOURCE = gcc-$(GCC_VERSION).tar.gz
 endif
