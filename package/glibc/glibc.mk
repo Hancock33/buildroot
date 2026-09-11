@@ -7,7 +7,7 @@
 # Generate version string using:
 #   git describe --match 'glibc-*' --abbrev=40 origin/release/MAJOR.MINOR/master | cut -d '-' -f 2-
 # When updating the version, please also update localedef
-GLIBC_VERSION = 2.44-41-gb4f51887c48ac82acfdb13f96d9eab5d120cb2b7
+GLIBC_VERSION = 2.44-42-gb84047b5b792e1f028f4d82acbfa9ee9f6e89069
 GLIBC_SITE = https://gitlab.com/gnutools/glibc.git
 GLIBC_SITE_METHOD = git
 
