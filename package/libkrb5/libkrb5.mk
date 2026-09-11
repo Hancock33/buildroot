@@ -3,8 +3,8 @@
 # libkrb5
 #
 ################################################################################
-# Version: Commits on Feb 17, 2026
-LIBKRB5_VERSION = b7290e0cab5b7e39cd4aa7c098beb18a886d4a1d
+# Version: Commits on Aug 27, 2026
+LIBKRB5_VERSION = 82a4224f07ad21c2a3e977c5c4651d7d30c6f1f0
 LIBKRB5_SITE = $(call github,krb5,krb5,$(LIBKRB5_VERSION))
 #LIBKRB5_SOURCE = krb5-$(LIBKRB5_VERSION).tar.gz
 LIBKRB5_SUBDIR = src
