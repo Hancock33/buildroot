@@ -1,5 +1,5 @@
 # From https://www.gnupg.org/download/integrity_check.html
-sha1  98dc209703a2a1a9f1a7badcd5a8aa8382a96caf  libgcrypt-1.12.4.tar.bz2
+sha1  2907251e1dc68001fcdbeb0b73c2233fdd2dd786  libgcrypt-1.12.4.tar.bz2
 sha256  d77f68f48879510e79a2f65977ccc68981781ea0923e5bdffac2a193ea3d660e  libgcrypt-1.12.4.tar.bz2
 # Locally calculated
 sha256  20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95  COPYING.LIB
