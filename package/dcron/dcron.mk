@@ -3,8 +3,8 @@
 # dcron
 #
 ################################################################################
-
-DCRON_VERSION = 1f53001f2e8d1064287c97ec41498b614acab67b
+# Version: Commits on Mar 18, 2025
+DCRON_VERSION = 6cde89a70c0f92b57bafd366f411d10d939b8d40
 DCRON_SITE = $(call github,ptchinster,dcron,$(DCRON_VERSION))
 DCRON_LICENSE = GPL-2.0+
 DCRON_LICENSE_FILES = COPYING
