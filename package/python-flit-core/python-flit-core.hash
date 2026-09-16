@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/flit_core/json
-md5  89ebb783230fc8db6c1d2a39644b7085  flit_core-4.0.2.tar.gz
-sha256  b6929defd93884b584d7c87829e0e7b5c26ed6be17b0b873979019314aa841c8  flit_core-4.0.2.tar.gz
+md5  6aed048324976ab2178d4d57a7933763  flit_core-4.1.0.tar.gz
+sha256  62e12b63ead8335b37f59fabb977c7167fe476dafb5e41785dfa8c9aff843bc6  flit_core-4.1.0.tar.gz
 # Locally computed sha256 checksums
 sha256  35b4f1dec512e617077fd6980dbb43ef8c2887adc5d0185edb4c04da175dd816  LICENSE
