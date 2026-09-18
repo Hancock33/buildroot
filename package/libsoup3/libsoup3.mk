@@ -51,4 +51,11 @@ else
 LIBSOUP3_CONF_OPTS += -Dgssapi=disabled
 endif
 
+ifeq ($(BR2_PACKAGE_ZSTD),y)
+LIBSOUP3_CONF_OPTS += -Dzstd=enabled
+LIBSOUP3_DEPENDENCIES += zstd
+else
+LIBSOUP3_CONF_OPTS += -Dzstd=disabled
+endif
+
 $(eval $(meson-package))
