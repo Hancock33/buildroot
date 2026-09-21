@@ -62,4 +62,10 @@ else
 RSYNC_CONF_OPTS += --disable-zstd
 endif
 
+ifeq ($(BR2_PACKAGE_LIBIDN2),y)
+RSYNC_DEPENDENCIES += libidn2
+RSYNC_CONF_OPTS += --enable-idn
+else
+RSYNC_CONF_OPTS += --disable-idn
+endif
 $(eval $(autotools-package))
