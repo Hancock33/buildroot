@@ -22,19 +22,19 @@ Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/src/pyudev/_ctypeslib/utils.py b/src/pyudev/_ctypeslib/utils.py
-index 9dffb3c..aa9942f 100644
+index f009df9..7321dbd 100644
 --- a/src/pyudev/_ctypeslib/utils.py
 +++ b/src/pyudev/_ctypeslib/utils.py
-@@ -24,7 +24,7 @@
+@@ -23,7 +23,7 @@
+ .. moduleauthor::  Anne Mulhern  <amulhern@redhat.com>
  """
  
- # isort: STDLIB
 -from ctypes import CDLL
 +from ctypes import cdll, CDLL
  from ctypes.util import find_library
  
  
-@@ -46,10 +46,10 @@ def load_ctypes_library(name, signatures, error_checkers):
+@@ -45,10 +45,10 @@ def load_ctypes_library(name, signatures, error_checkers):
      :rtype: ctypes.CDLL
      :raises ImportError: if the library is not found
      """
