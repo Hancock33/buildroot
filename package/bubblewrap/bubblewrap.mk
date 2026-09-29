@@ -18,6 +18,7 @@ define BUBBLEWRAP_LINUX_CONFIG_FIXUPS
 endef
 
 BUBBLEWRAP_CONF_OPTS = \
+	-Dassume_kernel=$(shell echo $(LINUX_VERSION_PROBED) | grep -o '^[0-9]\+\.[0-9]\+\.[0-9]\+') \
 	-Dzsh_completion=disabled \
 	-Dman=disabled \
 	-Dpython=$(HOST_DIR)/bin/python \
