@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-B43_FWCUTTER_VERSION = 020
+B43_FWCUTTER_VERSION = 021
 B43_FWCUTTER_SITE = http://bues.ch/b43/fwcutter
 B43_FWCUTTER_SOURCE = b43-fwcutter-$(B43_FWCUTTER_VERSION).tar.xz
 B43_FWCUTTER_LICENSE = BSD-2-Clause
