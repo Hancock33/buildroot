@@ -1,6 +1,6 @@
-# From https://archive.hadrons.org/software/libmd/libmd-1.2.0.announce
-sha256  ac15ffb8430502fbaccdec66c5a82ee0eab0b0f36220df56710feadfeb13d0a0  libmd-1.2.0.tar.xz
-sha512  03684ab0c7724bb5cd22026ed39430abc47707e44f6756c372ad317e94b977b1b9d83c0ade614b39be1ca2208a0873e940968659476fe62a32c7195530d022a5  libmd-1.2.0.tar.xz
+# From https://archive.hadrons.org/software/libmd/libmd-1.3.0.announce
+sha256  fc0f1eb6b6766470326f2c014693809190e67dba84274a6fbae9d4912d066706  libmd-1.3.0.tar.xz
+sha512  bc09299855fe21030fd15fcbf3981105b7c2fd1bc84ad9737a54e593236509d2f5cbef97feb7ec59cd520fbb95793f78c627b120b65b48ba4967fce4a1b47d5a  libmd-1.3.0.tar.xz
 
 # Hash for license file
 sha256  4365ef6255ad553fce69dd4bc0e093472c5d0e41b8ea493a545cc926ce171aa6  COPYING
