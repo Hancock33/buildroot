@@ -34,6 +34,13 @@ else
 RSYNC_CONF_OPTS += --disable-acl-support
 endif
 
+ifeq ($(BR2_PACKAGE_LIBIDN2),y)
+RSYNC_CONF_OPTS += --enable-idn
+RSYNC_DEPENDENCIES += libidn2
+else
+RSYNC_CONF_OPTS += --disable-idn
+endif
+
 ifeq ($(BR2_PACKAGE_LZ4),y)
 RSYNC_DEPENDENCIES += lz4
 RSYNC_CONF_OPTS += --enable-lz4
