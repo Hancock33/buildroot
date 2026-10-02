@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-SDL3_VERSION = 3.4.16
-SDL3_SOURCE = SDL3-$(SDL3_VERSION).tar.gz
-SDL3_SITE = http://www.libsdl.org/release
+SDL3_VERSION = 3.4.16-71-ga6e6a345b231cc48963292c26bc4d4c4b5f0be3c
+SDL3_SITE = $(call github,libsdl-org,SDL,$(SDL3_VERSION))
 SDL3_LICENSE = Zlib
 SDL3_LICENSE_FILES = LICENSE.txt
 SDL3_CPE_ID_VENDOR = libsdl
