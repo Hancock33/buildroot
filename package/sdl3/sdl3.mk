@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SDL3_VERSION = 3.4.16-71-ga6e6a345b231cc48963292c26bc4d4c4b5f0be3c
+SDL3_VERSION = 3.4.16-72-g7063546818de5fcd78ac7afe0b8404b753a95ab6
 SDL3_SITE = $(call github,libsdl-org,SDL,$(SDL3_VERSION))
 SDL3_LICENSE = Zlib
 SDL3_LICENSE_FILES = LICENSE.txt
