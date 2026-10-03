@@ -12,5 +12,6 @@ PYTHON_WHEEL_LICENSE = MIT
 PYTHON_WHEEL_LICENSE_FILES = LICENSE.txt
 PYTHON_WHEEL_CPE_ID_VENDOR = wheel_project
 PYTHON_WHEEL_CPE_ID_PRODUCT = wheel
+HOST_PYTHON_WHEEL_DEPENDENCIES = host-python-packaging
 
 $(eval $(host-python-package))

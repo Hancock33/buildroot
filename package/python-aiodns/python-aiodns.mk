@@ -11,5 +11,7 @@ PYTHON_AIODNS_SETUP_TYPE = setuptools
 PYTHON_AIODNS_LICENSE = MIT
 PYTHON_AIODNS_LICENSE_FILES = LICENSE
 PYTHON_AIODNS_DEPENDENCIES = host-python-pycares python-pycares
+PYTHON_AIODNS_BUILD_OPTS = --skip-dependency-check
+
 
 $(eval $(python-package))
