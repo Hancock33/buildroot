@@ -24,7 +24,6 @@ main() {
         check_elf_has_rpath "${file}" "${hostdir}" "${perpackagedir}" && continue
         if [ ${ret} -eq 0 ]; then
             ret=1
-            printf "***   %s\n" "${file}"
             printf "***\n"
             printf "*** ERROR: package %s installs executables without proper RPATH:\n" "${pkg}"
         fi

@@ -3,40 +3,28 @@
 # mold
 #
 ################################################################################
-# Version: Commits on Oct 05, 2026
-MOLD_VERSION = v3.0.0
+# Version: Commits on Sept 11, 2026
+MOLD_VERSION = v2.42.1
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = MIT
-HOST_MOLD_DEPENDENCIES += host-flex host-bison host-zstd host-cmake host-tbb host-xxhash host-blake3 host-rustc
+MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES) tbb
+HOST_MOLD_DEPENDENCIES += host-flex host-bison host-zstd host-cmake host-tbb host-xxhash host-blake3
 
-HOST_MOLD_BIN_DIR = target/$(RUSTC_TARGET_NAME)/$(MOLD_CARGO_MODE)
-
-HOST_MOLD_CARGO_OPTS = \
-	--release \
-	--target=$(RUSTC_TARGET_NAME) \
-	--manifest-path=$(@D)/Cargo.toml
-
-define HOST_MOLD_BUILD_CMDS
-	RUSTFLAGS="-C link-args=-L$(HOST_DIR)/lib -C link-args=-Wl,-rpath,$(HOST_DIR)/lib" \
-	$(HOST_MAKE_ENV) cargo build $(HOST_MOLD_CARGO_OPTS)
-endef
+MOLD_SUPPORTS_IN_SOURCE_BUILD = NO
+MOLD_CONF_OPTS += -DMOLD_USE_SYSTEM_TBB=ON
+HOST_MOLD_CONF_OPTS += -DMOLD_USE_SYSTEM_TBB=ON
+HOST_MOLD_CONF_OPTS += -DCMAKE_ASM_COMPILER="gcc"
 
 define MOLD_INSTALL
-    # cleanup any existing versions
-    rm -rf $(HOST_DIR)/bin/mold
-    rm -rf $(HOST_DIR)/lib/mold $(HOST_DIR)/libexec/mold
-    # create directories
-    mkdir -p $(HOST_DIR)/{lib/mold,libexec/mold}
-    # install new version
-    $(INSTALL) -D -m 0755 $(@D)/target/*-linux-gnu/release/mold $(HOST_DIR)/bin/mold
-    $(INSTALL) -D -m 0755 $(@D)/target/*-linux-gnu/release/mold-wrapper.so $(HOST_DIR)/lib/mold/mold-wrapper.so
-    # create GNU linker links (relative, so the host dir stays relocatable)
-    ln -sf $(HOST_DIR)/bin/mold $(HOST_DIR)/$(GNU_TARGET_NAME)/bin/ld.mold
-    ln -sf $(HOST_DIR)/bin/mold $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold
-    ln -sf $(HOST_DIR)/bin/mold $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
-    ln -sf $(HOST_DIR)/bin/mold $(HOST_DIR)/libexec/mold/ld
+    rm -rf $(HOST_DIR)/bin/mold.ld
+    rm -rf $(HOST_DIR)/bin/ld.mold
+    mkdir -p                                                         $(HOST_DIR)/$(GNU_TARGET_NAME)/bin
+    cp -av $(HOST_DIR)/bin/mold                                      $(HOST_DIR)/$(GNU_TARGET_NAME)/bin/ld.mold
+    mv     $(HOST_DIR)/bin/mold                                      $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold
+    ln -sf $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold                $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
 endef
 
 HOST_MOLD_POST_INSTALL_HOOKS += MOLD_INSTALL
 
-$(eval $(host-generic-package))
+$(eval $(cmake-package))
+$(eval $(host-cmake-package))
