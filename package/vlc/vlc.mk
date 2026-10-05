@@ -469,9 +469,11 @@ else
 VLC_CONF_OPTS += --disable-ncurses
 endif
 
+# batocera - disable pulse for ES themes
+# this causes audio to bleed through when it shouldn't
 ifeq ($(BR2_PACKAGE_PULSEAUDIO),y)
-VLC_CONF_OPTS += --enable-pulse
-VLC_DEPENDENCIES += pulseaudio
+VLC_CONF_OPTS += --disable-pulse
+#VLC_DEPENDENCIES += pulseaudio
 else
 VLC_CONF_OPTS += --disable-pulse
 endif

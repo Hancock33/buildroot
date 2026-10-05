@@ -1,5 +1,36 @@
+From 5d561e1e2dcde3c9fca4d925f12447009d0d4a4c Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?R=C3=A9mi=20Denis-Courmont?= <remi@remlab.net>
+Date: Wed, 18 Apr 2018 17:23:57 +0300
+Subject: [PATCH] posix: remove ancient run-time fallback to real-time clock
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+posix: remove ancient run-time fallback to real-time clock
+
+For hysterical raisins, GNU/Linux and possibly some other OSes still
+report that monotonic clock must be checked at run-time, although I
+doubt that VLC or even current glibc would run on such old kernel.
+
+Drop that to simplify and avoid the systematic one-time init check.
+
+Downloaded from upstream commit to fix build error on m68k:
+
+posix/thread.c:79:5: warning: #warning Monotonic clock not available. Expect timing issues. [-Wcpp]
+ #   warning Monotonic clock not available. Expect timing issues.
+     ^~~~~~~
+posix/thread.c: In function ‘vlc_clock_setup_once’:
+posix/thread.c:88:18: error: lvalue required as left operand of assignment
+     vlc_clock_id = (val < 0) ? CLOCK_REALTIME : CLOCK_MONOTONIC;
+
+[Bernd: rebased for 3.0.19]
+Signed-off-by: Bernd Kuhls <bernd.kuhls@t-online.de>
+---
+ src/posix/thread.c | 96 +++++++-----------------------------------------------
+ 1 file changed, 11 insertions(+), 85 deletions(-)
+
 diff --git a/src/posix/thread.c b/src/posix/thread.c
-index d55ee092a5..a973372fa7 100644
+index dab8b71f97..8878941913 100644
 --- a/src/posix/thread.c
 +++ b/src/posix/thread.c
 @@ -51,62 +51,16 @@
@@ -152,3 +183,6 @@ index d55ee092a5..a973372fa7 100644
  }
  
  unsigned vlc_GetCPUCount(void)
+-- 
+2.14.4
+

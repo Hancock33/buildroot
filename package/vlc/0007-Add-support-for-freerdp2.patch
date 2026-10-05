@@ -1,8 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Juliane de Sartiges <jill@videolabs.io>
+Date: Wed, 27 Jul 2022 09:32:25 +0200
+Subject: [PATCH] freerdp: update to freerdp2 api
+
+Upstream: https://code.videolan.org/videolan/vlc/-/commit/95e7bba6105bd8c2b8ea9cabc02c8dfe7411cab2
+
+[Bernd: rebased for 3.0.23]
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+---
+ configure.ac         |  2 +-
+ modules/access/rdp.c | 85 ++++++++++++++++++++------------------------
+ 2 files changed, 40 insertions(+), 47 deletions(-)
+
 diff --git a/configure.ac b/configure.ac
-index b1e4efebc9..420421d8aa 100644
+index d96287d3e0..a91fc73172 100644
 --- a/configure.ac
 +++ b/configure.ac
-@@ -2211,7 +2211,7 @@ PKG_ENABLE_MODULES_VLC([VNC], [vnc], [libvncclient >= 0.9.9], (VNC/rfb client su
+@@ -2194,7 +2194,7 @@ PKG_ENABLE_MODULES_VLC([VNC], [vnc], [libvncclient >= 0.9.9], (VNC/rfb client su
  
  dnl  RDP/Remote Desktop access module
  dnl
@@ -224,3 +238,6 @@ index 0c39663c64..04ae005938 100644
  
      if ( p_sys->p_block )
          block_Release( p_sys->p_block );
+-- 
+2.47.3
+
