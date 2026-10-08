@@ -1,6 +1,6 @@
-# From https://lists.freedesktop.org/archives/input-tools/2026-August/001595.html
-sha256  0caf824971108f15bb2ad356433bae198d7d3bf1e82d43f63626e069e060bfa6  libevdev-1.13.7.tar.xz
-sha512  fd64ded32a7f303d45d545ebf293cc9d1a1e79672e1d5879d05e2c723b78709d1ecc972afb1f043eafe961cbded06d221a6fccc25ebba00a68fcf76e4ee3da8b  libevdev-1.13.7.tar.xz
+# From https://lists.freedesktop.org/archives/input-tools/2026-October/001596.html
+sha256  5a0966c7110648665983848bad696c7acba614a2160d2865d535397101007332  libevdev-1.14.0.tar.xz
+sha512  527a643ec805618f04967c88105347966fc54726edbd884631255eb8f71cd4fdcb661b2051cd724a979372dbc5a7e47c8ab68098fa8cd3fcdd9a5413db7e062c  libevdev-1.14.0.tar.xz
 
 # Hash for license files:
 sha256  6f13de7ce28e4948ba95170e0723ee1254c1978ce1f127af82aeca597b567cb9  COPYING
