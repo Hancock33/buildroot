@@ -6,7 +6,7 @@
 
 KODI_VERSION_MAJOR = 22.0rc1
 KODI_VERSION_NAME = Piers
-KODI_VERSION = 22.0rc1-Piers-267-ge75e05e1374a0786679d0ab4891a4a279a8b6304
+KODI_VERSION = 22.0rc1-Piers-284-g48728880755ffcad4ed543d9fa46e61ef0ca7b4b
 KODI_SITE = $(call github,xbmc,xbmc,$(KODI_VERSION))
 KODI_LICENSE = GPL-2.0
 KODI_LICENSE_FILES = LICENSE.md
@@ -32,7 +32,6 @@ KODI_DEPENDENCIES = \
 	host-kodi-jsonschemabuilder \
 	host-kodi-texturepacker \
 	host-nasm \
-	host-openjdk-bin \
 	host-swig \
 	host-xmlstarlet \
 	jpeg \
@@ -57,24 +56,13 @@ KODI_DEPENDENCIES = \
 	zlib
 
 # taken from tools/depends/target/*/*-VERSION
-KODI_APACHE_GROOVY_VERSION = 4.0.30
-KODI_COMMONS_LANG3_VERSION = 3.20.0
-KODI_COMMONS_TEXT_VERSION = 1.15.0
-KODI_LIBDVDCSS_VERSION = 1.4.3-Next-Nexus-Alpha2-2
-KODI_LIBDVDNAV_VERSION = 6.1.1-Next-Nexus-Alpha2-2
-KODI_LIBDVDREAD_VERSION = 6.1.3-Next-Nexus-Alpha2-2
+KODI_LIBDVDCSS_VERSION = 1.5.0
+KODI_LIBDVDNAV_VERSION = 7.0.0
+KODI_LIBDVDREAD_VERSION = 7.0.1
 KODI_EXTRA_DOWNLOADS += \
-	https://groovy.jfrog.io/artifactory/dist-release-local/groovy-zips/apache-groovy-binary-$(KODI_APACHE_GROOVY_VERSION).zip \
-	https://archive.apache.org/dist/commons/lang/binaries/commons-lang3-$(KODI_COMMONS_LANG3_VERSION)-bin.tar.gz \
-	https://archive.apache.org/dist/commons/text/binaries/commons-text-$(KODI_COMMONS_TEXT_VERSION)-bin.tar.gz
-
-define KODI_PROVIDE_JAVA_TARBALLS
-	mkdir -p $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/apache-groovy-binary-$(KODI_APACHE_GROOVY_VERSION).zip $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/commons-lang3-$(KODI_COMMONS_LANG3_VERSION)-bin.tar.gz $(@D)/buildroot-build/build/download
-	cp $(KODI_DL_DIR)/commons-text-$(KODI_COMMONS_TEXT_VERSION)-bin.tar.gz $(@D)/buildroot-build/build/download
-endef
-KODI_POST_EXTRACT_HOOKS = KODI_PROVIDE_JAVA_TARBALLS
+	https://mirrors.kodi.tv/build-deps/sources/libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.bz2 \
+	https://mirrors.kodi.tv/build-deps/sources/libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.bz2 \
+	https://mirrors.kodi.tv/build-deps/sources/libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.bz2
 
 KODI_CONF_OPTS += \
 	-DCMAKE_C_FLAGS="$(TARGET_CFLAGS) $(KODI_C_FLAGS)" \
@@ -95,16 +83,14 @@ KODI_CONF_OPTS += \
 	-DNATIVEPREFIX=$(HOST_DIR) \
 	-DDEPENDS_PATH=$(STAGING_DIR)/usr \
 	-DENABLE_TESTING=OFF \
-	-DJAVA_HOME=$(HOST_OPENJDK_BIN_ROOT_DIR) \
-	-DPYTHON_EXECUTABLE=$(HOST_DIR)/bin/python \
-	-DPYTHON_INCLUDE_DIRS=$(STAGING_DIR)/usr/include/python$(PYTHON3_VERSION_MAJOR) \
 	-DPYTHON_PATH=$(STAGING_DIR)/usr/lib/python$(PYTHON3_VERSION_MAJOR) \
 	-DPYTHON_VER=$(PYTHON3_VERSION_MAJOR) \
 	-DVERBOSE_FIND=ON \
 	-DWITH_JSONSCHEMABUILDER=$(HOST_DIR)/bin/ \
-	-DJSONSCHEMABUILDER_EXECUTABLE=$(HOST_DIR)/bin/kodi-JsonSchemaBuilder \
 	-DWITH_TEXTUREPACKER=$(HOST_DIR)/bin/ \
-	-DTEXTUREPACKER_EXECUTABLE=$(HOST_DIR)/bin/kodi-TexturePacker
+	-DLIBDVDCSS_URL=$(KODI_DL_DIR)/libdvdcss-$(KODI_LIBDVDCSS_VERSION).tar.bz2 \
+	-DLIBDVDNAV_URL=$(KODI_DL_DIR)/libdvdnav-$(KODI_LIBDVDNAV_VERSION).tar.bz2 \
+	-DLIBDVDREAD_URL=$(KODI_DL_DIR)/libdvdread-$(KODI_LIBDVDREAD_VERSION).tar.bz2
 
 # batocera
 KODI_CONF_OPTS += -DADDONS_CONFIGURE_AT_STARTUP=OFF
@@ -129,8 +115,6 @@ endif
 
 ifeq ($(BR2_PACKAGE_KODI_PLATFORM_SUPPORTS_WAYLAND),y)
 KODI_CONF_OPTS += \
-	-DPC_WAYLANDPP_SCANNER=$(HOST_DIR)/bin/wayland-scanner
-	-DPC_WAYLANDPP_SCANNER_FOUND=ON \
 	-DWAYLANDPP_PROTOCOLS_DIR=$(STAGING_DIR)/usr/share/waylandpp/protocols
 KODI_CORE_PLATFORM_NAME += wayland
 KODI_DEPENDENCIES += libxkbcommon waylandpp
