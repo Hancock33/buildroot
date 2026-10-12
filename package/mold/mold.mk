@@ -3,28 +3,45 @@
 # mold
 #
 ################################################################################
-# Version: Commits on Sept 11, 2026
-MOLD_VERSION = v2.42.1
+# Version: Commits on Oct 05, 2026
+MOLD_VERSION = v3.0.0
 MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = MIT
-MOLD_DEPENDENCIES = zlib $(TARGET_NLS_DEPENDENCIES) tbb
-HOST_MOLD_DEPENDENCIES += host-flex host-bison host-zstd host-cmake host-tbb host-xxhash host-blake3
+HOST_MOLD_DEPENDENCIES += host-flex host-bison host-zstd host-cmake host-tbb host-xxhash host-blake3 host-rustc
 
-MOLD_SUPPORTS_IN_SOURCE_BUILD = NO
-MOLD_CONF_OPTS += -DMOLD_USE_SYSTEM_TBB=ON
-HOST_MOLD_CONF_OPTS += -DMOLD_USE_SYSTEM_TBB=ON
-HOST_MOLD_CONF_OPTS += -DCMAKE_ASM_COMPILER="gcc"
+HOST_MOLD_CARGO_INSTALL_OPTS = cli
 
-define MOLD_INSTALL
-    rm -rf $(HOST_DIR)/bin/mold.ld
-    rm -rf $(HOST_DIR)/bin/ld.mold
-    mkdir -p                                                         $(HOST_DIR)/$(GNU_TARGET_NAME)/bin
-    cp -av $(HOST_DIR)/bin/mold                                      $(HOST_DIR)/$(GNU_TARGET_NAME)/bin/ld.mold
-    mv     $(HOST_DIR)/bin/mold                                      $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold
-    ln -sf $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold                $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
+HOST_MOLD_CARGO_ENV = RUSTFLAGS="-C link-args=-L$(HOST_DIR)/lib -C link-args=-Wl,-rpath,$(HOST_DIR)/lib"
+
+# 'cargo install' below does the compile, nothing to do here.
+define HOST_MOLD_BUILD_CMDS
+	@true
 endef
 
-HOST_MOLD_POST_INSTALL_HOOKS += MOLD_INSTALL
+define HOST_MOLD_INSTALL_CMDS
+	cd $(@D) && \
+	$(HOST_MAKE_ENV) \
+		$(HOST_CONFIGURE_OPTS) \
+		$(HOST_PKG_CARGO_ENV) \
+		$(HOST_MOLD_CARGO_ENV) \
+		cargo install \
+			--offline \
+			--root $(HOST_DIR) \
+			--bins \
+			--no-track \
+			--force \
+			--locked
+endef
 
-$(eval $(cmake-package))
-$(eval $(host-cmake-package))
+define HOST_MOLD_INSTALL_LINKS
+	mkdir -p $(HOST_DIR)/$(GNU_TARGET_NAME)/bin $(HOST_DIR)/libexec/mold
+	ln -sf ../../bin/mold $(HOST_DIR)/$(GNU_TARGET_NAME)/bin/ld.mold
+	ln -sf mold $(HOST_DIR)/bin/ld.mold
+	ln -sf mold $(HOST_DIR)/bin/$(GNU_TARGET_NAME)-ld.mold
+	ln -sf mold $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
+	ln -sf ../../bin/mold $(HOST_DIR)/libexec/mold/ld
+endef
+ 
+HOST_MOLD_POST_INSTALL_HOOKS += HOST_MOLD_INSTALL_LINKS
+
+$(eval $(host-cargo-package))
