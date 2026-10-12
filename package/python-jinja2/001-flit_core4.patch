@@ -1,0 +1,25 @@
+From 82467a720eac28f181a24818883dbff186392587 Mon Sep 17 00:00:00 2001
+From: ojab <ojab@ojab.ru>
+Date: Sun, 9 Aug 2026 12:07:41 +0000
+Subject: [PATCH] Allow flit_core-4
+
+https://flit.pypa.io/en/stable/history.html#version-4-0
+
+Fixes: https://github.com/pallets/jinja/issues/2232
+---
+ pyproject.toml | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/pyproject.toml b/pyproject.toml
+index efc5d2bee..2022e119c 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -62,7 +62,7 @@ typing = [
+ ]
+ 
+ [build-system]
+-requires = ["flit_core<4"]
++requires = ["flit_core<5"]
+ build-backend = "flit_core.buildapi"
+ 
+ [tool.flit.module]
