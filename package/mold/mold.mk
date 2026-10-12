@@ -9,8 +9,6 @@ MOLD_SITE = $(call github,rui314,mold,$(MOLD_VERSION))
 MOLD_LICENSE = MIT
 HOST_MOLD_DEPENDENCIES += host-flex host-bison host-zstd host-cmake host-tbb host-xxhash host-blake3 host-rustc
 
-HOST_MOLD_CARGO_INSTALL_OPTS = cli
-
 HOST_MOLD_CARGO_ENV = RUSTFLAGS="-C link-args=-L$(HOST_DIR)/lib -C link-args=-Wl,-rpath,$(HOST_DIR)/lib"
 
 # 'cargo install' below does the compile, nothing to do here.
@@ -30,7 +28,8 @@ define HOST_MOLD_INSTALL_CMDS
 			--bins \
 			--no-track \
 			--force \
-			--locked
+			--locked \
+			--path cli
 endef
 
 define HOST_MOLD_INSTALL_LINKS
