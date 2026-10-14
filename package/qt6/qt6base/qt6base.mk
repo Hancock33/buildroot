@@ -86,37 +86,73 @@ HOST_QT6BASE_DEPENDENCIES = \
 	host-zlib
 
 HOST_QT6BASE_CONF_OPTS = \
-	-DFEATURE_concurrent=OFF \
+	-DFEATURE_xml=ON \
 	-DFEATURE_dbus=OFF \
-	-DFEATURE_eglfs=OFF \
-	-DFEATURE_fontconfig=OFF \
-	-DFEATURE_freetype=OFF \
-	-DFEATURE_gif=OFF \
-	-DFEATURE_glib=OFF \
-	-DFEATURE_gssapi=OFF \
-	-DFEATURE_gui=ON \
-	-DFEATURE_harfbuzz=OFF \
 	-DFEATURE_icu=OFF \
-	-DFEATURE_jpeg=OFF \
-	-DFEATURE_kms=OFF \
-	-DFEATURE_libinput=OFF \
-	-DFEATURE_linuxfb=ON \
-	-DFEATURE_network=ON \
-	-DFEATURE_opengl=OFF \
-	-DFEATURE_png=OFF \
-	-DFEATURE_printsupport=OFF \
-	-DFEATURE_sql=ON \
+	-DFEATURE_glib=OFF \
+	-DFEATURE_sql=OFF \
 	-DFEATURE_system_doubleconversion=ON \
 	-DFEATURE_system_libb2=ON \
 	-DFEATURE_system_pcre2=ON \
-	-DFEATURE_system_zlib=ON \
-	-DFEATURE_testlib=ON \
-	-DFEATURE_tslib=OFF \
+	-DFEATURE_system_zlib=ON
+
+ifeq ($(BR2_PACKAGE_HOST_QT6BASE_CONCURRENT),y)
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_concurrent=ON
+else
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_concurrent=OFF
+endif
+
+# We need host-qt6base with Gui support when building host-qt6shadertools,
+# otherwise the build is skipped and no qsb host tool is generated.
+# qt6shadertools fail to build if qsb is not available.
+ifeq ($(BR2_PACKAGE_HOST_QT6BASE_GUI),y)
+HOST_QT6BASE_CONF_OPTS += \
+	-DFEATURE_gui=ON \
+	-DFEATURE_freetype=OFF \
 	-DFEATURE_vulkan=OFF \
-	-DFEATURE_wayland=OFF \
-	-DFEATURE_widgets=OFF \
+	-DFEATURE_linuxfb=ON \
 	-DFEATURE_xcb=OFF \
-	-DFEATURE_xml=ON
+	-DFEATURE_opengl=OFF -DINPUT_opengl=no \
+	-DFEATURE_harfbuzz=OFF \
+	-DFEATURE_png=OFF \
+	-DFEATURE_gif=OFF \
+	-DFEATURE_jpeg=OFF \
+	-DFEATURE_printsupport=OFF \
+	-DFEATURE_kms=OFF \
+	-DFEATURE_fontconfig=OFF \
+	-DFEATURE_libinput=OFF \
+	-DFEATURE_tslib=OFF \
+	-DFEATURE_eglfs=OFF
+
+ifeq ($(BR2_PACKAGE_HOST_QT6BASE_WIDGETS),y)
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_widgets=ON
+else
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_widgets=OFF
+endif
+
+else
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_gui=OFF
+endif
+
+# The Network module is explicitly required by qt6tools.
+ifeq ($(BR2_PACKAGE_HOST_QT6BASE_NETWORK),y)
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_network=ON
+else
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_network=OFF
+endif
+
+# We need host-qt6base with Testlib support when building host-qt6declarative
+# with QuickTest support. QuickTest support is further required for building the
+# qmltestrunner host tool. qt6declarative will fail to build if qmltestrunner is
+# not available.
+ifeq ($(BR2_PACKAGE_HOST_QT6BASE_TEST),y)
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_testlib=ON
+else
+HOST_QT6BASE_CONF_OPTS += -DFEATURE_testlib=OFF
+endif
+
+# Conditional blocks below are ordered by alphabetic ordering of the
+# BR2_PACKAGE_* option.
 
 ifeq ($(BR2_PACKAGE_HAS_UDEV),y)
 QT6BASE_CONF_OPTS += -DFEATURE_libudev=ON
@@ -143,7 +179,7 @@ ifeq ($(BR2_PACKAGE_QT6BASE_GUI),y)
 QT6BASE_CONF_OPTS += \
 	-DFEATURE_gui=ON \
 	-DFEATURE_freetype=ON \
-	-DFEATURE_vulkan=ON
+	-DFEATURE_vulkan=OFF
 QT6BASE_DEPENDENCIES += freetype
 
 ifeq ($(BR2_PACKAGE_QT6BASE_VULKAN),y)
@@ -161,7 +197,6 @@ endif
 
 ifeq ($(BR2_PACKAGE_QT6BASE_XCB),y)
 QT6BASE_CONF_OPTS += \
-	-DFEATURE_system_xcb_xinput=ON \
 	-DFEATURE_xcb=ON \
 	-DFEATURE_xcb_xlib=ON \
 	-DFEATURE_xkbcommon=ON \
@@ -401,20 +436,6 @@ define QT6BASE_RM_SBOMS
 	$(RM) -rf $(TARGET_DIR)/usr/lib/qt6/sbom/
 endef
 QT6BASE_TARGET_FINALIZE_HOOKS += QT6BASE_RM_SBOMS
-
-define QT6BASE_MAKE_BR_SPEC
-	$(INSTALL) -m 0644 -D $(QT6BASE_PKGDIR)/qmake.conf \
-		$(@D)/mkspecs/devices/linux-buildroot-g++/qmake.conf
-	$(INSTALL) -m 0644 -D $(QT6BASE_PKGDIR)/qplatformdefs.h \
-		$(@D)/mkspecs/devices/linux-buildroot-g++/qplatformdefs.h
-endef
-
-QT6BASE_CONF_OPTS += \
-	-DQT_QMAKE_DEVICE_OPTIONS="CROSS_COMPILE=$(TARGET_CROSS);BR_COMPILER_CFLAGS=$(TARGET_CFLAGS);BR_COMPILER_CXXFLAGS=$(TARGET_CXXFLAGS)"
-
-QT6BASE_PRE_CONFIGURE_HOOKS += QT6BASE_MAKE_BR_SPEC
-
-QT6BASE_POST_INSTALL_STAGING_HOOKS += QT6_INSTALL_QT_CONF
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))

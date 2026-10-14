@@ -37,11 +37,23 @@ QT6WAYLAND_DEPENDENCIES = \
 	qt6base \
 	wayland \
 	host-qt6wayland
+
+ifeq ($(BR2_PACKAGE_QT6DECLARATIVE),y)
+QT6WAYLAND_DEPENDENCIES += qt6declarative
+endif
+
+ifeq ($(BR2_PACKAGE_QT6WAYLAND_COMPOSITOR),y)
+QT6WAYLAND_CONF_OPTS += -DFEATURE_wayland_server=ON
+QT6WAYLAND_DEPENDENCIES += libxkbcommon
+else
+QT6WAYLAND_CONF_OPTS += -DFEATURE_wayland_server=OFF
+endif
+
 HOST_QT6WAYLAND_CONF_OPTS = \
 	-DFEATURE_wayland_client=OFF \
 	-DFEATURE_wayland_server=OFF
 
-HOST_QT6WAYLAND_DEPENDENCIES = host-qt6base host-wayland
+HOST_QT6WAYLAND_DEPENDENCIES = host-qt6base
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))

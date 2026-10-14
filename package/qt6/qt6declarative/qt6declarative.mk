@@ -8,8 +8,6 @@ QT6DECLARATIVE_VERSION = $(QT6_VERSION)
 QT6DECLARATIVE_SITE = $(QT6_SITE)
 QT6DECLARATIVE_SOURCE = qtdeclarative-$(QT6_SOURCE_TARBALL_PREFIX)-$(QT6DECLARATIVE_VERSION).tar.xz
 QT6DECLARATIVE_INSTALL_STAGING = YES
-QT6DECLARATIVE_CPE_ID_VENDOR = qt
-QT6DECLARATIVE_CPE_ID_PRODUCT = qtdeclarative
 
 QT6DECLARATIVE_SUPPORTS_IN_SOURCE_BUILD = NO
 
@@ -35,15 +33,26 @@ QT6DECLARATIVE_CONF_OPTS = \
 	-DQT_HOST_PATH=$(HOST_DIR) \
 	$(QT6_COMMON_CONF_OPTS)
 HOST_QT6DECLARATIVE_DEPENDENCIES = \
-	host-qt6base \
-	host-qt6shadertools \
-	host-qt6svg
+	host-qt6base
 
 QT6DECLARATIVE_DEPENDENCIES = \
 	host-qt6declarative \
-	qt6base \
+	qt6base
+
+ifeq ($(BR2_PACKAGE_QT6DECLARATIVE_QUICK),y)
+HOST_QT6DECLARATIVE_DEPENDENCIES += \
+	host-qt6shadertools
+QT6DECLARATIVE_DEPENDENCIES += \
 	host-qt6base \
 	qt6shadertools
+
+# We need host-qt6svg, when qt6svg is available to build the required
+# svgtoqml host tool
+ifeq ($(BR2_PACKAGE_QT6SVG),y)
+HOST_QT6DECLARATIVE_DEPENDENCIES += host-qt6svg
+endif
+
+endif
 
 $(eval $(cmake-package))
 $(eval $(host-cmake-package))
