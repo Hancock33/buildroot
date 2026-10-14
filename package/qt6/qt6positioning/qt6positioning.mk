@@ -11,32 +11,12 @@ QT6POSITIONING_INSTALL_STAGING = YES
 QT6POSITIONING_SUPPORTS_IN_SOURCE_BUILD = NO
 QT6POSITIONING_CMAKE_BACKEND = ninja
 
-QT6POSITIONING_LICENSE = \
-	GPL-2.0 or GPL-3.0 or LGPL-3.0, \
-	BSL-1.0, \
-	CC0-1.0, \
-	GFDL-1.3 no invariants (docs), \
-	GPL-3.0 with Qt-GPL-exception-1.0, \
-	OFL-1.1 (TitilliumWeb), \
-	BSD-3-Clause (examples + buildsystem)
+QT6POSITIONING_LICENSE = GPL-2.0 or GPL-3.0 or LGPL-3.0
 
 QT6POSITIONING_LICENSE_FILES = \
-	LICENSES/Apache-2.0.txt \
-	LICENSES/BSD-3-Clause.txt \
-	LICENSES/BSL-1.0.txt \
-	LICENSES/CC0-1.0.txt \
-	LICENSES/GFDL-1.3-no-invariants-only.txt \
 	LICENSES/GPL-2.0-only.txt \
 	LICENSES/GPL-3.0-only.txt \
-	LICENSES/LGPL-3.0-only.txt \
-	LICENSES/LicenseRef-Qt-Commercial.txt \
-	LICENSES/MIT.txt \
-	LICENSES/OFL-1.1.txt \
-	LICENSES/Qt-GPL-exception-1.0.txt
-
-QT6POSITIONING_CONF_OPTS = \
-	$(QT6_COMMON_CONF_OPTS) \
-	-DQT_HOST_PATH=$(HOST_DIR)
+	LICENSES/LGPL-3.0-only.txt
 
 QT6POSITIONING_DEPENDENCIES = qt6base
 
