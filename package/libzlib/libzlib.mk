@@ -18,6 +18,8 @@ HOST_LIBZLIB_DEPENDENCIES = host-pkgconf
 # The package is a dependency to ccache so ccache cannot be a dependency
 HOST_LIBZLIB_ADD_CCACHE_DEPENDENCY = NO
 
+LIBZLIB_IGNORE_CVES += CVE-2026-85091
+
 # It is not possible to build only a shared version of zlib, so we build both
 # shared and static, unless we only want the static libs, and we eventually
 # selectively remove what we do not want
