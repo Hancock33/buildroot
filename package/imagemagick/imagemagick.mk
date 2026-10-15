@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-IMAGEMAGICK_VERSION = 7.1.2-33
+IMAGEMAGICK_VERSION = 7.1.2-34
 IMAGEMAGICK_SITE = https://github.com/ImageMagick/ImageMagick/releases/download/$(IMAGEMAGICK_VERSION)
 IMAGEMAGICK_SOURCE = imagemagick-$(IMAGEMAGICK_VERSION).tar.xz
 IMAGEMAGICK_LICENSE = Apache-2.0
