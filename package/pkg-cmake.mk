@@ -31,15 +31,45 @@ CMAKE_HOST_C_COMPILER = $(HOSTCC)
 CMAKE_HOST_CXX_COMPILER = $(HOSTCXX)
 endif
 
-ifneq ($(QUIET),)
-CMAKE_QUIET = -DCMAKE_RULE_MESSAGES=OFF -DCMAKE_INSTALL_MESSAGE=NEVER
+# Compiler launcher options, shared by host and target packages. Empty
+# (and therefore not passed to CMake at all) when ccache is disabled.
+ifneq ($(CMAKE_HOST_C_COMPILER_LAUNCHER),)
+CMAKE_CCACHE_OPTS = \
+	-DCMAKE_C_COMPILER_LAUNCHER="$(CMAKE_HOST_C_COMPILER_LAUNCHER)" \
+	-DCMAKE_CXX_COMPILER_LAUNCHER="$(CMAKE_HOST_CXX_COMPILER_LAUNCHER)"
 endif
 
-ifeq ($(BR_CMAKE_USE_CLANG),y)
-CMAKE_CLANG = -DCMAKE_C_COMPILER=$(TARGET_CLANG) -DCMAKE_CXX_COMPILER=$(TARGET_CLANGXX) \
-              -DCMAKE_C_COMPILER_LAUNCHER=$(HOST_DIR)/bin/ccache \
-              -DCMAKE_CXX_COMPILER_LAUNCHER=$(HOST_DIR)/bin/ccache
+# CMAKE_RULE_MESSAGES=OFF is always passed (see CMAKE_COMMON_OPTS), so only
+# the install messages need to be silenced here.
+ifneq ($(QUIET),)
+CMAKE_QUIET = -DCMAKE_INSTALL_MESSAGE=NEVER
 endif
+
+# Only the compilers are selected here: the ccache launcher comes from
+# CMAKE_CCACHE_OPTS, so it is no longer forced on when ccache is not built.
+ifeq ($(BR_CMAKE_USE_CLANG),y)
+CMAKE_CLANG = -DCMAKE_C_COMPILER=$(TARGET_CLANG) -DCMAKE_CXX_COMPILER=$(TARGET_CLANGXX)
+endif
+
+# Build type for target packages. This matches the value written into the
+# toolchain file, instead of overriding it with a hardcoded Release.
+CMAKE_TARGET_BUILD_TYPE = $(if $(BR2_ENABLE_RUNTIME_DEBUG),Debug,Release)
+
+# Options that are identical for host and target packages.
+CMAKE_COMMON_OPTS = \
+	-DCMAKE_COLOR_MAKEFILE=ON \
+	-DBUILD_DOC=OFF \
+	-DBUILD_DOCS=OFF \
+	-DBUILD_EXAMPLE=OFF \
+	-DBUILD_EXAMPLES=OFF \
+	-DBUILD_TEST=OFF \
+	-DBUILD_TESTS=OFF \
+	-DBUILD_TESTING=OFF \
+	-DENABLE_TEST=OFF \
+	-DENABLE_TESTS=OFF \
+	-DCMAKE_RULE_MESSAGES=OFF \
+	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+	-Wno-author
 
 ################################################################################
 # inner-cmake-package -- defines how the configuration, compilation and
@@ -116,29 +146,14 @@ define $(2)_CONFIGURE_CMDS
 		-DCMAKE_TOOLCHAIN_FILE="$$(HOST_DIR)/share/buildroot/toolchainfile.cmake" \
 		-DCMAKE_INSTALL_PREFIX="/usr" \
 		-DCMAKE_INSTALL_RUNSTATEDIR="/run" \
-		-DCMAKE_COLOR_MAKEFILE=ON \
-		-DCMAKE_BUILD_TYPE=Release \
-		-DBUILD_DOC=OFF \
-		-DBUILD_DOCS=OFF \
-		-DBUILD_EXAMPLE=OFF \
-		-DBUILD_EXAMPLES=OFF \
-		-DBUILD_TEST=OFF \
-		-DBUILD_TESTS=OFF \
-		-DBUILD_TESTING=OFF \
-		-DENABLE_TEST=OFF \
-		-DENABLE_TESTS=OFF \
-		-DCMAKE_RULE_MESSAGES=OFF \
-		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-		-Wno-author \
+		-DCMAKE_BUILD_TYPE=$$(CMAKE_TARGET_BUILD_TYPE) \
 		-DBUILD_SHARED_LIBS=$$(if $$(BR2_STATIC_LIBS),OFF,ON) \
 		-DCMAKE_EXE_LINKER_FLAGS=$$(BR2_TARGET_LDFLAGS) \
 		-DCMAKE_MODULE_LINKER_FLAGS=$$(BR2_TARGET_LDFLAGS) \
 		-DCMAKE_SHARED_LINKER_FLAGS=$$(BR2_TARGET_LDFLAGS) \
 		-DOPTIMIZATION_FLAG="$$(TARGET_OPTIMIZATION)" \
-		$(if $$(CMAKE_HOST_C_COMPILER_LAUNCHER),\
-			-DCMAKE_C_COMPILER_LAUNCHER="$$(CMAKE_HOST_C_COMPILER_LAUNCHER)" \
-			-DCMAKE_CXX_COMPILER_LAUNCHER="$$(CMAKE_HOST_CXX_COMPILER_LAUNCHER)" \
-		) \
+		$$(CMAKE_COMMON_OPTS) \
+		$$(CMAKE_CCACHE_OPTS) \
 		$$(CMAKE_CLANG) \
 		$$(CMAKE_QUIET) \
 		$$($$(PKG)_CONF_OPTS) \
@@ -174,25 +189,10 @@ define $(2)_CONFIGURE_CMDS
 		-DCMAKE_SHARED_LINKER_FLAGS="$$(HOST_LDFLAGS)" \
 		-DCMAKE_C_COMPILER="$$(CMAKE_HOST_C_COMPILER)" \
 		-DCMAKE_CXX_COMPILER="$$(CMAKE_HOST_CXX_COMPILER)" \
-		$(if $$(CMAKE_HOST_C_COMPILER_LAUNCHER),\
-			-DCMAKE_C_COMPILER_LAUNCHER="$$(CMAKE_HOST_C_COMPILER_LAUNCHER)" \
-			-DCMAKE_CXX_COMPILER_LAUNCHER="$$(CMAKE_HOST_CXX_COMPILER_LAUNCHER)" \
-		) \
-		-DCMAKE_COLOR_MAKEFILE=ON \
 		-DCMAKE_BUILD_TYPE=Release \
-		-DBUILD_DOC=OFF \
-		-DBUILD_DOCS=OFF \
-		-DBUILD_EXAMPLE=OFF \
-		-DBUILD_EXAMPLES=OFF \
-		-DBUILD_TEST=OFF \
-		-DBUILD_TESTS=OFF \
-		-DBUILD_TESTING=OFF \
-		-DENABLE_TEST=OFF \
-		-DENABLE_TESTS=OFF \
-		-DCMAKE_RULE_MESSAGES=OFF \
-		-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-		-Wno-author \
 		-DBUILD_SHARED_LIBS=ON \
+		$$(CMAKE_COMMON_OPTS) \
+		$$(CMAKE_CCACHE_OPTS) \
 		$$(CMAKE_QUIET) \
 		$$($$(PKG)_CONF_OPTS) \
 	)
@@ -208,18 +208,13 @@ $(2)_DEPENDENCIES += $(BR2_CMAKE_HOST_DEPENDENCY)
 
 #
 # Build step. Only define it if not already defined by the package .mk
-# file.
+# file. $(4) is either "target" or "host", so $(call UPPERCASE,$(4))_MAKE_ENV
+# selects TARGET_MAKE_ENV or HOST_MAKE_ENV.
 #
 ifndef $(2)_BUILD_CMDS
-ifeq ($(4),target)
 define $(2)_BUILD_CMDS
-	$$(TARGET_MAKE_ENV) $$($$(PKG)_BUILD_ENV) $$(BR2_CMAKE) --build $$($$(PKG)_BUILDDIR) -j$(PARALLEL_JOBS) $$($$(PKG)_BUILD_OPTS)
+	$$($(call UPPERCASE,$(4))_MAKE_ENV) $$($$(PKG)_BUILD_ENV) $$(BR2_CMAKE) --build $$($$(PKG)_BUILDDIR) -j$(PARALLEL_JOBS) $$($$(PKG)_BUILD_OPTS)
 endef
-else
-define $(2)_BUILD_CMDS
-	$$(HOST_MAKE_ENV) $$($$(PKG)_BUILD_ENV) $$(BR2_CMAKE) --build $$($$(PKG)_BUILDDIR) -j$(PARALLEL_JOBS) $$($$(PKG)_BUILD_OPTS)
-endef
-endif
 endif
 
 #
