@@ -1,5 +1,5 @@
-# From https://lists.x.org/archives/xorg-announce/2026-May/003698.html
+# From https://lists.x.org/archives/xorg-announce/2026-October/003754.html
 sha256  ddd6057b89a91903bc2f884d55c8467440906945e482c36547260dff28661afc  libXi-1.8.4.tar.xz
-sha512:  7cfff5989b4fa375372ac5e28e6c6a9249ff14c1dc6e0c4feeafa7f356e157882c5df30c17b757aabe47a34b8a6da7ab796be5809fe82b6f25bd45cceb1991d1  libXi-1.8.4.tar.xz
+sha512  7cfff5989b4fa375372ac5e28e6c6a9249ff14c1dc6e0c4feeafa7f356e157882c5df30c17b757aabe47a34b8a6da7ab796be5809fe82b6f25bd45cceb1991d1  libXi-1.8.4.tar.xz
 # Locally computed
 sha256  9392174bc86e291369fd2f61f3ed325962735a5f5c585ce8d7ebd365e2a5639f  COPYING
