@@ -62,7 +62,7 @@ GLIBC_ADD_TOOLCHAIN_DEPENDENCY = NO
 GLIBC_DEPENDENCIES = host-gcc-initial linux-headers host-bison host-gawk host-mold host-doxygen \
 	$(BR2_MAKE_HOST_DEPENDENCY) $(BR2_PYTHON3_HOST_DEPENDENCY)
 
-ifeq ($(BR_CMAKE_USE_CLANG),y)
+ifeq ($(BR2_CMAKE_USE_CLANG),y)
 	GLIBC_DEPENDENCIES += host-lld
 endif
 

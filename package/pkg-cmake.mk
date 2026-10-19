@@ -47,7 +47,7 @@ endif
 
 # Only the compilers are selected here: the ccache launcher comes from
 # CMAKE_CCACHE_OPTS, so it is no longer forced on when ccache is not built.
-ifeq ($(BR_CMAKE_USE_CLANG),y)
+ifeq ($(BR2_CMAKE_USE_CLANG),y)
 CMAKE_CLANG = -DCMAKE_C_COMPILER=$(TARGET_CLANG) -DCMAKE_CXX_COMPILER=$(TARGET_CLANGXX)
 endif
 
