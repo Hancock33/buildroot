@@ -63,7 +63,8 @@ BINUTILS_CONF_OPTS = \
 	$(BINUTILS_DISABLE_GDB_CONF_OPTS) \
 	$(BINUTILS_EXTRA_CONFIG_OPTIONS) \
 	--without-zstd \
-	--with-system-readline
+	--with-system-readline \
+	--enable-default-hash-style=gnu
 
 ifeq ($(BR2_STATIC_LIBS),y)
 BINUTILS_CONF_OPTS += --disable-plugins
@@ -108,7 +109,8 @@ HOST_BINUTILS_CONF_OPTS = \
 	$(BINUTILS_DISABLE_GDB_CONF_OPTS) \
 	$(BINUTILS_EXTRA_CONFIG_OPTIONS) \
 	--without-zstd \
-	--with-system-readline
+	--with-system-readline \
+	--enable-default-hash-style=gnu
 
 ifeq ($(BR2_BINUTILS_GPROFNG),y)
 HOST_BINUTILS_DEPENDENCIES += host-bison
