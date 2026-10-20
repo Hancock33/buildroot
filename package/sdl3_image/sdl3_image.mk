@@ -9,41 +9,8 @@ SDL3_IMAGE_SITE = https://www.libsdl.org/projects/SDL_image/release
 SDL3_IMAGE_SOURCE = SDL3_image-$(SDL3_IMAGE_VERSION).tar.gz
 SDL3_IMAGE_LICENSE = Zlib
 SDL3_IMAGE_LICENSE_FILES = LICENSE.txt
-SDL3_IMAGE_CPE_ID_VENDOR = libsdl
-SDL3_IMAGE_CPE_ID_PRODUCT = sdl_image
 SDL3_IMAGE_INSTALL_STAGING = YES
-SDL3_IMAGE_DEPENDENCIES = sdl3 host-pkgconf
-
-# VENDORED would build the copies of libpng and friends carried in the
-# tarball; DEPS_SHARED would dlopen them at runtime instead of linking, which
-# leaves nothing in the ELF for Buildroot to see.
-SDL3_IMAGE_CONF_OPTS = \
-	-DSDLIMAGE_VENDORED=OFF \
-	-DSDLIMAGE_DEPS_SHARED=OFF \
-	-DSDLIMAGE_STRICT=ON \
-	-DSDLIMAGE_SAMPLES=OFF \
-	-DSDLIMAGE_TESTS=OFF \
-	-DSDLIMAGE_INSTALL_MAN=OFF
-
-ifeq ($(BR2_PACKAGE_LIBAVIF),y)
-SDL3_IMAGE_DEPENDENCIES += libavif
-SDL3_IMAGE_CONF_OPTS += \
-	-DSDLIMAGE_AVIF=ON \
-	-DSDLIMAGE_AVIF_SAVE=OFF
-else
-SDL3_IMAGE_CONF_OPTS += -DSDLIMAGE_AVIF=OFF
-endif
-
-# Without jpeg, JPEG support falls back to the bundled stb_image decoder
-# rather than being dropped.
-ifeq ($(BR2_PACKAGE_JPEG),y)
-SDL3_IMAGE_DEPENDENCIES += jpeg
-SDL3_IMAGE_CONF_OPTS += \
-	-DSDLIMAGE_BACKEND_STB=OFF \
-	-DSDLIMAGE_JPG=ON
-else
-SDL3_IMAGE_CONF_OPTS += -DSDLIMAGE_BACKEND_STB=ON
-endif
+SDL3_IMAGE_DEPENDENCIES = sdl3
 
 # Do not use vendored dependencies
 # Request dynamic linking to dependencies instead of dlopen()
@@ -68,7 +35,7 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBAVIF),y)
 SDL3_IMAGE_DEPENDENCIES += libavif
-SDL3_IMAGE_CONF_OPTS += -DSDLIMAGE_AVIF=ON
+SDL3_IMAGE_CONF_OPTS += -DSDLIMAGE_AVIF=ON -DSDLIMAGE_AVIF_SAVE=OFF
 else
 SDL3_IMAGE_CONF_OPTS += -DSDLIMAGE_AVIF=OFF
 endif
