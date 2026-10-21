@@ -37,6 +37,7 @@ endef
 define XXHASH_INSTALL_STAGING_CMDS
 	$(TARGET_MAKE_ENV) $(TARGET_CONFIGURE_OPTS) $(MAKE) -C $(@D) \
 		PREFIX=/usr DESTDIR=$(STAGING_DIR) $(XXHASH_INSTALL_TARGETS)
+		$(SED) "s|/usr/local|/usr|g" $(STAGING_DIR)/usr/lib/pkgconfig/libxxhash.pc
 endef
 
 define XXHASH_INSTALL_TARGET_CMDS
