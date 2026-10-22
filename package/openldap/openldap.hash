@@ -1,5 +1,5 @@
 # Verified by locally checking against the SHA3-512 hash available in
-# https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.7.1.sha3-512
+# https://www.openldap.org/software/download/OpenLDAP/openldap-release/openldap-2.7.2.sha3-512
 # Locally computed
-sha512  37e74c7b6da012e0dbefba94ed9ee661e0a58109f4598b0936df52d744cb39249542e8650347f970e1e993c8db61472f32cd233d4f8e3d4e7e4e39f2e15d4cb8  openldap-2.7.1.tgz
+sha512  8c2cc5efae2d92de864da84d187ba884ae480881451e2030b9b8152635725b2ed011e5bf5dadda89c15266be4758f507f2ae6dc32a222700b31fc342573f45a5  openldap-2.7.2.tgz
 sha256  310fe25c858a9515fc8c8d7d1f24a67c9496f84a91e0a0e41ea9975b1371e569  LICENSE
