@@ -12,16 +12,22 @@ LIBPLACEBO_LICENSE = LGPL-2.1+
 LIBPLACEBO_LICENSE_FILES = LICENSE
 LIBPLACEBO_INSTALL_STAGING = YES
 
-# batcoera - add the options below...
-LIBPLACEBO_CONF_OPTS = -Ddemos=false
-
-# batcoera - add lcms support
 ifeq ($(BR2_PACKAGE_LCMS2),y)
-LIBPLACEBO_CONF_OPTS += -Dlcms=enabled
 LIBPLACEBO_DEPENDENCIES += lcms2
+LIBPLACEBO_CONF_OPTS += -Dlcms=enabled
 else
 LIBPLACEBO_CONF_OPTS += -Dlcms=disabled
 endif
+
+ifeq ($(BR2_PACKAGE_XXHASH),y)
+LIBPLACEBO_DEPENDENCIES += xxhash
+LIBPLACEBO_CONF_OPTS += -Dxxhash=enabled
+else
+LIBPLACEBO_CONF_OPTS += -Dxxhash=disabled
+endif
+
+# batcoera - add the options below...
+LIBPLACEBO_CONF_OPTS = -Ddemos=false
 
 # batocera - ass dolby vision reshaping support
 ifeq ($(BR2_PACKAGE_LIBDOVI),y)
@@ -53,6 +59,5 @@ LIBPLACEBO_CONF_OPTS += -Dshaderc=enabled
 LIBPLACEBO_DEPENDENCIES += shaderc
 else
 LIBPLACEBO_CONF_OPTS += -Dshaderc=disabled
-endif
 
 $(eval $(meson-package))
