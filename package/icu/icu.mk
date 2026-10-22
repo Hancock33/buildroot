@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-ICU_VERSION = 78.3
+ICU_VERSION = 79.1
 ICU_SOURCE = icu4c-$(ICU_VERSION)-sources.tgz
 ICU_SITE = \
 	https://github.com/unicode-org/icu/releases/download/release-$(ICU_VERSION)
