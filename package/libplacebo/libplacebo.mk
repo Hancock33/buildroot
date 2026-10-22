@@ -59,5 +59,6 @@ LIBPLACEBO_CONF_OPTS += -Dshaderc=enabled
 LIBPLACEBO_DEPENDENCIES += shaderc
 else
 LIBPLACEBO_CONF_OPTS += -Dshaderc=disabled
+endif
 
 $(eval $(meson-package))
