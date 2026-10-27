@@ -3,13 +3,18 @@
 # rtl8188eu
 #
 ################################################################################
-# Version: Commits on May 19, 2026
-RTL8188EU_VERSION = cca7c28087db740d7d745e81e4096c9eb9084f9a
+# Version: Commits on Oct 27, 2026
+RTL8188EU_VERSION = db2131b227dd439587f37ea38927178286b980b5
 RTL8188EU_BRANCH = v5.2.2.4
 RTL8188EU_SITE = $(call github,benetti-engineering,rtl8188eu,$(RTL8188EU_VERSION))
 RTL8188EU_LICENSE = GPL-2.0, proprietary (rtl8188eufw.bin firmware blob)
 RTL8188EU_LICENSE_FILES = COPYING
-RTL8188EU_MODULE_MAKE_OPTS = CONFIG_RTL8188EU=m
+
+RTL8188EU_EXTRA_CFLAGS = -Wno-error
+
+RTL8188EU_MODULE_MAKE_OPTS = \
+	CONFIG_RTL8188EU=m \
+	USER_EXTRA_CFLAGS="$(RTL8188EU_EXTRA_CFLAGS)"
 
 define RTL8188EU_LINUX_CONFIG_FIXUPS
 	$(call KCONFIG_ENABLE_OPT,CONFIG_NET)
