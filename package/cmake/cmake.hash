@@ -1,5 +1,5 @@
-# From https://cmake.org/files/v4.4/cmake-4.4.4-SHA-256.txt
-sha256  bd24c30d80a7744ae84b845ff080cc8453b06c622ef01066564108e9cefc44cf  cmake-4.4.4.tar.gz
+# From https://cmake.org/files/v4.4/cmake-4.4.5-SHA-256.txt
+sha256  a0c54c88abb8078dd8eccadb717fc6bb194bf18e7d44c86309910288886e04e2  cmake-4.4.5.tar.gz
 
 # Locally calculated
 sha256  4382e7c1879ac90e3f101a395d23846fa4dbcaa1eed7265b43681e348754825d  LICENSE.rst
