@@ -1,4 +1,3 @@
-# From https://lore.freedesktop.org/wayland-devel/Sb0TL9RxdBgNMuAKZmlfhbXVQoqGTjMaoqWmu6S_JBcYNv7Aw82KvaXX5zHaBpjfl7aF9nzz1hSgtYxQalwMUTiOpritlvtoo_Q-wQCX9EU=@emersion.fr/T/#u
-sha256  ec4c8f74942d6dff7ace8b4ce4764f0ef9ff618a935d974ea77edee2ad240b14  wayland-protocols-1.49.tar.xz
-sha512  c6f58586c4e3046fb545f31959eb662426ddf94cab627a136bec905c3a1c75087ed2850d49e44964241a9158a3559ad02607647a19fb5f1c1fb254160b04806c  wayland-protocols-1.49.tar.xz
+# From https://gitlab.freedesktop.org/wayland/wayland-protocols/-/releases/1.50/downloads/wayland-protocols-1.50.tar.xz.sha256sum
+sha256  4460c20cfcf68b994a5ee206ed15fc19ad312f16c96075186e83b0e3f4aa48a5 wayland-protocols-1.50.tar.xz
 sha256  f1a2b233e8a9a71c40f4aa885be08a0842ac85bb8588703c1dd7e6e6502e3124  COPYING
