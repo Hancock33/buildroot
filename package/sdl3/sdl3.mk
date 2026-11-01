@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SDL3_VERSION = 3.4.18-77-g4886a040586e8c58d2f791953d5160f86a46b6a3
+SDL3_VERSION = 3.4.18-80-gf0b75076548b37a9809854dcbc23304ac1a42457
 SDL3_SITE = $(call github,libsdl-org,SDL,$(SDL3_VERSION))
 #SDL3_SOURCE = SDL3-$(SDL3_VERSION).tar.gz
 #SDL3_SITE = http://www.libsdl.org/release
