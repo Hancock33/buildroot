@@ -43,9 +43,9 @@ endif
 
 ifeq ($(BR2_PACKAGE_LIBAVIF),y)
 PYTHON_PILLOW_DEPENDENCIES += libavif
-PYTHON_PILLOW_BUILD_OPTS += -Clibavif=enable
+PYTHON_PILLOW_BUILD_OPTS += -Cavif=enable
 else
-PYTHON_PILLOW_BUILD_OPTS += -Clibavif=disable
+PYTHON_PILLOW_BUILD_OPTS += -Cavif=disable
 endif
 
 ifeq ($(BR2_PACKAGE_LIBXCB),y)

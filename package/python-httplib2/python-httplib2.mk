@@ -12,6 +12,7 @@ PYTHON_HTTPLIB2_LICENSE = MIT
 PYTHON_HTTPLIB2_LICENSE_FILES = LICENSE
 PYTHON_HTTPLIB2_CPE_ID_VENDOR = httplib2_project
 PYTHON_HTTPLIB2_CPE_ID_PRODUCT = httplib2
+HOST_PYTHON_HTTPLIB2_DEPENDENCIES = host-python-pyparsing
 
 $(eval $(python-package))
 $(eval $(host-python-package))
