@@ -4,10 +4,10 @@
 #
 ################################################################################
 
-LIBMAD_VERSION = 0.16.4
+LIBMAD_VERSION = 0.16.5
 LIBMAD_SOURCE = libmad_$(LIBMAD_VERSION).orig.tar.xz
 LIBMAD_SITE = \
-	http://snapshot.debian.org/archive/debian/20260305T203610Z/pool/main/libm/libmad
+	https://snapshot.debian.org/archive/debian/20261103T202439Z/pool/main/libm/libmad
 LIBMAD_INSTALL_STAGING = YES
 LIBMAD_LICENSE = GPL-2.0+
 LIBMAD_LICENSE_FILES = COPYING
