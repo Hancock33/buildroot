@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-SRATOM_VERSION = 0.6.14
+SRATOM_VERSION = 0.6.22
 SRATOM_SITE = https://download.drobilla.net
 SRATOM_SOURCE = sratom-$(SRATOM_VERSION).tar.xz
 SRATOM_LICENSE = ISC
