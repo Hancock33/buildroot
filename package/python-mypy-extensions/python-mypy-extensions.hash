@@ -1,4 +1,4 @@
-# md5, sha256 from https://pypi.org/pypi/mypy_extensions/json
+# md5, sha256 from https://pypi.org/pypi/mypy-extensions/json
 md5  25d0c46efc1c271fd976944f6e66a3e2  mypy_extensions-1.2.0.tar.gz
 sha256  c6e275a07f1c2fc096b62940452d0eaa3f3af7de45d704787866240a7c6d5a51  mypy_extensions-1.2.0.tar.gz
 # Locally computed sha256 checksums
