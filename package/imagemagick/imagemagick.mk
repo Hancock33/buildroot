@@ -5,8 +5,7 @@
 ################################################################################
 
 IMAGEMAGICK_VERSION = 7.1.2-35
-IMAGEMAGICK_SITE = https://github.com/ImageMagick/ImageMagick/releases/download/$(IMAGEMAGICK_VERSION)
-IMAGEMAGICK_SOURCE = imagemagick-$(IMAGEMAGICK_VERSION).tar.xz
+IMAGEMAGICK_SITE = $(call github,ImageMagick,ImageMagick,$(IMAGEMAGICK_VERSION))
 IMAGEMAGICK_LICENSE = Apache-2.0
 IMAGEMAGICK_LICENSE_FILES = LICENSE
 IMAGEMAGICK_CPE_ID_VENDOR = imagemagick
@@ -247,11 +246,9 @@ HOST_IMAGEMAGICK_CONF_OPTS += \
 	--with-pango \
 	--with-rsvg
 else
-# batocera: freetype so the host tools can render text (boot splash version)
-HOST_IMAGEMAGICK_DEPENDENCIES += host-freetype
 HOST_IMAGEMAGICK_CONF_OPTS += \
 	--without-fontconfig \
-	--with-freetype \
+	--without-freetype \
 	--without-pango \
 	--without-rsvg
 endif
