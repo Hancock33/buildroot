@@ -112,7 +112,7 @@ def file_digest(path, algo):
 class Pkg:
     def __init__(self, root, name):
         self.name = name
-        self.dir = root / "package/gstreamer1" / name
+        self.dir = root / "package" / name
         self.mk_path = self.dir / (name + ".mk")
         self.hash_path = self.dir / (name + ".hash")
         if not self.mk_path.is_file():
