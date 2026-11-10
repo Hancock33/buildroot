@@ -3,8 +3,8 @@
 # rtl8723bu
 #
 ################################################################################
-# Version: Commits on Oct 27, 2026
-RTL8723BU_VERSION = da429f4c3ec254bd4d02f0f6b595230deab4194f
+# Version: Commits on Nov 09, 2026
+RTL8723BU_VERSION = 82af2b05a11e3214898828db39e53cce1e85fcd9
 RTL8723BU_SITE = $(call github,benetti-engineering,rtl8723bu,$(RTL8723BU_VERSION))
 RTL8723BU_LICENSE = GPL-2.0, proprietary (*.bin firmware blobs)
 
