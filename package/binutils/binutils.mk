@@ -112,6 +112,12 @@ HOST_BINUTILS_CONF_OPTS = \
 	--with-system-readline \
 	--enable-default-hash-style=gnu
 
+# batocera: the arm backend treats a missing .note.GNU-stack as an executable
+# stack (aarch64 does not) and glibc >= 2.41 refuses to dlopen such objects
+ifeq ($(BR2_arm),y)
+HOST_BINUTILS_CONF_OPTS += --enable-default-execstack=no
+endif
+
 ifeq ($(BR2_BINUTILS_GPROFNG),y)
 HOST_BINUTILS_DEPENDENCIES += host-bison
 HOST_BINUTILS_CONF_OPTS += --enable-gprofng
