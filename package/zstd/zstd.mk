@@ -37,7 +37,12 @@ endif
 # The package is a dependency to ccache so ccache cannot be a dependency
 HOST_ZSTD_ADD_CCACHE_DEPENDENCY = NO
 
-HOST_ZSTD_OPTS += PREFIX=$(HOST_DIR)
+# Disable auto-detection of optional compression libraries.
+HOST_ZSTD_OPTS += \
+	PREFIX=$(HOST_DIR) \
+	HAVE_ZLIB=0 \
+	HAVE_LZMA=0 \
+	HAVE_LZ4=0
 HOST_ZSTD_ENV = $(HOST_MAKE_ENV) $(HOST_CONFIGURE_OPTS)
 
 # We are a ccache dependency, so we can't use ccache
