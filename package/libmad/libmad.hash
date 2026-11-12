@@ -1,5 +1,5 @@
-# From https://snapshot.debian.org/archive/debian/20261103T202439Z/pool/main/libm/libmad/libmad_0.16.5-2.dsc
-sha256  c262c2ffd1136313c45004cf90e3b71517cd01e23af1fd8a74b921a8a7c0fb4e  libmad_0.16.5.orig.tar.xz
+# From https://codeberg.org/tenacityteam/libmad/releases/tag/0.16.5
+sha256  f401b2ccf49c26ad0c3a6ef0179b1cbbff2406338b0603bb2033e6dcaf706114  libmad-0.16.5.tar.gz
 
 # Hash for license file:
 sha256  32b1062f7da84967e7019d01ab805935caa7ab7321a7ced0e30ebe75e5df1670  COPYING
