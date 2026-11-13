@@ -5,7 +5,7 @@
 ################################################################################
 
 FLEX_VERSION = 2.6.4
-FLEX_SITE = https://github.com/westes/flex/files/981163
+FLEX_SITE = https://github.com/westes/flex/releases/download/v$(FLEX_VERSION)
 FLEX_INSTALL_STAGING = YES
 FLEX_LICENSE = FLEX
 FLEX_LICENSE_FILES = COPYING
@@ -16,7 +16,6 @@ FLEX_IGNORE_CVES = CVE-2019-6293
 FLEX_DEPENDENCIES = $(TARGET_NLS_DEPENDENCIES) host-m4
 HOST_FLEX_DEPENDENCIES = host-m4
 
-# 0001-build-AC_USE_SYSTEM_EXTENSIONS-in-configure.ac.patch
 # 0002-build-make-it-possible-to-disable-the-build-of-the-f.patch
 # 0003-build-make-it-possible-to-disable-the-build-of-the-d.patch
 FLEX_AUTORECONF = YES
