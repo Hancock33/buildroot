@@ -300,6 +300,11 @@ config BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_SWITCHBIN
 	help
 	  Switching between paths based on input caps
 
+config BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_TENSORDECODERS
+	bool "tensordecoders"
+	help
+	  Tensor decoders elements
+
 config BR2_PACKAGE_GST1_PLUGINS_BAD_PLUGIN_TIMECODE
 	bool "timecode"
 

@@ -15,6 +15,9 @@ GST1_PLUGINS_UGLY_LDFLAGS = $(TARGET_LDFLAGS) $(TARGET_NLS_LIBS)
 
 GST1_PLUGINS_UGLY_CONF_OPTS += \
 	-Dtests=disabled \
+	-Dglib_debug=disabled \
+	-Dglib_assert=false \
+	-Dglib_checks=false \
 	-Ddoc=disabled
 
 GST1_PLUGINS_UGLY_CONF_OPTS += \

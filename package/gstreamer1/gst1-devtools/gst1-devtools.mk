@@ -25,6 +25,7 @@ endif
 GST1_DEVTOOLS_CONF_OPTS = \
 	-Dvalidate=enabled \
 	-Ddebug_viewer=disabled \
+	-Ddots_viewer=disabled \
 	-Dintrospection=disabled \
 	-Dtests=disabled \
 	-Ddoc=disabled

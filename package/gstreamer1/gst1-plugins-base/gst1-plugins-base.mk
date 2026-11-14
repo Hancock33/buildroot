@@ -11,14 +11,12 @@ GST1_PLUGINS_BASE_INSTALL_STAGING = YES
 GST1_PLUGINS_BASE_LICENSE_FILES = COPYING
 GST1_PLUGINS_BASE_LICENSE = LGPL-2.1+
 
-GST1_PLUGINS_BASE_CFLAGS = $(TARGET_CFLAGS) -std=gnu99
-
 GST1_PLUGINS_BASE_CONF_OPTS = \
 	-Dexamples=disabled \
 	-Dtests=disabled \
-	-Dgobject-cast-checks=disabled \
-	-Dglib-asserts=disabled \
-	-Dglib-checks=disabled \
+	-Dglib_debug=disabled \
+	-Dglib_assert=false \
+	-Dglib_checks=false \
 	-Dqt5=disabled \
 	-Ddoc=disabled
 
@@ -41,10 +39,8 @@ GST1_PLUGINS_BASE_LDFLAGS = $(TARGET_LDFLAGS) $(TARGET_NLS_LIBS)
 # batocera
 GST1_PLUGINS_BASE_DEPENDENCIES += graphene
 
-# These plugins are listed in the order from ./configure --help
-
 ifeq ($(BR2_PACKAGE_GOBJECT_INTROSPECTION),y)
-GST1_PLUGINS_BASE_CONF_OPTS += -Dintrospection=disabled
+GST1_PLUGINS_BASE_CONF_OPTS += -Dintrospection=enabled
 GST1_PLUGINS_BASE_DEPENDENCIES += gobject-introspection
 else
 GST1_PLUGINS_BASE_CONF_OPTS += -Dintrospection=disabled

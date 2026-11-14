@@ -254,7 +254,7 @@ config BR2_PACKAGE_GST1_PLUGINS_GOOD_PLUGIN_XINGMUX
 config BR2_PACKAGE_GST1_PLUGINS_GOOD_PLUGIN_Y4M
 	bool "y4m"
 	help
-	  Encodes a YUV frame into the yuv4mpeg format (mjpegtools)
+	  Encodes and demuxes/decodes YUV4MPEG streams (mjpegtools)
 
 comment "plugins with external dependencies"
 

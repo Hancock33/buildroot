@@ -12,7 +12,6 @@ GST1_PLUGINS_GOOD_LICENSE = LGPL-2.1+
 GST1_PLUGINS_GOOD_CPE_ID_VENDOR = freedesktop
 GST1_PLUGINS_GOOD_CPE_ID_PRODUCT = gst-plugins-good
 
-GST1_PLUGINS_GOOD_CFLAGS = $(TARGET_CFLAGS) -std=gnu99
 GST1_PLUGINS_GOOD_LDFLAGS = $(TARGET_LDFLAGS) $(TARGET_NLS_LIBS)
 
 GST1_PLUGINS_GOOD_CONF_OPTS = \
@@ -29,6 +28,10 @@ GST1_PLUGINS_GOOD_CONF_OPTS = \
 	-Dosxvideo=disabled \
 	-Daalib=disabled \
 	-Dlibcaca=disabled \
+	-Damrnb=disabled \
+	-Damrwbdec=disabled \
+	-Dsoup=disabled \
+	-Dximagesrc-navigation=disabled \
 	-Ddoc=disabled
 
 # Options which require currently unpackaged libraries
