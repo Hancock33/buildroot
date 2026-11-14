@@ -1,4 +1,4 @@
-# From https://github.com/libjpeg-turbo/libjpeg-turbo/releases/tag/3.2.0
+# From https://github.com/libjpeg-turbo/libjpeg-turbo/releases/tag/3.2.1
 sha256  c27ad72a68da151177929aa969ae773a2da5ac2af9ce946079314fdac8cece7f  libjpeg-turbo-3.2.1.tar.gz
 # Locally computed
 sha256  ba6bceebcba0fdd35488477c2cca8c4632ce82c74dbfbc87d886ce6fc4433579  LICENSE.md
