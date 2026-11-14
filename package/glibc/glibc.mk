@@ -49,6 +49,9 @@ GLIBC_IGNORE_CVES += CVE-2026-89092
 # Fixed by 2.44-57-g34106fee698c83eb0af71d4d0381e66b399be746
 GLIBC_IGNORE_CVES += CVE-2026-97399
 
+# Fixed by 2.44-77-g438677ef498552b28c2060060c9e3947373f1e2c
+GLIBC_IGNORE_CVES += CVE-2026-84243
+
 # This CVE is considered as not being security issues by
 # upstream glibc:
 #  https://security-tracker.debian.org/tracker/CVE-2010-4756
