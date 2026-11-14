@@ -146,6 +146,29 @@ endif
 
 comment "Legacy options removed in 2026.11"
 
+config BR2_PACKAGE_LIBMAD_OPTIMIZATION_DEFAULT
+	bool "libmad balanced optimization option removed"
+	select BR2_LEGACY
+	help
+	  libmad, since its switch to the CMake build system, no
+	  longer supports a balanced optimization mode. Choose between
+	  optimizing for speed or for accuracy instead.
+
+config BR2_PACKAGE_LIBMAD_SSO
+	bool "libmad subband synthesis optimization option removed"
+	select BR2_LEGACY
+	help
+	  libmad, since its switch to the CMake build system, no
+	  longer offers a separate option for the subband synthesis
+	  optimization. It is enabled when optimizing for speed.
+
+config BR2_PACKAGE_LIBMAD_STRICT_ISO
+	bool "libmad strict ISO/IEC interpretations option removed"
+	select BR2_LEGACY
+	help
+	  libmad, since its switch to the CMake build system, no
+	  longer offers an option for strict ISO/IEC interpretations.
+
 config BR2_KERNEL_HEADERS_7_2
 	bool "kernel headers version 7.2.x are no longer supported"
 	select BR2_LEGACY
