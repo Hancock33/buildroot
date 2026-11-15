@@ -7,7 +7,9 @@ For every package given, the script
   3. rewrites <PKG>_VERSION (and <PKG>_SITE for PyPI packages),
   4. downloads the new tarball and rewrites package/<pkg>/<pkg>.hash
      (tarball line(s) and license-file lines),
-  5. optionally commits ("update <pkg> version <new>").
+  5. if the package has no local patches, runs
+     git add . && git commit -m "Update <pkg> version <new>" && git push origin HEAD:br-external
+     (skip with --no-commit; packages with patches are never committed).
 
 Upstream lookup, chosen from the .mk file:
   * $(call github,org,repo,...) or github.com/<org>/<repo>/releases/download/...
@@ -18,9 +20,9 @@ Upstream lookup, chosen from the .mk file:
 
 Examples:
   ./br-update.py -n dbus-python rsync          # show what would change
-  ./br-update.py mpv lz4                       # bump version + hashes
+  ./br-update.py --no-commit mpv lz4           # bump version + hashes, no git
   ./br-update.py --no-hash sratom              # version only, leave .hash alone
-  ./br-update.py --commit -f packages.txt      # one commit per package
+  ./br-update.py -f packages.txt               # bump, commit + push each patch-free package
   GITHUB_TOKEN=... ./br-update.py mpv          # avoid GitHub API rate limits
 
 Run from the Buildroot top directory or pass -C /path/to/buildroot.
@@ -31,6 +33,7 @@ import hashlib
 import json
 import os
 import re
+import shlex
 import subprocess
 import sys
 import tarfile
@@ -243,29 +246,69 @@ def tar_member_reader(tarball):
     return read
 
 
-def rewrite_hash_file(path, old_source, new_source, tarball, notes):
+def renamed(fname, old_ver, new_ver):
+    """Return fname with the old version replaced by the new one (or fname if unchanged)."""
+    for o, n in ((old_ver, new_ver),
+                 (old_ver.replace(".", "_"), new_ver.replace(".", "_")),
+                 (old_ver.replace(".", "-"), new_ver.replace(".", "-"))):
+        if o and o in fname:
+            return fname.replace(o, n)
+    return fname
+
+
+def rewrite_hash_file(path, old_source, new_source, tarball, notes,
+                      old_ver=None, new_ver=None, base_url=None):
     read_member = tar_member_reader(tarball)
     out = []
-    for line in path.read_text().splitlines():
-        m = HASH_RE.match(line)
-        if not m:
-            if re.match(r"#\s*(From|Upstream|Published|Source)\b", line, re.I):
-                notes.append("hash file comment may now be stale: %s" % line.strip())
-            out.append(line)
-            continue
-        algo, old_digest, fname = m.groups()
-        if fname == old_source:
-            out.append("%s  %s  %s" % (algo, file_digest(tarball, algo), new_source))
-            continue
-        data = read_member(fname)
-        if data is None:
-            notes.append("%s not found in new tarball; its hash line was left unchanged" % fname)
-            out.append(line)
-            continue
-        digest = hashlib.new(algo, data).hexdigest()
-        if digest != old_digest:
-            notes.append("%s changed upstream (license text edited?) - review" % fname)
-        out.append("%s  %s  %s" % (algo, digest, fname))
+    with tempfile.TemporaryDirectory(prefix="br-update-extra-") as extra_dir:
+        for line in path.read_text().splitlines():
+            m = HASH_RE.match(line)
+            if not m:
+                if re.match(r"#\s*(From|Upstream|Published|Source)\b", line, re.I) and old_ver and new_ver:
+                    fixed = renamed(line, old_ver, new_ver)
+                    if fixed != line:
+                        notes.append("hash file comment updated: %s" % fixed.strip())
+                        line = fixed
+                    else:
+                        notes.append("hash file comment has no version to update, check it: %s" % line.strip())
+                out.append(line)
+                continue
+            algo, old_digest, fname = m.groups()
+            if fname == old_source:
+                out.append("%s  %s  %s" % (algo, file_digest(tarball, algo), new_source))
+                continue
+            data = read_member(fname)
+            if data is not None:
+                digest = hashlib.new(algo, data).hexdigest()
+                if digest != old_digest:
+                    notes.append("%s changed upstream (license text edited?) - review" % fname)
+                out.append("%s  %s  %s" % (algo, digest, fname))
+                continue
+
+            # Not a plain file in the tarball: maybe its name embeds the old version
+            # (extra source file / renamed file). Rename it and re-hash it.
+            new_fname = renamed(fname, old_ver, new_ver) if old_ver and new_ver else fname
+            if new_fname == fname:
+                notes.append("%s not found in new tarball and its name has no version; "
+                             "hash line left unchanged" % fname)
+                out.append(line)
+                continue
+            data = read_member(new_fname)
+            if data is None and base_url:
+                dest = os.path.join(extra_dir, new_fname.replace("/", "_"))
+                try:
+                    download(base_url.rstrip("/") + "/" + new_fname, dest)
+                    with open(dest, "rb") as f:
+                        data = f.read()
+                except UpdateError as e:
+                    notes.append("%s -> %s: %s" % (fname, new_fname, e))
+            if data is None:
+                notes.append("%s renamed to %s but could not be fetched; hash line left unchanged"
+                             % (fname, new_fname))
+                out.append(line)
+                continue
+            out.append("%s  %s  %s" % (algo, hashlib.new(algo, data).hexdigest(), new_fname))
+            notes.append("%s -> %s (renamed and re-hashed)" % (fname, new_fname))
     path.write_text("\n".join(out) + "\n")
 
 
@@ -311,18 +354,22 @@ def update_package(root, name, args):
         with tempfile.TemporaryDirectory(prefix="br-update-") as tmp:
             tarball = os.path.join(tmp, new_source)
             download(info["url"], tarball)
-            rewrite_hash_file(pkg.hash_path, old_source, new_source, tarball, notes)
+            rewrite_hash_file(pkg.hash_path, old_source, new_source, tarball, notes,
+                              old, new, info["url"].rsplit("/", 1)[0])
     rewrite_mk(pkg, new, info["site"])
     line += "  (%s)" % ("mk + hash" if do_hash else "mk only")
 
-    if args.commit:
-        files = [str(pkg.mk_path.relative_to(root))]
-        if do_hash:
-            files.append(str(pkg.hash_path.relative_to(root)))
-        subprocess.run(["git", "-C", str(root), "add"] + files, check=True)
-        subprocess.run(["git", "-C", str(root), "commit", "-q", "-m",
-                        "update %s version %s" % (name, new)], check=True)
-        line += " committed"
+    if not pkg.patches() and not args.no_commit:
+        msg = "Update %s version %s" % (name, new)
+        try:
+            subprocess.run("git add . && git commit -m %s && git push origin HEAD:br-external"
+                           % shlex.quote(msg), shell=True, check=True, cwd=str(root))
+            line += " committed + pushed"
+        except subprocess.CalledProcessError as e:
+            notes.append("git commit/push failed: %s" % e)
+            line += " (git failed)"
+    elif pkg.patches():
+        line += " (not committed: local patches)"
     return line, notes, True
 
 
@@ -333,7 +380,8 @@ def main():
     ap.add_argument("-C", "--buildroot", default=".", help="Buildroot top directory (default: .)")
     ap.add_argument("-n", "--dry-run", action="store_true", help="only show what would change")
     ap.add_argument("--no-hash", action="store_true", help="bump the .mk only; do not download or touch .hash")
-    ap.add_argument("--commit", action="store_true", help="make one git commit per updated package")
+    ap.add_argument("--no-commit", action="store_true",
+                    help="do not auto-commit/push (default: commit and push to origin br-external when the package has no local patches)")
     args = ap.parse_args()
 
     names = list(args.packages)
