@@ -264,8 +264,13 @@ def rewrite_hash_file(path, old_source, new_source, tarball, notes,
         for line in path.read_text().splitlines():
             m = HASH_RE.match(line)
             if not m:
-                if re.match(r"#\s*(From|Upstream|Published|Source)\b", line, re.I):
-                    notes.append("hash file comment may now be stale: %s" % line.strip())
+                if re.match(r"#\s*(From|Upstream|Published|Source)\b", line, re.I) and old_ver and new_ver:
+                    fixed = renamed(line, old_ver, new_ver)
+                    if fixed != line:
+                        notes.append("hash file comment updated: %s" % fixed.strip())
+                        line = fixed
+                    else:
+                        notes.append("hash file comment has no version to update, check it: %s" % line.strip())
                 out.append(line)
                 continue
             algo, old_digest, fname = m.groups()
