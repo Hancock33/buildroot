@@ -3,9 +3,9 @@
 # vulkan-loader
 #
 ################################################################################
-# Version: Commits on Sept 18, 2026
-VULKAN_LOADER_VERSION = fa218055ff4948b159f31d43f800c808a13d51df
-VULKAN_LOADER_BRANCH = vulkan-sdk-1.4.363
+# Version: Commits on Nov 12, 2026
+VULKAN_LOADER_VERSION = 850cfffb7333a5b8440f2f37ac5cd08d1fc80613
+VULKAN_LOADER_BRANCH = vulkan-tmp-1.4.368
 VULKAN_LOADER_SITE = $(call github,KhronosGroup,Vulkan-Loader,$(VULKAN_LOADER_VERSION))
 VULKAN_LOADER_LICENSE = Apache-2.0
 VULKAN_LOADER_LICENSE_FILES = LICENSE.txt

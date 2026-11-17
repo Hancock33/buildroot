@@ -3,9 +3,9 @@
 # vulkan-sdk
 #
 ################################################################################
-# Version: Commits on Sept 18, 2026
-VULKAN_SDK_VERSION = 54fc0d7a72887cbfc5b030d26897b2b40ac53fb8
-VULKAN_SDK_BRANCH = vulkan-sdk-1.4.363
+# Version: Commits on Nov 16, 2026
+VULKAN_SDK_VERSION = 051977aa2412e8a1b3f5362c975bba99c4728703
+VULKAN_SDK_BRANCH = vulkan-tmp-1.4.368
 VULKAN_SDK_SITE = $(call github,zeux,volk,$(VULKAN_SDK_VERSION))
 VULKAN_SDK_LICENSE = MIT
 VULKAN_SDK_LICENSE_FILES = LICENSE.md
