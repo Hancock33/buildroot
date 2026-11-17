@@ -16,7 +16,7 @@ BINUTILS_SOURCE ?= binutils-$(BINUTILS_VERSION).tar.xz
 
 ifeq ($(BR2_BINUTILS_VERSION_GIT),y)
     # git describe --abbrev=40 origin/binutils-2_46-branch | cut -d '-' -f 2-
-    BINUTILS_VERSION = 2_47-106-g217dfa5949a05c50db2c2837bd38f9afa6087191
+    BINUTILS_VERSION = 2_47-124-g29b716ffc24ac194fa47fb4d42b6b72af55efa29
     BINUTILS_SITE = https://github.com/RTEMS/sourceware-mirror-binutils-gdb.git
     BINUTILS_SITE_METHOD = git
     BINUTILS_SOURCE = binutils-$(BINUTILS_VERSION).tar.gz
