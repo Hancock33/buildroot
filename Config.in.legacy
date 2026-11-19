@@ -169,6 +169,13 @@ config BR2_PACKAGE_LIBMAD_STRICT_ISO
 	  libmad, since its switch to the CMake build system, no
 	  longer offers an option for strict ISO/IEC interpretations.
 
+config BR2_PACKAGE_PRBOOM
+	bool "prboom has been removed"
+	select BR2_LEGACY
+	help
+	  prboom is no longer maintained upstream (last release in
+	  2008) and has been removed.
+
 config BR2_KERNEL_HEADERS_7_2
 	bool "kernel headers version 7.2.x are no longer supported"
 	select BR2_LEGACY
