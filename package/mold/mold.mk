@@ -40,7 +40,7 @@ define HOST_MOLD_INSTALL_LINKS
 	ln -sf mold $(HOST_DIR)/bin/$(call qstrip,$(BR2_ARCH))-linux-ld.mold
 	ln -sf ../../bin/mold $(HOST_DIR)/libexec/mold/ld
 endef
- 
+
 HOST_MOLD_POST_INSTALL_HOOKS += HOST_MOLD_INSTALL_LINKS
 
 $(eval $(host-cargo-package))
