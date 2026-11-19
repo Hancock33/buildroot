@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-INOTIFY_TOOLS_VERSION = 4.26.285
+INOTIFY_TOOLS_VERSION = 4.26.291
 INOTIFY_TOOLS_SITE = $(call github,inotify-tools,inotify-tools,$(INOTIFY_TOOLS_VERSION))
 INOTIFY_TOOLS_LICENSE = GPL-2.0+
 INOTIFY_TOOLS_LICENSE_FILES = COPYING
