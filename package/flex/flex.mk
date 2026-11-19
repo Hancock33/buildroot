@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-FLEX_VERSION = 2.6.4
+FLEX_VERSION = 2.7.1
 FLEX_SITE = https://github.com/westes/flex/releases/download/v$(FLEX_VERSION)
 FLEX_INSTALL_STAGING = YES
 FLEX_LICENSE = FLEX
