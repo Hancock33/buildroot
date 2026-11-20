@@ -1,0 +1,9 @@
+# From https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.21.1%2B2/OpenJDK17U-jdk_x64_linux_hotspot_17.0.21.1_2.tar.gz.sha256.txt
+sha256  0b0ac5eab6db6abaec68c9913bcddb31321e5da411c45073d520d9c125e6f7b4  OpenJDK17U-jdk_x64_linux_hotspot_17.0.21.1_2.tar.gz
+
+# From https://github.com/corretto/corretto-17/releases/tag/17.0.21.1.2
+sha256  f58bea1d8fca5788081a438e46997af0fe62491ef29b6ba4d9258cbfe8eeb5bb  amazon-corretto-17.0.21.1.2-linux-aarch64.tar.gz
+
+# Locally calculated
+sha256  4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726  legal/java.prefs/LICENSE
+sha256  a44eb7b5caf5534c6ef536b21edb40b4d6babf91bf97d9d45596868618b2c6fb  legal/java.prefs/ASSEMBLY_EXCEPTION
