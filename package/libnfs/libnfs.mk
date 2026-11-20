@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-LIBNFS_VERSION = 8.0.1
+LIBNFS_VERSION = 8.1.0
 LIBNFS_SITE = $(call github,sahlberg,libnfs,libnfs-$(LIBNFS_VERSION))
 LIBNFS_INSTALL_STAGING = YES
 LIBNFS_AUTORECONF = YES
