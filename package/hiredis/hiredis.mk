@@ -4,7 +4,6 @@
 #
 ################################################################################
 
-HIREDIS_VERSION_MAJOR = 1.5
 HIREDIS_VERSION = 1.5.1
 HIREDIS_SITE = $(call github,redis,hiredis,v$(HIREDIS_VERSION))
 HIREDIS_LICENSE = BSD-3-Clause
