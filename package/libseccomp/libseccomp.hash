@@ -1,4 +1,4 @@
-# From https://github.com/seccomp/libseccomp/releases/tag/v2.6.1 (PGP-signed checksum)
-sha256  501f66c667225d53791b97e1d7cf85ab764c297d04881f60f38f451c4b0ee1be  libseccomp-2.6.1.tar.gz
+# From https://github.com/seccomp/libseccomp/releases/tag/v2.6.2 (PGP-signed checksum)
+sha256  6b845d352c6d7887d8d134c43d86850d40f5dcee11ad1675c18197ae4d869d42  libseccomp-2.6.2.tar.gz
 # Locally calculated
 sha256  102900208eef27b766380135906d431dba87edaa7ec6aa72e6ebd3dd67f3a97b  LICENSE

@@ -1,5 +1,5 @@
 # md5, sha256 from https://pypi.org/pypi/pyyaml/json
-md5  dbc6f815cd75160ccf12e470be1c8d6e  pyyaml-6.0.3.tar.gz
-sha256  d76623373421df22fb4cf8817020cbb7ef15c725b9d5e45f17e189bfc384190f  pyyaml-6.0.3.tar.gz
+md5  30499a11f683b3045f6d115c07a4125c  pyyaml-6.0.4.tar.gz
+sha256  e24bf71af8a432d7808fabff134d38dfe16d3cbb41f2873bb4b1e42422de0a1a  pyyaml-6.0.4.tar.gz
 # Locally computed sha256 checksums
 sha256  8d3928f9dc4490fd635707cb88eb26bd764102a7282954307d3e5167a577e8a4  LICENSE
