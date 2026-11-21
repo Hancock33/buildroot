@@ -17,6 +17,7 @@ PYTHON3_CPE_ID_PRODUCT = python
 # cross-compiling third-party Python modules.
 
 HOST_PYTHON3_CONF_OPTS += \
+	--enable-static-libpython-for-interpreter \
 	--without-ensurepip \
 	--disable-sqlite3 \
 	--disable-tk \
@@ -194,6 +195,7 @@ PYTHON3_DEPENDENCIES += gettext
 endif
 
 PYTHON3_CONF_OPTS += \
+	--enable-static-libpython-for-interpreter \
 	--without-ensurepip \
 	--with-build-python=$(HOST_DIR)/bin/python3 \
 	--disable-pydoc \
