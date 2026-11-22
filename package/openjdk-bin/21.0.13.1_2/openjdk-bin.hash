@@ -1,8 +1,8 @@
 # From https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jdk_x64_linux_hotspot_21.0.13.1_2.tar.gz.sha256.txt
 sha256  bb8a93f9ae6e7a693b2b721e85dbeff26ae1a77447985a8d7afcdd9c7cf6222e  OpenJDK21U-jdk_x64_linux_hotspot_21.0.13.1_2.tar.gz
 
-# From https://github.com/corretto/corretto-21/releases/tag/21.0.13.1.2
-sha256  55751c47c7e3be3b33af43ccdcf3a6f4814d308390b7400477594d421bd16a53  amazon-corretto-21.0.13.1.2-linux-aarch64.tar.gz
+# From https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.13.1%2B2/OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.13.1_2.tar.gz.sha256.txt
+sha256  8c72816a6b308842d5ed1f13e5826b69c567da4784f7238d7e800efa71fe54b1  OpenJDK21U-jdk_aarch64_linux_hotspot_21.0.13.1_2.tar.gz
 
 # Locally calculated
 sha256  4b9abebc4338048a7c2dc184e9f800deb349366bdf28eb23c2677a77b4c87726  legal/java.prefs/LICENSE
