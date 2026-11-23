@@ -1,0 +1,43 @@
+From bf8eae2d30a205bb76ac625e04c0351106981b9e Mon Sep 17 00:00:00 2001
+From: Parker Ernest <@>
+Date: Sun, 23 Feb 2020 13:22:42 +0100
+Subject: [PATCH] swscale/x86/yuv2rgb: Fix build without SSSE3
+
+commit fc6a5883d6af8cae0e96af84dda0ad74b360a084 breaks build on
+x86_64 CPUs which do not have SSSE3, e.g. AMD Phenom-II
+
+Signed-off-by: Michael Niedermayer <michael@niedermayer.cc>
+
+Upstream: https://patchwork.ffmpeg.org/project/ffmpeg/patch/20200223122256.23402-1-michael@niedermayer.cc/
+
+[Bernd: rebased for 9.1]
+Signed-off-by: Bernd Kuhls <bernd@kuhls.net>
+[yann.morin.1998@free.fr: fix reference top patchwork and SoB order]
+Signed-off-by: Yann E. MORIN <yann.morin.1998@free.fr>
+---
+ libswscale/x86/yuv2rgb.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/libswscale/x86/yuv2rgb.c b/libswscale/x86/yuv2rgb.c
+index 2291c84e53..d4e23dce45 100644
+--- a/libswscale/x86/yuv2rgb.c
++++ b/libswscale/x86/yuv2rgb.c
+@@ -265,6 +265,7 @@ av_cold SwsFunc ff_yuv2rgb_init_x86(SwsInternal *c)
+     int cpu_flags = av_get_cpu_flags();
+ 
+     /* the converters need at least one block of 16 pixels */
++#if HAVE_SSSE3
+     if (EXTERNAL_SSSE3(cpu_flags) && c->opts.dst_w >= 16) {
+         switch (c->opts.dst_format) {
+         case AV_PIX_FMT_RGB32:
+@@ -297,6 +298,7 @@ av_cold SwsFunc ff_yuv2rgb_init_x86(SwsInternal *c)
+ #endif
+         }
+     }
++#endif
+ 
+ #endif /* HAVE_X86ASM */
+     return NULL;
+-- 
+2.26.2
+

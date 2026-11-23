@@ -28,10 +28,17 @@ WLROOTS_DEPENDENCIES = \
 	host-glslang \
 	lcms2 # batocera, add host-glslang & lcms2
 
-WLROOTS_CONF_OPTS = -Dexamples=false -Dxcb-errors=disabled -Dlibliftoff=disabled
+WLROOTS_CONF_OPTS = -Dexamples=false -Dxcb-errors=disabled
 
 WLROOTS_RENDERERS = gles2
 WLROOTS_BACKENDS = libinput drm
+
+ifeq ($(BR2_PACKAGE_LIBLIFTOFF),y)
+WLROOTS_CONF_OPTS += -Dlibliftoff=enabled
+WLROOTS_DEPENDENCIES += libliftoff
+else
+WLROOTS_CONF_OPTS += -Dlibliftoff=disabled
+endif
 
 ifeq ($(BR2_PACKAGE_WLROOTS_X11),y)
 WLROOTS_BACKENDS += x11
