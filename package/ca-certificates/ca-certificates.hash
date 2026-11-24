@@ -1,4 +1,4 @@
-# hashes from: $(CA_CERTIFICATES_SITE)/ca-certificates_$(CA_CERTIFICATES_VERSION).dsc :
-sha256  d939bcdd0cb058712cf4175bac76997676eb8b68fe9473765e1b40fb3d5b186a  ca-certificates_20260816.tar.xz
+# hashes from: http://deb.debian.org/debian/pool/main/c/ca-certificates/ca-certificates_20261123.dsc
+sha256  ca7c16b757f342d34248874edf40e15a85d6dcf221b7e2ef2fe026e4fa4c6a51  ca-certificates_20261123.tar.xz
 # Locally computed
 sha256  e85e1bcad3a915dc7e6f41412bc5bdeba275cadd817896ea0451f2140a93967c  debian/copyright
