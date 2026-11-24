@@ -1361,7 +1361,6 @@ F:	package/rtl8189es/
 F:	package/rtl8192eu/
 F:	package/rtl8723bu/
 F:	package/rtl8723ds/
-F:	package/rtl8812au-aircrack-ng/
 F:	package/rtl8821au/
 F:	package/rtl8821cu/
 F:	package/sunxi-mali-utgard/
@@ -2325,7 +2324,6 @@ F:	package/netdata/
 F:	package/python-ansicolors/
 F:	package/python-bleak/
 F:	package/python-dbus-fast/
-F:	package/python-dbus-next/
 F:	package/python-iniconfig/
 F:	package/python-intelhex/
 F:	package/python-packaging/
@@ -2337,13 +2335,11 @@ F:	package/python-xmodem/
 F:	package/rs485conf/
 F:	package/turbolua/
 F:	support/testing/tests/package/sample_python_dbus_fast.py
-F:	support/testing/tests/package/sample_python_dbus_next.py
 F:	support/testing/tests/package/sample_python_pytest.py
 F:	support/testing/tests/package/sample_python_pytest_asyncio.py
 F:	support/testing/tests/package/test_easydbus.py
 F:	support/testing/tests/package/test_easydbus/
 F:	support/testing/tests/package/test_netdata.py
-F:	support/testing/tests/package/test_python_dbus_next.py
 F:	support/testing/tests/package/test_python_pytest.py
 F:	support/testing/tests/package/test_python_pytest_asyncio.py
 
