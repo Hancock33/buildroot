@@ -242,12 +242,14 @@ F:	package/jq/
 F:	package/libapparmor/
 F:	package/libb64/
 F:	package/libdill/
+F:	package/libp11/
 F:	package/mender/
 F:	package/mender-artifact/
 F:	package/mono/
 F:	package/mono-gtksharp3/
 F:	package/monolite/
 F:	package/openjpeg/
+F:	package/p11-kit/
 F:	package/python-can/
 F:	package/python-minimalmodbus/
 F:	package/python-pillow/
@@ -1361,7 +1363,7 @@ F:	package/rtl8189es/
 F:	package/rtl8192eu/
 F:	package/rtl8723bu/
 F:	package/rtl8723ds/
-F:	package/rtl8812au-aircrack-ng/
+F:	package/rtl8812au/
 F:	package/rtl8821au/
 F:	package/rtl8821cu/
 F:	package/sunxi-mali-utgard/
