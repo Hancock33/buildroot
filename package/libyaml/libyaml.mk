@@ -4,9 +4,8 @@
 #
 ################################################################################
 
-LIBYAML_VERSION = 0.2.5
-LIBYAML_SOURCE = yaml-$(LIBYAML_VERSION).tar.gz
-LIBYAML_SITE = http://pyyaml.org/download/libyaml
+LIBYAML_VERSION = 0.2.7
+LIBYAML_SITE = $(call github,yaml,libyaml,$(LIBYAML_VERSION))
 LIBYAML_INSTALL_STAGING = YES
 LIBYAML_LICENSE = MIT
 LIBYAML_LICENSE_FILES = License
