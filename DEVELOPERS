@@ -171,8 +171,6 @@ F:	package/xen/
 N:	Alsey Coleman Miller <alseycmiller@gmail.com>
 F:	package/liblc3/
 F:	package/plutovg/
-F:	package/plutosvg/
-F:	package/sdl3_mixer/
 F:	package/sdl3_net/
 
 N:	Alvaro G. M <alvaro.gamez@hazent.com>
@@ -205,6 +203,7 @@ F:	package/evemu/
 F:	package/libevdev/
 F:	package/pkg-qmake.mk
 F:	package/qt5/qt5opcua/
+F:	package/qt6/qt6opcua/
 
 N:	Andreas Ziegler <br025@umbiko.net>
 F:	package/mpd/
@@ -242,14 +241,13 @@ F:	package/jq/
 F:	package/libapparmor/
 F:	package/libb64/
 F:	package/libdill/
-F:	package/libp11/
+F:	package/libkcapi/
 F:	package/mender/
 F:	package/mender-artifact/
 F:	package/mono/
 F:	package/mono-gtksharp3/
 F:	package/monolite/
 F:	package/openjpeg/
-F:	package/p11-kit/
 F:	package/python-can/
 F:	package/python-minimalmodbus/
 F:	package/python-pillow/
@@ -478,7 +476,6 @@ F:	package/libzippp/
 F:	package/linux-firmware/
 F:	package/mc/
 F:	package/mesa3d/
-F:	package/mesa-libclc/
 F:	package/minidlna/
 F:	package/mjpg-streamer/
 F:	package/mpg123/
@@ -775,6 +772,7 @@ F:	package/pangomm2_46/
 F:	package/sam-ba/
 
 N:	Damien Lanson <damien@kal-host.com>
+F:	package/libvdpau/
 F:	package/log4cpp/
 
 N:	Damien Le Moal <dlemoal@kernel.org>
@@ -1363,7 +1361,7 @@ F:	package/rtl8189es/
 F:	package/rtl8192eu/
 F:	package/rtl8723bu/
 F:	package/rtl8723ds/
-F:	package/rtl8812au/
+F:	package/rtl8812au-aircrack-ng/
 F:	package/rtl8821au/
 F:	package/rtl8821cu/
 F:	package/sunxi-mali-utgard/
@@ -2327,6 +2325,7 @@ F:	package/netdata/
 F:	package/python-ansicolors/
 F:	package/python-bleak/
 F:	package/python-dbus-fast/
+F:	package/python-dbus-next/
 F:	package/python-iniconfig/
 F:	package/python-intelhex/
 F:	package/python-packaging/
@@ -2338,11 +2337,13 @@ F:	package/python-xmodem/
 F:	package/rs485conf/
 F:	package/turbolua/
 F:	support/testing/tests/package/sample_python_dbus_fast.py
+F:	support/testing/tests/package/sample_python_dbus_next.py
 F:	support/testing/tests/package/sample_python_pytest.py
 F:	support/testing/tests/package/sample_python_pytest_asyncio.py
 F:	support/testing/tests/package/test_easydbus.py
 F:	support/testing/tests/package/test_easydbus/
 F:	support/testing/tests/package/test_netdata.py
+F:	support/testing/tests/package/test_python_dbus_next.py
 F:	support/testing/tests/package/test_python_pytest.py
 F:	support/testing/tests/package/test_python_pytest_asyncio.py
 
@@ -2852,7 +2853,6 @@ F:	package/libvips/
 
 N:	Pieterjan Camerlynck <pieterjanca@gmail.com>
 F:	package/libdvbpsi/
-F:	package/libliftoff/
 F:	package/mraa/
 F:	package/synergy/
 
@@ -3058,7 +3058,6 @@ F:	support/testing/tests/package/test_python_servestatic.py
 N:	Sébastien Szymanski <sebastien.szymanski@armadeus.com>
 F:	board/armadeus/
 F:	configs/armadeus*
-F:	package/freescale-imx/mali-imx/
 F:	package/nxp-bt-wifi-firmware/
 F:	package/nxp-mwifiex/
 F:	package/mmc-utils/
@@ -3241,9 +3240,6 @@ F:	package/tl-expected/
 N:	Takumi Takahashi <takumiiinn@gmail.com>
 F:	package/gsettings-desktop-schemas/
 F:	package/libcanberra/
-
-N:	Tan En De <ende.tan@starfivetech.com>
-F:	package/libkcapi/
 
 N:	Theo Debrouwere <t.debrouwere@televic.com>
 F:	package/pugixml/
