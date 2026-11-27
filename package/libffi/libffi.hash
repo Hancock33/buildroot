@@ -1,4 +1,4 @@
-# From https://github.com/libffi/libffi/releases/tag/v3.8.1
-sha256  81e879c094cc5ec3186c48510c6385ac6b3e866192e8bc71a35245703757ee40  libffi-3.8.1.tar.gz
+# From https://github.com/libffi/libffi/releases/tag/v3.8.2
+sha256  a699fda2b090c4b46cb79cf60c4dacfce480eb05742c0de66acf3af174a47f92  libffi-3.8.2.tar.gz
 # License files, locally calculated
 sha256  17b64dc60f3b6897a60f971e288b973f655c2edcdf08b25f3c3dd5549857881c  LICENSE
