@@ -4,8 +4,8 @@
 #
 ################################################################################
 
-PYTHON_LXML_VERSION = 6.1.3
-PYTHON_LXML_SITE = https://files.pythonhosted.org/packages/23/ad/28ecd7cb894d172f3c9c80a075eeeb2017ac62e3632cee05a5f9493547eb
+PYTHON_LXML_VERSION = 6.2.0
+PYTHON_LXML_SITE = https://files.pythonhosted.org/packages/2e/42/3757a054edc6945e7934a1d8fff607eb8c105883f4ccdae5fc68e5dfab87
 PYTHON_LXML_SOURCE = lxml-$(PYTHON_LXML_VERSION).tar.gz
 
 # Not including the GPL, because it is used only for the test scripts.
